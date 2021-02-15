@@ -5,6 +5,10 @@ import React, { useEffect, useState } from "react";
 
 import AuthorizationClient from "./AuthorizationClient";
 import { Header } from "./Header";
+import { TestUiProvider2 } from "./TestUiProvider";
+
+// import { UiItemsManager } from "@bentley/ui-abstract";
+// import { TestUiProvider } from "./sampleFrontstageProvider"; 
 
 const App: React.FC = () => {
   const [isAuthorized, setIsAuthorized] = useState(
@@ -50,6 +54,10 @@ const App: React.FC = () => {
     }
   }, [isAuthorized, isLoggingIn]);
 
+  // useEffect (() => {
+  //    UiItemsManager.register( new TestUiProvider());
+  // }, []);
+
   const onLoginClick = async () => {
     setIsLoggingIn(true);
     await AuthorizationClient.signIn();
@@ -76,6 +84,8 @@ const App: React.FC = () => {
             contextId={process.env.IMJS_CONTEXT_ID ?? ""}
             iModelId={process.env.IMJS_IMODEL_ID ?? ""}
             authConfig={{ oidcClient: AuthorizationClient.oidcClient }}
+            //defaultUiConfig={{hideToolSettings:false, hideTreeView: true}}
+            uiProviders={[new TestUiProvider2()]}
           />
         )
       )}
