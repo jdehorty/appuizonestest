@@ -8,31 +8,37 @@ import {
     StagePanelLocation,
     StagePanelSection,
     UiItemsProvider,
-  } from "@bentley/ui-abstract";
-  import { FillCentered } from "@bentley/ui-core";
-  import React from "react";
-  
-  export class TestUiProvider2 implements UiItemsProvider {
-    public readonly id = "TestUiProvider2";
-  
+} from "@bentley/ui-abstract";
+import {FillCentered} from "@bentley/ui-core";
+import {Widget} from "@bentley/ui-framework";
+import React from "react";
+import {ConnectedSelectionHelperComponent} from "./SelectionExtender2";
+import {Provider} from 'react-redux';
+import {LabelingApp} from "./LabelingApp";
+
+
+export class TestUiProvider implements UiItemsProvider {
+    public readonly id = "TestUiProvider";
+
     public provideWidgets(
-      stageId: string,
-      _stageUsage: string,
-      location: StagePanelLocation,
-      _section?: StagePanelSection | undefined
+        stageId: string,
+        _stageUsage: string,
+        location: StagePanelLocation,
+        _section?: StagePanelSection | undefined
     ): ReadonlyArray<AbstractWidgetProps> {
-      const widgets: AbstractWidgetProps[] = [];
-      if (
-        stageId === "DefaultFrontstage" &&
-        location === StagePanelLocation.Right
-      ) {
-        widgets.push({
-          id: "addonWidget",
-          getWidgetContent: () => (
-            <FillCentered>Addon Widget in panel</FillCentered>
-          ),
-        });
-      }
-      return widgets;
+        const widgets: AbstractWidgetProps[] = [];
+        if (stageId === "DefaultFrontstage") {
+            if (location === StagePanelLocation.Right) {
+                widgets.push({
+                    id: "addonWidget",
+                    label: "Labeler",
+                    getWidgetContent: () =>
+                        <Provider store={LabelingApp.store}>
+                            <ConnectedSelectionHelperComponent/>
+                        </Provider>
+                });
+            }
+        }
+        return widgets;
     }
-  }
+}
