@@ -39,7 +39,7 @@ export class AppState {
 
         // create the Redux Store.
         this._store = createStore(this._rootReducer,
-            (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
+            (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }));
     }
 
     public get store(): Store<RootState> {
