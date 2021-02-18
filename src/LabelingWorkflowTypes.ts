@@ -1,5 +1,5 @@
 import { Id64String } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "../api/MachineLearningLabelSource";
+import { MachineLearningLabel, MachineLearningColorMode } from "./MachineLearningLabelSource";
 import { ColorDef } from "@bentley/imodeljs-common";
 
 export interface SimpleStateTableDataItem {
