@@ -180,7 +180,7 @@ export class LabelingWorkflowManagerSelectors {
             const cycleSet = cycleSelection !== undefined ? new Set(cycleSelection) : undefined;
             for (const elementId of elementStateMap.keys()) {
                 // Special case for cycling mode
-                if (cycleEnabled === true && cycleSet !== undefined && cycleSet.has(elementId)) {
+                if (cycleEnabled && cycleSet !== undefined && cycleSet.has(elementId)) {
                     emphasisMap.set(elementId, true);
                 } else {
                     emphasisMap.set(elementId, false);
@@ -289,7 +289,7 @@ export class LabelingWorkflowManagerSelectors {
                     }
                 }
                 // Special case for cycling mode
-                if (cycleEnabled === true && cycleSet !== undefined && !cycleSet.has(elementId)) {
+                if (cycleEnabled && cycleSet !== undefined && !cycleSet.has(elementId)) {
                     transparent = true;
                 }
                 // Override transparency based on forceShowAll
@@ -588,7 +588,7 @@ export class LabelingWorkflowManagerSelectors {
                     data.predLabelTotalCount += predictionTotalCountMap.get(name)!;
                     data.predLabelVisibleCount += predictionVisibleCountMap.get(name)!;
                     data.predLabelSelectedCount += predictionSelectedCountMap.get(name)!;
-                    if (commonLabelStateMap.get(name)!.isExpanded === false || force_recurse) {
+                    if (!commonLabelStateMap.get(name)!.isExpanded || force_recurse) {
                         for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
                             _recurse(child, true);
                         }
