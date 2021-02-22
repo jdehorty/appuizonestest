@@ -486,10 +486,10 @@ export class SelectionExtender {
 
     //     this._store = store;
     //     this._stateKey = stateKey;
-
+    //
     //     // subscribe for unified selection changes
     //     this._handleSelectionChangedDispose = Presentation.selection.selectionChange.addListener(this._handleSelectionChanged);
-
+    //
     //     return i18n.registerNamespace("SelectionExtender").readFinished;
     // }
 
@@ -501,6 +501,8 @@ export class SelectionExtender {
 
         // subscribe for unified selection changes
         //this._handleSelectionChangedDispose = Presentation.selection.selectionChange.addListener(this._handleSelectionChanged);
+
+        // return i18n.registerNamespace("SelectionExtender").readFinished;
     }
 
     public static uninitialize(): void {

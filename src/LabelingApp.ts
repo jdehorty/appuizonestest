@@ -31,19 +31,22 @@ export class LabelingApp {
     }
 
     private static _appInitializationPromiseStatus: Promise<void>;
-    
-    private static _i18nAppNamespace: I18NNamespace;
-    
+
     public static get ready(): Promise<void> {
         return this._appInitializationPromiseStatus;
     }
 
     public static startup(opts?: IModelAppOptions): void {
-        
+
     //    if (!IModelApp.initialized) {
     //        IModelApp.startup(opts);
     //    }
-        
+
+        // if (IModelApp.initialized == false) {
+        //     IModelApp.startup(opts);
+        // }
+
+        IModelApp.startup(opts);
         // contains various initialization promises which need to be fulfilled before the app is ready
     //    const initPromises: Promise<void>[] = [];
         //
@@ -65,10 +68,10 @@ export class LabelingApp {
 //               // activeLocale: IModelApp.i18n.languageList()[0],
 //               activeLocale: "en",
 //           });
-        
+
         // initialize RPC communication
 //        initPromises.push(LabelingApp.initializeRpc());
-        
+
         //     // initialize OIDC
         //     initPromises.push(OidcClientHelper.initializeOidc());
         //
@@ -89,7 +92,7 @@ export class LabelingApp {
  //       this._appInitializationPromiseStatus = Promise.all(initPromises).then(
  //           () => { });
  //           console.log("All LabellingApp.startup promises have resolved.");
-            
+
     }
 
     // public static shutdown() {
