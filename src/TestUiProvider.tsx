@@ -9,8 +9,7 @@ import {
     StagePanelSection,
     UiItemsProvider,
 } from "@bentley/ui-abstract";
-import {FillCentered} from "@bentley/ui-core";
-import {Widget} from "@bentley/ui-framework";
+
 import React from "react";
 import {ConnectedSelectionHelperComponent} from "./SelectionExtender2";
 import {Provider} from 'react-redux';

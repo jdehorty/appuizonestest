@@ -12,14 +12,17 @@ import {TestUiProvider} from "./TestUiProvider";
 
 
 const App: React.FC = () => {
+    console.log("useState #1");
     const [isAuthorized, setIsAuthorized] = useState(
         AuthorizationClient.oidcClient
             ? AuthorizationClient.oidcClient.isAuthorized
             : false
     );
+    console.log("useState #2");
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
     useEffect(() => {
+        console.log("useEffect #1");
         const initOidc = async () => {
             if (!AuthorizationClient.oidcClient) {
                 await AuthorizationClient.initializeOidc();
@@ -28,15 +31,20 @@ const App: React.FC = () => {
             try {
                 // attempt silent signin
                 await AuthorizationClient.signInSilent();
+                console.log("setting IsAuthorized flag to => " + AuthorizationClient.oidcClient.isAuthorized);
                 setIsAuthorized(AuthorizationClient.oidcClient.isAuthorized);
             } catch (error) {
-                // swallow the error. User can click the button to sign in
+                console.log("ERROR: useEffect #1, during oidc initialization");
             }
         };
         initOidc().catch((error) => console.error(error));
+        console.log("ue1.A Completed oidc.Init");
+        console.log("ue1.B sLoggingIn => " + isLoggingIn);
+        console.log("ue1.C isAuthorized => " + isAuthorized);
     }, []);
 
     useEffect(() => {
+        console.log("useEffect #2");
         if (!process.env.IMJS_CONTEXT_ID) {
             throw new Error(
                 "Please add a valid context ID in the .env file and restart the application"
@@ -50,9 +58,16 @@ const App: React.FC = () => {
     }, []);
 
     useEffect(() => {
+        console.log("useEffect #3");
         if (isLoggingIn && isAuthorized) {
             setIsLoggingIn(false);
         }
+    }, [isAuthorized, isLoggingIn]);
+
+    useEffect(() => {
+        console.log("useEffect #4");
+        console.log("ue4.B sLoggingIn => " + isLoggingIn);
+        console.log("ue4.C isAuthorized => " + isAuthorized);
     }, [isAuthorized, isLoggingIn]);
 
     // useEffect (() => {
@@ -60,11 +75,14 @@ const App: React.FC = () => {
     // }, []);
 
     const onLoginClick = async () => {
+        
         setIsLoggingIn(true);
         await AuthorizationClient.signIn();
+        console.log("onLoginClick complete");
     };
 
     const onLogoutClick = async () => {
+        console.log("onLogoutClick");
         setIsLoggingIn(false);
         await AuthorizationClient.signOut();
         setIsAuthorized(false);
