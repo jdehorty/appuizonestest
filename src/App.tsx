@@ -3,9 +3,18 @@ import "./App.scss";
 import {Viewer} from "@bentley/itwin-viewer-react";
 import React, {useEffect, useState} from "react";
 
+import {IModelApp} from "@bentley/imodeljs-frontend";
+
 import AuthorizationClient from "./AuthorizationClient";
 import {Header} from "./Header";
 import {TestUiProvider} from "./TestUiProvider";
+
+import {LabelingApp} from "./LabelingApp";
+
+import {SelectionExtender} from "./SelectionExtender2";
+
+import {Presentation} from "@bentley/presentation-frontend";
+import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
 
 // import { UiItemsManager } from "@bentley/ui-abstract";
 // import { TestUiProvider } from "./sampleFrontstageProvider";
@@ -13,16 +22,13 @@ import {TestUiProvider} from "./TestUiProvider";
 
 const App: React.FC = () => {
     console.log("useState #1");
-    const [isAuthorized, setIsAuthorized] = useState(
-        AuthorizationClient.oidcClient
-            ? AuthorizationClient.oidcClient.isAuthorized
-            : false
-    );
+    const [isAuthorized, setIsAuthorized] = useState(AuthorizationClient.oidcClient ? AuthorizationClient.oidcClient.isAuthorized : false);
+
     console.log("useState #2");
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+    console.log("useEffect #1");
     useEffect(() => {
-        console.log("useEffect #1");
         const initOidc = async () => {
             if (!AuthorizationClient.oidcClient) {
                 await AuthorizationClient.initializeOidc();
@@ -43,8 +49,8 @@ const App: React.FC = () => {
         console.log("ue1.C isAuthorized => " + isAuthorized);
     }, []);
 
+    console.log("useEffect #2");
     useEffect(() => {
-        console.log("useEffect #2");
         if (!process.env.IMJS_CONTEXT_ID) {
             throw new Error(
                 "Please add a valid context ID in the .env file and restart the application"
@@ -55,18 +61,23 @@ const App: React.FC = () => {
                 "Please add a valid iModel ID in the .env file and restart the application"
             );
         }
+
+        console.log("IMJS_CONTEXT_ID =>" + process.env.IMJS_CONTEXT_ID);
+        console.log("IMJS_IMODEL_ID =>" + process.env.IMJS_IMODEL_ID);
+
     }, []);
 
+
+    console.log("useEffect #3");
     useEffect(() => {
-        console.log("useEffect #3");
         if (isLoggingIn && isAuthorized) {
             setIsLoggingIn(false);
         }
     }, [isAuthorized, isLoggingIn]);
 
+    console.log("useEffect #4");
     useEffect(() => {
-        console.log("useEffect #4");
-        console.log("ue4.B sLoggingIn => " + isLoggingIn);
+        console.log("ue4.B isLoggingIn => " + isLoggingIn);
         console.log("ue4.C isAuthorized => " + isAuthorized);
     }, [isAuthorized, isLoggingIn]);
 
@@ -75,7 +86,6 @@ const App: React.FC = () => {
     // }, []);
 
     const onLoginClick = async () => {
-        
         setIsLoggingIn(true);
         await AuthorizationClient.signIn();
         console.log("onLoginClick complete");
@@ -88,6 +98,22 @@ const App: React.FC = () => {
         setIsAuthorized(false);
     };
 
+    const onIModelConnected = async () => {
+        console.log("onIModelAppInit invoked");
+        console.log("IModelApp.isInitialized => " + IModelApp.initialized);
+
+        try {
+            await Presentation.initialize({
+                activeLocale: "en",
+            });
+        } catch (error) {
+            console.log("Error in onIModelConnected processing");
+        }
+
+        await SelectionExtender.initialize(LabelingApp.store, "selectionExtenderState")
+        await LabelingWorkflowManager.initialize(LabelingApp.store, "labelingWorkflowManagerState");
+    }
+
     return (
         <div>
             <Header
@@ -95,22 +121,15 @@ const App: React.FC = () => {
                 loggedIn={isAuthorized}
                 handleLogout={onLogoutClick}
             />
-            {isLoggingIn ? (
-                <span>"Logging in...."</span>
-            ) : (
-                isAuthorized && (
+            {isLoggingIn ? (<span>Logging in....</span>) : (isAuthorized && (
                     <Viewer
                         contextId={process.env.IMJS_CONTEXT_ID ?? ""}
                         iModelId={process.env.IMJS_IMODEL_ID ?? ""}
                         authConfig={{oidcClient: AuthorizationClient.oidcClient}}
-                        theme={"dark"}
-                        defaultUiConfig={
-                            {
-                                hideToolSettings: false,
-                                hideTreeView: false,
-                            }
-                        }
+                        theme={"light"}
+                        defaultUiConfig={{hideToolSettings: false, hideTreeView: false,}}
                         uiProviders={[new TestUiProvider()]}
+                        onIModelConnected={onIModelConnected}
                     />
                 )
             )}

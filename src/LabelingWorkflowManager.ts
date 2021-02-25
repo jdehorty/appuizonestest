@@ -27,21 +27,26 @@ export class LabelingWorkflowManager {
 
     /** Redux store reference */
     private static _store: Store<any>;
+
     /** State key inside global state */
     public static stateKey: string;
+
     /** Store accessor */
     private static get store() { return this._store; }
+
     /** State accessor */
     private static get state(): LabelingWorkflowState { return this.store.getState()[this.stateKey]; }
 
     /**
      * Initialization function, to be called during app startup.
      */
-    public static initialize(store: Store<any>, i18n: I18N, stateKey: string): Promise<void> {
+
+    // TODO: bring back i18n argument and return legitimate promise
+    public static async initialize(store: Store<any>, /*i18n: I18N,*/ stateKey: string): Promise<void> {
         this._store = store;
         this.stateKey = stateKey;
-        // this._store.subscribe(this.handleStateChange.bind(this));
-        return i18n.registerNamespace("LabelingWorkflowManager").readFinished;
+        this._store.subscribe(this.handleStateChange.bind(this));
+        // return i18n.registerNamespace("LabelingWorkflowManager").readFinished;
     }
 
     private static _labelInterface?: MachineLearningLabelInterface;

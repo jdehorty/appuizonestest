@@ -31,21 +31,22 @@ export class LabelingApp {
     }
 
     private static _appInitializationPromiseStatus: Promise<void>;
-    
+
     private static _i18nAppNamespace: I18NNamespace;
-    
+
     public static get ready(): Promise<void> {
         return this._appInitializationPromiseStatus;
     }
 
     public static startup(opts?: IModelAppOptions): void {
-        
+
     //    if (!IModelApp.initialized) {
     //        IModelApp.startup(opts);
     //    }
-        
+
         // contains various initialization promises which need to be fulfilled before the app is ready
-    //    const initPromises: Promise<void>[] = [];
+       // const initPromises: Promise<void>[] = [];
+
         //
 //        this._i18nAppNamespace = IModelApp.i18n.registerNamespace("LabelingApp");
 //        initPromises.push(this._i18nAppNamespace.readFinished);
@@ -65,16 +66,16 @@ export class LabelingApp {
 //               // activeLocale: IModelApp.i18n.languageList()[0],
 //               activeLocale: "en",
 //           });
-        
+
         // initialize RPC communication
 //        initPromises.push(LabelingApp.initializeRpc());
-        
+
         //     // initialize OIDC
         //     initPromises.push(OidcClientHelper.initializeOidc());
         //
         // initialize SelectionHelper
         // initPromises.push(SelectionExtender.initialize(this.store, IModelApp.i18n, "selectionExtenderState"));
-        SelectionExtender.initialize(this.store, "selectionExtenderState");
+        //SelectionExtender.initialize(this.store, "selectionExtenderState");
         //
         //     // initialize machine learning i18n
         //     initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
@@ -84,12 +85,16 @@ export class LabelingApp {
         //
         //     // initialize LabelingWorkflowManager
         //     initPromises.push(LabelingWorkflowManager.initialize(this.store, IModelApp.i18n, "labelingWorkflowManagerState"));
+
+        // initPromises.push(LabelingWorkflowManager.initialize(this.store, IModelApp.i18n, "labelingWorkflowManagerState"));
+
+
         //
             // the app is ready when all initialization promises are fulfilled
  //       this._appInitializationPromiseStatus = Promise.all(initPromises).then(
  //           () => { });
  //           console.log("All LabellingApp.startup promises have resolved.");
-            
+
     }
 
     // public static shutdown() {
@@ -98,7 +103,7 @@ export class LabelingApp {
 
     private static async initializeRpc(): Promise<void> {
         console.log("initializing RPC");
-        const rpcParams = await this.getConnectionInfo(); 
+        const rpcParams = await this.getConnectionInfo();
         InitRpc(rpcParams);
     }
 

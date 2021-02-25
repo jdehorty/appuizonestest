@@ -493,6 +493,7 @@ export class SelectionExtender {
     //     return i18n.registerNamespace("SelectionExtender").readFinished;
     // }
 
+    // TODO: bring back i18n argument and return legitimate promise
     public static async initialize(store: Store<any>, stateKey: string): Promise<void> {
         console.log("Inside SelectionExtender2 initialize()");
 
@@ -500,7 +501,9 @@ export class SelectionExtender {
         this._stateKey = stateKey;
 
         // subscribe for unified selection changes
-        //this._handleSelectionChangedDispose = Presentation.selection.selectionChange.addListener(this._handleSelectionChanged);
+        console.log("Registering selectionChangedHandler");
+        this._handleSelectionChangedDispose = Presentation.selection.selectionChange.addListener(this._handleSelectionChanged);
+        console.log("Registration of selectionChangedHandler complete");
     }
 
     public static uninitialize(): void {

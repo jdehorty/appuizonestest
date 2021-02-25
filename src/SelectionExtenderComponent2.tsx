@@ -131,15 +131,10 @@ export class SelectionHelperComponent extends React.Component<SelectionExtenderC
 
         const singleId = this.props.singleId;
 
-        // debugger;
-
-        console.log("<*><*><*><*><*><*><*><*><*><*><*><*>");
-        // console.log(this.props.config);
-        // console.log(this.props.contentMap);
-        console.log('props.config => ' + JSON.stringify(this.props.config));
-        console.log('state => ' + JSON.stringify(this.state));
-        //debugger;
-        console.log("====================================")
+        // console.log('props.config => ' + JSON.stringify(this.props.config));
+        // console.log('state => ' + JSON.stringify(this.state));
+        // //debugger;
+        // console.log("====================================")
 
         // create list of checkboxes
         const checkboxElements: JSX.Element[] = [];

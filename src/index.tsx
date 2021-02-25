@@ -7,9 +7,9 @@ import {LabelingApp} from "./LabelingApp";
 
 import { SetupConfigEnv } from './common/configuration/configuration';
 
-// configure environment 
-SetupConfigEnv(0); // PROD
-// SetupConfigEnv(102); // QA
+// configure environment
+// SetupConfigEnv(0); // PROD
+SetupConfigEnv(102); // QA
 // SetupConfigEnv(103); // DEV
 
 // App startup
