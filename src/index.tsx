@@ -7,9 +7,9 @@ import {LabelingApp} from "./LabelingApp";
 
 import { SetupConfigEnv } from './common/configuration/configuration';
 
-// configure environment
+// configure environment --> relocated to .env file
 // SetupConfigEnv(0); // PROD
-SetupConfigEnv(102); // QA
+// SetupConfigEnv(102); // QA
 // SetupConfigEnv(103); // DEV
 
 // App startup
@@ -22,5 +22,3 @@ ReactDOM.render(<App />, document.getElementById("root"));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-
