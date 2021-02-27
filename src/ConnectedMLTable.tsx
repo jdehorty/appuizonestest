@@ -1,14 +1,15 @@
-import { MLStateTableDataItem, LabelTreeEntry } from "./LabelingWorkflowTypes";
-import { MachineLearningColorMode, MachineLearningLabel } from "./MachineLearningLabelSource";
-import { Id64String } from "@bentley/bentleyjs-core";
-import { AVAILABLE_COLOR_MODES, LabelingWorkflowManager } from "./LabelingWorkflowManager";
-import { Dispatch } from "react";
-import { connect } from "react-redux";
-import { MLStateTableComponent } from "./MLStateTable";
-import { ColorDef } from "@bentley/imodeljs-common";
-import { LabelingWorkflowState } from "./LabelingWorkflowState";
-import { LabelingWorkflowManagerSelectors } from "./LabelingWorkflowSelectors";
-import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./LabelingWorkflowActions";
+import {MLStateTableDataItem, LabelTreeEntry} from "./LabelingWorkflowTypes";
+import {MachineLearningColorMode, MachineLearningLabel} from "./MachineLearningLabelSource";
+import {Id64String} from "@bentley/bentleyjs-core";
+import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "./LabelingWorkflowManager";
+import {Dispatch} from "react";
+import {connect} from "react-redux";
+import {MLStateTableComponent} from "./MLStateTable";
+import {ColorDef} from "@bentley/imodeljs-common";
+import {LabelingWorkflowState} from "./LabelingWorkflowState";
+import {LabelingWorkflowManagerSelectors} from "./LabelingWorkflowSelectors";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./LabelingWorkflowActions";
+import React from "react";
 
 interface StateFromProps3 {
     ready: boolean;
@@ -19,20 +20,31 @@ interface StateFromProps3 {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
+
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
+
     onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
+
     onSave(): void;
 }
 
 interface DispatchFromProps3 {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
+
     onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
+
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
+
     onPredictionDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
+
     onLabelApply(name: MachineLearningLabel): void;
+
     onUndo(): void;
+
     onRedo(): void;
+
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
+
     onSwapTruePredDisplay(): void;
 }
 
@@ -40,8 +52,8 @@ function mapStateToProps3(rootState: any): StateFromProps3 {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
     console.log('reached mapStateToProps3');
     if (!state) {
-        console.log('rootState: ' + JSON.stringify(rootState));
-        console.log('stateKey: ' + LabelingWorkflowManager.stateKey)
+        console.log('rootState @mapStateToProps3 ==> ' + JSON.stringify(rootState));
+        console.log('stateKey @mapStateToProps3 ==> ' + LabelingWorkflowManager.stateKey)
         throw new Error();
     }
     return {

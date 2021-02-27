@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "private": true,
   "dependencies": {
+    "@azure/storage-blob": "^12.4.0",
     "@bentley/bentleyjs-core": "^2.10.7",
     "@bentley/extension-client": "^2.10.7",
     "@bentley/frontend-application-insights-client": "^2.10.7",

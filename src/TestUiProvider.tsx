@@ -41,16 +41,16 @@ export class TestUiProvider implements UiItemsProvider {
                         </Provider>
                 });
             }
-            // if (location === StagePanelLocation.Bottom) {
-            //     widgets.push({
-            //         id: "MLAuditId",
-            //         label: "ML Audit",
-            //         getWidgetContent: () =>
-            //             <Provider store={LabelingApp.store}>
-            //                 <ConnectedMLTableComponent/>
-            //             </Provider>
-            //     });
-            // }
+            if (location === StagePanelLocation.Bottom) {
+                widgets.push({
+                    id: "MLAuditId",
+                    label: "ML Audit",
+                    getWidgetContent: () =>
+                        <Provider store={LabelingApp.store}>
+                            <ConnectedMLTableComponent/>
+                        </Provider>
+                });
+            }
         }
         return widgets;
     }
