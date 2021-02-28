@@ -3,7 +3,8 @@ import "./App.scss";
 import {Viewer} from "@bentley/itwin-viewer-react";
 import React, {useEffect, useState} from "react";
 
-import {IModelApp, IModelConnection} from "@bentley/imodeljs-frontend";
+import { IModelApp, IModelConnection, AuthorizedFrontendRequestContext } from "@bentley/imodeljs-frontend";
+import { ChangeSetQuery } from "@bentley/imodelhub-client";
 
 import AuthorizationClient from "./AuthorizationClient";
 import {Header} from "./Header";
@@ -161,9 +162,21 @@ const App: React.FC = () => {
         catch (error) {}
 
         // console.log("Presentation initialized");
+        
+        const initPromises: Promise<void>[] = [];
 
-        SelectionExtender.initialize(LabelingApp.store, "selectionExtenderState");
-        LabelingWorkflowManager.initialize(LabelingApp.store, "labelingWorkflowManagerState");
+        initPromises.push(SelectionExtender.initialize(LabelingApp.store, IModelApp.i18n, "selectionExtenderState"));
+        initPromises.push(LabelingWorkflowManager.initialize(LabelingApp.store, IModelApp.i18n, "labelingWorkflowManagerState"));
+        initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
+
+        Promise.all(initPromises).then(
+             () => { });
+        console.log("All onIModelConnected initialization function promises have resolved.");
+
+        const requestContext: AuthorizedFrontendRequestContext = await AuthorizedFrontendRequestContext.create();
+        const changeSetQuery = new ChangeSetQuery();
+        changeSetQuery.latest();
+        const changesets = await IModelApp.iModelClient.changeSets.get(requestContext, process.env.IMJS_IMODEL_ID as string, changeSetQuery);
 
         var selection = {
             labelAccountName: "aiabcedeveussa01",
@@ -175,6 +188,13 @@ const App: React.FC = () => {
             predSuffix: "omni"
         };
 
+        if (changesets.length !== 0) {
+            selection.changeSetId = changesets[0].id!;
+        }
+        else {
+            console.log("ChangeSet not found");
+        }
+        
         openLabelSource(
             connection,
             selection.labelAccountName,

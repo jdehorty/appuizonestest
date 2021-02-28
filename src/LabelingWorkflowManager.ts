@@ -42,11 +42,11 @@ export class LabelingWorkflowManager {
      */
 
     // TODO: bring back i18n argument and return legitimate promise
-    public static async initialize(store: Store<any>, /*i18n: I18N,*/ stateKey: string): Promise<void> {
+    public static async initialize(store: Store<any>, i18n: I18N, stateKey: string): Promise<void> {
         this._store = store;
         this.stateKey = stateKey;
         this._store.subscribe(this.handleStateChange.bind(this));
-        // return i18n.registerNamespace("LabelingWorkflowManager").readFinished;
+        return i18n.registerNamespace("LabelingWorkflowManager").readFinished;
     }
 
     private static _labelInterface?: MachineLearningLabelInterface;

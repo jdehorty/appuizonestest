@@ -480,21 +480,8 @@ export class SelectionExtender {
         }
     }
 
-
-    // public static async initialize(store: Store<any>, i18n: I18N, stateKey: string): Promise<void> {
-    //     console.log("Inside SelectionExtender2 initialize()");
-
-    //     this._store = store;
-    //     this._stateKey = stateKey;
-
-    //     // subscribe for unified selection changes
-    //     this._handleSelectionChangedDispose = Presentation.selection.selectionChange.addListener(this._handleSelectionChanged);
-
-    //     return i18n.registerNamespace("SelectionExtender").readFinished;
-    // }
-
     // TODO: bring back i18n argument and return legitimate promise
-    public static async initialize(store: Store<any>, stateKey: string): Promise<void> {
+    public static async initialize(store: Store<any>, i18n: I18N, stateKey: string): Promise<void> {
         console.log("Inside SelectionExtender2 initialize()");
 
         this._store = store;
@@ -504,6 +491,8 @@ export class SelectionExtender {
         console.log("Registering selectionChangedHandler");
         this._handleSelectionChangedDispose = Presentation.selection.selectionChange.addListener(this._handleSelectionChanged);
         console.log("Registration of selectionChangedHandler complete");
+
+        return i18n.registerNamespace("SelectionExtender").readFinished;
     }
 
     public static uninitialize(): void {
