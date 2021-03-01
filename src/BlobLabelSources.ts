@@ -160,7 +160,7 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
 
         const containerName = "abce-misclassification-labels";
 
-        const blobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_misclassification-labels-mysuffix.csv`;
+        const blobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_misclassification-labels-jkd.csv`;
 
         const instanceMap = new Map<Id64String, MachineLearningLabel>();
 
@@ -186,7 +186,7 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
             try {
                 //if _misclassified-labels.csv not present, try to load the standard labels.csv from the alternate source (geometry labels):
                 const altContainerName = "abce-labels";
-                const altBlobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_misclassification-labels.csv`;
+                const altBlobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_labels.csv`;
                 const blobData = await downloadBlobAsString(this._config.accountName, this._config.sasString, altContainerName, altBlobName);
 
                 if (blobData !== undefined) {
@@ -228,7 +228,7 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
         }
 
         const containerName = "abce-misclassification-labels";
-        const blobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_misclassification-labels-mysuffix.csv`;
+        const blobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_misclassification-labels-jkd.csv`;
         const contentLines: string[] = [",bentley_class_name,method,probability"];
         for (const [id, label] of labelMap) {
             const legacyName = labelLegacyMap.has(label) ? labelLegacyMap.get(label) : "Unlabeled";
