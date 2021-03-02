@@ -16,9 +16,9 @@ import {SelectionExtender} from "./SelectionExtender2";
 
 import {Presentation} from "@bentley/presentation-frontend";
 import {SetupConfigEnv} from "./common/configuration/configuration";
-import {Config, GuidString} from "@bentley/bentleyjs-core";
+import {GuidString} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
-import { BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface } from './BlobLabelSources';
+import { BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface } from "./BlobLabelSources";
 
 
 // import { UiItemsManager } from "@bentley/ui-abstract";
@@ -36,7 +36,7 @@ const App: React.FC = () => {
     useEffect(() => {
         const initOidc = async () => {
             SetupConfigEnv(102);
-            const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
+            // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
             // console.log("1A. buddi (with region) setting is => " + buddiRegion);
             if (!AuthorizationClient.oidcClient) {
                 await AuthorizationClient.initializeOidc();
@@ -47,7 +47,7 @@ const App: React.FC = () => {
                 await AuthorizationClient.signInSilent();
                 // console.log("setting IsAuthorized flag to => " + AuthorizationClient.oidcClient.isAuthorized);
                 setIsAuthorized(AuthorizationClient.oidcClient.isAuthorized);
-                const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
+                // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
                 // console.log("1C. buddi (with region) setting is => " + buddiRegion);
 
             } catch (error) {
@@ -58,13 +58,13 @@ const App: React.FC = () => {
         // console.log("ue1.A Completed oidc.Init");
         // console.log("ue1.B sLoggingIn => " + isLoggingIn);
         // console.log("ue1.C isAuthorized => " + isAuthorized);
-        const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
+        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
         // console.log("1B. buddi (with region) setting is => " + buddiRegion);
     }, []);
 
     // console.log("useEffect #2");
     useEffect(() => {
-        const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
+        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
         // console.log("2. buddi (with region) setting is => " + buddiRegion);
         if (!process.env.IMJS_CONTEXT_ID) {
             throw new Error(
@@ -85,7 +85,7 @@ const App: React.FC = () => {
 
     // console.log("useEffect #3");
     useEffect(() => {
-        const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
+        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
         // console.log("3. buddi (with region) setting is => " + buddiRegion);
         if (isLoggingIn && isAuthorized) {
             setIsLoggingIn(false);
@@ -94,7 +94,7 @@ const App: React.FC = () => {
 
     // console.log("useEffect #4");
     useEffect(() => {
-        const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
+        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
         // console.log("4. buddi (with region) setting is => " + buddiRegion);
         // console.log("ue4.B sLoggingIn => " + isLoggingIn);
         // console.log("ue4.C isAuthorized => " + isAuthorized);
@@ -162,7 +162,7 @@ const App: React.FC = () => {
         catch (error) {}
 
         // console.log("Presentation initialized");
-        
+
         const initPromises: Promise<void>[] = [];
 
         initPromises.push(SelectionExtender.initialize(LabelingApp.store, IModelApp.i18n, "selectionExtenderState"));
@@ -194,7 +194,7 @@ const App: React.FC = () => {
         else {
             console.log("ChangeSet not found");
         }
-        
+
         openLabelSource(
             connection,
             selection.labelAccountName,

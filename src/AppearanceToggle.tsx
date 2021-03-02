@@ -1,7 +1,7 @@
 import { IModelApp } from "@bentley/imodeljs-frontend";
 import { Button, ButtonType, Icon } from "@bentley/ui-core";
 import * as React from "react";
-import './LabelingWorkflowStyles.css';
+import './LabelingWorkflowStyles.scss';
 
 /** TristateVisiblityButton properties */
 export interface AppearanceToggleComponentProps<ItemT> {

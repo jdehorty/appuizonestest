@@ -3,7 +3,7 @@ import { Config } from "@bentley/bentleyjs-core";
 import { UrlDiscoveryClient } from "@bentley/itwin-client";
 import { BentleyCloudRpcParams } from "@bentley/imodeljs-common";
 import { FrontendRequestContext } from "@bentley/imodeljs-frontend";
-import { IModelApp, IModelAppOptions } from "@bentley/imodeljs-frontend";
+import { IModelAppOptions } from "@bentley/imodeljs-frontend";
 import { I18NNamespace } from "@bentley/imodeljs-i18n";
 // import { FindSimilar } from "@bentley/itwin-find-similar";
 import { Presentation } from "@bentley/presentation-frontend";

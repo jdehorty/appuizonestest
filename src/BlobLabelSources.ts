@@ -115,7 +115,7 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
     private async _download_model_predictions(): Promise<Map<Id64String, ModelPrediction>> {
 
         const containerName = "abce-predictions";
-        if (this._config.predSuffix != "") {
+        if (this._config.predSuffix !== "") {
             this._config.predSuffix = `-${this._config.predSuffix}`
         }
         const blobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_instance-predictions${this._config.predSuffix}.json`;

@@ -21,13 +21,15 @@ export interface RootAction {
 
 export type AppStore = Store<RootState>;
 
-
 /**
  * Centralized state management class using Redux actions, reducers and store.
  */
 export class AppState {
     private _store: AppStore;
     private _rootReducer: any;
+
+
+
 
     constructor() {
         // this is the rootReducer for the sample application.

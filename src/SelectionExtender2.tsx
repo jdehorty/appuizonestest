@@ -9,7 +9,6 @@ import { Store } from "redux";
 import { connect } from "react-redux";
 import { SelectionExtenderComponentProps, SelectionHelperComponent } from "./SelectionExtenderComponent2";
 import { filterKeySet } from "./SelectionUtils";
-import { MapWithDefault } from "./MapWithDefault";
 
 
 export enum MatchingRuleType {
@@ -19,8 +18,6 @@ export enum MatchingRuleType {
     SameParent = "SelectionExtender:MatchingRuleType.SameParent",
     SameModel = "SelectionExtender:MatchingRuleType.SameModel",
     SameCodeValue = "SelectionExtender:MatchingRuleType.SameCodeValue",
-    // SameCodeSpec = "SelectionExtender:MatchingRuleType.SameCodeSpec",
-    // SameCodeScope = "SelectionExtender:MatchingRuleType.SameCodeScope",
     SameLastMod = "SelectionExtender:MatchingRuleType.SameLastMod",
     SameJsonProps = "SelectionExtender:MatchingRuleType.SameJsonProps",
     SameGeometry = "SelectionExtender:MatchingRuleType.SameGeometry",

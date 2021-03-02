@@ -381,7 +381,7 @@ export function LabelingWorkflowManagerReducer(
             {
                 const newPredLabelStateMap = new Map<MachineLearningLabel, PredLabelState>(prevState.predLabelStateMap);
                 const newTrueLabelStateMap = new Map<MachineLearningLabel, TrueLabelState>(prevState.trueLabelStateMap);
-                const newCommonLabelStateMap = new Map<MachineLearningLabel, CommonLabelState>();
+                // const newCommonLabelStateMap = new Map<MachineLearningLabel, CommonLabelState>();
                 for (const name of prevState.commonLabelStateMap.keys()) {
 
                     if (newPredLabelStateMap.has(name) && newTrueLabelStateMap.has(name)) {

@@ -1,16 +1,18 @@
-import { Id64String } from "@bentley/bentleyjs-core";
-import { ColorDef } from "@bentley/imodeljs-common";
-import { IModelApp } from "@bentley/imodeljs-frontend";
-import { ColorPickerButton } from "@bentley/ui-components";
-import { Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType } from "@bentley/ui-core";
+import {Id64String} from "@bentley/bentleyjs-core";
+import {ColorDef} from "@bentley/imodeljs-common";
+import {IModelApp} from "@bentley/imodeljs-frontend";
+import {ColorPickerButton} from "@bentley/ui-components";
+import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
-import { MachineLearningColorMode, MachineLearningLabel } from "./MachineLearningLabelSource";
-import './LabelingWorkflowStyles.css';
-import { LabelTreeEntry, MLStateTableDataItem } from "./LabelingWorkflowTypes";
-import { AppearanceBatchToggleComponent } from "./AppearanceBatchToggle";
-import { AppearanceToggleComponent } from "./AppearanceToggle";
-import { AssignLabelButton } from "./AssignLabelButton";
-import { GroupSelectButtonComponent } from "./GroupSelectButton";
+import {MachineLearningColorMode, MachineLearningLabel} from "./MachineLearningLabelSource";
+import './LabelingWorkflowStyles.scss';
+import {LabelTreeEntry, MLStateTableDataItem} from "./LabelingWorkflowTypes";
+import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
+import {AppearanceToggleComponent} from "./AppearanceToggle";
+import {AssignLabelButton} from "./AssignLabelButton";
+import {GroupSelectButtonComponent} from "./GroupSelectButton";
+
+
 
 const FORCE_ALL = true;
 const MINUTES = 1.0;
@@ -29,17 +31,29 @@ export interface MLStateTableComponentProps {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
+
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
+
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
+
     onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
+
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
+
     onLabelApply(name: MachineLearningLabel): void;
+
     onPredictionDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
+
     onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
+
     onSave(): void;
+
     onUndo(): void;
+
     onRedo(): void;
+
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
+
     onSwapTruePredDisplay(): void;
 }
 
@@ -66,7 +80,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">
-                    <Spinner size={SpinnerSize.XLarge} />
+                    <Spinner size={SpinnerSize.XLarge}/>
                 </div>
             </div>
         </>
@@ -144,14 +158,16 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 if (this.state.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
 
                     tableRows.push(
-                        <tr key={'table-row-'+item.name}>
+                        <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td">
                                 <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
                                 <Button
                                     className="mltc-expand-button"
-                                    onClick={()=>{this.props.onLabelExpandStateChange(!isExpanded, item.name);}}
+                                    onClick={() => {
+                                        this.props.onLabelExpandStateChange(!isExpanded, item.name);
+                                    }}
                                 >
-                                    <Icon iconSpec={iconClass} />
+                                    <Icon iconSpec={iconClass}/>
                                 </Button>
                                 <div className="mltc-label-container">
                                     {i18nName}
@@ -169,14 +185,14 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     itemId={item.name}
                                     visible={item.trueLabelIsDisplayed}
                                     transparent={item.trueLabelIsTransparent}
-                                    onClick={this.props.onLabelDisplayChange} />
+                                    onClick={this.props.onLabelDisplayChange}/>
                                 <GroupSelectButtonComponent
                                     label={i18nName}
                                     itemId={item.name}
                                     hilite={item.trueLabelSelectedCount !== 0}
-                                    onClick={this.props.onLabelSelectionClick} />
+                                    onClick={this.props.onLabelSelectionClick}/>
                                 <AssignLabelButton label={i18nName} name={item.name}
-                                    onClick={this.props.onLabelApply} />
+                                                   onClick={this.props.onLabelApply}/>
                                 <div className="sstc-count-container">
                                     {trueDisplayedCount}
                                 </div>
@@ -193,7 +209,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     label={i18nName}
                                     itemId={item.name}
                                     hilite={item.predLabelSelectedCount !== 0}
-                                    onClick={this.props.onPredictionSelectionClick} />
+                                    onClick={this.props.onPredictionSelectionClick}/>
                                 <div className="sstc-count-container">
                                     {predDisplayedCount}
                                 </div>
@@ -230,69 +246,88 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
 
         return <>
+            <div className="sstc-data-header">
+                <div>
+                    <Button
+                        className="sstc-swap-button"
+                        buttonType={ButtonType.Blue}
+                        onClick={this.props.onSwapTruePredDisplay}
+                    >
+                        <Icon iconSpec="icon-isolate"/>
+                    </Button>
+
+                    <span className="sstc-cycler">
+                        Previous Next
+                    </span>
+                </div>
+            </div>
+
             <div className="sstc-data-container">
                 <table className="sstc-data-table">
                     <thead>
-                        <tr>
-                            <th className="mltc-name-th">Name</th>
-                            <th className="mltc-label-th">Label</th>
-                            <th className="mltc-prediction-th">Prediction</th>
-                        </tr>
-                        <tr>
-                            <td className="mltc-name-td">
-                                <div className="mltc-label-container">
-
-                                    <LabeledToggle
-                                        className="sstc-hide-empty-toggle"
-                                        label="Hide Empty"
-                                        isOn={this.state.filterEmptyRows}
-                                        onChange={this.handleToggleFilter}
-                                    />
-                                </div>
-                                <Button
-                                    className="sstc-swap-button"
-                                    buttonType={ButtonType.Blue}
-                                    onClick={this.props.onSwapTruePredDisplay}
-                                >
-                                    <Icon iconSpec="icon-replace" />
-                                </Button>
-                            </td>
-                            <td className="mltc-label-td">
-                                <AppearanceBatchToggleComponent
-                                    transparencyAvailable={true}
-                                    allHidden={allLabelHidden}
-                                    allVisible={allLabelVisible}
-                                    allTransparent={allLabelTransparent}
-                                    allOpaque={allLabelOpaque}
-                                    onClick={
-                                        (newVisible: boolean, newTransparent: boolean) => {
-                                            this.props.onLabelDisplayChange(newVisible, newTransparent, undefined);
-                                        }
-                                    }
+                    <tr>
+                        <th className="mltc-name-th">Name</th>
+                        <th className="mltc-label-th">Label</th>
+                        <th className="mltc-prediction-th">Prediction</th>
+                    </tr>
+                    <tr>
+                        <td className="mltc-name-td">
+                            <div className="mltc-label-container">
+                                <LabeledToggle
+                                    className="sstc-hide-empty-toggle"
+                                    label="Hide Empty"
+                                    isOn={this.state.filterEmptyRows}
+                                    onChange={this.handleToggleFilter}
                                 />
-                                <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                    onClick={() => {this.props.onLabelSelectionClick(undefined); }} />
-                            </td>
-                            <td className="mltc-prediction-td">
-                                <AppearanceBatchToggleComponent
-                                    transparencyAvailable={true}
-                                    allHidden={allPredictionHidden}
-                                    allVisible={allPredictionVisible}
-                                    allTransparent={allPredictionTransparent}
-                                    allOpaque={allPredictionOpaque}
-                                    onClick={
-                                        (newVisible: boolean, newTransparent: boolean) => {
-                                            this.props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
-                                        }
+                            </div>
+                            <Button
+                                className="sstc-swap-button"
+                                buttonType={ButtonType.Hollow}
+                                onClick={this.props.onSwapTruePredDisplay}
+                            >
+                                <Icon iconSpec="icon-replace"/>
+                            </Button>
+                        </td>
+                        <td className="mltc-label-td">
+                            <AppearanceBatchToggleComponent
+                                transparencyAvailable={true}
+                                allHidden={allLabelHidden}
+                                allVisible={allLabelVisible}
+                                allTransparent={allLabelTransparent}
+                                allOpaque={allLabelOpaque}
+                                onClick={
+                                    (newVisible: boolean, newTransparent: boolean) => {
+                                        this.props.onLabelDisplayChange(newVisible, newTransparent, undefined);
                                     }
-                                />
-                                <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                    onClick={() => {this.props.onPredictionSelectionClick(undefined); }} />
-                            </td>
-                        </tr>
+                                }
+                            />
+                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                                        onClick={() => {
+                                                            this.props.onLabelSelectionClick(undefined);
+                                                        }}/>
+                        </td>
+                        <td className="mltc-prediction-td">
+                            <AppearanceBatchToggleComponent
+                                transparencyAvailable={true}
+                                allHidden={allPredictionHidden}
+                                allVisible={allPredictionVisible}
+                                allTransparent={allPredictionTransparent}
+                                allOpaque={allPredictionOpaque}
+                                onClick={
+                                    (newVisible: boolean, newTransparent: boolean) => {
+                                        this.props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
+                                    }
+                                }
+                            />
+                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                                        onClick={() => {
+                                                            this.props.onPredictionSelectionClick(undefined);
+                                                        }}/>
+                        </td>
+                    </tr>
                     </thead>
                     <tbody>
-                        {tableRows}
+                    {tableRows}
                     </tbody>
                 </table>
             </div>
@@ -303,8 +338,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                     onChange={this.handleToggleFilter}
                 />
             </div> */}
-            <div className="sstc-color-mode-container" >
-                <label className="sstc-color-mode-label" >
+            <div className="sstc-color-mode-container">
+                <label className="sstc-color-mode-label">
                     {IModelApp.i18n.translate("LabelingApp:colorMode")}
                     <select
                         className="sstc-color-mode-select"
@@ -316,7 +351,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 </label>
             </div>
             <div className="sstc-action-container">
-                <Button className="sstc-control-button" onClick={this.props.onSave} disabled={!this.props.isDirty}><Icon iconSpec="icon-save" /></Button>&nbsp;
+                <Button className="sstc-control-button" onClick={this.props.onSave} disabled={!this.props.isDirty}><Icon
+                    iconSpec="icon-save"/></Button>&nbsp;
                 <div className="sstc-action-container-expand">
                     <LabeledToggle
                         label={`Auto Save (${MINUTES} min.)`}
@@ -324,8 +360,10 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                         onChange={this.handleAutoSaveToggle}
                     />
                 </div>
-                <Button className="sstc-control-button" onClick={this.props.onUndo} disabled={!this.props.canUndo}><Icon iconSpec="icon-undo" /></Button>&nbsp;
-                <Button className="sstc-control-button" onClick={this.props.onRedo} disabled={!this.props.canRedo}><Icon iconSpec="icon-redo" /></Button>&nbsp;
+                <Button className="sstc-control-button" onClick={this.props.onUndo} disabled={!this.props.canUndo}><Icon
+                    iconSpec="icon-undo"/></Button>&nbsp;
+                <Button className="sstc-control-button" onClick={this.props.onRedo} disabled={!this.props.canRedo}><Icon
+                    iconSpec="icon-redo"/></Button>&nbsp;
             </div>
         </>;
     }
@@ -355,8 +393,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     public render() {
         return <>
-        { !this.props.ready && this.renderLoading() }
-        { this.props.ready && this.renderTable() }
+            {!this.props.ready && this.renderLoading()}
+            {this.props.ready && this.renderTable()}
         </>;
     }
 }
