@@ -13,7 +13,6 @@ import {AssignLabelButton} from "./AssignLabelButton";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
 
 
-
 const FORCE_ALL = true;
 const MINUTES = 1.0;
 
@@ -246,21 +245,43 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
 
         return <>
-            <div className="sstc-data-header">
-                <div>
-                    <Button
-                        className="sstc-swap-button"
-                        buttonType={ButtonType.Blue}
-                        onClick={this.props.onSwapTruePredDisplay}
-                    >
-                        <Icon iconSpec="icon-isolate"/>
-                    </Button>
+            {/*<div className="sstc-data-header">*/}
+            {/*    <table className="sstc-cycler-table">*/}
+            {/*        <tbody>*/}
+            {/*        <tr>*/}
+            {/*            <td>*/}
+            {/*                <Button*/}
+            {/*                    className="sstc-swap-button"*/}
+            {/*                    buttonType={ButtonType.Blue}*/}
+            {/*                    onClick={this.props.onSwapTruePredDisplay}*/}
+            {/*                >*/}
+            {/*                    <Icon iconSpec="icon-isolate"/>*/}
+            {/*                </Button>*/}
+            {/*            </td>*/}
 
-                    <span className="sstc-cycler">
-                        Previous Next
-                    </span>
-                </div>
-            </div>
+            {/*            <td>*/}
+            {/*                <div className="vertical-rule"/>*/}
+            {/*            </td>*/}
+
+            {/*            <td>*/}
+            {/*                <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onBackward(-1)}><Icon iconSpec="icon-media-controls-frame-backward" /></Button>*/}
+            {/*                <div className="cycler-progress">*/}
+            {/*                    <div className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>*/}
+            {/*                    /!*<div className="cycler-value">*!/*/}
+            {/*                    /!*    {this.props.cycleIndex !== undefined && <>*!/*/}
+            {/*                    /!*        {`${this.props.cycleIndex! + 1}`}*!/*/}
+            {/*                    /!*        &nbsp;/&nbsp;*!/*/}
+            {/*                    /!*    </>}*!/*/}
+            {/*                    /!*    {`${this.props.cycleSetSize!}`}*!/*/}
+            {/*                    /!*</div>*!/*/}
+            {/*                </div>*/}
+            {/*                <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onForward(1)}><Icon iconSpec="icon-media-controls-frame-forward" /></Button>*/}
+            {/*            </td>*/}
+            {/*        </tr>*/}
+            {/*        </tbody>*/}
+            {/*    </table>*/}
+            {/*    <hr/>*/}
+            {/*</div>*/}
 
             <div className="sstc-data-container">
                 <table className="sstc-data-table">

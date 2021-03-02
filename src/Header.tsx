@@ -15,23 +15,31 @@ export const Header = (props: HeaderProps) => {
 
     return (
         <header className={header}>
-            <div className={buttonContainer}>
-                <Button className={button} onClick={handleLogin} buttonType={ButtonType.Primary}
-                        disabled={loggedIn}>
-                    {"Sign In"}
-                </Button>
-                <Button className={button} onClick={handleLogout} buttonType={ButtonType.Primary}
-                        disabled={!loggedIn}>
-                    {"Sign Out"}
-                </Button>
-            </div>
-            <div>
-                <BlockText
-                    className={text}
-                >
-                    {"ML Labeler"}
-                </BlockText>
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        <div className={buttonContainer}>
+                            <Button className={button} onClick={handleLogin} buttonType={ButtonType.Primary}
+                                    disabled={loggedIn}>
+                                {"Sign In"}
+                            </Button>
+                            <Button className={button} onClick={handleLogout} buttonType={ButtonType.Primary}
+                                    disabled={!loggedIn}>
+                                {"Sign Out"}
+                            </Button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <BlockText
+                                className={text}
+                            >
+                                {"ML Labeler"}
+                            </BlockText>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </header>
     );
 };

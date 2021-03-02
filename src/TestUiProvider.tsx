@@ -17,6 +17,7 @@ import {ConnectedMLTableComponent} from "./ConnectedMLTable";
 
 import {Provider} from 'react-redux';
 import {LabelingApp} from "./LabelingApp";
+import {ConnectedCycleElementComponent} from "./ConnectedCycleElements";
 
 
 export class TestUiProvider implements UiItemsProvider {
@@ -41,7 +42,8 @@ export class TestUiProvider implements UiItemsProvider {
                     label: "ML Audit",
                     getWidgetContent: () =>
                         <Provider store={LabelingApp.store}>
-                            <ConnectedMLTableComponent/>
+                            <ConnectedCycleElementComponent />
+                            <ConnectedMLTableComponent />
                         </Provider>
                 });
             }
