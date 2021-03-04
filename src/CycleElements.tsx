@@ -86,19 +86,19 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                             </td>
 
                             {/*TODO: Add back counter here if Kaustubh wants it */}
-                            {/*<td>*/}
-                            {/*    <div className="cycler-progress">*/}
-                            {/*        <div*/}
-                            {/*            className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>*/}
-                            {/*        <div className="cycler-value">*/}
-                            {/*            {this.props.cycleIndex !== undefined && <>*/}
-                            {/*                {`${this.props.cycleIndex! + 1}`}*/}
-                            {/*                &nbsp;/&nbsp;*/}
-                            {/*            </>}*/}
-                            {/*            {`${this.props.cycleSetSize!}`}*/}
-                            {/*        </div>*/}
-                            {/*    </div>*/}
-                            {/*</td>*/}
+                            <td>
+                                <div className="cycler-progress">
+                                    <div
+                                        className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>
+                                    <div className="cycler-value">
+                                        {this.props.cycleIndex !== undefined && <>
+                                            {`${this.props.cycleIndex! + 1}`}
+                                            &nbsp;/&nbsp;
+                                        </>}
+                                        {`${this.props.cycleSetSize!}`}
+                                    </div>
+                                </div>
+                            </td>
 
                             <td>
                                 <Button className="cycler-next" buttonType={ButtonType.Hollow}>

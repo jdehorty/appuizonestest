@@ -403,27 +403,15 @@ export class LabelingWorkflowManager {
         const selectableSet = LabelingWorkflowManagerSelectors.selectableSet(this.state);
 
         if (label === undefined) {
-            for (const [elementId, elementState] of elementStateMap) {
-                if (selectableSet.has(elementId)) {
-                    keySet.add({
-                        id: elementId,
-                        className: elementState.className.replace('.', ':'),
-                    });
-                }
-            }
+            this._constructKeySetFromSelected(elementStateMap, selectableSet, keySet);
         } else {
 
             const commonLabelStateMap = this.state.commonLabelStateMap;
             const acceptableLabelSet = new Set<MachineLearningLabel>();
-            const _recurse = (name: MachineLearningLabel) => {
-                acceptableLabelSet.add(name);
-                if (commonLabelStateMap.get(name)!.isExpanded === false) {
-                    for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
-                        _recurse(child);
-                    }
-                }
-            };
-            _recurse(label);
+
+            // Recursive selection
+            this._doRecursiveSelection(acceptableLabelSet, commonLabelStateMap, label);
+
             for (const [elementId, elementState] of elementStateMap) {
                 if (acceptableLabelSet.has(elementState.trueLabel) && selectableSet.has(elementId)) {
                     keySet.add({
@@ -436,6 +424,7 @@ export class LabelingWorkflowManager {
         Presentation.selection.replaceSelection("", this._imodel, keySet);
     }
 
+
     /** Select all elements that have a specific machine learning prediction (or all) */
     public static selectPrediction(prediction?: Id64String): void {
         if (this._imodel === undefined) {
@@ -446,27 +435,15 @@ export class LabelingWorkflowManager {
         const selectableSet = LabelingWorkflowManagerSelectors.selectableSet(this.state);
 
         if (prediction === undefined) {
-            for (const [elementId, elementState] of elementStateMap) {
-                if (selectableSet.has(elementId)) {
-                    keySet.add({
-                        id: elementId,
-                        className: elementState.className.replace('.', ':'),
-                    });
-                }
-            }
+            this._constructKeySetFromSelected(elementStateMap, selectableSet, keySet);
         } else {
 
             const commonLabelStateMap = this.state.commonLabelStateMap;
             const acceptableLabelSet = new Set<MachineLearningLabel>();
-            const _recurse = (name: MachineLearningLabel) => {
-                acceptableLabelSet.add(name);
-                if (commonLabelStateMap.get(name)!.isExpanded === false) {
-                    for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
-                        _recurse(child);
-                    }
-                }
-            };
-            _recurse(prediction);
+
+            // Recursive selection
+            this._doRecursiveSelection(acceptableLabelSet, commonLabelStateMap, prediction);
+
             for (const [elementId, elementState] of elementStateMap) {
                 if (acceptableLabelSet.has(elementState.predLabel) && selectableSet.has(elementId)) {
                     keySet.add({
@@ -477,6 +454,54 @@ export class LabelingWorkflowManager {
             }
         }
         Presentation.selection.replaceSelection("", this._imodel, keySet);
+    }
+
+    /**
+     * Executes a recursive selection; creates a function object and then invokes on a label or prediction.
+     * @param acceptableLabelSet -  set of ML Labels derived from a blob file
+     * @param commonLabelStateMap -  map of ML Labels derived from a blob file
+     * @param labelOrPrediction
+     * @private
+     */
+    private static _doRecursiveSelection(acceptableLabelSet: Set<MachineLearningLabel>, commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>, labelOrPrediction: string) {
+        const _recursiveSelect = this._recursiveSelect(acceptableLabelSet, commonLabelStateMap);
+        _recursiveSelect(labelOrPrediction);
+    }
+
+    /**
+     * Constructs a key set from element selection.
+     * @param elementStateMap - Map of Geometric element states
+     * @param selectableSet - Set of element keys for a selection
+     * @param keySet - Container for holding multiple keys
+     * @private
+     */
+    private static _constructKeySetFromSelected(elementStateMap: Map<Id64String, ElementState>, selectableSet: Set<Id64String>, keySet: KeySet) {
+        for (const [elementId, elementState] of elementStateMap) {
+            if (selectableSet.has(elementId)) {
+                keySet.add({
+                    id: elementId,
+                    className: elementState.className.replace('.', ':'),
+                });
+            }
+        }
+    }
+
+    /**
+     * Recursively selects all indicated elements.
+     * @param acceptableLabelSet - Set of labels derived from a blob file
+     * @param commonLabelStateMap - Map of ML Labels derived from a blob file
+     * @private
+     */
+    private static _recursiveSelect(acceptableLabelSet: Set<MachineLearningLabel>, commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>) {
+        const _recurse = (name: MachineLearningLabel) => {
+            acceptableLabelSet.add(name);
+            if (commonLabelStateMap.get(name)!.isExpanded === false) {
+                for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
+                    _recurse(child);
+                }
+            }
+        };
+        return _recurse;
     }
 
     /** Set Force Show all */

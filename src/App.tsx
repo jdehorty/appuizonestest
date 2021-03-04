@@ -3,8 +3,8 @@ import "./App.scss";
 import {Viewer} from "@bentley/itwin-viewer-react";
 import React, {useEffect, useState} from "react";
 
-import { IModelApp, IModelConnection, AuthorizedFrontendRequestContext } from "@bentley/imodeljs-frontend";
-import { ChangeSetQuery } from "@bentley/imodelhub-client";
+import {IModelApp, IModelConnection, AuthorizedFrontendRequestContext} from "@bentley/imodeljs-frontend";
+import {ChangeSetQuery} from "@bentley/imodelhub-client";
 
 import AuthorizationClient from "./AuthorizationClient";
 import {Header} from "./Header";
@@ -16,9 +16,11 @@ import {SelectionExtender} from "./SelectionExtender2";
 
 import {Presentation} from "@bentley/presentation-frontend";
 import {SetupConfigEnv} from "./common/configuration/configuration";
-import {GuidString} from "@bentley/bentleyjs-core";
+import {Config, GuidString} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
-import { BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface } from "./BlobLabelSources";
+import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./BlobLabelSources";
+
+import MLTablePortal from "./MLTablePortal";
 
 
 // import { UiItemsManager } from "@bentley/ui-abstract";
@@ -32,10 +34,14 @@ const App: React.FC = () => {
     //console.log("useState #2");
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+    const [readyForPopup, setReadyForPopup] = useState(false);
+
+
     //console.log("useEffect #1");
     useEffect(() => {
         const initOidc = async () => {
             SetupConfigEnv(102);
+
             // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
             // console.log("1A. buddi (with region) setting is => " + buddiRegion);
             if (!AuthorizationClient.oidcClient) {
@@ -117,25 +123,19 @@ const App: React.FC = () => {
         setIsAuthorized(false);
     };
 
-    const openLabelSource = async (
-        imodel: IModelConnection,
-        accountName: string,
-        sasString: string,
-        projectGuid: string | undefined,
-        imodelGuid: string | undefined,
-        imodelName: string,
-        revisionId: string,
-        predSuffix: string,
-    ) => {
-         const config: BlobBasedLabelDataSourceConfig = {
-            accountName: accountName,
-            sasString: sasString,
-            projectGuid: projectGuid as GuidString,
-            imodelGuid: imodelGuid as GuidString,
-            imodelName: imodelName,
-            revisionId: revisionId,
-            predSuffix: predSuffix
+    const openLabelSource = async (imodel: IModelConnection) => {
+        const config: BlobBasedLabelDataSourceConfig = {
+            accountName: Config.App.getString("mlAccountName"),
+            sasString: Config.App.getString("mlSasString"),
+            projectGuid: Config.App.getString("mlProjectGuid"),
+            imodelGuid: Config.App.getString("mlIModelGuid"),
+            imodelName: Config.App.getString("mlIModelName"),
+            revisionId: Config.App.getString("mlChangeSetId"),
+            predSuffix: Config.App.getString("mlPredSuffix")
         }
+
+        console.log("Config => " + JSON.stringify(config))
+
         const labelInterface = new BlobBasedMachineLearningLabelInterface(config);
 
         LabelingWorkflowManager.configureDataSources(labelInterface, imodel);
@@ -154,12 +154,12 @@ const App: React.FC = () => {
         // console.log("connection =>" + JSON.stringify(connection));
 
         try {
-        await Presentation.initialize({
-            // activeLocale: IModelApp.i18n.languageList()[0],
-            activeLocale: "en",
-        });
+            await Presentation.initialize({
+                // activeLocale: IModelApp.i18n.languageList()[0],
+                activeLocale: "en",
+            });
+        } catch (error) {
         }
-        catch (error) {}
 
         // console.log("Presentation initialized");
 
@@ -170,7 +170,8 @@ const App: React.FC = () => {
         initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
 
         Promise.all(initPromises).then(
-             () => { });
+            () => {
+            });
         console.log("All onIModelConnected initialization function promises have resolved.");
 
         const requestContext: AuthorizedFrontendRequestContext = await AuthorizedFrontendRequestContext.create();
@@ -178,35 +179,16 @@ const App: React.FC = () => {
         changeSetQuery.latest();
         const changesets = await IModelApp.iModelClient.changeSets.get(requestContext, process.env.IMJS_IMODEL_ID as string, changeSetQuery);
 
-        var selection = {
-            labelAccountName: "aiabcedeveussa01",
-            labelSasString: "?sv=2019-12-12&ss=bf&srt=co&sp=rwdlacx&se=2022-12-31T23:12:51Z&st=2021-01-13T15:12:51Z&spr=https&sig=7fFOu%2FillaXETL2CGhWsEqFLavzCaCAsIILA%2FSsN8%2F8%3D",
-            projectGuid: process.env.IMJS_CONTEXT_ID,
-            iModelGuid: process.env.IMJS_IMODEL_ID,
-            iModelName: "",
-            changeSetId: "",
-            predSuffix: "omni"
-        };
-
         if (changesets.length !== 0) {
-            selection.changeSetId = changesets[0].id!;
-        }
-        else {
+            Config.App.set("mlChangeSetId", changesets[0].id!);
+        } else {
             console.log("ChangeSet not found");
         }
 
-        openLabelSource(
-            connection,
-            selection.labelAccountName,
-            selection.labelSasString,
-            selection.projectGuid,
-            selection.iModelGuid,
-            selection.iModelName!,
-            selection.changeSetId,
-            selection.predSuffix
-        ).then(() => { });
+        openLabelSource(connection).then(() => {
+            setReadyForPopup(true);
+        });
     }
-
 
 
     // const onIModelAppInit = async () => {
@@ -227,21 +209,31 @@ const App: React.FC = () => {
                 <span>"Logging in...."</span>
             ) : (
                 isAuthorized && (
-                    <Viewer
-                        contextId={process.env.IMJS_CONTEXT_ID ?? ""}
-                        iModelId={process.env.IMJS_IMODEL_ID ?? ""}
-                        authConfig={{oidcClient: AuthorizationClient.oidcClient}}
-                        theme={"light"}
-                        defaultUiConfig={
-                            {
-                                hideToolSettings: false,
-                                hideTreeView: false,
+                    <div>
+                        <Viewer
+                            contextId={process.env.IMJS_CONTEXT_ID ?? ""}
+                            iModelId={process.env.IMJS_IMODEL_ID ?? ""}
+                            authConfig={{oidcClient: AuthorizationClient.oidcClient}}
+                            theme={"light"}
+                            defaultUiConfig={
+                                {
+                                    hideToolSettings: false,
+                                    hideTreeView: false,
+                                }
                             }
+                            uiProviders={[new TestUiProvider()]}
+                            onIModelConnected={onIModelConnected}
+                            // onIModelAppInit={onIModelAppInit}
+                        />
+                        {
+                            readyForPopup &&
+                            <MLTablePortal
+                                title={"ML Audit"}
+                                closeWindow={()=>{}}
+                            />
+
                         }
-                        uiProviders={[new TestUiProvider()]}
-                        onIModelConnected={onIModelConnected}
-                        // onIModelAppInit={onIModelAppInit}
-                    />
+                    </div>
                 )
             )}
         </div>

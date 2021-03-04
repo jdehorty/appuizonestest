@@ -134,7 +134,7 @@ function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>):
             });
         },
     };
-};
+}
 
 export const ConnectedMLTableComponent = connect<StateFromProps3, DispatchFromProps3>(mapStateToProps3, mapDispatchToProps3)(MLStateTableComponent);
 

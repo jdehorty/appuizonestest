@@ -158,10 +158,10 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
-                            <td className="mltc-name-td">
+                            <td className="mltc-name-td" style={{whiteSpace: "nowrap"}}>
                                 <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
                                 <Button
-                                    className="mltc-expand-button"
+                                    className="mltc-expand-button" style={{minWidth: 80, maxWidth: 80}}
                                     onClick={() => {
                                         this.props.onLabelExpandStateChange(!isExpanded, item.name);
                                     }}
@@ -203,7 +203,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     itemId={item.name}
                                     visible={item.predLabelIsDisplayed}
                                     transparent={item.predLabelIsTransparent}
-                                    onClick={this.props.onPredictionDisplayChange}/>
+                                    onClick={this.props.onPredictionDisplayChange}
+                                />
                                 <GroupSelectButtonComponent
                                     label={i18nName}
                                     itemId={item.name}
