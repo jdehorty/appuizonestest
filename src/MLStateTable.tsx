@@ -75,7 +75,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
     }
 
-    private renderLoading(): JSX.Element {
+    private static renderLoading(): JSX.Element {
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">
@@ -415,7 +415,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     public render() {
         return <>
-            {!this.props.ready && this.renderLoading()}
+            {!this.props.ready && MLStateTableComponent.renderLoading()}
             {this.props.ready && this.renderTable()}
         </>;
     }

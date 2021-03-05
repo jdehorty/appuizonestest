@@ -206,7 +206,7 @@ const App: React.FC = () => {
                 handleLogout={onLogoutClick}
             />
             {isLoggingIn ? (
-                <span>"Logging in...."</span>
+                <span>Logging in...</span>
             ) : (
                 isAuthorized && (
                     <div>
