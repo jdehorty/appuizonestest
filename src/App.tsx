@@ -20,9 +20,6 @@ import {Config, GuidString} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
 import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./BlobLabelSources";
 
-import MLTablePortal from "./MLTablePortal";
-
-
 // import { UiItemsManager } from "@bentley/ui-abstract";
 // import { TestUiProvider } from "./sampleFrontstageProvider";
 
@@ -186,7 +183,7 @@ const App: React.FC = () => {
         }
 
         openLabelSource(connection).then(() => {
-            setReadyForPopup(true);
+            // setReadyForPopup(true);
         });
     }
 
@@ -225,14 +222,6 @@ const App: React.FC = () => {
                             onIModelConnected={onIModelConnected}
                             // onIModelAppInit={onIModelAppInit}
                         />
-                        {
-                            readyForPopup &&
-                            <MLTablePortal
-                                title={"ML Audit"}
-                                closeWindow={()=>{}}
-                            />
-
-                        }
                     </div>
                 )
             )}

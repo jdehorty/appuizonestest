@@ -7,7 +7,8 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
 import './LabelingWorkflowStyles.scss';
-
+import {useState} from "react";
+import MLTablePortal from "./MLTablePortal";
 
 export interface CycleElementComponentProps {
     ready: boolean;
@@ -15,6 +16,7 @@ export interface CycleElementComponentProps {
     working: boolean;
     cycleSetSize?: number;
     cycleIndex?: number;
+    poppedOut?: boolean;
     totalCount: number;
     selectedCount: number;
     forceShowAll: boolean;
@@ -22,6 +24,8 @@ export interface CycleElementComponentProps {
     onStart(): void;
 
     onStop(): void;
+
+    onPopout(): void;
 
     onForward(count: number): void;
 
@@ -31,7 +35,7 @@ export interface CycleElementComponentProps {
 }
 
 interface CycleElementComponentState {
-
+    readyForPopup: boolean;
 }
 
 
@@ -40,10 +44,25 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
     constructor(props: CycleElementComponentProps) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            readyForPopup: false
+        };
+
+        this._onButtonClick = this._onButtonClick.bind(this);
 
     }
 
+    _onButtonClick = () => {
+        this.setState({
+            readyForPopup: true,
+        });
+    }
+
+    _onWindowClose = () => {
+        this.setState({
+            readyForPopup: false,
+        });
+    }
 
     public render() {
 
@@ -69,7 +88,6 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                     <Icon iconSpec="icon-isolate"/>
                                 </Button>
                             </td>
-
                             <td>
                                 <div className="vertical-rule"/>
                             </td>
@@ -104,11 +122,29 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                 <Button className="cycler-next" buttonType={ButtonType.Hollow}>
                                     Next
                                 </Button>
-                                <Button className="cycler-button" disabled={this.props.working || !this.props.ready}
-                                        onClick={() => this.props.onForward(1)}><Icon
-                                    iconSpec="icon-media-controls-frame-forward"/>
+                                <Button className="cycler-button"
+                                        disabled={this.props.working || !this.props.ready}
+                                        onClick={() => this.props.onForward(1)}>
+                                    <Icon iconSpec="icon-media-controls-frame-forward"/>
                                 </Button>
                             </td>
+
+                            <td>
+                                <div className="vertical-rule"/>
+                            </td>
+                            <td>
+                                <Button className="sstc-window-new-button"
+                                        buttonType={ButtonType.Hollow}
+                                        onClick={this._onButtonClick}
+                                >
+                                    <Icon iconSpec="icon-window-new"/>
+                                </Button>
+
+                                {
+                                    this.state.readyForPopup && <MLTablePortal title={"ML Audit"} closeWindow={this._onWindowClose}/>
+                                }
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>

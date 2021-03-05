@@ -17,6 +17,7 @@ function mapStateToProps(rootState: any): CycleElementComponentProps {
         working: state.cycleModeState.working,
         cycleSetSize: state.cycleModeState.cycleList !== undefined ? state.cycleModeState.cycleList.length : undefined,
         cycleIndex: state.cycleModeState.currentIndex,
+        poppedOut: state.cycleModeState.poppedOut,
         totalCount: LabelingWorkflowManagerSelectors.elementStateMap(state).size,
         selectedCount: state.selectionSet.size,
         forceShowAll: state.forceShowAll,
@@ -25,6 +26,7 @@ function mapStateToProps(rootState: any): CycleElementComponentProps {
         onForward: LabelingWorkflowManager.cycleElementsForward,
         onBackward: LabelingWorkflowManager.cycleElementsBackward,
         onForceShowAllChanged: LabelingWorkflowManager.setForceShowAll,
+        onPopout: LabelingWorkflowManager.popOutWindow
     };
 }
 

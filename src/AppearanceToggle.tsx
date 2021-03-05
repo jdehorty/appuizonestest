@@ -23,7 +23,6 @@ export interface AppearanceToggleComponentProps<ItemT> {
 export class AppearanceToggleComponent<ItemT> extends React.PureComponent<AppearanceToggleComponentProps<ItemT>> {
 
     public render() {
-
         let newVisible: boolean;
         let newTransparent: boolean;
         let actionI18nKey: string;

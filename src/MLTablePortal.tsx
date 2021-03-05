@@ -46,6 +46,10 @@ export default class MLTablePortal extends React.Component<Props, State> {
                 } else if (css && css.cssRules && css.cssRules.length > 0) {
                     const newStyleElement = document.createElement('style');
                     Array.from(css.cssRules).forEach(rule => {
+                        if(rule.cssText.includes("icon")){
+                            console.log('\x1b[36m%s\x1b[0m', rule.cssText)
+                            console.log('\x1b[33m%s\x1b[0m', JSON.stringify(rule))
+                        }
                         newStyleElement.appendChild(document.createTextNode(rule.cssText));
                     });
                     externalWindow.document.head.appendChild(newStyleElement);

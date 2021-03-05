@@ -61,7 +61,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     constructor(props: MLStateTableComponentProps) {
         super(props);
-        console.log("MLStateTableComponent ctor props => " + JSON.stringify(props));
+        // console.log("MLStateTableComponent ctor props => " + JSON.stringify(props));
         this.state = {
             timerVar: undefined,
             filterEmptyRows: false,

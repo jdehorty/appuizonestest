@@ -560,6 +560,10 @@ export class LabelingWorkflowManager {
         });
     };
 
+    /** Pop out window */
+    public static popOutWindow = () => {
+
+    }
 
     /** Cycle mode forward */
     public static cycleElementsForward = (count: number): void => {

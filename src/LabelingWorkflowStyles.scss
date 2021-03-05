@@ -96,6 +96,15 @@
     font-size: 1.4em;
 }
 
+.sstc-window-new-button {
+    margin: 0 0 0 2px;
+    padding: 2px 2px 2px;
+    fill: transparent;
+    border: 0 none;
+    font-size: 1.2em;
+    text-align: right;
+}
+
 .sstc-swap-button {
     margin: 0 0 0 2px;
     padding: 2px 4px;
@@ -149,6 +158,10 @@
     padding-right: 6px;
     display: block;
     box-sizing: content-box; */
+}
+
+.cycler-progress{
+    font-size: .6em;
 }
 
 .sstc-count-container {
@@ -258,10 +271,9 @@
     height: 100%;
 }
 
-.cycler-total-count
-.cycler-selected-count 
-.cycler-progress
-{
+.cycler-total-count,
+.cycler-selected-count,
+.cycler-progress {
     /* display: inline-block; */
     margin: 2px;
     padding-left: 2px;
@@ -270,6 +282,7 @@
     height: fit-content;
     display: inline-block;
     box-sizing: border-box;
+    font-size: .6em;
 }
 
 .cycler-title {
@@ -279,7 +292,7 @@
     padding-left: 6px;
     padding-right: 6px;
     display: block;
-    font-size: 12px;
+    font-size: 1.3em;
     /* background-color: white; */
 }
 .cycler-value {
@@ -300,16 +313,20 @@
 
 .cycler-previous {
     fill: transparent;
-    margin-right: 2px;
+    margin-right: 1px;
     margin-left: 0;
     border: 0 none;
+    font-size: .75em;
+    font-weight: bold;
 }
 
 .cycler-next {
     fill: transparent;
     margin-right: 0;
-    margin-left: 2px;
+    margin-left: 1px;
     border: 0 none;
+    font-size: .75em;
+    font-weight: bold;
 }
 
 .sstc-control-button
