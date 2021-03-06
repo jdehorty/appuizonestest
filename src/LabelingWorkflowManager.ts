@@ -7,11 +7,11 @@ import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@ben
 import { Store } from "redux";
 import { MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface } from "./MachineLearningLabelSource";
 import { getWithDefault } from "./MapWithDefault";
-import { keySetToId64Set } from "./SelectionUtils";
-import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./LabelingWorkflowActions";
+import { keySetToId64Set } from "./utils/SelectionUtils";
+import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./store/LabelingWorkflowActions";
 import { LabelingWorflowOverrideElements } from "./LabelingWorkflowOverrideElements";
-import { LabelingWorkflowManagerSelectors } from "./LabelingWorkflowSelectors";
-import { ECClassState, ElementState, LabelingWorkflowState, ModelState, CategoryState, PredLabelState, TrueLabelState, CommonLabelState } from "./LabelingWorkflowState";
+import { LabelingWorkflowManagerSelectors } from "./store/LabelingWorkflowSelectors";
+import { ECClassState, ElementState, LabelingWorkflowState, ModelState, CategoryState, PredLabelState, TrueLabelState, CommonLabelState } from "./store/LabelingWorkflowState";
 
 
 const ZOOM_OPTIONS: ViewChangeOptions & ZoomToOptions = {

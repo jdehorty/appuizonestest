@@ -1,5 +1,5 @@
 import { Id64String, Id64Array, Id64Set } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "./MachineLearningLabelSource";
+import { MachineLearningLabel, MachineLearningColorMode } from "../MachineLearningLabelSource";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 

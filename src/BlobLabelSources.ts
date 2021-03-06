@@ -2,7 +2,7 @@ import { GuidString, Id64, Id64Arg, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { downloadBlobAsString, uploadBlobAsString } from "./blobs";
 import { LabelActivation, LabelDefinitions, MachineLearningLabel, MachineLearningLabelDef, MachineLearningLabelInterface, ModelPrediction } from "./MachineLearningLabelSource";
-import { decToHex, hexToDec } from "./dectohex";
+import { decToHex, hexToDec } from "./utils/dectohex";
 
 
 export interface BlobBasedLabelDataSourceConfig {

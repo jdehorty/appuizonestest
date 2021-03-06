@@ -12,11 +12,11 @@ import { Presentation } from "@bentley/presentation-frontend";
 import { UiFramework } from "@bentley/ui-framework";
 // import InitLogging from "../../ml-labeler-master/ml-labeler-master/IModelJsLabeler/imodeljs-labeler-prototype/src/frontend/api/logging";
 // import { OidcClientHelper } from "../../ml-labeler-master/ml-labeler-master/IModelJsLabeler/imodeljs-labeler-prototype/src/frontend/api/OidcClientHelper";
-import InitRpc from "./common/configuration/rpc";
+import InitRpc from "./rpc";
 // import { LabelingWorkflowManager } from "../../ml-labeler-master/ml-labeler-master/IModelJsLabeler/imodeljs-labeler-prototype/src/frontend/labeling-workflow/LabelingWorkflowManager";
 import { SelectionExtender } from "./SelectionExtender2";
 
-import {AppState, AppStore} from "./AppState";
+import {AppState, AppStore} from "./store/AppState";
 
 // initialize logging
 // InitLogging();

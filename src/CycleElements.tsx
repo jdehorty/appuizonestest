@@ -6,7 +6,7 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
-import './LabelingWorkflowStyles.scss';
+import './styles/LabelingWorkflowStyles.scss';
 import {useState} from "react";
 import MLTablePortal from "./MLTablePortal";
 

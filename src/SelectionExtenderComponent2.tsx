@@ -9,7 +9,7 @@ import {Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle} from "@b
 import * as React from "react";
 import {MatchingOperator, SelectionExtenderConfig, MatchingRuleType} from "./SelectionExtender2";
 import {NumberInputComponent} from "./NumberInputComponent";
-import './SelectionExtenderComponent.css';
+import './styles/SelectionExtenderComponent.scss';
 
 // interface FieldCheckboxState {
 //     isChecked: boolean;

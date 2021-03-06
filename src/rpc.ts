@@ -2,8 +2,25 @@
 * Copyright (c) 2019 Bentley Systems, Incorporated. All rights reserved.
 * Licensed under the MIT License. See LICENSE.md in the project root for license terms.
 *--------------------------------------------------------------------------------------------*/
-import { BentleyCloudRpcManager, BentleyCloudRpcParams, RpcConfiguration } from "@bentley/imodeljs-common";
-import getSupportedRpcs from "./rpcs";
+import {
+    BentleyCloudRpcManager,
+    BentleyCloudRpcParams, IModelReadRpcInterface, IModelTileRpcInterface,
+    RpcConfiguration,
+    RpcInterfaceDefinition, SnapshotIModelRpcInterface
+} from "@bentley/imodeljs-common";
+import {PresentationRpcInterface} from "@bentley/presentation-common";
+
+/**
+ * Returns a list of RPCs supported by this application
+ */
+function getSupportedRpcs(): RpcInterfaceDefinition[] {
+    return [
+        IModelReadRpcInterface,
+        IModelTileRpcInterface,
+        PresentationRpcInterface,
+        SnapshotIModelRpcInterface,
+    ];
+}
 
 /**
 * Initializes RPC communication based on the platform
@@ -17,3 +34,4 @@ export default function InitRpc(rpcParams?: BentleyCloudRpcParams): RpcConfigura
     console.log("RPC initialized.")
     return config;
 }
+

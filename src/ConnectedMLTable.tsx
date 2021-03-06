@@ -6,9 +6,9 @@ import {Dispatch} from "react";
 import {connect} from "react-redux";
 import {MLStateTableComponent} from "./MLStateTable";
 import {ColorDef} from "@bentley/imodeljs-common";
-import {LabelingWorkflowState} from "./LabelingWorkflowState";
-import {LabelingWorkflowManagerSelectors} from "./LabelingWorkflowSelectors";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./LabelingWorkflowActions";
+import {LabelingWorkflowState} from "./store/LabelingWorkflowState";
+import {LabelingWorkflowManagerSelectors} from "./store/LabelingWorkflowSelectors";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./store/LabelingWorkflowActions";
 
 interface StateFromProps3 {
     ready: boolean;

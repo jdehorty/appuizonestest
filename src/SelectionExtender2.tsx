@@ -8,7 +8,7 @@ import { UiFramework } from "@bentley/ui-framework";
 import { Store } from "redux";
 import { connect } from "react-redux";
 import { SelectionExtenderComponentProps, SelectionHelperComponent } from "./SelectionExtenderComponent2";
-import { filterKeySet } from "./SelectionUtils";
+import { filterKeySet } from "./utils/SelectionUtils";
 
 
 export enum MatchingRuleType {
@@ -122,7 +122,7 @@ export function SelectionExtenderReducer(prevState: SelectionExtenderState = INI
                 contentMap: action.newContentMap!,
             };
         case SelectionExtenderActionType.CONFIG_WAS_CHANGED:
-            // Create a deep-ish copy of the configuration
+            // Create a deep-ish copy of the config
             const configCopy: SelectionExtenderConfig = {
                 ...action.newConfig!,
                 rule: {

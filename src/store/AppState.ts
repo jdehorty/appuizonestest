@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 import { createStore, combineReducers, Store } from "redux";
 import { FrameworkState, FrameworkReducer } from "@bentley/ui-framework";
-import { SelectionExtenderState, SelectionExtenderReducer } from "./SelectionExtender2";
+import { SelectionExtenderState, SelectionExtenderReducer } from "../SelectionExtender2";
 import { LabelingWorkflowManagerReducer } from "./LabelingWorkflowReducer";
 import { LabelingWorkflowState } from "./LabelingWorkflowState";
 

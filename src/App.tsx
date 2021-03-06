@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/App.scss";
 
 import {Viewer} from "@bentley/itwin-viewer-react";
 import React, {useEffect, useState} from "react";
@@ -15,7 +15,7 @@ import {LabelingApp} from "./LabelingApp";
 import {SelectionExtender} from "./SelectionExtender2";
 
 import {Presentation} from "@bentley/presentation-frontend";
-import {SetupConfigEnv} from "./common/configuration/configuration";
+import {SetupConfigEnv} from "./config/configuration";
 import {Config, GuidString} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
 import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./BlobLabelSources";
@@ -30,8 +30,6 @@ const App: React.FC = () => {
 
     //console.log("useState #2");
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-
-    const [readyForPopup, setReadyForPopup] = useState(false);
 
 
     //console.log("useEffect #1");

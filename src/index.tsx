@@ -1,11 +1,11 @@
-import "./index.scss";
+import "./styles/index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import {LabelingApp} from "./LabelingApp";
 
-import { SetupConfigEnv } from './common/configuration/configuration';
+import { SetupConfigEnv } from './config/configuration';
 
 // configure environment --> relocated to .env file
 // SetupConfigEnv(0); // PROD

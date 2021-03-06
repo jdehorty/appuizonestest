@@ -5,7 +5,7 @@
 import {Config} from "@bentley/bentleyjs-core";
 
 /**
- * Setup configuration for the application
+ * Setup config for the application. Limited to the in-memory configuration for the app.
  */
 export function SetupConfigEnv(regionCode: number = 103) {
     Config.App.merge({

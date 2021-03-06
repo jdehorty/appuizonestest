@@ -1,10 +1,10 @@
 import { Id64Array, Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { createSelector } from "reselect";
-import { MachineLearningColorMode, MachineLearningLabel } from "./MachineLearningLabelSource";
-import { getWithDefault, MapWithDefault } from "./MapWithDefault";
+import { MachineLearningColorMode, MachineLearningLabel } from "../MachineLearningLabelSource";
+import { getWithDefault, MapWithDefault } from "../MapWithDefault";
 import { CategoryState, CommonLabelState, ECClassState, ElementState, LabelingWorkflowState, ModelState, PredLabelState, TrueLabelState } from "./LabelingWorkflowState";
-import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "./LabelingWorkflowTypes";
+import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "../LabelingWorkflowTypes";
 
 const SELECTION_COUNT_IS_FILTERED = true;
 
