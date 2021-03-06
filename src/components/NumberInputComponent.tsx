@@ -7,7 +7,7 @@ import * as React from "react";
 import { Input } from "@bentley/ui-core";
 
 
-export interface NumberInputComponentProps {
+interface NumberInputComponentProps {
     isFloat: boolean;
     value: number;
     minValue?: number;

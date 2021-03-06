@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
-import {LabelingApp} from "./LabelingApp";
+import {LabelingApp} from "../LabelingApp";
 import {ConnectedMLTableComponent} from "./ConnectedMLTable";
 
 interface Props {
@@ -37,7 +37,6 @@ export default class MLTablePortal extends React.Component<Props, State> {
             const stylesheets = Array.from(document.styleSheets);
             stylesheets.forEach(stylesheet => {
                 const css = stylesheet as CSSStyleSheet;
-
                 if (stylesheet.href) {
                     const newStyleElement = document.createElement('link');
                     newStyleElement.rel = 'stylesheet';

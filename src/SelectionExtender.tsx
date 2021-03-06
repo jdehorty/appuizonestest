@@ -7,145 +7,11 @@ import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@ben
 import { UiFramework } from "@bentley/ui-framework";
 import { Store } from "redux";
 import { connect } from "react-redux";
-import { SelectionExtenderComponentProps, SelectionHelperComponent } from "./SelectionExtenderComponent2";
+import { SelectionExtenderComponentProps, SelectionHelperComponent } from "./components/SelectionExtenderComponent";
 import { filterKeySet } from "./utils/SelectionUtils";
-
-
-export enum MatchingRuleType {
-    SameClass = "SelectionExtender:MatchingRuleType.SameClass",
-    SameUserLabel = "SelectionExtender:MatchingRuleType.SameUserLabel",
-    SameCategory = "SelectionExtender:MatchingRuleType.SameCategory",
-    SameParent = "SelectionExtender:MatchingRuleType.SameParent",
-    SameModel = "SelectionExtender:MatchingRuleType.SameModel",
-    SameCodeValue = "SelectionExtender:MatchingRuleType.SameCodeValue",
-    SameLastMod = "SelectionExtender:MatchingRuleType.SameLastMod",
-    SameJsonProps = "SelectionExtender:MatchingRuleType.SameJsonProps",
-    SameGeometry = "SelectionExtender:MatchingRuleType.SameGeometry",
-    SameGeometrySize = "SelectionExtender:MatchingRuleType.SameGeometrySize",
-    SameBBoxHeight = "SelectionExtender:MatchingRuleType.SameBBoxHeight",
-    SameBBoxVolume = "SelectionExtender:MatchingRuleType.SameBBoxVolume",
-    SameElementAspect = "SelectionExtender:MatchingRuleType.SameElementAspect",
-};
-
-
-export enum MatchingOperator {
-    And = "AND",
-    Or = "OR",
-}
-
-// export interface CompoundRule {
-//     isCombination: boolean;
-//     type?: MatchingRule;
-//     childRules?: Array<CompoundRule>;
-//     operator?: MatchingOperator;
-// }
-
-export interface SimpleArrayRuleEntry {
-    wanted: boolean;
-    type: MatchingRuleType;
-}
-
-export interface SimpleArrayRule {
-    childRules: SimpleArrayRuleEntry[];
-    operator: MatchingOperator;
-}
-
-export interface SelectionExtenderConfig {
-    visibleInViewOnly: boolean;
-    maxDistEnabled: boolean;
-    maxDistValue: number;
-    maxCountEnabled: boolean;
-    maxCountValue: number;
-    rule: SimpleArrayRule;
-    enableAuxData: boolean;
-}
-
-export interface SelectionExtenderState {
-    singleKey?: InstanceKey;
-    foundCount?: number;
-    isSearching: boolean;
-    config: SelectionExtenderConfig;
-    contentMap: Map<MatchingRuleType, string[]>;
-}
-
-interface SelectionExtenderAction {
-    type: string;
-    newSingleKey?: InstanceKey;
-    newContentMap?: Map<MatchingRuleType, string[]>;
-    newConfig?: SelectionExtenderConfig;
-    newFoundCount?: number;
-}
-
-const INITIAL_STATE: SelectionExtenderState = {
-    singleKey: undefined,
-    foundCount: undefined,
-    isSearching: false,
-    config: {
-        visibleInViewOnly: false,
-        maxDistEnabled: false,
-        maxDistValue: 4.0,
-        maxCountEnabled: false,
-        maxCountValue: 1000,
-        rule: {
-            childRules: [
-                { wanted: false, type: MatchingRuleType.SameElementAspect },
-                { wanted: true, type: MatchingRuleType.SameUserLabel },
-                { wanted: false, type: MatchingRuleType.SameCategory },
-                { wanted: false, type: MatchingRuleType.SameClass },
-                { wanted: false, type: MatchingRuleType.SameBBoxHeight },
-                { wanted: true, type: MatchingRuleType.SameBBoxVolume },
-                { wanted: true, type: MatchingRuleType.SameModel },
-                { wanted: false, type: MatchingRuleType.SameParent },
-                { wanted: false, type: MatchingRuleType.SameGeometry },
-                { wanted: false, type: MatchingRuleType.SameGeometrySize },
-            ],
-            operator: MatchingOperator.And,
-        },
-        enableAuxData: false,
-    },
-    contentMap: new Map<MatchingRuleType, string[]>(),
-}
-
-enum SelectionExtenderActionType {
-    SINGLE_KEY_HAS_CHANGED = "SelectionExtender.singleIdHasChanged",
-    CONFIG_WAS_CHANGED = "SelectionExtender.configWasChanged",
-    SEARCH_HAS_STARTED = "SelectionExtender.searchHasStarted",
-    ELEMENTS_WERE_FOUND = "SelectionExtender.elementsWereFound",
-};
-
-export function SelectionExtenderReducer(prevState: SelectionExtenderState = INITIAL_STATE, action: SelectionExtenderAction): SelectionExtenderState {
-    switch (action.type) {
-        case SelectionExtenderActionType.SINGLE_KEY_HAS_CHANGED:
-            return {
-                ...prevState,
-                singleKey: action.newSingleKey!,
-                contentMap: action.newContentMap!,
-            };
-        case SelectionExtenderActionType.CONFIG_WAS_CHANGED:
-            // Create a deep-ish copy of the config
-            const configCopy: SelectionExtenderConfig = {
-                ...action.newConfig!,
-                rule: {
-                    ...action.newConfig!.rule,
-                    childRules: Array.from(action.newConfig!.rule.childRules),
-                }
-            }
-            return {...prevState, config: configCopy};
-        case SelectionExtenderActionType.SEARCH_HAS_STARTED:
-            return {
-                ...prevState,
-                isSearching: true,
-            };
-        case SelectionExtenderActionType.ELEMENTS_WERE_FOUND:
-            return {
-                ...prevState,
-                isSearching: false,
-                foundCount: action.newFoundCount,
-            };
-        default:
-            return prevState;
-    }
-}
+import { SelectionExtenderState } from "./store/SelectionExtenderState";
+import { SelectionExtenderActionType, SelectionExtenderAction } from "./store/SelectionExtenderActions";
+import {MatchingRuleType, SelectionExtenderConfig} from "./store/SelectionExtenderTypes";
 
 const TOL = 1e-3;
 
@@ -171,21 +37,6 @@ export class SelectionExtender {
     private static get state(): SelectionExtenderState {
         return this.store.getState()[this.stateKey];
     }
-
-
-    // private static _ruleToSqlConditions(rule: CompoundRule): string | undefined {
-
-    //     if (rule.isCombination && rule.childRules !== undefined && rule.operator !== undefined) {
-    //         const subConditons: string[] = [];
-    //         for (const childRule of rule.childRules!) {
-    //             subConditons.push();
-    //         }
-
-    //     } else if () {
-
-    //     }
-    //     return undefined;
-    // }
 
     private static forwardMap?: Map<Id64String, string>;
     private static backwardMap?: Map<string, Id64Set>;

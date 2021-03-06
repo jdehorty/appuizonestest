@@ -1,7 +1,7 @@
 import { IModelApp } from "@bentley/imodeljs-frontend";
 import { Button, Icon } from "@bentley/ui-core";
 import * as React from "react";
-import './styles/LabelingWorkflowStyles.scss';
+import '../styles/LabelingWorkflowStyles.scss';
 
 /** SelectionButton properties */
 export interface GroupSelectButtonComponentProps<ItemT> {
@@ -17,7 +17,6 @@ export interface GroupSelectButtonComponentProps<ItemT> {
 
 /** Button to select an item */
 export class GroupSelectButtonComponent<ItemT> extends React.PureComponent<GroupSelectButtonComponentProps<ItemT>> {
-
     public render() {
         let title = IModelApp.i18n.translate("LabelingApp:select");
         title += ": ";

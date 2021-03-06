@@ -7,15 +7,9 @@ import {Id64String} from "@bentley/bentleyjs-core";
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle} from "@bentley/ui-core";
 import * as React from "react";
-import {MatchingOperator, SelectionExtenderConfig, MatchingRuleType} from "./SelectionExtender2";
+import {MatchingOperator, SelectionExtenderConfig, MatchingRuleType} from "../store/SelectionExtenderTypes";
 import {NumberInputComponent} from "./NumberInputComponent";
-import './styles/SelectionExtenderComponent.scss';
-
-// interface FieldCheckboxState {
-//     isChecked: boolean;
-//     displayName: string;
-//     sqlField: string;
-// }
+import '../styles/SelectionExtenderComponent.scss';
 
 export interface SelectionExtenderComponentProps {
     singleId?: Id64String;
@@ -31,15 +25,9 @@ export interface SelectionExtenderComponentProps {
     onResetClicked(): void;
 }
 
-interface SelectionExtenderComponentState {
-    // maxDistString: string;
-}
-
-export class SelectionHelperComponent extends React.Component<SelectionExtenderComponentProps, SelectionExtenderComponentState> {
-
+export class SelectionHelperComponent extends React.Component<SelectionExtenderComponentProps> {
     constructor(props: SelectionExtenderComponentProps) {
         super(props);
-
         this.state = {
             // maxDistString: props.config? props.config.maxDistValue.toString() : "",
         };

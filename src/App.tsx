@@ -8,37 +8,30 @@ import {ChangeSetQuery} from "@bentley/imodelhub-client";
 
 import AuthorizationClient from "./AuthorizationClient";
 import {Header} from "./Header";
-import {TestUiProvider} from "./TestUiProvider";
+import {LabelerUiProvider} from "./LabelerUiProvider";
 
 import {LabelingApp} from "./LabelingApp";
 
-import {SelectionExtender} from "./SelectionExtender2";
+import {SelectionExtender} from "./SelectionExtender";
 
 import {Presentation} from "@bentley/presentation-frontend";
 import {SetupConfigEnv} from "./config/configuration";
-import {Config, GuidString} from "@bentley/bentleyjs-core";
+import {Config} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
 import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./BlobLabelSources";
 
 // import { UiItemsManager } from "@bentley/ui-abstract";
-// import { TestUiProvider } from "./sampleFrontstageProvider";
+// import { LabelerUiProvider } from "./sampleFrontstageProvider";
 
 
 const App: React.FC = () => {
-    //console.log("useState #1");
     const [isAuthorized, setIsAuthorized] = useState(AuthorizationClient.oidcClient ? AuthorizationClient.oidcClient.isAuthorized : false);
-
-    //console.log("useState #2");
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-
-    //console.log("useEffect #1");
     useEffect(() => {
         const initOidc = async () => {
             SetupConfigEnv(102);
 
-            // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-            // console.log("1A. buddi (with region) setting is => " + buddiRegion);
             if (!AuthorizationClient.oidcClient) {
                 await AuthorizationClient.initializeOidc();
             }
@@ -102,7 +95,7 @@ const App: React.FC = () => {
     }, [isAuthorized, isLoggingIn]);
 
     // useEffect (() => {
-    //    UiItemsManager.register( new TestUiProvider());
+    //    UiItemsManager.register( new LabelerUiProvider());
     // }, []);
 
     const onLoginClick = async () => {
@@ -216,7 +209,7 @@ const App: React.FC = () => {
                                     hideTreeView: false,
                                 }
                             }
-                            uiProviders={[new TestUiProvider()]}
+                            uiProviders={[new LabelerUiProvider()]}
                             onIModelConnected={onIModelConnected}
                             // onIModelAppInit={onIModelAppInit}
                         />

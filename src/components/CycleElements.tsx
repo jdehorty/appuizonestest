@@ -6,7 +6,7 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
-import './styles/LabelingWorkflowStyles.scss';
+import '../styles/LabelingWorkflowStyles.scss';
 import {useState} from "react";
 import MLTablePortal from "./MLTablePortal";
 
@@ -103,7 +103,7 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                 </Button>
                             </td>
 
-                            {/*TODO: Add back counter here if Kaustubh wants it */}
+                            {/*TODO: Get counter working again */}
                             <td>
                                 <div className="cycler-progress">
                                     <div
