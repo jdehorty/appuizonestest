@@ -68,9 +68,9 @@ export class LabelingWorkflowManager {
      * @internal
      */
     private static async _fillElementStateMap(
-        /** IModel connection */
+        // IModel connection
         imodel: IModelConnection,
-        /** State map to be filled */
+        // State map to be filled
         elementStateMap: Map<Id64String, ElementState>
     ): Promise<void> {
         const ecsql = 'SELECT ECInstanceId as elementId, ECClassId, ECClassId as classId, Category.Id as categoryId, Model.Id as modelId FROM ' + this.ECSQL_BASE + ';';
