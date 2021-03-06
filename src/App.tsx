@@ -122,7 +122,7 @@ const App: React.FC = () => {
             predSuffix: Config.App.getString("mlPredSuffix")
         }
 
-        console.log("Config => " + JSON.stringify(config))
+        // console.log("Config => " + JSON.stringify(config))
 
         const labelInterface = new BlobBasedMachineLearningLabelInterface(config);
 
