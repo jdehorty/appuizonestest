@@ -1,14 +1,14 @@
-import {MLStateTableDataItem, LabelTreeEntry} from "./LabelingWorkflowTypes";
-import {MachineLearningColorMode, MachineLearningLabel} from "./MachineLearningLabelSource";
+import {MLStateTableDataItem, LabelTreeEntry} from "../store/LabelingWorkflowTypes";
+import {MachineLearningColorMode, MachineLearningLabel} from "../MachineLearningLabelSource";
 import {Id64String} from "@bentley/bentleyjs-core";
-import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "./LabelingWorkflowManager";
+import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../LabelingWorkflowManager";
 import {Dispatch} from "react";
 import {connect} from "react-redux";
 import {MLStateTableComponent} from "./MLStateTable";
 import {ColorDef} from "@bentley/imodeljs-common";
-import {LabelingWorkflowState} from "./store/LabelingWorkflowState";
-import {LabelingWorkflowManagerSelectors} from "./store/LabelingWorkflowSelectors";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./store/LabelingWorkflowActions";
+import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
+import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../store/LabelingWorkflowActions";
 
 interface StateFromProps3 {
     ready: boolean;

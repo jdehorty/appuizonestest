@@ -23,9 +23,7 @@ export interface AppearanceBatchToggleComponentProps<ItemT> {
 
 /** Button that shows/changes the visibility status of a group of items (that may have different statuses) */
 export class AppearanceBatchToggleComponent<ItemT> extends React.PureComponent<AppearanceBatchToggleComponentProps<ItemT>> {
-
     public render() {
-
         let newVisible: boolean;
         let newTransparent: boolean;
         let labelToggleClass: string;
@@ -78,3 +76,5 @@ export class AppearanceBatchToggleComponent<ItemT> extends React.PureComponent<A
         </>
     }
 }
+
+// TODO: Make less tightly coupled to the UI

@@ -14,7 +14,7 @@ import { UiFramework } from "@bentley/ui-framework";
 // import { OidcClientHelper } from "../../ml-labeler-master/ml-labeler-master/IModelJsLabeler/imodeljs-labeler-prototype/src/frontend/api/OidcClientHelper";
 import InitRpc from "./rpc";
 // import { LabelingWorkflowManager } from "../../ml-labeler-master/ml-labeler-master/IModelJsLabeler/imodeljs-labeler-prototype/src/frontend/labeling-workflow/LabelingWorkflowManager";
-import { SelectionExtender } from "./SelectionExtender2";
+import { SelectionExtender } from "./SelectionExtender";
 
 import {AppState, AppStore} from "./store/AppState";
 

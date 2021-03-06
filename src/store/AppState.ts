@@ -4,9 +4,11 @@
 *--------------------------------------------------------------------------------------------*/
 import { createStore, combineReducers, Store } from "redux";
 import { FrameworkState, FrameworkReducer } from "@bentley/ui-framework";
-import { SelectionExtenderState, SelectionExtenderReducer } from "../SelectionExtender2";
+// import { SelectionExtenderState, SelectionExtenderReducer } from "../SelectionExtender";
 import { LabelingWorkflowManagerReducer } from "./LabelingWorkflowReducer";
 import { LabelingWorkflowState } from "./LabelingWorkflowState";
+import { SelectionExtenderState } from "./SelectionExtenderState";
+import { SelectionExtenderReducer } from "./SelectionExtenderReducer2";
 
 // React-redux interface stuff
 export interface RootState {

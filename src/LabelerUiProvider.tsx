@@ -12,15 +12,15 @@ import {
 
 import React from "react";
 
-import {ConnectedSelectionHelperComponent, SelectionExtender} from "./SelectionExtender2";
-import {ConnectedMLTableComponent} from "./ConnectedMLTable";
+import {ConnectedSelectionHelperComponent, SelectionExtender} from "./SelectionExtender";
+import {ConnectedMLTableComponent} from "./components/ConnectedMLTable";
 
 import {Provider} from 'react-redux';
 import {LabelingApp} from "./LabelingApp";
-import {ConnectedCycleElementComponent} from "./ConnectedCycleElements";
+import {ConnectedCycleElementComponent} from "./components/ConnectedCycleElements";
 
 
-export class TestUiProvider implements UiItemsProvider {
+export class LabelerUiProvider implements UiItemsProvider {
     public readonly id = "TestUiProvider";
 
     public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, _section?: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
@@ -47,41 +47,7 @@ export class TestUiProvider implements UiItemsProvider {
                         </Provider>
                 });
             }
-            // if (location === StagePanelLocation.Bottom) {
-            //     widgets.push({
-            //         id: "Cycler",
-            //         label: "Cycler",
-            //         getWidgetContent: () =>
-            //             <Provider store={LabelingApp.store}>
-            //                 AppStatusBarWidgetControl
-            //             </Provider>
-            //     });
-            // }
         }
         return widgets;
     }
-
-    // public provideStatusBarItems(
-    //     _stageId: string,
-    //     stageUsage: string
-    // ): CommonStatusBarItem[] {
-    //     const statusBarItems: CommonStatusBarItem[] = [];
-    //
-    //     if (stageUsage === StageUsage.General) {
-    //         statusBarItems.push(
-    //             AbstractStatusBarItemUtilities.createActionItem(
-    //                 "alert-statusbar-item",
-    //                 StatusBarSection.Left,
-    //                 100,
-    //                 "icon-developer",
-    //                 "Status bar item test",
-    //                 () => {
-    //                     alert("Status Bar Item Clicked!");
-    //                 }
-    //             )
-    //         );
-    //     }
-    //
-    //     return statusBarItems;
-    // }
 }

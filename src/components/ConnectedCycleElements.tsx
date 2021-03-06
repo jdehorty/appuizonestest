@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import { LabelingWorkflowManager } from "./LabelingWorkflowManager";
+import { LabelingWorkflowManager } from "../LabelingWorkflowManager";
 import { CycleElementComponent, CycleElementComponentProps } from "./CycleElements";
-import { LabelingWorkflowState } from "./store/LabelingWorkflowState";
-import { LabelingWorkflowManagerSelectors } from "./store/LabelingWorkflowSelectors";
+import { LabelingWorkflowState } from "../store/LabelingWorkflowState";
+import { LabelingWorkflowManagerSelectors } from "../store/LabelingWorkflowSelectors";
 
 
 /** Map state to props */

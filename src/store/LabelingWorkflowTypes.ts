@@ -1,5 +1,5 @@
 import { Id64String } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "./MachineLearningLabelSource";
+import { MachineLearningLabel } from "../MachineLearningLabelSource";
 import { ColorDef } from "@bentley/imodeljs-common";
 
 export interface SimpleStateTableDataItem {
@@ -38,7 +38,6 @@ export interface MLStateTableDataItem {
     predLabelSelectedCount: number;
 }
 
-
 export interface MachineLearningElementOverrideData {
     elementId: Id64String;
     colorOverride: ColorDef | undefined;
@@ -46,9 +45,3 @@ export interface MachineLearningElementOverrideData {
     isTransparent: boolean;
     isEmphasized: boolean;
 }
-
-// interface MachineLearningOverrideData {
-//     colorMode: MachineLearningColorMode;
-//     elementData: MachineLearningElementOverrideData[];
-// }
-
