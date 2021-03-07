@@ -34,26 +34,7 @@ export default class MLTablePortal extends React.Component<Props, State> {
             externalWindow.document.body.appendChild(containerElement);
 
             // Copy the app's styles into the new window
-            const stylesheets = Array.from(document.styleSheets);
-            stylesheets.forEach(stylesheet => {
-                const css = stylesheet as CSSStyleSheet;
-                if (stylesheet.href) {
-                    const newStyleElement = document.createElement('link');
-                    newStyleElement.rel = 'stylesheet';
-                    newStyleElement.href = stylesheet.href;
-                    externalWindow.document.head.appendChild(newStyleElement);
-                } else if (css && css.cssRules && css.cssRules.length > 0) {
-                    const newStyleElement = document.createElement('style');
-                    Array.from(css.cssRules).forEach(rule => {
-                        if(rule.cssText.includes("icon")){
-                            console.log('\x1b[36m%s\x1b[0m', rule.cssText)
-                            console.log('\x1b[33m%s\x1b[0m', JSON.stringify(rule))
-                        }
-                        newStyleElement.appendChild(document.createTextNode(rule.cssText));
-                    });
-                    externalWindow.document.head.appendChild(newStyleElement);
-                }
-            });
+            MLTablePortal.copyStyles(externalWindow.document, document);
 
             externalWindow.document.title = this.props.title;
 
@@ -69,7 +50,40 @@ export default class MLTablePortal extends React.Component<Props, State> {
         });
     }
 
-    // Make sure the window closes when the component unmounts
+    /**
+     * Copies the source CSS into the destination
+     * @param targetDoc - target document
+     * @param srcDoc - source document
+     * @protected
+     */
+    public static copyStyles(targetDoc: Document, srcDoc: Document = document) {
+        const stylesheets = Array.from(srcDoc.styleSheets);
+        stylesheets.forEach(stylesheet => {
+            const css = stylesheet as CSSStyleSheet;
+            if (stylesheet.href) {
+                const newStyleElement = srcDoc.createElement('link');
+                newStyleElement.rel = 'stylesheet';
+                newStyleElement.href = stylesheet.href;
+                targetDoc.head.appendChild(newStyleElement);
+            } else if (css && css.cssRules && css.cssRules.length > 0) {
+                const newStyleElement = srcDoc.createElement('style');
+                Array.from(css.cssRules).forEach(rule => {
+                    if (rule.cssText.includes("icon")) {
+                        console.log('\x1b[36m%s\x1b[0m', rule.cssText) // cyan logging
+                        console.log('\x1b[33m%s\x1b[0m', JSON.stringify(rule)) // yellow logging
+                    }
+                    newStyleElement.appendChild(srcDoc.createTextNode(rule.cssText));
+                });
+                targetDoc.head.appendChild(newStyleElement);
+            }
+        });
+    }
+
+    public static generateText() {
+        return "hello Leela"
+    }
+
+// Make sure the window closes when the component unmounts
     public componentWillUnmount() {
         if (this.state.externalWindow) {
             this.state.externalWindow.close();
@@ -84,7 +98,7 @@ export default class MLTablePortal extends React.Component<Props, State> {
         let wrappedWidget =
             <div>
                 <Provider store={LabelerState.store}>
-                    <ConnectedMLTableComponent />
+                    <ConnectedMLTableComponent/>
                 </Provider>
             </div>;
 
