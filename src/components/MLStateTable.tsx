@@ -4,7 +4,7 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {ColorPickerButton} from "@bentley/ui-components";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
-import {MachineLearningColorMode, MachineLearningLabel} from "../MachineLearningLabelSource";
+import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStyles.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
@@ -246,7 +246,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
 
         return <>
-            {/*<div className="sstc-data-header">*/}
+            {/*<div className="sstc-storage-header">*/}
             {/*    <table className="sstc-cycler-table">*/}
             {/*        <tbody>*/}
             {/*        <tr>*/}
@@ -267,7 +267,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             {/*            <td>*/}
             {/*                <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onBackward(-1)}><Icon iconSpec="icon-media-controls-frame-backward" /></Button>*/}
             {/*                <div className="cycler-progress">*/}
-            {/*                    <div className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>*/}
+            {/*                    <div className="cycler-title">{IModelApp.i18n.translate("LabelerState:cycler.cyclingTitle")}</div>*/}
             {/*                    /!*<div className="cycler-value">*!/*/}
             {/*                    /!*    {this.props.cycleIndex !== undefined && <>*!/*/}
             {/*                    /!*        {`${this.props.cycleIndex! + 1}`}*!/*/}
@@ -323,7 +323,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     }
                                 }
                             />
-                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelerState.everything")}
                                                         onClick={() => {
                                                             this.props.onLabelSelectionClick(undefined);
                                                         }}/>
@@ -341,7 +341,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     }
                                 }
                             />
-                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelerState.everything")}
                                                         onClick={() => {
                                                             this.props.onPredictionSelectionClick(undefined);
                                                         }}/>
@@ -362,7 +362,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             </div> */}
             <div className="sstc-color-mode-container">
                 <label className="sstc-color-mode-label">
-                    {IModelApp.i18n.translate("LabelingApp:colorMode")}
+                    {IModelApp.i18n.translate("LabelerState:colorMode")}
                     <select
                         className="sstc-color-mode-select"
                         value={this.props.currentColorMode}

@@ -7,7 +7,7 @@ import {Config} from "@bentley/bentleyjs-core";
 /**
  * Setup config for the application. Limited to the in-memory configuration for the app.
  */
-export function SetupConfigEnv(regionCode: number = 103) {
+export function SetupConfigFromEnv(regionCode: number = 103) {
     Config.App.merge({
         imjs_buddi_resolve_url_using_region: regionCode,
         oidc_client_id: process.env.IMJS_OIDC_CLIENT_ID,

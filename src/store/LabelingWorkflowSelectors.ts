@@ -1,18 +1,18 @@
 import { Id64Array, Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { createSelector } from "reselect";
-import { MachineLearningColorMode, MachineLearningLabel } from "../MachineLearningLabelSource";
-import { getWithDefault, MapWithDefault } from "../MapWithDefault";
+import { MachineLearningColorMode, MachineLearningLabel } from "../data/LabelTypes";
+import { getWithDefault, MapWithDefault } from "../utils/MapWithDefault";
 import { CategoryState, CommonLabelState, ECClassState, ElementState, LabelingWorkflowState, ModelState, PredLabelState, TrueLabelState } from "./LabelingWorkflowState";
 import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "./LabelingWorkflowTypes";
 
 const SELECTION_COUNT_IS_FILTERED = true;
 
 
-/** Contains selectors that derive data from LabelingWorkflowManager's state */
+/** Contains selectors that derive storage from LabelingWorkflowManager's state */
 export class LabelingWorkflowManagerSelectors {
 
-    /** Returns color/alpha data for the feature override provider */
+    /** Returns color/alpha storage for the feature override provider */
     public static elementOverrideData = createSelector(
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.colorMap(state),
@@ -360,7 +360,7 @@ export class LabelingWorkflowManagerSelectors {
         }
     );
 
-    /** Computes data to make a table of models */
+    /** Computes storage to make a table of models */
     public static modelTableData = createSelector(
         (state: LabelingWorkflowState) => state.modelStateMap,
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
@@ -404,7 +404,7 @@ export class LabelingWorkflowManagerSelectors {
         }
     );
 
-    /** Computes data to make a table of categories */
+    /** Computes storage to make a table of categories */
     public static categoryTableData = createSelector(
         (state: LabelingWorkflowState) => state.categoryStateMap,
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
@@ -448,7 +448,7 @@ export class LabelingWorkflowManagerSelectors {
         }
     );
 
-    /** Computes data to make a table of classes */
+    /** Computes storage to make a table of classes */
     public static classTableData = createSelector(
         (state: LabelingWorkflowState) => state.classStateMap,
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
@@ -492,7 +492,7 @@ export class LabelingWorkflowManagerSelectors {
         }
     );
 
-    /** Computes data to make a table of machine learning labels and predictions */
+    /** Computes storage to make a table of machine learning labels and predictions */
     public static mlTableData = createSelector(
         (state: LabelingWorkflowState) => state.trueLabelStateMap,
         (state: LabelingWorkflowState) => state.predLabelStateMap,
@@ -647,7 +647,7 @@ export class LabelingWorkflowManagerSelectors {
                 };
             }
 
-            // Build tree data
+            // Build tree storage
             const treeEntries: LabelTreeEntry[] = [];
             for (const name of rootLabels) {
                 treeEntries.push(_recurse(name));

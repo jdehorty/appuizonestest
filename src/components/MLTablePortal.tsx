@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
-import {LabelingApp} from "../LabelingApp";
+import {LabelerState} from "../store/LabelerState";
 import {ConnectedMLTableComponent} from "./ConnectedMLTable";
 
 interface Props {
@@ -83,7 +83,7 @@ export default class MLTablePortal extends React.Component<Props, State> {
 
         let wrappedWidget =
             <div>
-                <Provider store={LabelingApp.store}>
+                <Provider store={LabelerState.store}>
                     <ConnectedMLTableComponent />
                 </Provider>
             </div>;

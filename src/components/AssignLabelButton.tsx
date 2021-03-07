@@ -12,7 +12,7 @@ export interface AssignLabelButtonProps<ItemT> {
 export class AssignLabelButton<ItemT> extends React.PureComponent<AssignLabelButtonProps<ItemT>> {
 
     public render() {
-        let title = IModelApp.i18n.translate("LabelingApp:assignLabel");
+        let title = IModelApp.i18n.translate("LabelerState:assignLabel");
         title += ": ";
         title += (this.props.label ? this.props.label : "");
         return <>

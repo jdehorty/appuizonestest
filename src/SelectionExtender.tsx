@@ -76,8 +76,6 @@ export class SelectionExtender {
     }
 
     private static async _findSimilarElements(imodel: IModelConnection, singleKey: InstanceKey): Promise<KeySet> {
-        // const idSet: Id64Set = new Set<Id64String>();
-        // const keySet: InstanceKey[] = [];
         const keySet: KeySet = new KeySet();
 
         // Build ECSql Statement
@@ -135,7 +133,6 @@ export class SelectionExtender {
             }
         }
         const extraConditions = conditions.length > 0 ?
-            // `(${conditions.join(`) ${this.state.config.rule.operator} (`)})`
             conditions.join(` ${this.state.config.rule.operator} `)
             : undefined;
 
@@ -161,8 +158,6 @@ export class SelectionExtender {
             stmt += ` ORDER BY RANDOM() LIMIT ${this.state.config.maxCountValue}`
         }
         stmt += ";";
-
-        console.log(stmt);
 
         // Query with statement
         for await (const row of imodel.query(stmt)) {
@@ -210,11 +205,7 @@ export class SelectionExtender {
                     newFoundCount: keySet.size,
                 });
             });
-
-
-
         }
-
     }
 
     public static resetSelection(): void {

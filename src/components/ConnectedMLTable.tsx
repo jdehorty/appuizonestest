@@ -1,5 +1,5 @@
 import {MLStateTableDataItem, LabelTreeEntry} from "../store/LabelingWorkflowTypes";
-import {MachineLearningColorMode, MachineLearningLabel} from "../MachineLearningLabelSource";
+import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../LabelingWorkflowManager";
 import {Dispatch} from "react";

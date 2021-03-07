@@ -43,8 +43,8 @@ export async function uploadBlobAsString(
 // async function streamToString(readableStream: NodeJS.ReadableStream) {
 //     return new Promise((resolve, reject) => {
 //         const chunks: string[] = [];
-//         readableStream.on("data", (data) => {
-//             chunks.push(data.toString());
+//         readableStream.on("storage", (storage) => {
+//             chunks.push(storage.toString());
 //         });
 //         readableStream.on("end", () => {
 //             resolve(chunks.join(""));

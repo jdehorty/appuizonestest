@@ -10,15 +10,15 @@ import AuthorizationClient from "./AuthorizationClient";
 import {Header} from "./Header";
 import {LabelerUiProvider} from "./LabelerUiProvider";
 
-import {LabelingApp} from "./LabelingApp";
+import {LabelerState} from "./store/LabelerState";
 
 import {SelectionExtender} from "./SelectionExtender";
 
 import {Presentation} from "@bentley/presentation-frontend";
-import {SetupConfigEnv} from "./config/configuration";
+import {SetupConfigFromEnv} from "./config/configuration";
 import {Config} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
-import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./BlobLabelSources";
+import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./data/BlobLabelSources";
 
 // import { UiItemsManager } from "@bentley/ui-abstract";
 // import { LabelerUiProvider } from "./sampleFrontstageProvider";
@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         const initOidc = async () => {
-            SetupConfigEnv(102);
+            SetupConfigFromEnv(102);
 
             if (!AuthorizationClient.oidcClient) {
                 await AuthorizationClient.initializeOidc();
@@ -153,8 +153,8 @@ const App: React.FC = () => {
 
         const initPromises: Promise<void>[] = [];
 
-        initPromises.push(SelectionExtender.initialize(LabelingApp.store, IModelApp.i18n, "selectionExtenderState"));
-        initPromises.push(LabelingWorkflowManager.initialize(LabelingApp.store, IModelApp.i18n, "labelingWorkflowManagerState"));
+        initPromises.push(SelectionExtender.initialize(LabelerState.store, IModelApp.i18n, "selectionExtenderState"));
+        initPromises.push(LabelingWorkflowManager.initialize(LabelerState.store, IModelApp.i18n, "labelingWorkflowManagerState"));
         initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
 
         Promise.all(initPromises).then(

@@ -6,7 +6,7 @@ export class MapWithDefault<KeyT, ValueT> extends Map<KeyT, ValueT> {
         else
             return super.get(key)!;
     }
-    private default: () => ValueT;
+    private readonly default: () => ValueT;
     constructor(defaultFunction: () => ValueT, entries?: Iterable<readonly [KeyT, ValueT]>) {
         if (entries !== undefined) {
             super(entries);

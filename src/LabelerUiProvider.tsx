@@ -4,19 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 
 import {
-    AbstractWidgetProps, CommonStatusBarItem,
+    AbstractWidgetProps,
     StagePanelLocation,
-    StagePanelSection, StageUsage, StatusBarSection,
+    StagePanelSection,
     UiItemsProvider,
 } from "@bentley/ui-abstract";
 
 import React from "react";
 
-import {ConnectedSelectionHelperComponent, SelectionExtender} from "./SelectionExtender";
+import {ConnectedSelectionHelperComponent} from "./SelectionExtender";
 import {ConnectedMLTableComponent} from "./components/ConnectedMLTable";
 
 import {Provider} from 'react-redux';
-import {LabelingApp} from "./LabelingApp";
+import {LabelerState} from "./store/LabelerState";
 import {ConnectedCycleElementComponent} from "./components/ConnectedCycleElements";
 
 
@@ -31,7 +31,7 @@ export class LabelerUiProvider implements UiItemsProvider {
                     id: "selectionExtenderId",
                     label: "Selection Extender",
                     getWidgetContent: () =>
-                        <Provider store={LabelingApp.store}>
+                        <Provider store={LabelerState.store}>
                             <ConnectedSelectionHelperComponent/>
                         </Provider>
                 });
@@ -41,7 +41,7 @@ export class LabelerUiProvider implements UiItemsProvider {
                     id: "MLAuditId",
                     label: "ML Audit",
                     getWidgetContent: () =>
-                        <Provider store={LabelingApp.store}>
+                        <Provider store={LabelerState.store}>
                             <ConnectedCycleElementComponent />
                             <ConnectedMLTableComponent />
                         </Provider>

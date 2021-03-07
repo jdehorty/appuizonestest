@@ -4,7 +4,7 @@ import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
 
 /** GroupVisiblityButton properties */
-export interface AppearanceBatchToggleComponentProps<ItemT> {
+export interface AppearanceBatchToggleComponentProps {
     /** Label for flyover (not translated internally) */
     label?: string;
     /** Set if transparency is available */
@@ -22,7 +22,7 @@ export interface AppearanceBatchToggleComponentProps<ItemT> {
 }
 
 /** Button that shows/changes the visibility status of a group of items (that may have different statuses) */
-export class AppearanceBatchToggleComponent<ItemT> extends React.PureComponent<AppearanceBatchToggleComponentProps<ItemT>> {
+export class AppearanceBatchToggleComponent extends React.PureComponent<AppearanceBatchToggleComponentProps> {
     public render() {
         let newVisible: boolean;
         let newTransparent: boolean;
@@ -56,7 +56,7 @@ export class AppearanceBatchToggleComponent<ItemT> extends React.PureComponent<A
             newTransparent = false;
         }
 
-        let title = IModelApp.i18n.translate(newVisible ? "LabelingApp.show" : "LabelingApp.hide");
+        let title = IModelApp.i18n.translate(newVisible ? "LabelerState.show" : "LabelerState.hide");
         title += ": ";
         title += (this.props.label ? this.props.label : "");
         return <>

@@ -1,7 +1,7 @@
 import { INITIAL_STATE, LabelingWorkflowState, ElementState, ModelState, CategoryState, ECClassState, PredLabelState, TrueLabelState, CommonLabelState } from "./LabelingWorkflowState";
 import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./LabelingWorkflowActions";
 import { Id64String } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel } from "../MachineLearningLabelSource";
+import { MachineLearningLabel } from "../data/LabelTypes";
 
 const MAX_UNDO = 10;
 

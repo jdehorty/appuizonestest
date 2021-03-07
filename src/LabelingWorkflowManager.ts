@@ -5,8 +5,8 @@ import { I18N } from "@bentley/imodeljs-i18n";
 import { KeySet } from "@bentley/presentation-common";
 import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@bentley/presentation-frontend";
 import { Store } from "redux";
-import { MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface } from "./MachineLearningLabelSource";
-import { getWithDefault } from "./MapWithDefault";
+import { MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface } from "./data/LabelTypes";
+import { getWithDefault } from "./utils/MapWithDefault";
 import { keySetToId64Set } from "./utils/SelectionUtils";
 import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./store/LabelingWorkflowActions";
 import { LabelingWorflowOverrideElements } from "./LabelingWorkflowOverrideElements";
@@ -64,7 +64,7 @@ export class LabelingWorkflowManager {
 
     /**
      * Fills element state map using ECSQL results
-     * Excludes machine learning data which must be added later to the map entries.
+     * Excludes machine learning storage which must be added later to the map entries.
      * @internal
      */
     private static async _fillElementStateMap(

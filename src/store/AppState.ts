@@ -30,9 +30,6 @@ export class AppState {
     private _store: AppStore;
     private _rootReducer: any;
 
-
-
-
     constructor() {
         // this is the rootReducer for the sample application.
         this._rootReducer = combineReducers<RootState>({

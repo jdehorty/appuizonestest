@@ -1,35 +1,13 @@
 import { Id64String, Id64Arg } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 
-// export enum MachineLearningLabelType {
-//     ModelOutput,
-//     UserSpecification,
-// };
-// export interface SingleInstanceLabel {
-//     elementId: Id64String;
-//     label: MachineLearningLabel;
-//     labelActivations?: Array<LabelActivation>;
-// }
-// export interface LabelData {
-//     instanceMap: Map<Id64String, SingleInstanceLabel>;
-//     labelType: MachineLearningLabelType;
-// }
-// export interface ILabelDataSource {
-//     download(): Promise<LabelData | undefined>;
-//     upload(predictions: LabelData): Promise<boolean>;
-//     newEmptyData(): LabelData;
-// }
-// export interface ILabelDefinitionSource {
-//     download(): Promise<LabelDefinitions | undefined>;
-// }
-
 export enum MachineLearningColorMode {
     Native = "MachineLearning:colorMode.native",
     LabelColors = "MachineLearning:colorMode.labelColors",
     PredictionColors = "MachineLearning:colorMode.predictionColors",
     ConfusionsWithLabelColors = "MachineLearning:colorMode.confusionsWithLabelColors",
     ConfusionsWithPredictionColors = "MachineLearning:colorMode.confusionsWithPredictionColors",
-};
+}
 
 export type MachineLearningLabel = string;
 

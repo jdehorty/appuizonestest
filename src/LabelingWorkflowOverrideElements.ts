@@ -73,7 +73,7 @@ export class LabelingWorflowOverrideElements implements FeatureOverrideProvider 
 
     }
 
-    /** Set data to compute overrides */
+    /** Set storage to compute overrides */
     public setElementData(data: MachineLearningElementOverrideData[]): void {
         this.data = data;
         const hiddenSet = new Set<Id64String>();

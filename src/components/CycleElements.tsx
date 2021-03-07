@@ -1,13 +1,7 @@
-/*---------------------------------------------------------------------------------------------
-* Copyright (c) Bentley Systems, Incorporated. All rights reserved.
-* See LICENSE.md in the project root for license terms and full copyright notice.
-*--------------------------------------------------------------------------------------------*/
-
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
+import {Button, Icon, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
-import {useState} from "react";
 import MLTablePortal from "./MLTablePortal";
 
 export interface CycleElementComponentProps {
@@ -107,7 +101,7 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                             <td>
                                 <div className="cycler-progress">
                                     <div
-                                        className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>
+                                        className="cycler-title">{IModelApp.i18n.translate("LabelerState:cycler.cyclingTitle")}</div>
                                     <div className="cycler-value">
                                         {this.props.cycleIndex !== undefined && <>
                                             {`${this.props.cycleIndex! + 1}`}

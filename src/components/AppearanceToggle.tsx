@@ -35,19 +35,19 @@ export class AppearanceToggleComponent<ItemT> extends React.PureComponent<Appear
                 newVisible = false;
                 newTransparent = false;
             }
-            actionI18nKey = "LabelingApp:makeTransparent";
+            actionI18nKey = "LabelerState:makeTransparent";
             buttonClassName = "sstc-visibility-button on";
             iconSpec = "icon-visibility";
         } else if (this.props.visible && this.props.transparent) {
             newVisible = false;
             newTransparent = false;
-            actionI18nKey = "LabelingApp:hide";
+            actionI18nKey = "LabelerState:hide";
             buttonClassName = "sstc-visibility-button transparent";
             iconSpec = "icon-isolate";
         } else {
             newVisible = true;
             newTransparent = false;
-            actionI18nKey = "LabelingApp:show";
+            actionI18nKey = "LabelerState:show";
             buttonClassName = "sstc-visibility-button off";
             iconSpec = "icon-visibility-hide-2";
         }

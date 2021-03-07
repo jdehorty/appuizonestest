@@ -1,5 +1,5 @@
 import { Id64String, Id64Array, Id64Set } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "../MachineLearningLabelSource";
+import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 
@@ -64,14 +64,14 @@ export interface ElementState {
     trueLabel: MachineLearningLabel;
     /** The machine learning prediction associated with the element */
     predLabel: MachineLearningLabel;
-    /** Auxiliary data */
+    /** Auxiliary storage */
     auxData: any;
 }
 
 
 /** LabelingWorkflowManager state layout */
 export interface LabelingWorkflowState {
-    /** True if data has finished loading */
+    /** True if storage has finished loading */
     ready: boolean;
     /** State map for models */
     modelStateMap: Map<Id64String, ModelState>;
