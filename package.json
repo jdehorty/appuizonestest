@@ -58,12 +58,18 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "remote-redux-devtools": "^0.5.16"
+    "babel-jest": "^26.6.3",
+    "chai": "^4.3.3",
+    "chai-jest": "^1.0.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "remote-redux-devtools": "^0.5.16",
+    "ts-jest": "^26.5.3"
   },
   "scripts": {
     "start": "set port=3000 && react-scripts --max_old_space_size=4096 start",
     "build": "react-scripts --max_old_space_size=4096 build",
-    "test": "react-scripts --max_old_space_size=4096 test",
+    "test": "react-scripts --max_old_space_size=4096 test jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
