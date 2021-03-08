@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
 import {LabelerState} from "../store/LabelerState";
 import {ConnectedMLTableComponent} from "./ConnectedMLTable";
-import {copyStyles} from "../utils/CopyFiles";
+import {copyStyles} from "../utils/CopyStyles";
 
 interface Props {
     title: string;                          // The title of the popout window
