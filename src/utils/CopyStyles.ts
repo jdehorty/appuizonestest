@@ -27,6 +27,6 @@ export function copyStyles(targetDoc: Document, srcDoc: Document = document) {
     });
 }
 
-export function generateText() {
-    return "hello Leela"
+export function greeting() {
+    return "hello world"
 }
