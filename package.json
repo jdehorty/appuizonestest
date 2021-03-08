@@ -46,6 +46,7 @@
     "@types/remote-redux-devtools": "^0.5.4",
     "@typescript-eslint/eslint-plugin": "2.x",
     "history": "^4.10.1",
+    "jsdom": "^16.5.0",
     "node-sass": "^4.14.1",
     "oidc-client": "^1.11.3",
     "react": "^16.13.1",
@@ -57,7 +58,6 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "jest": "^26.6.3",
     "remote-redux-devtools": "^0.5.16"
   },
   "scripts": {
