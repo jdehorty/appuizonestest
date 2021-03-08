@@ -11,6 +11,8 @@
 # production
 /build
 /.idea
+.run
+.run/*
 
 # misc
 .DS_Store
