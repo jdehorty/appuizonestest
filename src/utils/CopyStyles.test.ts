@@ -51,17 +51,6 @@ describe('target receives the source styles when', () => {
         const srcLength = sourceDom.window.document.styleSheets.length;
         const targetLength = targetDom.window.document.styleSheets.length;
         expect(srcLength).toBe(targetLength);
-
-
-
-        // Now that we know we have the same number of stylesheets, check to
-        // see if each stylesheet (src and target) have the same count of styles.
-        // <Add code here>
-
-        // Now check to see if src style color matches target style color.
-        // <Add code here>
-
-
     });
 });
 
