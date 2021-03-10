@@ -2,7 +2,7 @@ import {Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {ColorPickerButton} from "@bentley/ui-components";
-import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType} from "@bentley/ui-core";
+import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStyles.scss';
@@ -154,19 +154,25 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
                 const predDisplayedCount = anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
-                if (this.state.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
+                const activeCaret = isExpanded? "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z"
+                    :    "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
 
+                if (this.state.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td" style={{whiteSpace: "nowrap"}}>
                                 <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
                                 <Button
-                                    className="mltc-expand-button" style={{minWidth: 80, maxWidth: 80}}
+                                    className="mltc-expand-button"
+                                    style={{minWidth: 26, maxWidth: 28}}
                                     onClick={() => {
                                         this.props.onLabelExpandStateChange(!isExpanded, item.name);
                                     }}
                                 >
-                                    <Icon iconSpec={iconClass}/>
+                                    {/*<Icon iconSpec={iconClass}/>*/}
+                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
+                                        activeCaret
+                                    ]}/>
                                 </Button>
                                 <div className="mltc-label-container">
                                     {i18nName}
@@ -245,6 +251,10 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             );
         }
 
+        let headerStyle = {
+            backgroundColor: "#ddd"
+        }
+
         return <>
             {/*<div className="sstc-storage-header">*/}
             {/*    <table className="sstc-cycler-table">*/}
@@ -285,9 +295,9 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             {/*</div>*/}
 
             <div className="sstc-data-container">
-                <table className="sstc-data-table">
-                    <thead>
-                    <tr>
+                <table className="sstc-data-table" style={{width: "100%"}}>
+                    <thead style={{width: "100%"}}>
+                    <tr style={headerStyle}>
                         <th className="mltc-name-th">Name</th>
                         <th className="mltc-label-th">Label</th>
                         <th className="mltc-prediction-th">Prediction</th>
