@@ -4,7 +4,7 @@ import { createSelector } from "reselect";
 import { MachineLearningColorMode, MachineLearningLabel } from "../data/LabelTypes";
 import { getWithDefault, MapWithDefault } from "../utils/MapWithDefault";
 import { CategoryState, CommonLabelState, ECClassState, ElementState, LabelingWorkflowState, ModelState, PredLabelState, TrueLabelState } from "./LabelingWorkflowState";
-import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "./LabelingWorkflowTypes";
+import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeNode } from "./LabelingWorkflowTypes";
 
 const SELECTION_COUNT_IS_FILTERED = true;
 
@@ -617,7 +617,7 @@ export class LabelingWorkflowManagerSelectors {
         (
             /** Common label state map */
             commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
-        ): LabelTreeEntry[] => {
+        ): LabelTreeNode[] => {
 
             // Find root-level labels
             const rootLabels: Array<MachineLearningLabel> = [];
@@ -630,12 +630,12 @@ export class LabelingWorkflowManagerSelectors {
             // Keep track of seen labels to detect loops
             const seenLabels = new Set<MachineLearningLabel>();
 
-            const _recurse = (name: MachineLearningLabel, level: number = 0): LabelTreeEntry => {
+            const _recurse = (name: MachineLearningLabel, level: number = 0): LabelTreeNode => {
                 if (seenLabels.has(name)) {
                     throw new Error("Label graph/tree must be acyclical");
                 }
                 seenLabels.add(name);
-                const childEntries: LabelTreeEntry[] = [];
+                const childEntries: LabelTreeNode[] = [];
                 for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
                     childEntries.push(_recurse(child, level + 1));
                 }
@@ -648,7 +648,7 @@ export class LabelingWorkflowManagerSelectors {
             }
 
             // Build tree storage
-            const treeEntries: LabelTreeEntry[] = [];
+            const treeEntries: LabelTreeNode[] = [];
             for (const name of rootLabels) {
                 treeEntries.push(_recurse(name));
             }

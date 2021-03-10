@@ -1,19 +1,19 @@
-import {MLStateTableDataItem, LabelTreeEntry} from "../store/LabelingWorkflowTypes";
+import {MLStateTableDataItem, LabelTreeNode} from "../store/LabelingWorkflowTypes";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../LabelingWorkflowManager";
 import {Dispatch} from "react";
 import {connect} from "react-redux";
-import {MLStateTableComponent} from "./MLStateTable";
+import MLStateTableComponent from "./MLStateTable";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../store/LabelingWorkflowActions";
 
-interface StateFromProps3 {
+interface StateFromProps {
     ready: boolean;
     itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
-    labelTree: LabelTreeEntry[];
+    labelTree: LabelTreeNode[];
     canUndo: boolean;
     canRedo: boolean;
     availableColorModes: MachineLearningColorMode[];
@@ -21,13 +21,11 @@ interface StateFromProps3 {
     isDirty: boolean;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
-
     onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
-
     onSave(): void;
 }
 
-interface DispatchFromProps3 {
+interface DispatchFromProps {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
 
     onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
@@ -47,7 +45,7 @@ interface DispatchFromProps3 {
     onSwapTruePredDisplay(): void;
 }
 
-function mapStateToProps3(rootState: any): StateFromProps3 {
+function mapStateToProps(rootState: any): StateFromProps {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
     // console.log('reached mapStateToProps3');
     if (!state) {
@@ -74,7 +72,7 @@ function mapStateToProps3(rootState: any): StateFromProps3 {
     };
 }
 
-function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>): DispatchFromProps3 {
+function mapDispatchToProps(dispatch: Dispatch<LabelingWorkflowManagerAction>): DispatchFromProps {
     return {
         onLabelExpandStateChange: (newExpanded: boolean, name: MachineLearningLabel) => {
             dispatch({
@@ -136,7 +134,7 @@ function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>):
     };
 }
 
-export const ConnectedMLTableComponent = connect<StateFromProps3, DispatchFromProps3>(mapStateToProps3, mapDispatchToProps3)(MLStateTableComponent);
+export const ConnectedMLTableComponent = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(MLStateTableComponent)
 
 
 

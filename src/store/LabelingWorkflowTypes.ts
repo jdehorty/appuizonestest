@@ -12,14 +12,14 @@ export interface SimpleStateTableDataItem {
     selectedCount: number;
 }
 
-export interface LabelTreeEntry {
+export interface LabelTreeNode {
     name: MachineLearningLabel;
     isExpanded: boolean;
     level: number;
-    children: LabelTreeEntry[];
+    children: LabelTreeNode[];
 }
 
-export interface MLStateTableDataItem {
+export type MLStateTableDataItem = {
     name: MachineLearningLabel;
     color: ColorDef;
 
