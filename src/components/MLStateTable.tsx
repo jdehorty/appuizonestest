@@ -140,15 +140,6 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
             if (!onlyShowPresent || FORCE_ALL || item.hasData) {
 
-                let iconClass = "icon-line";
-                if (hasChildren) {
-                    if (isExpanded) {
-                        iconClass = "icon-caret-down";
-                    } else {
-                        iconClass = "icon-caret-right";
-                    }
-                }
-
                 const i18nName = IModelApp.i18n.translate(item.name);
 
                 const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
@@ -256,44 +247,6 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
 
         return <>
-            {/*<div className="sstc-storage-header">*/}
-            {/*    <table className="sstc-cycler-table">*/}
-            {/*        <tbody>*/}
-            {/*        <tr>*/}
-            {/*            <td>*/}
-            {/*                <Button*/}
-            {/*                    className="sstc-swap-button"*/}
-            {/*                    buttonType={ButtonType.Blue}*/}
-            {/*                    onClick={this.props.onSwapTruePredDisplay}*/}
-            {/*                >*/}
-            {/*                    <Icon iconSpec="icon-isolate"/>*/}
-            {/*                </Button>*/}
-            {/*            </td>*/}
-
-            {/*            <td>*/}
-            {/*                <div className="vertical-rule"/>*/}
-            {/*            </td>*/}
-
-            {/*            <td>*/}
-            {/*                <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onBackward(-1)}><Icon iconSpec="icon-media-controls-frame-backward" /></Button>*/}
-            {/*                <div className="cycler-progress">*/}
-            {/*                    <div className="cycler-title">{IModelApp.i18n.translate("LabelerState:cycler.cyclingTitle")}</div>*/}
-            {/*                    /!*<div className="cycler-value">*!/*/}
-            {/*                    /!*    {this.props.cycleIndex !== undefined && <>*!/*/}
-            {/*                    /!*        {`${this.props.cycleIndex! + 1}`}*!/*/}
-            {/*                    /!*        &nbsp;/&nbsp;*!/*/}
-            {/*                    /!*    </>}*!/*/}
-            {/*                    /!*    {`${this.props.cycleSetSize!}`}*!/*/}
-            {/*                    /!*</div>*!/*/}
-            {/*                </div>*/}
-            {/*                <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onForward(1)}><Icon iconSpec="icon-media-controls-frame-forward" /></Button>*/}
-            {/*            </td>*/}
-            {/*        </tr>*/}
-            {/*        </tbody>*/}
-            {/*    </table>*/}
-            {/*    <hr/>*/}
-            {/*</div>*/}
-
             <div className="sstc-data-container">
                 <table className="sstc-data-table" style={{width: "100%"}}>
                     <thead style={{width: "100%"}}>
@@ -363,13 +316,6 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                     </tbody>
                 </table>
             </div>
-            {/* <div className="sstc-options-container">
-                <LabeledToggle
-                    label="Filter Empty Rows"
-                    isOn={this.state.filterEmptyRows}
-                    onChange={this.handleToggleFilter}
-                />
-            </div> */}
             <div className="sstc-color-mode-container">
                 <label className="sstc-color-mode-label">
                     {IModelApp.i18n.translate("LabelerState:colorMode")}
