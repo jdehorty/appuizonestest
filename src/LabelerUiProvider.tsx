@@ -21,7 +21,7 @@ import {ConnectedCycleElementComponent} from "./components/ConnectedCycleElement
 
 
 export class LabelerUiProvider implements UiItemsProvider {
-    public readonly id = "TestUiProvider";
+    public readonly id = "LabelerUiProvider";
 
     public provideWidgets(stageId: string, _stageUsage: string, location: StagePanelLocation, _section?: StagePanelSection | undefined): ReadonlyArray<AbstractWidgetProps> {
         const widgets: AbstractWidgetProps[] = [];
