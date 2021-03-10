@@ -100,7 +100,6 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
 
 
 
-        //{ label: "MachineLearning:label.classified", legacyName: "Misclassified", parentLabel: "MachineLearning:label.classified", defaultColor: ColorDef.from(0, 255, 0) },
         { label: this.UNLABELED, legacyName: "Unlabeled", parentLabel: this.UNLABELED, defaultColor: ColorDef.from(255, 255, 255) },
     ];
 

@@ -39,20 +39,6 @@ export async function uploadBlobAsString(
     return response.requestId !== undefined;
 }
 
-// // A helper method used to read a Node.js readable stream into string
-// async function streamToString(readableStream: NodeJS.ReadableStream) {
-//     return new Promise((resolve, reject) => {
-//         const chunks: string[] = [];
-//         readableStream.on("storage", (storage) => {
-//             chunks.push(storage.toString());
-//         });
-//         readableStream.on("end", () => {
-//             resolve(chunks.join(""));
-//         });
-//         readableStream.on("error", reject);
-//     });
-// }
-
 // [Browsers only] A helper method used to convert a browser Blob into string.
 async function blobToString(blob: Blob): Promise<string> {
     const fileReader = new FileReader();

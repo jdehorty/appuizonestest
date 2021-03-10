@@ -42,10 +42,6 @@ export class LabelingWorflowOverrideElements implements FeatureOverrideProvider 
     /** The overrides applied to the tiles from the *secondary* IModelConnection, to draw only deleted elements. */
     private initOverrides(): FeatureSymbology.Overrides {
         const ovrs = new FeatureSymbology.Overrides(this.viewport);
-        // ovrs.neverDrawn.clear();
-        // ovrs.alwaysDrawn.clear();
-        // ovrs.setAlwaysDrawnSet(this.deletedElems, true, false); // really "only-drawn" - only draw our deleted elements - unless their subcategory is turned off.
-        // ovrs.setDefaultOverrides(this._defaultAppearance!);
         return ovrs;
     }
 

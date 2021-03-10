@@ -20,10 +20,8 @@ export function copyStyles(targetDoc: Document, sourceDoc: Document = document) 
             });
             targetDoc.head.appendChild(newStyleElement);
             if(targetDoc.styleSheets.length == 332) {
-                // console.log(targetDoc.head.innerText)
                 console.log(sourceDoc.head.innerText)
             }
-            // console.log(`targetDoc is: ${targetDoc.styleSheets.length}/${sourceDoc.styleSheets.length}`);
         }
     });
 }

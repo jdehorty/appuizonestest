@@ -49,17 +49,9 @@ const App: React.FC = () => {
             }
         };
         initOidc().catch((error) => console.error(error));
-        // console.log("ue1.A Completed oidc.Init");
-        // console.log("ue1.B sLoggingIn => " + isLoggingIn);
-        // console.log("ue1.C isAuthorized => " + isAuthorized);
-        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-        // console.log("1B. buddi (with region) setting is => " + buddiRegion);
     }, []);
 
-    // console.log("useEffect #2");
     useEffect(() => {
-        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-        // console.log("2. buddi (with region) setting is => " + buddiRegion);
         if (!process.env.IMJS_CONTEXT_ID) {
             throw new Error(
                 "Please add a valid context ID in the .env file and restart the application"
@@ -71,32 +63,18 @@ const App: React.FC = () => {
             );
         }
 
-        // console.log("IMJS_CONTEXT_ID =>" + process.env.IMJS_CONTEXT_ID);
-        // console.log("IMJS_IMODEL_ID =>" + process.env.IMJS_IMODEL_ID);
 
     }, []);
 
 
-    // console.log("useEffect #3");
     useEffect(() => {
-        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-        // console.log("3. buddi (with region) setting is => " + buddiRegion);
         if (isLoggingIn && isAuthorized) {
             setIsLoggingIn(false);
         }
     }, [isAuthorized, isLoggingIn]);
 
-    // console.log("useEffect #4");
     useEffect(() => {
-        // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-        // console.log("4. buddi (with region) setting is => " + buddiRegion);
-        // console.log("ue4.B sLoggingIn => " + isLoggingIn);
-        // console.log("ue4.C isAuthorized => " + isAuthorized);
     }, [isAuthorized, isLoggingIn]);
-
-    // useEffect (() => {
-    //    UiItemsManager.register( new LabelerUiProvider());
-    // }, []);
 
     const onLoginClick = async () => {
         setIsLoggingIn(true);
@@ -122,15 +100,11 @@ const App: React.FC = () => {
             predSuffix: Config.App.getString("mlPredSuffix")
         }
 
-        // console.log("Config => " + JSON.stringify(config))
 
         const labelInterface = new BlobBasedMachineLearningLabelInterface(config);
 
         LabelingWorkflowManager.configureDataSources(labelInterface, imodel);
         await LabelingWorkflowManager.initializeData();
-
-        // LabelManager.configureDataSources(labelInterface, imodel);
-        // await LabelManager.initializeData();
 
         // Hack to transfer mesh ids
         SelectionExtender.auxDataMap = LabelingWorkflowManager.auxDataMap;
@@ -138,8 +112,6 @@ const App: React.FC = () => {
 
     const onIModelConnected = async (connection: any) => {
         console.log("onIModelConnected invoked");
-        // console.log("IModelApp.isInitialized => " + IModelApp.initialized);
-        // console.log("connection =>" + JSON.stringify(connection));
 
         try {
             await Presentation.initialize({
@@ -149,7 +121,6 @@ const App: React.FC = () => {
         } catch (error) {
         }
 
-        // console.log("Presentation initialized");
 
         const initPromises: Promise<void>[] = [];
 
@@ -177,14 +148,6 @@ const App: React.FC = () => {
             // setReadyForPopup(true);
         });
     }
-
-
-    // const onIModelAppInit = async () => {
-    //     console.log("onIModelAppInit invoked");
-
-    //     const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-    //     console.log("9. buddi (with region) setting is => " + buddiRegion);
-    // }
 
     return (
         <div>

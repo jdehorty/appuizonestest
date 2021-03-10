@@ -29,17 +29,14 @@ export class SelectionHelperComponent extends React.Component<SelectionExtenderC
     constructor(props: SelectionExtenderComponentProps) {
         super(props);
         this.state = {
-            // maxDistString: props.config? props.config.maxDistValue.toString() : "",
         };
     }
 
-    // private handleFieldCheckboxClicked = (i: number) => (checked: boolean): void => {
     private handleFieldCheckboxClicked = (i: number) => (event: React.MouseEvent<HTMLInputElement, MouseEvent>): void => {
         if (this.props.config === undefined) {
             return;
         }
         const newChildRules = Array.from(this.props.config.rule.childRules);
-        // newChildRules[i].wanted = checked;
         newChildRules[i].wanted = !newChildRules[i].wanted;
         this.props.onConfigChanged({
             ...this.props.config,
@@ -120,11 +117,6 @@ export class SelectionHelperComponent extends React.Component<SelectionExtenderC
 
 
         const singleId = this.props.singleId;
-
-        // console.log('props.config => ' + JSON.stringify(this.props.config));
-        // console.log('state => ' + JSON.stringify(this.state));
-        // //debugger;
-        // console.log("====================================")
 
         // create list of checkboxes
         const checkboxElements: JSX.Element[] = [];
