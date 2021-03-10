@@ -1,5 +1,5 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, Icon, ButtonType} from "@bentley/ui-core";
+import {Button, Icon, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
 import MLTablePortal from "./MLTablePortal";
@@ -78,8 +78,15 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                 <Button
                                     className="sstc-isolate-button"
                                     buttonType={ButtonType.Hollow}
+                                    style={{minWidth:24, maxWidth:24}}
                                 >
-                                    <Icon iconSpec="icon-isolate"/>
+                                    {/*<Icon iconSpec="icon-isolate"/>*/}
+                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
+                                        "M2,9h6v6H2",
+                                        "M2,1v6h6V1H2z M7,6H3V2h4V6z",
+                                        "m10 1v6h6v-6h-6m5 5h-4v-4h4v4",
+                                        "m10 9v6h6v-6m-1 5h-4v-4h4"
+                                    ]}/>
                                 </Button>
                             </td>
                             <td>
@@ -88,8 +95,15 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
 
                             <td>
                                 <Button className="cycler-button" disabled={this.props.working || !this.props.ready}
+                                        style = {{minWidth: 26, maxWidth: 28}}
                                         onClick={() => this.props.onBackward(-1)}>
-                                    <Icon iconSpec="icon-media-controls-frame-backward"/>
+                                    {/*<Icon iconSpec="icon-media-controls-frame-backward"/>*/}
+                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
+                                        "m9.2222 4a.76016.76016 0 0 1 .3904.1081.80441.80441 0 0 1 .3874.6919v6.4a.80441" +
+                                        ".80441 0 0 1 -.3874.6919.75908.75908 0 0 1 -.7763.0027l-5.4444-3.2a.8115.8115 0" +
+                                        " 0 1 0-1.3892l5.4444-3.2a.76069.76069 0 0 1 .3859-.1054zm2.7778-1a1 1 0 0 1 1 1" +
+                                        "v8a1 1 0 0 1 -1 1 1 1 0 0 1 -1-1v-8a1 1 0 0 1 1-1z"
+                                    ]}/>
                                 </Button>
 
                                 <Button className="cycler-previous" buttonType={ButtonType.Hollow}>
@@ -118,8 +132,15 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                 </Button>
                                 <Button className="cycler-button"
                                         disabled={this.props.working || !this.props.ready}
+                                        style={{minWidth: 26, maxWidth: 28}}
                                         onClick={() => this.props.onForward(1)}>
-                                    <Icon iconSpec="icon-media-controls-frame-forward"/>
+                                    {/*<Icon iconSpec="icon-media-controls-frame-forward"/>*/}
+                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
+                                        "m6.7778 4a.76016.76016 0 0 0 -.3904.1081.80441.80441 0 0 0 -.3874.6919v6.4a.804" +
+                                        "41.80441 0 0 0 .3874.6919.75908.75908 0 0 0 .7763.0027l5.4444-3.2a.8115.8115 0 " +
+                                        "0 0 0-1.3892l-5.4444-3.2a.76069.76069 0 0 0 -.3859-.1054zm-2.7778-1a1 1 0 0 0 " +
+                                        "-1 1v8a1 1 0 0 0 1 1 1 1 0 0 0 1-1v-8a1 1 0 0 0 -1-1z"
+                                    ]}/>
                                 </Button>
                             </td>
 

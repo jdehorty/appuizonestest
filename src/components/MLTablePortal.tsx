@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import {LabelerState} from "../store/LabelerState";
 import {ConnectedMLTableComponent} from "./ConnectedMLTable";
 import {copyStyles} from "../utils/CopyStyles";
+import {ConnectedCycleElementComponent} from "./ConnectedCycleElements";
 
 interface Props {
     title: string;                          // The title of the popout window
@@ -26,7 +27,7 @@ export default class MLTablePortal extends React.Component<Props, State> {
 
     // When we create this component, open a new window
     public componentDidMount() {
-        const features = 'width=800, height=500, left=300, top=200';
+        const features = 'width=1600, height=1000';
         const externalWindow = window.open('', '', features);
 
         let containerElement = null;
@@ -66,7 +67,8 @@ export default class MLTablePortal extends React.Component<Props, State> {
         let wrappedWidget =
             <div>
                 <Provider store={LabelerState.store}>
-                    <ConnectedMLTableComponent/>
+                    <ConnectedCycleElementComponent />
+                    <ConnectedMLTableComponent />
                 </Provider>
             </div>;
 
