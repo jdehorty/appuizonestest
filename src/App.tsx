@@ -39,10 +39,7 @@ const App: React.FC = () => {
             try {
                 // attempt silent signin
                 await AuthorizationClient.signInSilent();
-                // console.log("setting IsAuthorized flag to => " + AuthorizationClient.oidcClient.isAuthorized);
                 setIsAuthorized(AuthorizationClient.oidcClient.isAuthorized);
-                // const buddiRegion = Config.App.getNumber('imjs_buddi_resolve_url_using_region');
-                // console.log("1C. buddi (with region) setting is => " + buddiRegion);
 
             } catch (error) {
                 console.log("ERROR: useEffect #1, during oidc initialization");

@@ -21,7 +21,7 @@ interface MLStateTableComponentState {
     filterEmptyRows: boolean;
 }
 
-export interface MLStateTableComponentProps {
+interface MLStateTableComponentProps {
     ready: boolean;
     itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
