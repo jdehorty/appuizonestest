@@ -651,12 +651,6 @@ export class LabelingWorkflowManager {
 
 }
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 export const AVAILABLE_COLOR_MODES: MachineLearningColorMode[] = [
     MachineLearningColorMode.Native,
     MachineLearningColorMode.LabelColors,
