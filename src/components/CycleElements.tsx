@@ -2,7 +2,7 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, Icon, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
-import MLTablePortal from "./MLTablePortal";
+import MLStateTablePopout from "./MLStateTablePopout";
 
 export interface CycleElementComponentProps {
     ready: boolean;
@@ -42,17 +42,18 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
             readyForPopup: false
         };
 
-        this._onButtonClick = this._onButtonClick.bind(this);
+        this._onPopoutButtonClick = this._onPopoutButtonClick.bind(this);
 
     }
 
-    _onButtonClick = () => {
+    _onPopoutButtonClick = () => {
         this.setState({
-            readyForPopup: true,
+            readyForPopup: true
         });
     }
 
-    _onWindowClose = () => {
+    _onPopoutWindowClosing = () => {
+        console.log("_onPopoutWindowClosing was fired");
         this.setState({
             readyForPopup: false,
         });
@@ -150,13 +151,13 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                             <td>
                                 <Button className="sstc-window-new-button"
                                         buttonType={ButtonType.Hollow}
-                                        onClick={this._onButtonClick}
+                                        onClick={this._onPopoutButtonClick}
                                 >
                                     <Icon iconSpec="icon-window-new"/>
                                 </Button>
 
                                 {
-                                    this.state.readyForPopup && <MLTablePortal title={"ML Audit"} closeWindow={this._onWindowClose}/>
+                                    this.state.readyForPopup && <MLStateTablePopout title={"ML Audit"} closingPopout={this._onPopoutWindowClosing}/>
                                 }
                             </td>
 

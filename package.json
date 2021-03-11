@@ -21,7 +21,7 @@
     "@bentley/itwin-viewer-react": "^5.10.0",
     "@bentley/orbitgt-core": "^2.10.7",
     "@bentley/presentation-common": "^2.10.7",
-    "@bentley/presentation-components": "2.6.0",
+    "@bentley/presentation-components": "2.6.4",
     "@bentley/presentation-frontend": "^2.10.7",
     "@bentley/product-settings-client": "^2.10.7",
     "@bentley/rbac-client": "^2.10.7",
@@ -45,6 +45,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/remote-redux-devtools": "^0.5.4",
     "@typescript-eslint/eslint-plugin": "2.x",
+    "eslint-webpack-plugin": "^2.5.2",
     "history": "^4.10.1",
     "jsdom": "^16.5.0",
     "node-sass": "^4.14.1",
@@ -74,7 +75,24 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app"
+    ],
+      "no-unused-expressions": "off",
+      "no-use-before-define": "off",
+      "@typescript-eslint/no-use-before-define": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.tsx",
+          "*.spec.js",
+          "*.ts"
+        ],
+        "rules": {
+          "no-unused-expressions": "off",
+          "no-use-before-define": "off"
+        }
+      }
     ]
   },
   "browserslist": [
