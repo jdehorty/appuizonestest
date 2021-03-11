@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
 import {LabelerState} from "../store/LabelerState";
@@ -11,19 +11,13 @@ type Props = {
     closingPopout: () => void;              // Callback to notify parent that we are closing the popout
 }
 
-interface State {
-    externalWindow: Window | null;          // The popout window
-    containerElement: HTMLElement | null;   // The root element of the popout window
-}
-
 const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
     const [containerElement, setContainerElement] = useState<HTMLElement | null>(null); // root element
 
     // When we create this component, open a new window
     useEffect(() => {
-        const features = 'width=1600, height=1000';
-        const popout = window.open('', '', features);
+        const popout = window.open('', '', 'width=520, height=720');
 
         let containerElement = null;
         if (popout) {
@@ -43,7 +37,7 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
         setContainerElement(containerElement);
 
-        // componentWillUnmount equivalent 
+        // componentWillUnmount equivalent
         return () => {
             console.log("we reached unmount of MLStateTablePopout");
             if (popout) {
@@ -56,13 +50,13 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
         return null;
     }
 
-    let wrappedWidget =
-        <>
-            <Provider store={LabelerState.store}>
-                <ConnectedCycleElementComponent />
-                <ConnectedMLTableComponent />
-            </Provider>
-        </>;
+    let wrappedWidget = <>
+        <Provider store={LabelerState.store}>
+            <ConnectedCycleElementComponent/>
+            <ConnectedMLTableComponent/>
+        </Provider>
+    </>
+
 
     // Render this component's children into the root element of the popout window
     return ReactDOM.createPortal(wrappedWidget, containerElement);

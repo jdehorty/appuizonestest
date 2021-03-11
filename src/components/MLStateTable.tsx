@@ -21,7 +21,7 @@ interface MLStateTableComponentState {
     filterEmptyRows: boolean;
 }
 
-export interface MLStateTableComponentProps {
+interface MLStateTableComponentProps {
     ready: boolean;
     itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
@@ -248,8 +248,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
         return <>
             <div className="sstc-data-container">
-                <table className="sstc-data-table" style={{width: "100%"}}>
-                    <thead style={{width: "100%"}}>
+                <table className="sstc-data-table" >
+                    <thead >
                     <tr style={headerStyle}>
                         <th className="mltc-name-th">Name</th>
                         <th className="mltc-label-th">Label</th>
