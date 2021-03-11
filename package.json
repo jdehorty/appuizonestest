@@ -74,26 +74,13 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
       "react-app"
     ],
+    "rules": {
       "no-unused-expressions": "off",
       "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.tsx",
-          "*.spec.js",
-          "*.ts"
-        ],
-        "rules": {
-          "no-unused-expressions": "off",
-          "no-use-before-define": "off"
-        }
-      }
-    ]
+    }
   },
   "browserslist": [
     "electron 8.0.0",
