@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 /**
  * Copies the source CSS into the destination
  * @param targetDoc - target document
@@ -19,13 +23,8 @@ export function copyStyles(targetDoc: Document, sourceDoc: Document = document) 
                 newStyleElement.appendChild(sourceDoc.createTextNode(rule.cssText));
             });
             targetDoc.head.appendChild(newStyleElement);
-            if(targetDoc.styleSheets.length == 332) {
-                console.log(sourceDoc.head.innerText)
-            }
         }
     });
 }
 
-export function greeting() {
-    return "hello world"
-}
+

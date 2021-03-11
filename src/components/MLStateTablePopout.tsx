@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
@@ -7,13 +12,13 @@ import {copyStyles} from "../utils/CopyStyles";
 import {ConnectedCycleElementComponent} from "./ConnectedCycleElements";
 
 type Props = {
-    title: string;                          // The title of the popout window
-    closingPopout: () => void;              // Callback to notify parent that we are closing the popout
+    title: string;                  // The title of the popout window
+    closingPopout: () => void;      // Callback to notify parent that we are closing the popout
 }
 
 const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
-    const [containerElement, setContainerElement] = useState<HTMLElement | null>(null); // root element
+    const [containerElement, setContainerElement] = useState<HTMLElement | null>(null);    // root element
 
     // When we create this component, open a new window
     useEffect(() => {
@@ -37,7 +42,7 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
         setContainerElement(containerElement);
 
-        // componentWillUnmount equivalent
+        // hook equivalent of componentWillUnmount
         return () => {
             console.log("we reached unmount of MLStateTablePopout");
             if (popout) {

@@ -171,4 +171,3 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
     }
 
 }
-
