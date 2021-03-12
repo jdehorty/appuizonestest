@@ -34,7 +34,10 @@ export class GroupSelectButtonComponent<ItemT> extends React.PureComponent<Group
                 style={{width: 24, height: 22}}
                 onClick={() => {
                     if (this.props.onClick !== undefined) {
+                        console.log("onClick is defined");
                         this.props.onClick(this.props.itemId);
+                    } else {
+                        console.log("onClick is undefined");
                     }
                 }}
             >
