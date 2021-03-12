@@ -25,7 +25,7 @@ interface StateFromProps3 {
     onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
 
     onSave(): void;
-}
+};
 
 interface DispatchFromProps3 {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
@@ -45,14 +45,12 @@ interface DispatchFromProps3 {
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
 
     onSwapTruePredDisplay(): void;
-}
+};
 
 function mapStateToProps3(rootState: any): StateFromProps3 {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
-    // console.log('reached mapStateToProps3');
+    console.log('mapStateToProps3 => !state is state == ' + JSON.stringify(state));
     if (!state) {
-        console.log('rootState @mapStateToProps3 ==> ' + JSON.stringify(rootState));
-        console.log('stateKey @mapStateToProps3 ==> ' + LabelingWorkflowManager.stateKey)
         throw new Error();
     }
     return {
@@ -134,7 +132,7 @@ function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>):
             });
         },
     };
-}
+};
 
 export const ConnectedMLTableComponent = connect<StateFromProps3, DispatchFromProps3>(mapStateToProps3, mapDispatchToProps3)(MLStateTableComponent);
 
