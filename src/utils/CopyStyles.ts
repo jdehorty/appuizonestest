@@ -19,9 +19,6 @@ export function copyStyles(targetDoc: Document, sourceDoc: Document = document) 
                 newStyleElement.appendChild(sourceDoc.createTextNode(rule.cssText));
             });
             targetDoc.head.appendChild(newStyleElement);
-            if(targetDoc.styleSheets.length == 332) {
-                console.log(sourceDoc.head.innerText)
-            }
         }
     });
 }
