@@ -59,8 +59,6 @@ const App: React.FC = () => {
                 "Please add a valid iModel ID in the .env file and restart the application"
             );
         }
-
-
     }, []);
 
 
@@ -108,8 +106,6 @@ const App: React.FC = () => {
     }
 
     const onIModelConnected = async (connection: any) => {
-        console.log("onIModelConnected invoked");
-
         try {
             await Presentation.initialize({
                 // activeLocale: IModelApp.i18n.languageList()[0],
@@ -124,6 +120,8 @@ const App: React.FC = () => {
         initPromises.push(SelectionExtender.initialize(LabelerState.store, IModelApp.i18n, "selectionExtenderState"));
         initPromises.push(LabelingWorkflowManager.initialize(LabelerState.store, IModelApp.i18n, "labelingWorkflowManagerState"));
         initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
+        initPromises.push(IModelApp.i18n.registerNamespace("LabelingApp").readFinished);
+
 
         Promise.all(initPromises).then(
             () => {

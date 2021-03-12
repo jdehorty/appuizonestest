@@ -116,7 +116,7 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                             <td>
                                 <div className="cycler-progress">
                                     <div
-                                        className="cycler-title">{IModelApp.i18n.translate("LabelerState:cycler.cyclingTitle")}</div>
+                                        className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>
                                     <div className="cycler-value">
                                         {this.props.cycleIndex !== undefined && <>
                                             {`${this.props.cycleIndex! + 1}`}
