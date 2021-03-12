@@ -18,7 +18,7 @@ export class AssignLabelButton<ItemT> extends React.PureComponent<AssignLabelBut
             height: '22px',
             marginTop: '0'
         }
-        let title = IModelApp.i18n.translate("LabelerState:assignLabel");
+        let title = IModelApp.i18n.translate("LabelingApp:assignLabel");
         title += ": ";
         title += (this.props.label ? this.props.label : "");
         return <>

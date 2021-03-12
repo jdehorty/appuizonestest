@@ -18,7 +18,7 @@ type Props = {
 
 /** Button to select an item */
 export const GroupSelectButtonComponent: FC<Props> = (props) => {
-    let title = IModelApp.i18n.translate("LabelerState:select");
+    let title = IModelApp.i18n.translate("LabelingApp:select");
     title += ": ";
     title += (props.label ? props.label : "");
     let className = "sstc-select-button";

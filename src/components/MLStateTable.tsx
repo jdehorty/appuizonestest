@@ -286,7 +286,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     }
                                 }
                             />
-                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelerState.everything")}
+                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
                                                         onClick={() => {
                                                             this.props.onLabelSelectionClick(undefined);
                                                         }}/>
@@ -304,7 +304,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                     }
                                 }
                             />
-                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelerState.everything")}
+                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
                                                         onClick={() => {
                                                             this.props.onPredictionSelectionClick(undefined);
                                                         }}/>
@@ -318,7 +318,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             </div>
             <div className="sstc-color-mode-container">
                 <label className="sstc-color-mode-label">
-                    {IModelApp.i18n.translate("LabelerState:colorMode")}
+                    {IModelApp.i18n.translate("LabelingApp:colorMode")}
                     <select
                         className="sstc-color-mode-select"
                         value={this.props.currentColorMode}
