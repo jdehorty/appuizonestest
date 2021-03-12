@@ -1,5 +1,5 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, Icon, ButtonType, SvgPath} from "@bentley/ui-core";
+import {Button, Icon, ButtonType,  Spinner, SpinnerSize, LabeledToggle, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
 import MLStateTablePopout from "./MLStateTablePopout";
@@ -29,7 +29,7 @@ export interface CycleElementComponentProps {
 }
 
 interface CycleElementComponentState {
-    readyForPopup: boolean;
+    readyForPopout: boolean;
 }
 
 
@@ -39,7 +39,7 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
         super(props);
 
         this.state = {
-            readyForPopup: false
+            readyForPopout: false
         };
 
         this._onPopoutButtonClick = this._onPopoutButtonClick.bind(this);
@@ -48,14 +48,14 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
 
     _onPopoutButtonClick = () => {
         this.setState({
-            readyForPopup: true
+            readyForPopout: true
         });
     }
 
     _onPopoutWindowClosing = () => {
         console.log("_onPopoutWindowClosing was fired");
         this.setState({
-            readyForPopup: false,
+            readyForPopout: false,
         });
     }
 
@@ -76,77 +76,60 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                         <tbody>
                         <tr>
                             <td>
-                                <Button
-                                    className="sstc-isolate-button"
-                                    buttonType={ButtonType.Hollow}
-                                    style={{minWidth:24, maxWidth:24}}
-                                >
-                                    {/*<Icon iconSpec="icon-isolate"/>*/}
-                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
-                                        "M2,9h6v6H2",
-                                        "M2,1v6h6V1H2z M7,6H3V2h4V6z",
-                                        "m10 1v6h6v-6h-6m5 5h-4v-4h4v4",
-                                        "m10 9v6h6v-6m-1 5h-4v-4h4"
-                                    ]}/>
-                                </Button>
-                            </td>
-                            <td>
-                                <div className="vertical-rule"/>
-                            </td>
-
-                            <td>
-                                <Button className="cycler-button" disabled={this.props.working || !this.props.ready}
-                                        style = {{minWidth: 26, maxWidth: 28}}
-                                        onClick={() => this.props.onBackward(-1)}>
-                                    {/*<Icon iconSpec="icon-media-controls-frame-backward"/>*/}
-                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
-                                        "m9.2222 4a.76016.76016 0 0 1 .3904.1081.80441.80441 0 0 1 .3874.6919v6.4a.80441" +
-                                        ".80441 0 0 1 -.3874.6919.75908.75908 0 0 1 -.7763.0027l-5.4444-3.2a.8115.8115 0" +
-                                        " 0 1 0-1.3892l5.4444-3.2a.76069.76069 0 0 1 .3859-.1054zm2.7778-1a1 1 0 0 1 1 1" +
-                                        "v8a1 1 0 0 1 -1 1 1 1 0 0 1 -1-1v-8a1 1 0 0 1 1-1z"
-                                    ]}/>
-                                </Button>
-
-                                <Button className="cycler-previous" buttonType={ButtonType.Hollow}>
-                                    Previous
-                                </Button>
-                            </td>
-
-                            {/*TODO: Get counter working again */}
-                            <td>
-                                <div className="cycler-progress">
-                                    <div
-                                        className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>
-                                    <div className="cycler-value">
-                                        {this.props.cycleIndex !== undefined && <>
-                                            {`${this.props.cycleIndex! + 1}`}
-                                            &nbsp;/&nbsp;
-                                        </>}
-                                        {`${this.props.cycleSetSize!}`}
-                                    </div>
+                                <div className="cycler-container">
+                    <div className="cycler-total-count">
+                        <div className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.totalTitle")}</div>
+                        <div className="cycler-value">
+                            {this.props.ready && this.props.totalCount}
+                            {!this.props.ready && <Spinner size={SpinnerSize.Small}/>}
+                        </div>
+                    </div>
+                    <div className="cycler-selected-count">
+                        <div className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.selectedTitle")}</div>
+                        <div className="cycler-value">
+                            {this.props.ready && this.props.selectedCount}
+                            {!this.props.ready && <Spinner size={SpinnerSize.Small}/>}
+                        </div>
+                    </div>
+                    {
+                        !this.props.enabled &&
+                        <>
+                            <Button
+                                className="cycler-button"
+                                onClick={this.props.onStart}
+                                disabled={this.props.selectedCount === 0 || !this.props.ready}
+                            >
+                                {IModelApp.i18n.translate("LabelingApp:cycler.startCycling")}
+                            </Button>
+                        </>
+                    }
+                    {
+                        this.props.enabled &&
+                        <>
+                            <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onBackward(-fastCount)}><Icon iconSpec="icon-media-controls-fast-backward" /></Button>
+                            <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onBackward(-1)}><Icon iconSpec="icon-media-controls-frame-backward" /></Button>
+                            <div className="cycler-progress">
+                                <div className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.cyclingTitle")}</div>
+                                <div className="cycler-value">
+                                    {this.props.cycleIndex !== undefined && <>
+                                        {`${this.props.cycleIndex! + 1}`}
+                                        &nbsp;/&nbsp;
+                                    </>}
+                                    {`${this.props.cycleSetSize!}`}
                                 </div>
-                            </td>
-
-                            <td>
-                                <Button className="cycler-next" buttonType={ButtonType.Hollow}>
-                                    Next
-                                </Button>
-                                <Button className="cycler-button"
-                                        disabled={this.props.working || !this.props.ready}
-                                        style={{minWidth: 26, maxWidth: 28}}
-                                        onClick={() => this.props.onForward(1)}>
-                                    {/*<Icon iconSpec="icon-media-controls-frame-forward"/>*/}
-                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
-                                        "m6.7778 4a.76016.76016 0 0 0 -.3904.1081.80441.80441 0 0 0 -.3874.6919v6.4a.804" +
-                                        "41.80441 0 0 0 .3874.6919.75908.75908 0 0 0 .7763.0027l5.4444-3.2a.8115.8115 0 " +
-                                        "0 0 0-1.3892l-5.4444-3.2a.76069.76069 0 0 0 -.3859-.1054zm-2.7778-1a1 1 0 0 0 " +
-                                        "-1 1v8a1 1 0 0 0 1 1 1 1 0 0 0 1-1v-8a1 1 0 0 0 -1-1z"
-                                    ]}/>
-                                </Button>
-                            </td>
-
-                            <td>
-                                <div className="vertical-rule"/>
+                            </div>
+                            <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onForward(1)}><Icon iconSpec="icon-media-controls-frame-forward" /></Button>
+                            <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={()=>this.props.onForward(fastCount)}><Icon iconSpec="icon-media-controls-fast-forward" /></Button>
+                            <Button className="cycler-button" disabled={this.props.working || !this.props.ready} onClick={this.props.onStop}><Icon iconSpec="icon-media-controls-stop" /></Button>
+                        </>
+                    }
+                    &nbsp;
+                    <LabeledToggle 
+                        label={IModelApp.i18n.translate("LabelingApp:forceShowAll")} 
+                        isOn={this.props.forceShowAll} 
+                        onChange={this.props.onForceShowAllChanged} 
+                    />
+                </div>
                             </td>
                             <td>
                                 <Button className="sstc-window-new-button"
@@ -157,7 +140,7 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                 </Button>
 
                                 {
-                                    this.state.readyForPopup && <MLStateTablePopout title={"ML Audit"} closingPopout={this._onPopoutWindowClosing}/>
+                                    this.state.readyForPopout && <MLStateTablePopout title={"ML Audit"} closingPopout={this._onPopoutWindowClosing}/>
                                 }
                             </td>
 
