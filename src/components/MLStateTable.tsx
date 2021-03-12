@@ -61,7 +61,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     constructor(props: MLStateTableComponentProps) {
         super(props);
-        // console.log("MLStateTableComponent ctor props => " + JSON.stringify(props));
+
         this.state = {
             timerVar: undefined,
             filterEmptyRows: false,
@@ -75,7 +75,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
     }
 
-    private static renderLoading(): JSX.Element {
+    private renderLoading(): JSX.Element {
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">
@@ -267,7 +267,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                             </div>
                             <Button
                                 className="sstc-swap-button"
-                                buttonType={ButtonType.Hollow}
+                                    buttonType={ButtonType.Blue}
                                 onClick={this.props.onSwapTruePredDisplay}
                             >
                                 <Icon iconSpec="icon-replace"/>
@@ -371,7 +371,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     public render() {
         return <>
-            {!this.props.ready && MLStateTableComponent.renderLoading()}
+            {!this.props.ready && this.renderLoading()}
             {this.props.ready && this.renderTable()}
         </>;
     }
