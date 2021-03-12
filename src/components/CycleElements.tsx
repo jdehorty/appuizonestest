@@ -131,19 +131,21 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                     />
                 </div>
                             </td>
-                            <td>
-                                <Button className="sstc-window-new-button"
-                                        buttonType={ButtonType.Hollow}
-                                        onClick={this._onPopoutButtonClick}
-                                >
-                                    <Icon iconSpec="icon-window-new"/>
-                                </Button>
-
-                                {
-                                    this.state.readyForPopout && <MLStateTablePopout title={"ML Audit"} closingPopout={this._onPopoutWindowClosing}/>
-                                }
-                            </td>
-
+                            { !this.props.poppedOut &&
+                                <td>
+                                
+                                    <Button className="sstc-window-new-button"
+                                            buttonType={ButtonType.Hollow}
+                                            onClick={this._onPopoutButtonClick}
+                                    >
+                                        <Icon iconSpec="icon-window-new"/>
+                                    </Button>
+                                
+                                    {
+                                        this.state.readyForPopout && <MLStateTablePopout title={"ML Audit"} closingPopout={this._onPopoutWindowClosing}/>
+                                    }
+                                </td>
+                            }
                         </tr>
                         </tbody>
                     </table>

@@ -45,7 +45,6 @@ export interface CycleModeState {
     currentIndex?: number;
     cycleList?: Id64Array;
     initialFrustums?: Map<ScreenViewport, Frustum>;
-    poppedOut: boolean;
 }
 
 /** State for a GeometricElement3d */
@@ -121,8 +120,7 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     selectionSet: new Set<Id64String>(),
     cycleModeState: {
         working: false,
-        enabled: false,
-        poppedOut: false
+        enabled: false
     },
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
