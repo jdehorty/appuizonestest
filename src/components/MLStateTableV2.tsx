@@ -11,7 +11,8 @@ import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
 import {AppearanceToggleComponent} from "./AppearanceToggle";
 import {AssignLabelButton} from "./AssignLabelButton";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
-import BootstrapTable from 'react-bootstrap-table-next';
+import { Table, SimpleTableDataProvider, ColumnDescription, RowItem } from "@bentley/ui-components";
+import { PropertyRecord, PropertyValue, PropertyValueFormat, PropertyDescription } from "@bentley/ui-abstract";
 
 const FORCE_ALL = true;
 const MINUTES = 1.0;
@@ -370,40 +371,13 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
     }
 
     public render() {
-        const columns = [{
-            dataField: 'id',
-            text: 'Class Name'
-        }, {
-            dataField: 'name',
-            text: 'Mannual Assignment'
-        }, {
-            dataField: 'price',
-            text: 'Product Price'
-        }];
 
-        let products = [{
-            id: 0,
-            name: "Item name 0",
-            price: 2100
-        },
-            {
-                id: 1,
-                name: "Item name 1",
-                price: 2242
-            }];
 
         return <>
             {/*{!this.props.ready && this.renderLoading()}*/}
             {/*{this.props.ready && this.renderTable()}*/}
 
-            <BootstrapTable
-                keyField="id"
-                data={products}
-                columns={columns}
-                striped
-                hover
-                condensed
-            />
+
 
         </>;
     }
