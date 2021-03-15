@@ -37,8 +37,10 @@ dependencies:
   '@types/jest': 26.0.20
   '@types/node': 14.14.32
   '@types/react': 16.14.5
+  '@types/react-bootstrap-table-next': 4.0.11
   '@types/react-dom': 16.9.11
   '@types/react-redux': 7.1.16
+  '@types/react-table': 7.0.29
   '@types/remote-redux-devtools': 0.5.4
   '@typescript-eslint/eslint-plugin': 2.34.0_typescript@3.9.9
   history: 4.10.1
@@ -46,8 +48,10 @@ dependencies:
   node-sass: 4.14.1
   oidc-client: 1.11.5
   react: 16.14.0
+  react-bootstrap-table-next: 4.0.3_react-dom@16.14.0+react@16.14.0
   react-dom: 16.14.0_react@16.14.0
   react-redux: 7.2.2_bbabd8c34ea235719dc50e75b43f85a4
+  react-table: 7.6.3_react@16.14.0
   redux: 4.0.5
   reselect: 4.0.0
   serve: 11.3.2
@@ -1934,6 +1938,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p6WSr71+5u/VBf1KDS/Y4dK3ZwbV+DD6wQO3X2EbUVluEOiyXUk09DzcwSaUH4WomYXrEPC+i2rqzuthhZhOJw==
+  /@babel/runtime/7.13.10:
+    dependencies:
+      regenerator-runtime: 0.13.7
+    dev: false
+    resolution:
+      integrity: sha512-4QPkjJq6Ns3V/RgpEahRk+AGfL0eO6RHHtTWoNNr5mO49G6B5+X6d6THgWEAvTrznU5xYpbAlVKRYcsCgh/Akw==
   /@babel/runtime/7.13.9:
     dependencies:
       regenerator-runtime: 0.13.7
@@ -3600,6 +3610,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
+  /@types/react-bootstrap-table-next/4.0.11:
+    dependencies:
+      '@types/react': 16.14.5
+    dev: false
+    resolution:
+      integrity: sha512-2NbMDYb9XNw+N4HhLiPd71LMopPtVtcRwSF6r/zck5fRKcL9I29GapCWzX/YI+5nrjKy8592WYEsv5aNWVr+4A==
   /@types/react-dom/16.9.11:
     dependencies:
       '@types/react': 16.14.5
@@ -3615,6 +3631,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-f/FKzIrZwZk7YEO9E1yoxIuDNRiDducxkFlkw/GNMGEnK9n4K8wJzlJBghpSuOVDgEUHoDkDF7Gi9lHNQR4siw==
+  /@types/react-table/7.0.29:
+    dependencies:
+      '@types/react': 16.14.5
+    dev: false
+    resolution:
+      integrity: sha512-RCGVKGlTDv3jbj37WJ5HhN3sPb0W/2rqlvyGUtvawnnyrxgI2BGgASvU93rq2jwanVp5J9l1NYAeiGlNhdaBGw==
   /@types/react/16.14.5:
     dependencies:
       '@types/prop-types': 15.7.3
@@ -6463,7 +6485,7 @@ packages:
       integrity: sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==
   /dom-helpers/5.2.0:
     dependencies:
-      '@babel/runtime': 7.13.9
+      '@babel/runtime': 7.13.10
       csstype: 3.0.7
     dev: false
     resolution:
@@ -12636,6 +12658,20 @@ packages:
       react: '>=16.3.0'
     resolution:
       integrity: sha512-/azBHmc6z/31s/lBf6irxPf/7eejQdR0IqnZUzjdSibtlS8+Rw/R79pgDAo6Ft5QqCUTyEQ+f0FhL+1olDQ8OA==
+  /react-bootstrap-table-next/4.0.3_react-dom@16.14.0+react@16.14.0:
+    dependencies:
+      classnames: 2.2.6
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+      react-transition-group: 4.4.1_react-dom@16.14.0+react@16.14.0
+      underscore: 1.9.1
+    dev: false
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^16.3.0
+      react-dom: ^16.3.0
+    resolution:
+      integrity: sha512-uKxC73qUdUfusRf2uzDfMiF9LvTG5vuhTZa0lbAgHWSLLLaKTsI0iHf1e4+c7gP71q8dFsp7StvkP65SxC1JRg==
   /react-compound-slider/2.5.0_react@16.14.0:
     dependencies:
       '@babel/runtime': 7.13.9
@@ -12874,6 +12910,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ywYLSjNkxKHiZOqNlso9PZByNEY+FTyh3C+7uuziK0xFXu9xzdyfHwg4S9iyiRRoPCR4k2LqaBBsWVmSBwCWYQ==
+  /react-table/7.6.3_react@16.14.0:
+    dependencies:
+      react: 16.14.0
+    dev: false
+    peerDependencies:
+      react: ^16.8.3 || ^17.0.0-0
+    resolution:
+      integrity: sha512-hfPF13zDLxPMpLKzIKCE8RZud9T/XrRTsaCIf8zXpWZIZ2juCl7qrGpo3AQw9eAetXV5DP7s2GDm+hht7qq5Dw==
   /react-themeable/1.1.0:
     dependencies:
       object-assign: 3.0.0
@@ -12896,7 +12940,7 @@ packages:
       integrity: sha512-K/N1wqJ2GRP2yj3WBqEUYa0KV5fiaAWpUfU9SpHOHefeKvyrO+VrnMBML21M19QZoVbDZKmuQFHZYoMMi1xuJA==
   /react-transition-group/4.4.1_react-dom@16.14.0+react@16.14.0:
     dependencies:
-      '@babel/runtime': 7.13.9
+      '@babel/runtime': 7.13.10
       dom-helpers: 5.2.0
       loose-envify: 1.4.0
       prop-types: 15.7.2
@@ -15119,6 +15163,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-P/51NX+JXyxK/aigg1/ZgyccdAxm5K1+n8+tvqSntjOivPt19gvm1VC49RWYetsiub8WViUchdxl/KWHHB0kzA==
+  /underscore/1.9.1:
+    dev: false
+    resolution:
+      integrity: sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==
   /unicode-canonical-property-names-ecmascript/1.0.4:
     dev: false
     engines:
@@ -16090,8 +16138,10 @@ specifiers:
   '@types/jsdom': ^16.2.6
   '@types/node': ^14.14.25
   '@types/react': ^16.14.3
+  '@types/react-bootstrap-table-next': ^4.0.11
   '@types/react-dom': ^16.9.10
   '@types/react-redux': ^7.1.16
+  '@types/react-table': ^7.0.29
   '@types/remote-redux-devtools': ^0.5.4
   '@typescript-eslint/eslint-plugin': 2.x
   chai: ^4.3.3
@@ -16102,8 +16152,10 @@ specifiers:
   node-sass: ^4.14.1
   oidc-client: ^1.11.3
   react: ^16.13.1
+  react-bootstrap-table-next: ^4.0.3
   react-dom: ^16.13.1
   react-redux: ^7.2.2
+  react-table: ^7.6.3
   redux: ^4.0.5
   remote-redux-devtools: ^0.5.16
   reselect: ^4.0.0
