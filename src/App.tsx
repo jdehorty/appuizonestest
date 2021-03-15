@@ -1,28 +1,23 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import "./styles/App.scss";
 
 import {Viewer} from "@bentley/itwin-viewer-react";
 import React, {useEffect, useState} from "react";
-
 import {IModelApp, IModelConnection, AuthorizedFrontendRequestContext} from "@bentley/imodeljs-frontend";
 import {ChangeSetQuery} from "@bentley/imodelhub-client";
-
 import AuthorizationClient from "./AuthorizationClient";
 import {Header} from "./Header";
 import {LabelerUiProvider} from "./LabelerUiProvider";
-
 import {LabelerState} from "./store/LabelerState";
-
 import {SelectionExtender} from "./SelectionExtender";
-
 import {Presentation} from "@bentley/presentation-frontend";
 import {SetupConfigFromEnv} from "./config/configuration";
 import {Config} from "@bentley/bentleyjs-core";
 import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
 import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./data/BlobLabelSources";
-
-// import { UiItemsManager } from "@bentley/ui-abstract";
-// import { LabelerUiProvider } from "./sampleFrontstageProvider";
-
 
 const App: React.FC = () => {
     const [isAuthorized, setIsAuthorized] = useState(AuthorizationClient.oidcClient ? AuthorizationClient.oidcClient.isAuthorized : false);
@@ -63,7 +58,6 @@ const App: React.FC = () => {
 
     }, []);
 
-
     useEffect(() => {
         if (isLoggingIn && isAuthorized) {
             setIsLoggingIn(false);
@@ -97,7 +91,6 @@ const App: React.FC = () => {
             predSuffix: Config.App.getString("mlPredSuffix")
         }
 
-
         const labelInterface = new BlobBasedMachineLearningLabelInterface(config);
 
         LabelingWorkflowManager.configureDataSources(labelInterface, imodel);
@@ -107,17 +100,16 @@ const App: React.FC = () => {
         SelectionExtender.auxDataMap = LabelingWorkflowManager.auxDataMap;
     }
 
-    const onIModelConnected = async (connection: any) => {
-        console.log("onIModelConnected invoked");
+    const onIModelConnected = async (connection: IModelConnection) => {
+        console.log("onIModelConnected invoked"); // TODO: Log to SEQ
 
         try {
             await Presentation.initialize({
-                // activeLocale: IModelApp.i18n.languageList()[0],
                 activeLocale: "en",
             });
         } catch (error) {
+            console.log(error.message);
         }
-
 
         const initPromises: Promise<void>[] = [];
 
@@ -125,9 +117,8 @@ const App: React.FC = () => {
         initPromises.push(LabelingWorkflowManager.initialize(LabelerState.store, IModelApp.i18n, "labelingWorkflowManagerState"));
         initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
 
-        Promise.all(initPromises).then(
-            () => {
-            });
+        await Promise.all(initPromises)
+
         console.log("All onIModelConnected initialization function promises have resolved.");
 
         const requestContext: AuthorizedFrontendRequestContext = await AuthorizedFrontendRequestContext.create();
@@ -141,9 +132,7 @@ const App: React.FC = () => {
             console.log("ChangeSet not found");
         }
 
-        openLabelSource(connection).then(() => {
-            // setReadyForPopup(true);
-        });
+        await openLabelSource(connection);
     }
 
     return (
@@ -171,7 +160,6 @@ const App: React.FC = () => {
                             }
                             uiProviders={[new LabelerUiProvider()]}
                             onIModelConnected={onIModelConnected}
-                            // onIModelAppInit={onIModelAppInit}
                         />
                     </div>
                 )
