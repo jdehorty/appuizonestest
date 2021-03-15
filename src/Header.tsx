@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
 import {BlockText, Button, ButtonType} from "@bentley/ui-core";
 import React from "react";
 
@@ -9,10 +13,9 @@ interface HeaderProps {
     loggedIn: boolean;
 }
 
-export const Header = (props: HeaderProps) => {
-    const {loggedIn, handleLogin, handleLogout,} = props;
+export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+    const {loggedIn, handleLogin, handleLogout} = props;
     const {button, text, buttonContainer, header} = styles;
-
     return (
         <header className={header}>
             <table>
