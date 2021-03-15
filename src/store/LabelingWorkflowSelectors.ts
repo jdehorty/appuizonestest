@@ -565,6 +565,7 @@ export class LabelingWorkflowManagerSelectors {
                 const data: MLStateTableDataItem = {
                     name: name,
                     color: color,
+                    isSelected: false,
 
                     hasData: hasDataSet.has(name),
 
@@ -644,6 +645,7 @@ export class LabelingWorkflowManagerSelectors {
                     isExpanded: commonLabelStateMap.get(name)!.isExpanded,
                     level: level,
                     children: childEntries,
+                    isSelected: false
                 };
             }
 

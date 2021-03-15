@@ -2,7 +2,7 @@ import {Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {ColorPickerButton} from "@bentley/ui-components";
-import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
+import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStyles.scss';
@@ -11,8 +11,6 @@ import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
 import {AppearanceToggleComponent} from "./AppearanceToggle";
 import {AssignLabelButton} from "./AssignLabelButton";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
-import { Table, SimpleTableDataProvider, ColumnDescription, RowItem } from "@bentley/ui-components";
-import { PropertyRecord, PropertyValue, PropertyValueFormat, PropertyDescription } from "@bentley/ui-abstract";
 
 const FORCE_ALL = true;
 const MINUTES = 1.0;
@@ -20,6 +18,22 @@ const MINUTES = 1.0;
 interface MLStateTableComponentState {
     timerVar: any;
     filterEmptyRows: boolean;
+    checkboxStatus: string;
+}
+
+interface ILabelSectionAttributes {
+    allLabelVisible: boolean;
+    allLabelHidden: boolean;
+    allLabelTransparent: boolean;
+    allLabelOpaque: boolean;
+}
+
+interface IPredictionSectionAttributes {
+    allPredictionVisible: boolean;
+    allPredictionHidden: boolean;
+    allPredictionTransparent: boolean;
+    allPredictionOpaque: boolean;
+    anyPredictionSelected: boolean;
 }
 
 interface MLStateTableComponentProps {
@@ -66,6 +80,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         this.state = {
             timerVar: undefined,
             filterEmptyRows: false,
+            checkboxStatus: "false"
         };
     }
 
@@ -90,6 +105,206 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         this.props.onLabelColorChange(color, name);
     }
 
+    private handleCheckboxChange = <T extends HTMLInputElement> (item : MLStateTableDataItem) => {
+
+           
+
+            return (event: React.SyntheticEvent<T>) => {
+
+                let value: boolean | string;
+        
+                if (event.currentTarget.type === "checkbox") {
+                    value = (event.currentTarget as HTMLInputElement).checked;
+                  } else {
+                    value = event.currentTarget.value;
+                  }
+
+               
+                console.log("wasSelected = " + item.isSelected);
+        
+                this.setState({ checkboxStatus : value.toString() });
+
+                item.isSelected = (value.toString() =="true");
+
+                console.log("item.name =>" + item.name + " state => " + value + "   isSelected = " + item.isSelected);
+                
+                //context.setValues({ [this.props.id]: value });
+        
+              };
+    }
+
+    // handleCheckboxChange = event =>
+    // this.setState({ checked: event.target.checked })
+
+   
+
+    private renderClassNameAndColorSection (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean) : JSX.Element {
+
+        const simpleLine = ""; // "m.79 7.25h14.42v1.5h-14.42z";
+        const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
+        const collapsedCaret =  "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
+
+       
+
+        let expanderOrLine = simpleLine;
+        if (hasChildren) {
+            if (isExpanded) {
+                expanderOrLine = expandedCaret;
+            } else {
+                expanderOrLine = collapsedCaret;
+            }
+        }
+
+           return <>
+                {/* <Checkbox onChange={handleCheckboxClick(item)}></Checkbox> */}
+
+                <label /*key={this.state.checkboxStatus}*/ >
+                    <input                 
+                        type="checkbox"
+                        onChange={this.handleCheckboxChange(item!)}
+                    />
+                </label>
+
+                <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
+                <Button
+                    className="mltc-expand-button"
+                    style={{minWidth: 26, maxWidth: 28}}
+                    onClick={() => {
+                        this.props.onLabelExpandStateChange(!isExpanded, item.name);
+                    }}
+                >
+                    {/*<Icon iconSpec={iconClass}/>*/}
+                    <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
+                        expanderOrLine
+                    ]}/>
+                </Button>
+                <div className="mltc-label-container">
+                    {i18nName}
+                </div>
+                <ColorPickerButton
+                    className="sstc-color-picker-button"
+                    initialColor={item.color}
+                    onColorPick={this.handleColorChange(item.name)}
+                />
+           </>
+    }
+
+    private renderLabelSection(item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element {
+        return <>
+            {/* <AppearanceToggleComponent
+                transparencyAvailable={true}
+                label={i18nName}
+                itemId={item.name}
+                visible={item.trueLabelIsDisplayed}
+                transparent={item.trueLabelIsTransparent}
+                onClick={this.props.onLabelDisplayChange}/>
+            <GroupSelectButtonComponent
+                label={i18nName}
+                itemId={item.name}
+                hilite={item.trueLabelSelectedCount !== 0}
+                onClick={this.props.onLabelSelectionClick}/>
+            <AssignLabelButton label={i18nName} name={item.name}
+                               onClick={this.props.onLabelApply}/> */}
+            <div className="sstc-count-container">
+                {trueDisplayedCount}
+            </div>
+        </>
+    }
+
+    private renderPredictionSection (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element {
+        return <>
+            {/* <AppearanceToggleComponent
+                transparencyAvailable={true}
+                label={i18nName}
+                itemId={item.name}
+                visible={item.predLabelIsDisplayed}
+                transparent={item.predLabelIsTransparent}
+                onClick={this.props.onPredictionDisplayChange}
+            />
+            <GroupSelectButtonComponent
+                label={i18nName}
+                itemId={item.name}
+                hilite={item.predLabelSelectedCount !== 0}
+                onClick={this.props.onPredictionSelectionClick}/> */}
+            <div className="sstc-count-container">
+                {predDisplayedCount}
+            </div>
+        </>
+    }
+
+    private renderTableHead(labelSectionAttributes: ILabelSectionAttributes, predSectionAttributes: IPredictionSectionAttributes): JSX.Element {
+        let headerStyle = {
+            backgroundColor: "#ddd",
+            fontSize: "11px"
+        }
+
+        return <>
+         <thead >
+                
+                <tr>
+                    <td className="mltc-name-td">
+                        {/* <div className="mltc-label-container">
+                            <LabeledToggle
+                                className="sstc-hide-empty-toggle"
+                                label="Hide Empty"
+                                isOn={this.state.filterEmptyRows}
+                                onChange={this.handleToggleFilter}
+                            />
+                        </div> */}
+                        {/* <Button
+                            className="sstc-swap-button"
+                                buttonType={ButtonType.Blue}
+                            onClick={this.props.onSwapTruePredDisplay}
+                        >
+                            <Icon iconSpec="icon-replace"/>
+                        </Button> */}
+                    </td>
+                    <td className="mltc-label-td">
+                        <AppearanceBatchToggleComponent
+                            transparencyAvailable={true}
+                            allHidden={labelSectionAttributes.allLabelHidden}
+                            allVisible={labelSectionAttributes.allLabelVisible}
+                            allTransparent={labelSectionAttributes.allLabelTransparent}
+                            allOpaque={labelSectionAttributes.allLabelOpaque}
+                            onClick={
+                                (newVisible: boolean, newTransparent: boolean) => {
+                                    this.props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                                }
+                            }
+                        />
+                        <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                                    onClick={() => {
+                                                        this.props.onLabelSelectionClick(undefined);
+                                                    }}/>
+                    </td>
+                    <td className="mltc-prediction-td">
+                        <AppearanceBatchToggleComponent
+                            transparencyAvailable={true}
+                            allHidden={predSectionAttributes.allPredictionHidden}
+                            allVisible={predSectionAttributes.allPredictionVisible}
+                            allTransparent={predSectionAttributes.allPredictionTransparent}
+                            allOpaque={predSectionAttributes.allPredictionOpaque}
+                            onClick={
+                                (newVisible: boolean, newTransparent: boolean) => {
+                                    this.props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
+                                }
+                            }
+                        />
+                        <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                                    onClick={() => {
+                                                        this.props.onPredictionSelectionClick(undefined);
+                                                    }}/>
+                    </td>
+                </tr>
+                <tr style={headerStyle}>
+                    <th className="mltc-name-th">Name</th>
+                    <th className="mltc-label-th">Label</th>
+                    <th className="mltc-prediction-th">Prediction</th>
+                </tr>
+                </thead>
+        </>
+    }
+
     private renderTable(): JSX.Element {
 
         const autoSaveEnabled = this.state.timerVar !== undefined;
@@ -97,43 +312,50 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         const onlyShowPresent = true;
 
         const tableRows: JSX.Element[] = [];
-        let allLabelVisible = true;
-        let allLabelHidden = true;
-        let allLabelTransparent = true;
-        let allLabelOpaque = true;
+        let labelSectionAttributes: ILabelSectionAttributes = {
+            allLabelVisible: true,
+            allLabelHidden: true,
+            allLabelTransparent: true,
+            allLabelOpaque: true
+        }
+
+        let predSectionAttributes: IPredictionSectionAttributes = {
+            allPredictionVisible: true,
+            allPredictionHidden: true,
+            allPredictionTransparent: true,
+            allPredictionOpaque: true,
+            anyPredictionSelected: false
+        }
+
         let anyLabelSelected = false;
-        let allPredictionVisible = true;
-        let allPredictionHidden = true;
-        let allPredictionTransparent = true;
-        let allPredictionOpaque = true;
-        let anyPredictionSelected = false;
+      
 
         for (const item of this.props.itemMap.values()) {
             if (!item.trueLabelIsDisplayed) {
-                allLabelVisible = false;
+                labelSectionAttributes.allLabelVisible = false;
             } else {
-                allLabelHidden = false;
+                labelSectionAttributes.allLabelHidden = false;
             }
             if (!item.trueLabelIsTransparent) {
-                allLabelTransparent = false;
+                labelSectionAttributes.allLabelTransparent = false;
             } else {
-                allLabelOpaque = false;
+                labelSectionAttributes.allLabelOpaque = false;
             }
             if (item.trueLabelSelectedCount !== 0) {
                 anyLabelSelected = true;
             }
             if (!item.predLabelIsDisplayed) {
-                allPredictionVisible = false;
+                predSectionAttributes.allPredictionVisible = false;
             } else {
-                allPredictionHidden = false;
+                predSectionAttributes.allPredictionHidden = false;
             }
             if (!item.predLabelIsTransparent) {
-                allPredictionTransparent = false;
+                predSectionAttributes.allPredictionTransparent = false;
             } else {
-                allPredictionOpaque = false;
+                predSectionAttributes.allPredictionOpaque = false;
             }
             if (item.predLabelSelectedCount !== 0) {
-                anyPredictionSelected = true;
+                predSectionAttributes.anyPredictionSelected = true;
             }
         }
 
@@ -144,73 +366,19 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                 const i18nName = IModelApp.i18n.translate(item.name);
 
                 const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
-                const predDisplayedCount = anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
-
-                const activeCaret = isExpanded ? "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z"
-                    : "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
+                const predDisplayedCount = predSectionAttributes.anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
                 if (this.state.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td" style={{whiteSpace: "nowrap"}}>
-                                <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
-                                <Button
-                                    className="mltc-expand-button"
-                                    style={{minWidth: 26, maxWidth: 28}}
-                                    onClick={() => {
-                                        this.props.onLabelExpandStateChange(!isExpanded, item.name);
-                                    }}
-                                >
-                                    {/*<Icon iconSpec={iconClass}/>*/}
-                                    <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                                        activeCaret
-                                    ]}/>
-                                </Button>
-                                <div className="mltc-label-container">
-                                    {i18nName}
-                                </div>
-                                <ColorPickerButton
-                                    className="sstc-color-picker-button"
-                                    initialColor={item.color}
-                                    onColorPick={this.handleColorChange(item.name)}
-                                />
+                                {this.renderClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
                             </td>
-                            <td className="mltc-label-td">
-                                <AppearanceToggleComponent
-                                    transparencyAvailable={true}
-                                    label={i18nName}
-                                    itemId={item.name}
-                                    visible={item.trueLabelIsDisplayed}
-                                    transparent={item.trueLabelIsTransparent}
-                                    onClick={this.props.onLabelDisplayChange}/>
-                                <GroupSelectButtonComponent
-                                    label={i18nName}
-                                    itemId={item.name}
-                                    hilite={item.trueLabelSelectedCount !== 0}
-                                    onClick={this.props.onLabelSelectionClick}/>
-                                <AssignLabelButton label={i18nName} name={item.name}
-                                                   onClick={this.props.onLabelApply}/>
-                                <div className="sstc-count-container">
-                                    {trueDisplayedCount}
-                                </div>
+                            <td className="mltc-label-td" align={"right"} style={{whiteSpace: "nowrap"}}>
+                                {this.renderLabelSection(item, i18nName, trueDisplayedCount)}
                             </td>
-                            <td className="mltc-prediction-td">
-                                <AppearanceToggleComponent
-                                    transparencyAvailable={true}
-                                    label={i18nName}
-                                    itemId={item.name}
-                                    visible={item.predLabelIsDisplayed}
-                                    transparent={item.predLabelIsTransparent}
-                                    onClick={this.props.onPredictionDisplayChange}
-                                />
-                                <GroupSelectButtonComponent
-                                    label={i18nName}
-                                    itemId={item.name}
-                                    hilite={item.predLabelSelectedCount !== 0}
-                                    onClick={this.props.onPredictionSelectionClick}/>
-                                <div className="sstc-count-container">
-                                    {predDisplayedCount}
-                                </div>
+                            <td className="mltc-prediction-td" align={"right"} style={{whiteSpace: "nowrap"}}>
+                                {this.renderPredictionSection(item, i18nName, predDisplayedCount)}
                             </td>
                         </tr>
                     );
@@ -243,75 +411,10 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
             );
         }
 
-        let headerStyle = {
-            backgroundColor: "#ddd"
-        }
-
         return <>
             <div className="sstc-data-container">
-                <table className="sstc-data-table">
-                    <thead>
-                    <tr style={headerStyle}>
-                        <th className="mltc-name-th">Name</th>
-                        <th className="mltc-label-th">Label</th>
-                        <th className="mltc-prediction-th">Prediction</th>
-                    </tr>
-                    <tr>
-                        <td className="mltc-name-td">
-                            <div className="mltc-label-container">
-                                <LabeledToggle
-                                    className="sstc-hide-empty-toggle"
-                                    label="Hide Empty"
-                                    isOn={this.state.filterEmptyRows}
-                                    onChange={this.handleToggleFilter}
-                                />
-                            </div>
-                            <Button
-                                className="sstc-swap-button"
-                                buttonType={ButtonType.Blue}
-                                onClick={this.props.onSwapTruePredDisplay}
-                            >
-                                <Icon iconSpec="icon-replace"/>
-                            </Button>
-                        </td>
-                        <td className="mltc-label-td">
-                            <AppearanceBatchToggleComponent
-                                transparencyAvailable={true}
-                                allHidden={allLabelHidden}
-                                allVisible={allLabelVisible}
-                                allTransparent={allLabelTransparent}
-                                allOpaque={allLabelOpaque}
-                                onClick={
-                                    (newVisible: boolean, newTransparent: boolean) => {
-                                        this.props.onLabelDisplayChange(newVisible, newTransparent, undefined);
-                                    }
-                                }
-                            />
-                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                        onClick={() => {
-                                                            this.props.onLabelSelectionClick(undefined);
-                                                        }}/>
-                        </td>
-                        <td className="mltc-prediction-td">
-                            <AppearanceBatchToggleComponent
-                                transparencyAvailable={true}
-                                allHidden={allPredictionHidden}
-                                allVisible={allPredictionVisible}
-                                allTransparent={allPredictionTransparent}
-                                allOpaque={allPredictionOpaque}
-                                onClick={
-                                    (newVisible: boolean, newTransparent: boolean) => {
-                                        this.props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
-                                    }
-                                }
-                            />
-                            <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                        onClick={() => {
-                                                            this.props.onPredictionSelectionClick(undefined);
-                                                        }}/>
-                        </td>
-                    </tr>
-                    </thead>
+                <table className="sstc-data-table" >
+                    {this.renderTableHead(labelSectionAttributes, predSectionAttributes)}
                     <tbody>
                     {tableRows}
                     </tbody>
@@ -371,14 +474,9 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
     }
 
     public render() {
-
-
         return <>
             {!this.props.ready && this.renderLoading()}
             {this.props.ready && this.renderTable()}
-
-
-
         </>;
     }
 }

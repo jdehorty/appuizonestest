@@ -54,14 +54,14 @@
     height:30px
 }
 
-.sstc-data-table tbody td:nth-child(3) {
+.sstc-data-table tbody td:nth-child(2)  {
     border-left: 1px solid grey;
     border-right: 1px solid grey;
     padding-left: 2px;
     padding-right: 2px;
 }
 
-.sstc-data-table thead td:nth-child(3) {
+.sstc-data-table thead td:nth-child(2) {
     border-left: 1px solid grey;
     padding-left: 2px;
     padding-right: 2px;
@@ -189,16 +189,6 @@
     font-weight: bold;
 }
 
-.mltc-name-th, .mltc-name-td 
-{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 160px;
-    max-width: 160px;
-    display: flex;
-    flex-direction: row;
-}
 
 .mltc-label-container
 {
@@ -227,15 +217,32 @@
     background: none;
 }
 
-.mltc-label-th, .mltc-label-td 
+.mltc-name-td 
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 160px;
+    max-width: 160px;
+    display: flex;
+    flex-direction: row;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+
+.mltc-label-th, .mltc-label-td, .mltc-name-th
 {
     min-width: 105px;
     max-width: 105px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
 }
 .mltc-prediction-th, .mltc-prediction-td 
 {
     min-width: 80px;
     max-width: 80px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
 }
 
 .sstc-spinner-container

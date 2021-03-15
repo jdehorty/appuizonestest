@@ -17,6 +17,7 @@ export interface LabelTreeEntry {
     isExpanded: boolean;
     level: number;
     children: LabelTreeEntry[];
+    isSelected: boolean;
 }
 
 export interface MLStateTableDataItem {
@@ -24,6 +25,7 @@ export interface MLStateTableDataItem {
     color: ColorDef;
 
     hasData: boolean;
+    isSelected: boolean;
 
     trueLabelIsDisplayed: boolean;
     trueLabelIsTransparent: boolean;
