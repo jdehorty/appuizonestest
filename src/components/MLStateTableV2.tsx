@@ -31,6 +31,7 @@ interface MLStateTableComponentProps {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
+    data: any[];
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
@@ -370,12 +371,50 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         }
     }
 
+
+    // creating a simple table data provider.
+    private _getDataProvider = (): SimpleTableDataProvider => {
+
+        // adding rowData
+        const rowData: [] = []
+
+        // adding columns
+        const columns: ColumnDescription[] = [];
+
+        columns.push({key: "element_id", label: "Element ID"});
+        columns.push({key: "lyrics", label: "lyrics"});
+        columns.push({key: "to", label: "to"});
+        columns.push({key: "jimi", label: "jimi"});
+        columns.push({key: "hendrix", label: "hendrix"});
+        columns.push({key: "song", label: "song"});
+
+        const dataProvider: SimpleTableDataProvider = new SimpleTableDataProvider(columns);
+
+        // adding rows => cells => property record => value and description.
+
+        data.forEach((rowData: [], index) => {
+            const rowItem: RowItem = {key: index.toString(), cells: []};
+            rowData.forEach((cellValue: string, i: number) => {
+                const value: PropertyValue = {valueFormat: PropertyValueFormat.Primitive, value: cellValue};
+                const description: PropertyDescription = {displayLabel: columns[i].label, name: columns[i].key, typename: "string"};
+                rowItem.cells.push({key: columns[i].key, record: new PropertyRecord(value, description)});
+            });
+            dataProvider.addRow(rowItem);
+        });
+
+        return dataProvider;
+    }
+
     public render() {
-
-
         return <>
             {/*{!this.props.ready && this.renderLoading()}*/}
             {/*{this.props.ready && this.renderTable()}*/}
+
+            <div style={{ height: "100%", width: "100%"}}>
+                <Table dataProvider={this._getDataProvider()} /*onRowsSelected={this._onRowsSelected}*/ />
+            </div>
+
+
 
 
 
