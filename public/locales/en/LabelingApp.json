@@ -22,9 +22,9 @@
     "toolTip": "Selection Scope"
   },
   "cycler": {
-    "totalTitle": "Total 3D Elements",
-    "selectedTitle": "Selected & Visible",
-    "startCycling": "Cycle Selection...",
+    "totalTitle": "Total",
+    "selectedTitle": "Selected",
+    "startCycling": "Cycle Elements...",
     "cyclingTitle": "Cycling"
   },
   "labelRemapping": {
