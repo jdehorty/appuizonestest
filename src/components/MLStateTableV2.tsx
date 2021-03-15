@@ -374,8 +374,8 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
 
 
         return <>
-            {/*{!this.props.ready && this.renderLoading()}*/}
-            {/*{this.props.ready && this.renderTable()}*/}
+            {!this.props.ready && this.renderLoading()}
+            {this.props.ready && this.renderTable()}
 
 
 
