@@ -1,5 +1,7 @@
 @import "../../node_modules/@bentley/ui-core/lib/ui-core/typography";
 
+$fontScale: 1.15em;
+
 .sstc-data-header {
     margin: 10px;
 }
@@ -31,7 +33,7 @@
     border-collapse: collapse;
     display: flex;
     height: 100%;
-    width: fit-content;
+    width: 100%;
     flex-direction: column;
 }
 
@@ -88,12 +90,12 @@
     padding: 2px 4px;
 }
 
-.sstc-isolate-button {
+.sstc-isolate-button-v2 {
     margin: 0 0 0 2px;
     padding: 2px 4px;
     fill: transparent;
     border: 0 none;
-    font-size: 1.4em;
+    font-size: $fontScale;
 }
 
 .sstc-window-new-button {
@@ -159,7 +161,7 @@
     font-size: .6em;
 }
 
-.sstc-count-container {
+.sstc-count-container-v2 {
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -190,7 +192,7 @@
 }
 
 
-.mltc-label-container
+.mltc-label-container-v2
 {
     display: block;
     flex-grow: 1;
@@ -199,6 +201,24 @@
     text-overflow: ellipsis;
     margin: 0;
     padding: 0;
+    font-size: $fontScale;
+    min-width: 180px;
+    max-width: 180px;
+}
+
+
+.mltc-label-container-v2-small
+{
+    display: block;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+    min-width: 190px;
+    max-width: 190px;
 }
 
 .mltc-expand-button
@@ -217,42 +237,45 @@
     background: none;
 }
 
-.mltc-name-td 
+.mltc-name-td-v2
 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 160px;
-    max-width: 160px;
+    min-width: 190px;
+    max-width: 190px;
     display: flex;
     flex-direction: row;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
 }
 
-.mltc-label-th-v2, .mltc-label-td-v2, .mltc-name-th
-{
-    min-width: 105px;
-    max-width: 105px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-}
-
-.mltc-label-th-v2, .mltc-label-td-v2, .mltc-name-th-v2
-{
-    min-width: 105px;
-    max-width: 120px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-}
-
-
-.mltc-prediction-th, .mltc-prediction-td 
+.mltc-label-th-v2, .mltc-label-td-v2
 {
     min-width: 80px;
     max-width: 80px;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
+    font-size: $fontScale;
+}
+
+.mltc-name-th-v2
+{
+    min-width: 191px;
+    max-width: 191px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    font-size: $fontScale;
+}
+
+
+.mltc-prediction-th-v2, .mltc-prediction-td-v2
+{
+    min-width: 80px;
+    max-width: 80px;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    font-size: $fontScale;
 }
 
 .sstc-spinner-container

@@ -107,8 +107,6 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
 
     private handleCheckboxChange = <T extends HTMLInputElement> (item : MLStateTableDataItem) => {
 
-           
-
             return (event: React.SyntheticEvent<T>) => {
 
                 let value: boolean | string;
@@ -119,7 +117,6 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                     value = event.currentTarget.value;
                   }
 
-               
                 console.log("wasSelected = " + item.isSelected);
         
                 this.setState({ checkboxStatus : value.toString() });
@@ -178,7 +175,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                         expanderOrLine
                     ]}/>
                 </Button>
-                <div className="mltc-label-container">
+                <div className="mltc-label-container-v2-small">
                     {i18nName}
                 </div>
                 <ColorPickerButton
@@ -205,7 +202,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                 onClick={this.props.onLabelSelectionClick}/>
             <AssignLabelButton label={i18nName} name={item.name}
                                onClick={this.props.onLabelApply}/> */}
-            <div className="sstc-count-container">
+            <div className="sstc-count-container-v2">
                 {trueDisplayedCount}
             </div>
         </>
@@ -226,7 +223,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                 itemId={item.name}
                 hilite={item.predLabelSelectedCount !== 0}
                 onClick={this.props.onPredictionSelectionClick}/> */}
-            <div className="sstc-count-container">
+            <div className="sstc-count-container-v2">
                 {predDisplayedCount}
             </div>
         </>
@@ -242,15 +239,15 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
          <thead >
                 
                 <tr>
-                    <td className="mltc-name-td">
-                        {/* <div className="mltc-label-container">
+                    <td className="mltc-name-td-v2">
+                        <div className="mltc-label-container">
                             <LabeledToggle
                                 className="sstc-hide-empty-toggle"
                                 label="Hide Empty"
                                 isOn={this.state.filterEmptyRows}
                                 onChange={this.handleToggleFilter}
                             />
-                        </div> */}
+                        </div>
                         {/* <Button
                             className="sstc-swap-button"
                                 buttonType={ButtonType.Blue}
@@ -259,7 +256,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                             <Icon iconSpec="icon-replace"/>
                         </Button> */}
                     </td>
-                    <td className="mltc-label-td">
+                    <td className="mltc-label-td-v2">
                         <AppearanceBatchToggleComponent
                             transparencyAvailable={true}
                             allHidden={labelSectionAttributes.allLabelHidden}
@@ -371,13 +368,13 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                 if (this.state.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
-                            <td className="mltc-name-td" style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-name-td-v2" style={{whiteSpace: "nowrap"}}>
                                 {this.renderClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
                             </td>
-                            <td className="mltc-label-td" align={"right"} style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-label-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
                                 {this.renderLabelSection(item, i18nName, trueDisplayedCount)}
                             </td>
-                            <td className="mltc-prediction-td" align={"right"} style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-prediction-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
                                 {this.renderPredictionSection(item, i18nName, predDisplayedCount)}
                             </td>
                         </tr>
