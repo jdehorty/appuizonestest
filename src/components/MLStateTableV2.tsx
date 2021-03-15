@@ -5,7 +5,7 @@ import {ColorPickerButton} from "@bentley/ui-components";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
-import '../styles/LabelingWorkflowStyles.scss';
+import '../styles/LabelingWorkflowStylesV2.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
 import {AppearanceToggleComponent} from "./AppearanceToggle";
@@ -297,9 +297,9 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                     </td>
                 </tr>
                 <tr style={headerStyle}>
-                    <th className="mltc-name-th">Name</th>
-                    <th className="mltc-label-th">Label</th>
-                    <th className="mltc-prediction-th">Prediction</th>
+                    <th className="mltc-name-th-v2">Name</th>
+                    <th className="mltc-label-th-v2">Label</th>
+                    <th className="mltc-prediction-th-v2">Prediction</th>
                 </tr>
                 </thead>
         </>
