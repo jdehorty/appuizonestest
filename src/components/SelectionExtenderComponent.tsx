@@ -7,7 +7,7 @@ import {Id64String} from "@bentley/bentleyjs-core";
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle} from "@bentley/ui-core";
 import * as React from "react";
-import {MatchingOperator, SelectionExtenderConfig, MatchingRuleType} from "../store/SelectionExtenderTypes";
+import {MatchingOperator, MatchingRuleType, SelectionExtenderConfig} from "../store/SelectionExtenderTypes";
 import {NumberInputComponent} from "./NumberInputComponent";
 import '../styles/SelectionExtenderComponent.scss';
 
@@ -28,89 +28,7 @@ export interface SelectionExtenderComponentProps {
 export class SelectionHelperComponent extends React.Component<SelectionExtenderComponentProps> {
     constructor(props: SelectionExtenderComponentProps) {
         super(props);
-        this.state = {
-        };
-    }
-
-    private handleFieldCheckboxClicked = (i: number) => (event: React.MouseEvent<HTMLInputElement, MouseEvent>): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        const newChildRules = Array.from(this.props.config.rule.childRules);
-        newChildRules[i].wanted = !newChildRules[i].wanted;
-        this.props.onConfigChanged({
-            ...this.props.config,
-            rule: {
-                ...this.props.config.rule,
-                childRules: newChildRules,
-            }
-        });
-    };
-
-    private handleMaxDistEnabledClicked = (checked: boolean): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        this.props.onConfigChanged({
-            ...this.props.config,
-            maxDistEnabled: checked,
-        });
-    };
-
-
-    private handleMaxDistValueValidated = (value: number): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        this.props.onConfigChanged({
-            ...this.props.config,
-            maxDistValue: value,
-        });
-    }
-
-    private handleMaxCountEnabledClicked = (checked: boolean): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        this.props.onConfigChanged({
-            ...this.props.config,
-            maxCountEnabled: checked,
-        });
-    };
-
-
-    private handleMaxCountValueValidated = (value: number): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        this.props.onConfigChanged({
-            ...this.props.config,
-            maxCountValue: value,
-        });
-    }
-
-    private handleAuxDataClicked = (checked: boolean): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        this.props.onConfigChanged({
-            ...this.props.config,
-            enableAuxData: checked,
-        });
-    };
-
-    private handleOperatorChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-        if (this.props.config === undefined) {
-            return;
-        }
-        this.props.onConfigChanged({
-            ...this.props.config,
-            rule: {
-                ...this.props.config.rule,
-                // TODO: make this safer
-                operator: event.target.value as MatchingOperator,
-            }
-        });
+        this.state = {};
     }
 
     public render() {
@@ -209,6 +127,84 @@ export class SelectionHelperComponent extends React.Component<SelectionExtenderC
                 {/* <CycleElementComponent /> */}
             </>
         );
+    }
+
+    private handleFieldCheckboxClicked = (i: number) => (event: React.MouseEvent<HTMLInputElement, MouseEvent>): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        const newChildRules = Array.from(this.props.config.rule.childRules);
+        newChildRules[i].wanted = !newChildRules[i].wanted;
+        this.props.onConfigChanged({
+            ...this.props.config,
+            rule: {
+                ...this.props.config.rule,
+                childRules: newChildRules,
+            }
+        });
+    };
+
+    private handleMaxDistEnabledClicked = (checked: boolean): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        this.props.onConfigChanged({
+            ...this.props.config,
+            maxDistEnabled: checked,
+        });
+    };
+
+    private handleMaxDistValueValidated = (value: number): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        this.props.onConfigChanged({
+            ...this.props.config,
+            maxDistValue: value,
+        });
+    }
+
+    private handleMaxCountEnabledClicked = (checked: boolean): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        this.props.onConfigChanged({
+            ...this.props.config,
+            maxCountEnabled: checked,
+        });
+    };
+
+    private handleMaxCountValueValidated = (value: number): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        this.props.onConfigChanged({
+            ...this.props.config,
+            maxCountValue: value,
+        });
+    }
+
+    private handleAuxDataClicked = (checked: boolean): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        this.props.onConfigChanged({
+            ...this.props.config,
+            enableAuxData: checked,
+        });
+    };
+
+    private handleOperatorChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        if (this.props.config === undefined) {
+            return;
+        }
+        this.props.onConfigChanged({
+            ...this.props.config,
+            rule: {
+                ...this.props.config.rule,
+                operator: event.target.value as MatchingOperator,
+            }
+        });
     }
 
 }

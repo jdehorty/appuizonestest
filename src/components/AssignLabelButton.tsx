@@ -1,11 +1,12 @@
-import { IModelApp } from "@bentley/imodeljs-frontend";
-import {Button, Icon, SvgPath} from "@bentley/ui-core";
+import {IModelApp} from "@bentley/imodeljs-frontend";
+import {Button, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
 
 export interface AssignLabelButtonProps<ItemT> {
     label?: string;
     name: ItemT;
+
     onClick?(name: ItemT): void;
 }
 
@@ -33,7 +34,7 @@ export class AssignLabelButton<ItemT> extends React.PureComponent<AssignLabelBut
                 }}
             >
                 {/*<Icon iconSpec="icon-tag-2" />*/}
-                <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
+                <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
                     "M9,0,0,9l7,7,9-9V0Zm3.5,5A1.5,1.5,0,1,1,14,3.5,1.5,1.5,0,0,1,12.5,5Z"
                 ]}/>
             </Button>

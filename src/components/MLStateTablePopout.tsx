@@ -52,7 +52,7 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
     let wrappedWidget = <>
         <Provider store={LabelerState.store}>
-            <ConnectedCycleElementComponentPopout />
+            <ConnectedCycleElementComponentPopout/>
             <ConnectedMLTableComponent/>
         </Provider>
     </>

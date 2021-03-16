@@ -1,4 +1,4 @@
-import {MLStateTableDataItem, LabelTreeEntry} from "../store/LabelingWorkflowTypes";
+import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../LabelingWorkflowManager";
@@ -25,7 +25,7 @@ interface StateFromProps3 {
     onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
 
     onSave(): void;
-};
+}
 
 interface DispatchFromProps3 {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
@@ -45,7 +45,7 @@ interface DispatchFromProps3 {
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
 
     onSwapTruePredDisplay(): void;
-};
+}
 
 function mapStateToProps3(rootState: any): StateFromProps3 {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
@@ -132,7 +132,7 @@ function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>):
             });
         },
     };
-};
+}
 
 export const ConnectedMLTableComponent = connect<StateFromProps3, DispatchFromProps3>(mapStateToProps3, mapDispatchToProps3)(MLStateTableComponent);
 

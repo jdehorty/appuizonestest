@@ -2,14 +2,12 @@ import {Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {ColorPickerButton} from "@bentley/ui-components";
-import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
+import {Button, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStylesV2.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
-import {AppearanceToggleComponent} from "./AppearanceToggle";
-import {AssignLabelButton} from "./AssignLabelButton";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
 
 const FORCE_ALL = true;
@@ -105,43 +103,41 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         this.props.onLabelColorChange(color, name);
     }
 
-    private handleCheckboxChange = <T extends HTMLInputElement> (item : MLStateTableDataItem) => {
+    private handleCheckboxChange = <T extends HTMLInputElement>(item: MLStateTableDataItem) => {
 
-            return (event: React.SyntheticEvent<T>) => {
+        return (event: React.SyntheticEvent<T>) => {
 
-                let value: boolean | string;
-        
-                if (event.currentTarget.type === "checkbox") {
-                    value = (event.currentTarget as HTMLInputElement).checked;
-                  } else {
-                    value = event.currentTarget.value;
-                  }
+            let value: boolean | string;
 
-                console.log("wasSelected = " + item.isSelected);
-        
-                this.setState({ checkboxStatus : value.toString() });
+            if (event.currentTarget.type === "checkbox") {
+                value = (event.currentTarget as HTMLInputElement).checked;
+            } else {
+                value = event.currentTarget.value;
+            }
 
-                item.isSelected = (value.toString() =="true");
+            console.log("wasSelected = " + item.isSelected);
 
-                console.log("item.name =>" + item.name + " state => " + value + "   isSelected = " + item.isSelected);
-                
-                //context.setValues({ [this.props.id]: value });
-        
-              };
+            this.setState({checkboxStatus: value.toString()});
+
+            item.isSelected = (value.toString() == "true");
+
+            console.log("item.name =>" + item.name + " state => " + value + "   isSelected = " + item.isSelected);
+
+            //context.setValues({ [this.props.id]: value });
+
+        };
     }
 
     // handleCheckboxChange = event =>
     // this.setState({ checked: event.target.checked })
 
-   
 
-    private renderClassNameAndColorSection (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean) : JSX.Element {
+    private renderClassNameAndColorSection(level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element {
 
         const simpleLine = ""; // "m.79 7.25h14.42v1.5h-14.42z";
         const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
-        const collapsedCaret =  "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
+        const collapsedCaret = "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
 
-       
 
         let expanderOrLine = simpleLine;
         if (hasChildren) {
@@ -152,39 +148,39 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
             }
         }
 
-           return <>
-                {/* <Checkbox onChange={handleCheckboxClick(item)}></Checkbox> */}
+        return <>
+            {/* <Checkbox onChange={handleCheckboxClick(item)}></Checkbox> */}
 
-                <label /*key={this.state.checkboxStatus}*/ >
-                    <input                 
-                        type="checkbox"
-                        onChange={this.handleCheckboxChange(item!)}
-                    />
-                </label>
-
-                <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
-                <Button
-                    className="mltc-expand-button"
-                    style={{minWidth: 26, maxWidth: 28}}
-                    onClick={() => {
-                        this.props.onLabelExpandStateChange(!isExpanded, item.name);
-                    }}
-                >
-                    {/*<Icon iconSpec={iconClass}/>*/}
-                    <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                        expanderOrLine
-                    ]}/>
-                </Button>
-                <ColorPickerButton
-                    className="sstc-color-picker-button"
-                    initialColor={item.color}
-                    onColorPick={this.handleColorChange(item.name)}
+            <label /*key={this.state.checkboxStatus}*/ >
+                <input
+                    type="checkbox"
+                    onChange={this.handleCheckboxChange(item!)}
                 />
-                <div className="mltc-label-container-v2-small">
-                    {i18nName}
-                </div>
-               
-           </>
+            </label>
+
+            <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
+            <Button
+                className="mltc-expand-button"
+                style={{minWidth: 26, maxWidth: 28}}
+                onClick={() => {
+                    this.props.onLabelExpandStateChange(!isExpanded, item.name);
+                }}
+            >
+                {/*<Icon iconSpec={iconClass}/>*/}
+                <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
+                    expanderOrLine
+                ]}/>
+            </Button>
+            <ColorPickerButton
+                className="sstc-color-picker-button"
+                initialColor={item.color}
+                onColorPick={this.handleColorChange(item.name)}
+            />
+            <div className="mltc-label-container-v2-small">
+                {i18nName}
+            </div>
+
+        </>
     }
 
     private renderLabelSection(item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element {
@@ -209,7 +205,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         </>
     }
 
-    private renderPredictionSection (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element {
+    private renderPredictionSection(item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element {
         return <>
             {/* <AppearanceToggleComponent
                 transparencyAvailable={true}
@@ -237,69 +233,69 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         }
 
         return <>
-         <thead >
-                
-                <tr>
-                    <td className="mltc-name-td-v2">
-                        <div className="mltc-label-container">
-                            <LabeledToggle
-                                className="sstc-hide-empty-toggle"
-                                label="Hide Empty"
-                                isOn={this.state.filterEmptyRows}
-                                onChange={this.handleToggleFilter}
-                            />
-                        </div>
-                        {/* <Button
+            <thead>
+
+            <tr>
+                <td className="mltc-name-td-v2">
+                    <div className="mltc-label-container">
+                        <LabeledToggle
+                            className="sstc-hide-empty-toggle"
+                            label="Hide Empty"
+                            isOn={this.state.filterEmptyRows}
+                            onChange={this.handleToggleFilter}
+                        />
+                    </div>
+                    {/* <Button
                             className="sstc-swap-button"
                                 buttonType={ButtonType.Blue}
                             onClick={this.props.onSwapTruePredDisplay}
                         >
                             <Icon iconSpec="icon-replace"/>
                         </Button> */}
-                    </td>
-                    <td className="mltc-label-td-v2">
-                        <AppearanceBatchToggleComponent
-                            transparencyAvailable={true}
-                            allHidden={labelSectionAttributes.allLabelHidden}
-                            allVisible={labelSectionAttributes.allLabelVisible}
-                            allTransparent={labelSectionAttributes.allLabelTransparent}
-                            allOpaque={labelSectionAttributes.allLabelOpaque}
-                            onClick={
-                                (newVisible: boolean, newTransparent: boolean) => {
-                                    this.props.onLabelDisplayChange(newVisible, newTransparent, undefined);
-                                }
+                </td>
+                <td className="mltc-label-td-v2">
+                    <AppearanceBatchToggleComponent
+                        transparencyAvailable={true}
+                        allHidden={labelSectionAttributes.allLabelHidden}
+                        allVisible={labelSectionAttributes.allLabelVisible}
+                        allTransparent={labelSectionAttributes.allLabelTransparent}
+                        allOpaque={labelSectionAttributes.allLabelOpaque}
+                        onClick={
+                            (newVisible: boolean, newTransparent: boolean) => {
+                                this.props.onLabelDisplayChange(newVisible, newTransparent, undefined);
                             }
-                        />
-                        <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                    onClick={() => {
-                                                        this.props.onLabelSelectionClick(undefined);
-                                                    }}/>
-                    </td>
-                    <td className="mltc-prediction-td">
-                        <AppearanceBatchToggleComponent
-                            transparencyAvailable={true}
-                            allHidden={predSectionAttributes.allPredictionHidden}
-                            allVisible={predSectionAttributes.allPredictionVisible}
-                            allTransparent={predSectionAttributes.allPredictionTransparent}
-                            allOpaque={predSectionAttributes.allPredictionOpaque}
-                            onClick={
-                                (newVisible: boolean, newTransparent: boolean) => {
-                                    this.props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
-                                }
+                        }
+                    />
+                    <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                                onClick={() => {
+                                                    this.props.onLabelSelectionClick(undefined);
+                                                }}/>
+                </td>
+                <td className="mltc-prediction-td">
+                    <AppearanceBatchToggleComponent
+                        transparencyAvailable={true}
+                        allHidden={predSectionAttributes.allPredictionHidden}
+                        allVisible={predSectionAttributes.allPredictionVisible}
+                        allTransparent={predSectionAttributes.allPredictionTransparent}
+                        allOpaque={predSectionAttributes.allPredictionOpaque}
+                        onClick={
+                            (newVisible: boolean, newTransparent: boolean) => {
+                                this.props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
                             }
-                        />
-                        <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                    onClick={() => {
-                                                        this.props.onPredictionSelectionClick(undefined);
-                                                    }}/>
-                    </td>
-                </tr>
-                <tr style={headerStyle}>
-                    <th className="mltc-name-th-v2">Name</th>
-                    <th className="mltc-label-th-v2">Label</th>
-                    <th className="mltc-prediction-th-v2">Prediction</th>
-                </tr>
-                </thead>
+                        }
+                    />
+                    <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                                onClick={() => {
+                                                    this.props.onPredictionSelectionClick(undefined);
+                                                }}/>
+                </td>
+            </tr>
+            <tr style={headerStyle}>
+                <th className="mltc-name-th-v2">Name</th>
+                <th className="mltc-label-th-v2">Label</th>
+                <th className="mltc-prediction-th-v2">Prediction</th>
+            </tr>
+            </thead>
         </>
     }
 
@@ -326,7 +322,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         }
 
         let anyLabelSelected = false;
-      
+
 
         for (const item of this.props.itemMap.values()) {
             if (!item.trueLabelIsDisplayed) {
@@ -411,7 +407,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
 
         return <>
             <div className="sstc-data-container">
-                <table className="sstc-data-table" >
+                <table className="sstc-data-table">
                     {this.renderTableHead(labelSectionAttributes, predSectionAttributes)}
                     <tbody>
                     {tableRows}

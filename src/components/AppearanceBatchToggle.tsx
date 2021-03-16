@@ -1,4 +1,4 @@
-import { IModelApp } from "@bentley/imodeljs-frontend";
+import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
@@ -17,6 +17,7 @@ export interface AppearanceBatchToggleComponentProps {
     allTransparent: boolean;
     /** Are all items opaque? */
     allOpaque: boolean;
+
     /** Click handler */
     onClick?(newVisible: boolean, newTransparent: boolean): void;
 }
@@ -70,15 +71,15 @@ export class AppearanceBatchToggleComponent extends React.PureComponent<Appearan
                 buttonType={ButtonType.Blue}
                 className={"sstc-visibility-button " + labelToggleClass}
                 onClick={() => {
-                        if (this.props.onClick !== undefined) {
-                            this.props.onClick(newVisible, newTransparent);
-                        }
+                    if (this.props.onClick !== undefined) {
+                        this.props.onClick(newVisible, newTransparent);
                     }
+                }
                 }
                 style={btnStyle}
             >
                 {/*<Icon iconSpec={labelToggleIconSpec} />*/}
-                <SvgPath viewBoxWidth={16} viewBoxHeight={16}  paths={[
+                <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
                     "m8 3c-3.4 0-6.5 1.9-8 5 2.2 4.4 7.5 6.3 11.9 4.1 1.8-.9 3.2-2.3 4.1-4.1-1.5-3.1-4.6-5-8-5m3.9 " +
                     "2.6c1 .6 1.8 1.4 2.4 2.4-.6.9-1.4 1.7-2.3 2.3-1.1.8-2.5 1.2-3.9 1.2-1.4 0-2.8-.4-3.9-1.2-1-.6-" +
                     "1.9-1.3-2.5-2.3.6-1 1.4-1.8 2.4-2.4.1 0 .1-.1.2-.1-.2.4-.3.9-.3 1.4 0 2.2 1.8 4 4 4s4-1.8" +

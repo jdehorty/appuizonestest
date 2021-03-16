@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
-import { LabelingWorkflowManager } from "../LabelingWorkflowManager";
-import { CycleElementComponent, CycleElementComponentProps } from "./CycleElements";
-import { LabelingWorkflowState } from "../store/LabelingWorkflowState";
-import { LabelingWorkflowManagerSelectors } from "../store/LabelingWorkflowSelectors";
+import {connect} from "react-redux";
+import {LabelingWorkflowManager} from "../LabelingWorkflowManager";
+import {CycleElementComponent, CycleElementComponentProps} from "./CycleElements";
+import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
+import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
 
 
 /** Map state to props */
@@ -35,7 +35,7 @@ function mapStateToPropsForPopout(rootState: any): CycleElementComponentProps {
     if (!state) {
         throw new Error();
     }
-    let stateProps = mapStateToProps (rootState);
+    let stateProps = mapStateToProps(rootState);
     stateProps["poppedOut"] = true;
     return stateProps;
 }
