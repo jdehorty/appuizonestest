@@ -175,14 +175,15 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                         expanderOrLine
                     ]}/>
                 </Button>
-                <div className="mltc-label-container-v2-small">
-                    {i18nName}
-                </div>
                 <ColorPickerButton
                     className="sstc-color-picker-button"
                     initialColor={item.color}
                     onColorPick={this.handleColorChange(item.name)}
                 />
+                <div className="mltc-label-container-v2-small">
+                    {i18nName}
+                </div>
+               
            </>
     }
 
