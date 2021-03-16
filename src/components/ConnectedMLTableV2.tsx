@@ -19,6 +19,8 @@ interface StateFromProps3 {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
+    poppedOut: boolean;
+    readyForPopout: boolean;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
 
@@ -62,6 +64,8 @@ function mapStateToProps3(rootState: any): StateFromProps3 {
         availableColorModes: AVAILABLE_COLOR_MODES,
         currentColorMode: state.colorMode,
         isDirty: state.elementStateMapIsDirty,
+        poppedOut: false,
+        readyForPopout: false,
         onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
             LabelingWorkflowManager.selectLabel(itemId);
         },
@@ -71,6 +75,17 @@ function mapStateToProps3(rootState: any): StateFromProps3 {
         onSave: LabelingWorkflowManager.saveLabels,
     };
 }
+
+function mapStateToProps3ForPopout(rootState: any): StateFromProps3 {
+    const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
+    if (!state) {
+        throw new Error();
+    }
+
+    let stateProps3 = mapStateToProps3 (rootState);
+    stateProps3["poppedOut"] = true;
+    return stateProps3;
+};
 
 function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>): DispatchFromProps3 {
     return {
@@ -134,7 +149,11 @@ function mapDispatchToProps3(dispatch: Dispatch<LabelingWorkflowManagerAction>):
     };
 }
 
+
+
 export const ConnectedMLTableComponentV2 = connect<StateFromProps3, DispatchFromProps3>(mapStateToProps3, mapDispatchToProps3)(MLStateTableComponentV2);
+
+export const ConnectedMLTableComponentV2Popout = connect<StateFromProps3, DispatchFromProps3>(mapStateToProps3ForPopout, mapDispatchToProps3)(MLStateTableComponentV2);
 
 
 

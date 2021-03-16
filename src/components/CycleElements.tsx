@@ -2,7 +2,6 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import '../styles/LabelingWorkflowStyles.scss';
-import MLStateTablePopout from "./MLStateTablePopout";
 
 export interface CycleElementComponentProps {
     ready: boolean;
@@ -10,7 +9,6 @@ export interface CycleElementComponentProps {
     working: boolean;
     cycleSetSize?: number;
     cycleIndex?: number;
-    poppedOut?: boolean;
     totalCount: number;
     selectedCount: number;
     forceShowAll: boolean;
@@ -28,35 +26,10 @@ export interface CycleElementComponentProps {
     onForceShowAllChanged(forceShowAll: boolean): void;
 }
 
-interface CycleElementComponentState {
-    readyForPopout: boolean;
-}
-
-
-export class CycleElementComponent extends React.Component<CycleElementComponentProps, CycleElementComponentState> {
+export class CycleElementComponent extends React.Component<CycleElementComponentProps> {
 
     constructor(props: CycleElementComponentProps) {
         super(props);
-
-        this.state = {
-            readyForPopout: false
-        };
-
-        this._onPopoutButtonClick = this._onPopoutButtonClick.bind(this);
-
-    }
-
-    _onPopoutButtonClick = () => {
-        this.setState({
-            readyForPopout: true
-        });
-    }
-
-    _onPopoutWindowClosing = () => {
-        console.log("_onPopoutWindowClosing was fired");
-        this.setState({
-            readyForPopout: false,
-        });
     }
 
     public render() {
@@ -195,22 +168,6 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
                                     />
                                 </div>
                             </td>
-                            {!this.props.poppedOut &&
-                            <td>
-
-                                <Button className="sstc-window-new-button"
-                                        buttonType={ButtonType.Hollow}
-                                        onClick={this._onPopoutButtonClick}
-                                >
-                                    <Icon iconSpec="icon-window-new"/>
-                                </Button>
-
-                                {
-                                    this.state.readyForPopout &&
-                                    <MLStateTablePopout title={"ML Audit"} closingPopout={this._onPopoutWindowClosing}/>
-                                }
-                            </td>
-                            }
                         </tr>
                         </tbody>
                     </table>
@@ -221,4 +178,3 @@ export class CycleElementComponent extends React.Component<CycleElementComponent
     }
 
 }
-

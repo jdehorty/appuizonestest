@@ -176,6 +176,16 @@ $fontScale: 1.15em;
     /* display: inline; */
 }
 
+.sstc-color-mode-container {
+    // min-width: 150px;
+    // max-width: 150px;
+}
+
+.sstc-color-mode-select {
+    min-width: 150px;
+    max-width: 150px;
+}
+
 .sstc-action-container 
 {
     display: flex;
@@ -242,8 +252,8 @@ $fontScale: 1.15em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 190px;
-    max-width: 190px;
+    min-width: 250px;
+    max-width: 250px;
     display: flex;
     flex-direction: row;
     border-left: 1px solid grey;
@@ -265,6 +275,13 @@ $fontScale: 1.15em;
     max-width: 191px;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
+    font-size: $fontScale;
+}
+
+.mltc-name-th-subtable-v2
+{
+    min-width: 191px;
+    max-width: 191px;
     font-size: $fontScale;
 }
 

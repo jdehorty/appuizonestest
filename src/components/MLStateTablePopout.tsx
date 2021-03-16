@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
 import {LabelerState} from "../store/LabelerState";
-import {ConnectedMLTableComponent} from "./ConnectedMLTable";
+import {ConnectedMLTableComponentV2Popout} from "./ConnectedMLTableV2";
 import {copyStyles} from "../utils/CopyStyles";
-import {ConnectedCycleElementComponentPopout} from "./ConnectedCycleElements";
+
 
 type Props = {
     title: string;                          // The title of the popout window
@@ -52,8 +52,8 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
     let wrappedWidget = <>
         <Provider store={LabelerState.store}>
-            <ConnectedCycleElementComponentPopout/>
-            <ConnectedMLTableComponent/>
+            {/*<ConnectedCycleElementComponentPopout />*/}
+            <ConnectedMLTableComponentV2Popout/>
         </Provider>
     </>
 
