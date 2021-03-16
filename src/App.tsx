@@ -139,9 +139,7 @@ const App: React.FC = () => {
             console.log("ChangeSet not found");
         }
 
-        openLabelSource(connection).then(() => {
-            // setReadyForPopup(true);
-        });
+        await openLabelSource(connection);
     }
 
     return (
