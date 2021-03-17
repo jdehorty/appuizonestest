@@ -257,7 +257,22 @@ $fontScale: 1.15em;
     display: flex;
     flex-direction: row;
     border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    //border-right: 1px solid grey;
+}
+
+// This simply undoes unwanted styling that we get from ssts-data-table
+.mltc-name-subtable-td-v2 tbody td:nth-child(2)
+{
+    white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // min-width: 250px;
+    // max-width: 250px;
+    // // display: flex;
+    flex-direction: row;
+    border-left: none;
+    border-right: none;
+    padding-left: 12px;
 }
 
 .mltc-label-th-v2, .mltc-label-td-v2
@@ -267,6 +282,16 @@ $fontScale: 1.15em;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
     font-size: $fontScale;
+}
+
+.mltc-label-td-v2 button:nth-child(1)
+{
+   margin-left: 15px;
+}
+
+.mltc-label-td-v2 button:nth-child(2)
+{
+   margin-left: 5px;
 }
 
 .mltc-name-th-v2
@@ -293,6 +318,16 @@ $fontScale: 1.15em;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
     font-size: $fontScale;
+}
+
+.mltc-prediction-td-v2 button:nth-child(1)
+{
+   margin-left: 15px;
+}
+
+.mltc-prediction-td-v2 button:nth-child(2)
+{
+   margin-left: 5px;
 }
 
 .sstc-spinner-container

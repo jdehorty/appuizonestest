@@ -264,15 +264,15 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
 
                 <tr>
                     <td className="mltc-name-td-v2">
-                        <div className="mltc-label-container">
-                            <table>
+                        <div>
+                            <table className="mltc-name-subtable-td-v2">
                                 <tbody>
                                     <tr>
                                         <td>
                                             <span>{IModelApp.i18n.translate("LabelingApp:hideEmpty")}</span>
                                         </td>
                                         <td>
-                                            <div className="sstc-color-mode-container">
+                                            <div>
                                                 <span>{IModelApp.i18n.translate("LabelingApp:colorMode")}</span>
                                             </div>
                                         </td>
@@ -287,8 +287,8 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                                         />
                                         </td>
                                         <td>
-                                            <div className="sstc-color-mode-container">
-                                                <label className="sstc-color-mode-label">
+                                            <div>
+                                                <label>
                                                     <select
                                                         className="sstc-color-mode-select"
                                                         value={this.props.currentColorMode}
@@ -329,7 +329,7 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                                                         this.props.onLabelSelectionClick(undefined);
                                                     }}/>
                     </td>
-                    <td className="mltc-prediction-td">
+                    <td className="mltc-prediction-td-v2">
                         <AppearanceBatchToggleComponent
                             transparencyAvailable={true}
                             allHidden={predSectionAttributes.allPredictionHidden}
