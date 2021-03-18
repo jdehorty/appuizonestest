@@ -7,7 +7,8 @@ import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@ben
 import { UiFramework } from "@bentley/ui-framework";
 import { Store } from "redux";
 import { connect } from "react-redux";
-import { SelectionExtenderComponentProps, SelectionHelperComponent } from "./components/SelectionExtenderComponent";
+import { SelectionExtenderComponentProps } from "./components/SelectionExtenderComponent";
+import SelectionHelperComponent from "./components/SelectionExtenderComponent";
 import { filterKeySet } from "./utils/SelectionUtils";
 import { SelectionExtenderState } from "./store/SelectionExtenderState";
 import { SelectionExtenderActionType, SelectionExtenderAction } from "./store/SelectionExtenderActions";
@@ -344,8 +345,7 @@ export class SelectionExtender {
 }
 
 
-function mapStateToProps(rootState: any): SelectionExtenderComponentProps | undefined {
-    // debugger;
+const mapStateToProps = (rootState: any): SelectionExtenderComponentProps | undefined => {
     const state = rootState[SelectionExtender.stateKey] as SelectionExtenderState | undefined;
     if (!state) {
         return undefined;
@@ -360,7 +360,7 @@ function mapStateToProps(rootState: any): SelectionExtenderComponentProps | unde
         onExtendClicked: () => {SelectionExtender.extendSelection(); },
         onResetClicked: () => {SelectionExtender.resetSelection(); },
     };
-}
+};
 
 
 export const ConnectedSelectionHelperComponent = connect(mapStateToProps)(SelectionHelperComponent);

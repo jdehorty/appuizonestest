@@ -6,7 +6,7 @@ import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelecto
 
 
 /** Map state to props */
-function mapStateToProps(rootState: any): CycleElementComponentProps {
+const mapStateToProps = (rootState: any): CycleElementComponentProps => {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
@@ -27,7 +27,7 @@ function mapStateToProps(rootState: any): CycleElementComponentProps {
         onForceShowAllChanged: LabelingWorkflowManager.setForceShowAll,
         onPopout: LabelingWorkflowManager.popOutWindow
     };
-}
+};
 
 /**
  * Connected CycleElementComponent component that allows to cycle through a set of elements

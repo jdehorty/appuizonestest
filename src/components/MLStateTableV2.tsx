@@ -5,9 +5,9 @@ import {ColorPickerButton} from "@bentley/ui-components";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
-import '../styles/LabelingWorkflowStylesV2.scss';
+import "../styles/LabelingWorkflowStylesV2.scss";
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
-import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
+import AppearanceBatchToggleComponent from "./AppearanceBatchToggle";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
 import MLStateTablePopout from "./MLStateTablePopout";
 
@@ -138,22 +138,16 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
 
             this.setState({checkboxStatus: value.toString()});
 
-            item.isSelected = (value.toString() == "true");
+            item.isSelected = (value.toString() === "true");
 
             console.log("item.name =>" + item.name + " state => " + value + "   isSelected = " + item.isSelected);
-
-            //context.setValues({ [this.props.id]: value });
 
         };
     }
 
-    // handleCheckboxChange = event =>
-    // this.setState({ checked: event.target.checked })
-
-
     private renderClassNameAndColorSection(level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element {
 
-        const simpleLine = ""; // "m.79 7.25h14.42v1.5h-14.42z";
+        const simpleLine = "";
         const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
         const collapsedCaret = "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
 

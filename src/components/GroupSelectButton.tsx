@@ -18,7 +18,6 @@ export interface GroupSelectButtonComponentProps<ItemT> {
 
 /** Button to select an item */
 export class GroupSelectButtonComponent<ItemT> extends React.PureComponent<GroupSelectButtonComponentProps<ItemT>> {
-
     public render() {
         let title = IModelApp.i18n.translate("LabelingApp:select");
         title += ": ";

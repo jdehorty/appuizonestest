@@ -7,14 +7,13 @@ import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStyles.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
-import {AppearanceBatchToggleComponent} from "./AppearanceBatchToggle";
-import {AppearanceToggleComponent} from "./AppearanceToggle";
+import AppearanceBatchToggleComponent from "./AppearanceBatchToggle";
+import AppearanceToggleComponent from "./AppearanceToggle";
 import {AssignLabelButton} from "./AssignLabelButton";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
 
 
 const FORCE_ALL = true;
-const MINUTES = 1.0;
 
 interface MLStateTableComponentState {
     timerVar: any;
@@ -97,15 +96,13 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
     }
 
-    private renderLoading(): JSX.Element {
-        return <>
-            <div className="sstc-spinner-container">
-                <div className="sstc-spinner-inner-container">
-                    <Spinner size={SpinnerSize.XLarge}/>
-                </div>
+    private renderLoading = (): JSX.Element => <>
+        <div className="sstc-spinner-container">
+            <div className="sstc-spinner-inner-container">
+                <Spinner size={SpinnerSize.XLarge}/>
             </div>
-        </>
-    }
+        </div>
+    </>;
 
     private handleColorChange = (name: MachineLearningLabel) => (color: ColorDef) => {
         this.props.onLabelColorChange(color, name);
@@ -124,7 +121,6 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                     this.props.onLabelExpandStateChange(!isExpanded, item.name);
                 }}
             >
-                {/*<Icon iconSpec={iconClass}/>*/}
                 <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
                     activeCaret
                 ]}/>
@@ -256,9 +252,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
     }
 
     private renderTable(): JSX.Element {
-
         const autoSaveEnabled = this.state.timerVar !== undefined;
-
         const onlyShowPresent = true;
 
         const tableRows: JSX.Element[] = [];
@@ -278,7 +272,6 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
 
         let anyLabelSelected = false;
-
 
         for (const item of this.props.itemMap.values()) {
             if (!item.trueLabelIsDisplayed) {
@@ -309,12 +302,11 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             }
         }
 
-        const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean, hasChildren: boolean) => {
+        const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean) => {
 
             if (!onlyShowPresent || FORCE_ALL || item.hasData) {
 
                 const i18nName = IModelApp.i18n.translate(item.name);
-
                 const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
                 const predDisplayedCount = predSectionAttributes.anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
@@ -341,7 +333,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             if (item === undefined) {
                 return;
             }
-            processItem(item, treeItem.level, treeItem.isExpanded, treeItem.children.length !== 0);
+            processItem(item, treeItem.level, treeItem.isExpanded);
             if (treeItem.isExpanded) {
                 for (const child of treeItem.children) {
                     _recurse(child);
@@ -383,19 +375,27 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 </label>
             </div>
             <div className="sstc-action-container">
-                <Button className="sstc-control-button" onClick={this.props.onSave} disabled={!this.props.isDirty}><Icon
+                <Button className="sstc-control-button"
+                        onClick={this.props.onSave}
+                        disabled={!this.props.isDirty}><Icon
                     iconSpec="icon-save"/></Button>&nbsp;
                 <div className="sstc-action-container-expand">
                     <LabeledToggle
-                        label={`Auto Save (${MINUTES} min.)`}
+                        label={`Auto Save (${1.0} min.)`}
                         isOn={autoSaveEnabled}
                         onChange={this.handleAutoSaveToggle}
                     />
                 </div>
-                <Button className="sstc-control-button" onClick={this.props.onUndo} disabled={!this.props.canUndo}><Icon
-                    iconSpec="icon-undo"/></Button>&nbsp;
-                <Button className="sstc-control-button" onClick={this.props.onRedo} disabled={!this.props.canRedo}><Icon
-                    iconSpec="icon-redo"/></Button>&nbsp;
+                <Button className="sstc-control-button"
+                        onClick={this.props.onUndo}
+                        disabled={!this.props.canUndo}>
+                    <Icon iconSpec="icon-undo"/>
+                </Button>&nbsp;
+                <Button className="sstc-control-button"
+                        onClick={this.props.onRedo}
+                        disabled={!this.props.canRedo}>
+                    <Icon iconSpec="icon-redo"/>
+                </Button>&nbsp;
             </div>
         </>;
     }
@@ -409,7 +409,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
             if (this.state.timerVar !== undefined) {
                 clearInterval(this.state.timerVar);
             }
-            const timerVar = setInterval(this.props.onSave, MINUTES * 60000);
+            const timerVar = setInterval(this.props.onSave, 60000);
             this.setState({
                 timerVar: timerVar,
             })
@@ -423,4 +423,3 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         }
     }
 }
-
