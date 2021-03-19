@@ -320,7 +320,6 @@ export class SelectionExtender {
         }
     }
 
-    // TODO: bring back i18n argument and return legitimate promise
     public static async initialize(store: Store<any>, i18n: I18N, stateKey: string): Promise<void> {
         console.log("Inside SelectionExtender2 initialize()");
 
