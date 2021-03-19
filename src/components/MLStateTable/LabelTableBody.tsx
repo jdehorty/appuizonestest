@@ -13,10 +13,12 @@ const LabelTableBody: React.FC<Props>  = (props) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
+const mapStateToProps = (state: RootState) => ({
 
-  };
-};
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+
+});
 
 export default connect(mapStateToProps)(LabelTableBody);
