@@ -18,7 +18,7 @@ import {ConnectedMLTableComponent} from "./components/ConnectedMLTable";
 import {Provider} from 'react-redux';
 import {LabelerState} from "./store/LabelerState";
 import {ConnectedCycleElementComponent} from "./components/ConnectedCycleElements";
-import {ConnectedMLTableComponentV2} from "./components/ConnectedMLTableV2";
+import {ConnectedLabelTableComponent} from "./components/MLStateTable/ConnectedLabelTable";
 
 
 export class LabelerUiProvider implements UiItemsProvider {
@@ -54,7 +54,7 @@ export class LabelerUiProvider implements UiItemsProvider {
                     label: "ML Audit V2",
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
-                            <ConnectedMLTableComponentV2 />
+                            <ConnectedLabelTableComponent />
                         </Provider>
                 });
             }

@@ -7,7 +7,6 @@ interface OwnProps {}
 type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
 const LabelTableBody: React.FC<Props>  = (props) => {
-
   return (
       <>
       </>

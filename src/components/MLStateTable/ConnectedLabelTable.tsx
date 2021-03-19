@@ -1,16 +1,16 @@
-import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
-import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
+import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
+import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
-import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../LabelingWorkflowManager";
+import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
 import {Dispatch} from "react";
 import {connect} from "react-redux";
 import {ColorDef} from "@bentley/imodeljs-common";
-import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
-import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../store/LabelingWorkflowActions";
-import {MLStateTableComponentV2} from "./MLStateTable/LabelTable";
+import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
+import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
+import {LabelTableComponent} from "./LabelTable";
 
-interface StateFromProps {
+export interface StateFromProps {
     ready: boolean;
     itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
@@ -29,7 +29,7 @@ interface StateFromProps {
     onSave(): void;
 }
 
-interface DispatchFromProps {
+export interface DispatchFromProps {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
 
     onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
@@ -149,6 +149,6 @@ const mapDispatchToProps = (dispatch: Dispatch<LabelingWorkflowManagerAction>): 
 
 
 
-export const ConnectedMLTableComponentV2 = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(MLStateTableComponentV2);
+export const ConnectedLabelTableComponent = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(LabelTableComponent);
 
-export const ConnectedMLTableComponentV2Popout = connect<StateFromProps, DispatchFromProps>(mapStateToPropsForPopout, mapDispatchToProps)(MLStateTableComponentV2);
+export const ConnectedLabelTableComponentPopout = connect<StateFromProps, DispatchFromProps>(mapStateToPropsForPopout, mapDispatchToProps)(LabelTableComponent);

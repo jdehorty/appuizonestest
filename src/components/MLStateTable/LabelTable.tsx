@@ -10,11 +10,13 @@ import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflow
 import AppearanceBatchToggleComponent from "../AppearanceBatchToggle";
 import {GroupSelectButtonComponent} from "../GroupSelectButton";
 import MLStateTablePopout from "../MLStateTablePopout";
+import ConnectedLabelTableFooter from "./LabelTableFooter";
+import {LabelerState} from "../../store/LabelerState";
+import {Provider} from "react-redux";
 
 const FORCE_ALL = true;
-const MINUTES = 1.0;
 
-interface MLStateTableComponentStateV2 {
+interface LabelTableComponentState {
     timerVar: any;
     filterEmptyRows: boolean;
     checkboxStatus: string;
@@ -36,12 +38,10 @@ interface IPredictionSectionAttributes {
     anyPredictionSelected: boolean;
 }
 
-interface MLStateTableComponentPropsV2 {
+export interface LabelTableComponentProps {
     ready: boolean;
     itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
-    canUndo: boolean;
-    canRedo: boolean;
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
@@ -62,20 +62,14 @@ interface MLStateTableComponentPropsV2 {
 
     onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
 
-    onSave(): void;
-
-    onUndo(): void;
-
-    onRedo(): void;
-
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
 
     onSwapTruePredDisplay(): void;
 }
 
-export class MLStateTableComponentV2 extends React.Component<MLStateTableComponentPropsV2, MLStateTableComponentStateV2> {
+export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
 
-    constructor(props: MLStateTableComponentPropsV2, ) {
+    constructor(props: LabelTableComponentProps, ) {
         super(props);
 
         this.state = {
@@ -472,22 +466,10 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
                     </tbody>
                 </table>
             </div>
+            <Provider store={LabelerState.store}>
+                <ConnectedLabelTableFooter/>
+            </Provider>
 
-            <div className="sstc-action-container">
-                <Button className="sstc-control-button" onClick={this.props.onSave} disabled={!this.props.isDirty}><Icon
-                    iconSpec="icon-save"/></Button>&nbsp;
-                <div className="sstc-action-container-expand">
-                    <LabeledToggle
-                        label={`Auto Save (${MINUTES} min.)`}
-                        isOn={autoSaveEnabled}
-                        onChange={this.handleAutoSaveToggle}
-                    />
-                </div>
-                <Button className="sstc-control-button" onClick={this.props.onUndo} disabled={!this.props.canUndo}><Icon
-                    iconSpec="icon-undo"/></Button>&nbsp;
-                <Button className="sstc-control-button" onClick={this.props.onRedo} disabled={!this.props.canRedo}><Icon
-                    iconSpec="icon-redo"/></Button>&nbsp;
-            </div>
         </>;
     }
 
@@ -495,24 +477,6 @@ export class MLStateTableComponentV2 extends React.Component<MLStateTableCompone
         this.setState({filterEmptyRows: enable});
     }
 
-    private handleAutoSaveToggle = (enable: boolean) => {
-        if (enable) {
-            if (this.state.timerVar !== undefined) {
-                clearInterval(this.state.timerVar);
-            }
-            const timerVar = setInterval(this.props.onSave, MINUTES * 60000);
-            this.setState({
-                timerVar: timerVar,
-            })
-        } else {
-            if (this.state.timerVar !== undefined) {
-                clearInterval(this.state.timerVar);
-            }
-            this.setState({
-                timerVar: undefined,
-            })
-        }
-    }
 
     public render() {
         return <>
