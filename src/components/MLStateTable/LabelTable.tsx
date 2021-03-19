@@ -4,12 +4,12 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {ColorPickerButton} from "@bentley/ui-components";
 import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
-import "../styles/LabelingWorkflowStylesV2.scss";
-import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
-import AppearanceBatchToggleComponent from "./AppearanceBatchToggle";
-import {GroupSelectButtonComponent} from "./GroupSelectButton";
-import MLStateTablePopout from "./MLStateTablePopout";
+import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
+import "../../styles/LabelingWorkflowStylesV2.scss";
+import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
+import AppearanceBatchToggleComponent from "../AppearanceBatchToggle";
+import {GroupSelectButtonComponent} from "../GroupSelectButton";
+import MLStateTablePopout from "../MLStateTablePopout";
 
 const FORCE_ALL = true;
 const MINUTES = 1.0;
