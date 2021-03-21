@@ -2,7 +2,7 @@ import React, {Dispatch, FunctionComponent, useState} from 'react';
 import { connect } from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 
-import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
+import {Button, Icon, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
 import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
@@ -50,7 +50,7 @@ const LabelTableBody: FunctionComponent<Props>  = (props) => {
         };
     }
 
-    const renderClassNameAndColorSection  = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element => {
+    const jsxForClassNameAndColorSection  = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element => {
 
         const simpleLine = "";
         const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
@@ -67,8 +67,6 @@ const LabelTableBody: FunctionComponent<Props>  = (props) => {
         }
    
         return <>
-            {/* <Checkbox onChange={handleCheckboxClick(item)}></Checkbox> */}
-   
             <label>
                 <input
                     type="checkbox"
@@ -101,7 +99,7 @@ const LabelTableBody: FunctionComponent<Props>  = (props) => {
         </>
     }
      
-    const renderLabelSection = (item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element => {
+    const jsxForLabelSection = (item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element => {
         return <>
             <div className="sstc-count-container-v2">
                 {trueDisplayedCount}
@@ -109,7 +107,7 @@ const LabelTableBody: FunctionComponent<Props>  = (props) => {
         </>
     }
    
-    const renderPredictionSection = (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element => {
+    const jsxForPredictionSection = (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element => {
         return <>
             <div className="sstc-count-container-v2">
                 {predDisplayedCount}
@@ -138,13 +136,13 @@ const LabelTableBody: FunctionComponent<Props>  = (props) => {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td-v2" style={{whiteSpace: "nowrap"}}>
-                                {renderClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
+                                {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
                             </td>
                             <td className="mltc-label-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
-                                {renderLabelSection(item, i18nName, trueDisplayedCount)}
+                                {jsxForLabelSection(item, i18nName, trueDisplayedCount)}
                             </td>
                             <td className="mltc-prediction-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
-                                {renderPredictionSection(item, i18nName, predDisplayedCount)}
+                                {jsxForPredictionSection(item, i18nName, predDisplayedCount)}
                             </td>
                         </tr>
                     );

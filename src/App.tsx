@@ -169,7 +169,6 @@ const App: React.FC = () => {
                             }
                             uiProviders={[new LabelerUiProvider()]}
                             onIModelConnected={onIModelConnected}
-                            // onIModelAppInit={onIModelAppInit}
                         />
                     </div>
                 )
