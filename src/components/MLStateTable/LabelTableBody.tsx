@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FC} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 
@@ -24,7 +24,7 @@ interface OwnProps extends LabelTableComponentProps {
 
 type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
 
-const LabelTableBody: FunctionComponent<Props> = (props) => {
+const LabelTableBody: FC<Props> = (props) => {
 
     const handleColorChange = (name: MachineLearningLabel) => (color: ColorDef) => {
         props.onLabelColorChange(color, name);

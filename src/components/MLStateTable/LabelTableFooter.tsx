@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {Button, Icon, LabeledToggle, SvgPath} from "@bentley/ui-core";
 import {LabelTableComponentProps} from "./LabelTable";
@@ -24,7 +24,7 @@ interface OwnProps extends LabelTableComponentProps {
 
 type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
 
-const LabelTableFooter: FunctionComponent<Props> = (props) => {
+const LabelTableFooter: FC<Props> = (props) => {
 
     const [timerVar, setTimerVar] = useState<undefined | NodeJS.Timeout>(undefined);
 

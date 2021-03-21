@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import AppearanceBatchToggleComponent from "../AppearanceBatchToggle";
@@ -28,7 +28,7 @@ interface OwnProps extends LabelTableComponentProps {
 type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
 
 
-const LabelTableHeader: FunctionComponent<Props> = (props) => {
+const LabelTableHeader: FC<Props> = (props) => {
 
   const [readyForPopout, setReadyForPopout] = useState<boolean> (props.readyForPopout);
 
