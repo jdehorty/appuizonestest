@@ -13,6 +13,7 @@ import { filterKeySet } from "./utils/SelectionUtils";
 import { SelectionExtenderState } from "./store/SelectionExtenderState";
 import { SelectionExtenderActionType, SelectionExtenderAction } from "./store/SelectionExtenderActions";
 import {MatchingRuleType, SelectionExtenderConfig} from "./store/SelectionExtenderTypes";
+import {RootState} from "../../store/AppState";
 
 const TOL = 1e-3;
 
@@ -344,8 +345,8 @@ export class SelectionExtender {
 }
 
 
-const mapStateToProps = (rootState: any): SelectionExtenderComponentProps | undefined => {
-    const state = rootState[SelectionExtender.stateKey] as SelectionExtenderState | undefined;
+const mapStateToProps = (rootState: RootState): SelectionExtenderComponentProps | undefined => {
+    const state = rootState.selectionExtenderState as SelectionExtenderState | undefined;
     if (!state) {
         return undefined;
     }

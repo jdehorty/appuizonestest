@@ -9,6 +9,7 @@ import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
 import {LabelTableComponent} from "./LabelTable";
+import {RootState} from "../../store/AppState";
 
 export interface LabelTableStateFromProps {
     ready: boolean;
@@ -49,9 +50,9 @@ export interface LabelTableDispatchFromProps {
     onSwapTruePredDisplay(): void;
 }
 
-export function mapLabelTableStateToProps(rootState: any): LabelTableStateFromProps {
-    const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
-    console.log('mapStateToProps3 => !state is state == ' + JSON.stringify(state));
+export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
+    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
+    
     if (!state) {
         throw new Error();
     }
