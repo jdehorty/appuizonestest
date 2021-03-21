@@ -17,7 +17,7 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps,
     mapLabelTableStateToPropsForPopout
-} from "./ConnectedLabelTable";
+} from "./LabelTableState";
 import MLStateTablePopout from "../MLStateTablePopout";
 
 

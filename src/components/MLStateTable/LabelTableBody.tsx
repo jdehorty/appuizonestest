@@ -11,7 +11,7 @@ import {
     LabelTableStateFromProps,
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
-} from "./ConnectedLabelTable";
+} from "./LabelTableState";
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import {LabelTableComponent, LabelTableComponentProps} from "./LabelTable";
 import {ColorPickerButton} from "@bentley/ui-components";

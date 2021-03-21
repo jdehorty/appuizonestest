@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
 import {LabelerState} from "../store/LabelerState";
-import {ConnectedLabelTableComponentPopout} from "./MLStateTable/ConnectedLabelTable";
+import {ConnectedLabelTableComponentPopout} from "./MLStateTable/LabelTableState";
 import {copyStyles} from "../utils/CopyStyles";
 
 
