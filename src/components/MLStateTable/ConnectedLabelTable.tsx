@@ -22,6 +22,7 @@ export interface LabelTableStateFromProps {
     isDirty: boolean;
     isPoppedOut: boolean;
     readyForPopout: boolean;
+    filterEmptyRows: boolean;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
 
@@ -67,6 +68,7 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         isDirty: state.elementStateMapIsDirty,
         isPoppedOut: false,
         readyForPopout: false,
+        filterEmptyRows: false,
         onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
             LabelingWorkflowManager.selectLabel(itemId);
         },

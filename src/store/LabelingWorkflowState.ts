@@ -98,6 +98,8 @@ export interface LabelingWorkflowState {
     colorMode: MachineLearningColorMode;
     /** Force show flag */
     forceShowAll: boolean;
+    /** filtering out label rows with empty class counts */
+    filterEmptyRows: boolean;
 }
 
 
@@ -121,4 +123,5 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     },
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
+    filterEmptyRows: false
 }
