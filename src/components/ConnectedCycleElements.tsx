@@ -3,11 +3,12 @@ import {LabelingWorkflowManager} from "../LabelingWorkflowManager";
 import {CycleElementComponent, CycleElementComponentProps} from "./CycleElements";
 import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
+import {RootState} from "../store/AppState";
 
 
 /** Map state to props */
-const mapStateToProps = (rootState: any): CycleElementComponentProps => {
-    const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
+const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
+    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
     }

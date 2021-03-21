@@ -9,6 +9,7 @@ import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../store/LabelingWorkflowActions";
+import {RootState} from "../store/AppState";
 
 interface StateFromProps3 {
     ready: boolean;
@@ -47,8 +48,8 @@ interface DispatchFromProps3 {
     onSwapTruePredDisplay(): void;
 }
 
-const mapStateToProps3 = (rootState: any): StateFromProps3 => {
-    const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
+const mapStateToProps3 = (rootState: RootState): StateFromProps3 => {
+    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
     }
