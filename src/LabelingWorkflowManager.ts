@@ -512,6 +512,14 @@ export class LabelingWorkflowManager {
         });
     }
 
+      /** Set Force Show all */
+      public static setFilterEmptyRows = (filterEmptyRowsFlags?: boolean): void => {
+        LabelingWorkflowManager.store.dispatch<LabelingWorkflowManagerAction>({
+            type: LabelingWorkflowManagerActionType.FilterEmptyRowsChanged,
+            filterEmptyRows: filterEmptyRowsFlags,
+        });
+    }
+
     /** Enable cycle mode */
     public static cycleElementsEnable = (): void => {
         let selectableList: Id64Arg = Array.from(LabelingWorkflowManagerSelectors.selectableSet(LabelingWorkflowManager.state));

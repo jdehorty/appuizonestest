@@ -30,7 +30,6 @@ export interface IPredictionSectionAttributes {
 
 interface LabelTableComponentState {
     timerVar: any;
-    filterEmptyRows: boolean;
     checkboxStatus: string;
     readyForPopout: boolean;
 }
@@ -62,6 +61,8 @@ export interface LabelTableComponentProps {
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
 
     onSwapTruePredDisplay(): void;
+
+    onFilterEmptyRowsChange(filterEmptyRowsFlag: boolean): void;
 }
 
 export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
@@ -71,7 +72,6 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
 
         this.state = {
             timerVar: undefined,
-            filterEmptyRows: false,
             checkboxStatus: "false",
             readyForPopout: false
         };

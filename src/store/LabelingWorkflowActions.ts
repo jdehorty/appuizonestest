@@ -27,6 +27,7 @@ export enum LabelingWorkflowManagerActionType {
     LabelsWereSaved = "LabelingWorkflowManagerActionType.LabelsWereSaved",
     VisiblityStatesSwapped = "LabelingWorkflowManagerActionType.VisiblityStatesSwapped",
     ForceShowAllChanged = "LabelingWorkflowManagerActionType.ForceShowAllChanged",
+    FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
 }
 
 /** Reducer action */
@@ -60,4 +61,5 @@ export interface LabelingWorkflowManagerAction {
     newColor?: ColorDef;
     newExpanded?: boolean;
     newForceShowAll?: boolean;
+    filterEmptyRows?: boolean
 }

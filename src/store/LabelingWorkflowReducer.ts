@@ -48,6 +48,12 @@ export function LabelingWorkflowManagerReducer(
                 forceShowAll: action.newForceShowAll!,
             };
 
+        case LabelingWorkflowManagerActionType.FilterEmptyRowsChanged:
+            return {
+                ...prevState,
+                filterEmptyRows: action.filterEmptyRows!,
+            };
+
         case LabelingWorkflowManagerActionType.SelectionHasChanged:
             // Selection has changed, store the new set
             return {

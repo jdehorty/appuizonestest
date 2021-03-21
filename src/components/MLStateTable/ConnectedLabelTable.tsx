@@ -49,6 +49,8 @@ export interface LabelTableDispatchFromProps {
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
 
     onSwapTruePredDisplay(): void;
+
+    onFilterEmptyRowsChange(filterEmptyRowsFlag: boolean): void;
 }
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
@@ -68,7 +70,7 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         isDirty: state.elementStateMapIsDirty,
         isPoppedOut: false,
         readyForPopout: false,
-        filterEmptyRows: false,
+        filterEmptyRows: state.filterEmptyRows,
         onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
             LabelingWorkflowManager.selectLabel(itemId);
         },
@@ -147,6 +149,12 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
         onSwapTruePredDisplay: () => {
             dispatch({
                 type: LabelingWorkflowManagerActionType.VisiblityStatesSwapped,
+            });
+        },
+        onFilterEmptyRowsChange: (filterEmptyRowsFlag: boolean) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.FilterEmptyRowsChanged,
+                filterEmptyRows: filterEmptyRowsFlag
             });
         },
     });

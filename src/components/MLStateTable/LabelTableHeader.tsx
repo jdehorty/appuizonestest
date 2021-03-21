@@ -30,8 +30,7 @@ type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
 
 const LabelTableHeader: FunctionComponent<Props> = (props) => {
 
-    const [filterEmptyRows, setFilterEmptyRows] = useState<boolean>(false);
-    const [readyForPopout, setReadyForPopout] = useState<boolean>(props.readyForPopout);
+  const [readyForPopout, setReadyForPopout] = useState<boolean> (props.readyForPopout);
 
     const handleColorModeChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
         if (event.target !== undefined) {
@@ -71,46 +70,46 @@ const LabelTableHeader: FunctionComponent<Props> = (props) => {
             <thead>
             <tr>
                 <td className="mltc-name-td-v2">
-                    <div>
-                        <table className="mltc-name-subtable-td-v2">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span>{IModelApp.i18n.translate("LabelingApp:hideEmpty")}</span>
-                                </td>
-                                <td>
-                                    <div>
-                                        <span>{IModelApp.i18n.translate("LabelingApp:colorMode")}</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <LabeledToggle
-                                        className="sstc-hide-empty-toggle"
-                                        label=""
-                                        isOn={filterEmptyRows}
-                                        onChange={setFilterEmptyRows}
-                                    />
-                                </td>
-                                <td>
-                                    <div>
-                                        <label>
-                                            <select
-                                                className="sstc-color-mode-select"
-                                                value={props.currentColorMode}
-                                                onChange={handleColorModeChange}
-                                            >
-                                                {colorModeOptions}
-                                            </select>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    {/* <Button
+                <div>
+                   <table className="mltc-name-subtable-td-v2">
+                       <tbody>
+                           <tr>
+                               <td>
+                                   <span>{IModelApp.i18n.translate("LabelingApp:hideEmpty")}</span>
+                               </td>
+                               <td>
+                                   <div>
+                                       <span>{IModelApp.i18n.translate("LabelingApp:colorMode")}</span>
+                                   </div>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                               <LabeledToggle
+                                   className="sstc-hide-empty-toggle"
+                                   label=""
+                                   isOn={props.filterEmptyRows}
+                                   onChange={props.onFilterEmptyRowsChange}
+                               />
+                               </td>
+                               <td>
+                                   <div>
+                                       <label>
+                                           <select
+                                               className="sstc-color-mode-select"
+                                               value={props.currentColorMode}
+                                               onChange={handleColorModeChange}
+                                           >
+                                               {colorModeOptions}
+                                           </select>
+                                       </label>
+                                   </div>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                </div>
+                {/* <Button
                    className="sstc-swap-button"
                        buttonType={ButtonType.Blue}
                    onClick={this.props.onSwapTruePredDisplay}
@@ -189,4 +188,3 @@ const LabelTableHeader: FunctionComponent<Props> = (props) => {
 export const ConnectedLabelTableHeader = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableHeader);
 
 export const ConnectedLabelTableHeaderPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableHeader);
-
