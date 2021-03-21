@@ -98,8 +98,6 @@ export interface LabelingWorkflowState {
     colorMode: MachineLearningColorMode;
     /** Force show flag */
     forceShowAll: boolean;
-    /** Popped out */
-    poppedOut: boolean;
 }
 
 
@@ -116,7 +114,6 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     elementStateMapIsDirty: false,
     elementStateMapHistory: [new Map<Id64String, ElementState>()],
     elementStateMapIndex: 0,
-    poppedOut: false,
     selectionSet: new Set<Id64String>(),
     cycleModeState: {
         working: false,

@@ -10,7 +10,7 @@ import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSele
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
 import {LabelTableComponent} from "./LabelTable";
 
-export interface StateFromProps {
+export interface LabelTableStateFromProps {
     ready: boolean;
     itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
@@ -19,7 +19,7 @@ export interface StateFromProps {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
-    poppedOut: boolean;
+    isPoppedOut: boolean;
     readyForPopout: boolean;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
@@ -29,7 +29,7 @@ export interface StateFromProps {
     onSave(): void;
 }
 
-export interface DispatchFromProps {
+export interface LabelTableDispatchFromProps {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
 
     onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
@@ -49,7 +49,7 @@ export interface DispatchFromProps {
     onSwapTruePredDisplay(): void;
 }
 
-const mapStateToProps = (rootState: any): StateFromProps => {
+export function mapLabelTableStateToProps(rootState: any): LabelTableStateFromProps {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
     console.log('mapStateToProps3 => !state is state == ' + JSON.stringify(state));
     if (!state) {
@@ -64,7 +64,7 @@ const mapStateToProps = (rootState: any): StateFromProps => {
         availableColorModes: AVAILABLE_COLOR_MODES,
         currentColorMode: state.colorMode,
         isDirty: state.elementStateMapIsDirty,
-        poppedOut: false,
+        isPoppedOut: false,
         readyForPopout: false,
         onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
             LabelingWorkflowManager.selectLabel(itemId);
@@ -76,79 +76,79 @@ const mapStateToProps = (rootState: any): StateFromProps => {
     };
 }
 
-const mapStateToPropsForPopout = (rootState: any): StateFromProps => {
+export function mapLabelTableStateToPropsForPopout(rootState: any): LabelTableStateFromProps {
     const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
     }
 
-    let stateProps3 = mapStateToProps (rootState);
-    stateProps3["poppedOut"] = true;
+    let stateProps3 = mapLabelTableStateToProps(rootState);
+    stateProps3["isPoppedOut"] = true;
     return stateProps3;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<LabelingWorkflowManagerAction>): DispatchFromProps => ({
-    onLabelExpandStateChange: (newExpanded: boolean, name: MachineLearningLabel) => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.LabelExpandStateWasChanged,
-            newExpanded: newExpanded,
-            label: name,
-        })
-    },
-    onLabelColorChange: (newColor: ColorDef, name: MachineLearningLabel) => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.LabelColorWasChanged,
-            newColor: newColor,
-            label: name,
-        })
-    },
-    onLabelDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel): void => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.TrueLabelVisibilityWasChanged,
-            label: name,
-            displayed: newVisible,
-            transparent: newTransparent,
-        });
-    },
-    onPredictionDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel): void => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.PredLabelVisibilityWasChanged,
-            label: name,
-            displayed: newVisible,
-            transparent: newTransparent,
-        });
-    },
-    onLabelApply: (name: MachineLearningLabel): void => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.SelectionLabelWasChanged,
-            label: name,
-        });
-    },
-    onUndo: () => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.UndoWasRequested,
-        });
-    },
-    onRedo: () => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.RedoWasRequested,
-        });
-    },
-    onChangeColorMode: (colorMode: MachineLearningColorMode) => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.ColorModeWasChanged,
-            colorMode: colorMode,
-        });
-    },
-    onSwapTruePredDisplay: () => {
-        dispatch({
-            type: LabelingWorkflowManagerActionType.VisiblityStatesSwapped,
-        });
-    },
-});
+export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflowManagerAction>): LabelTableDispatchFromProps {
+    return ({
+        onLabelExpandStateChange: (newExpanded: boolean, name: MachineLearningLabel) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.LabelExpandStateWasChanged,
+                newExpanded: newExpanded,
+                label: name,
+            });
+        },
+        onLabelColorChange: (newColor: ColorDef, name: MachineLearningLabel) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.LabelColorWasChanged,
+                newColor: newColor,
+                label: name,
+            });
+        },
+        onLabelDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel): void => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.TrueLabelVisibilityWasChanged,
+                label: name,
+                displayed: newVisible,
+                transparent: newTransparent,
+            });
+        },
+        onPredictionDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel): void => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.PredLabelVisibilityWasChanged,
+                label: name,
+                displayed: newVisible,
+                transparent: newTransparent,
+            });
+        },
+        onLabelApply: (name: MachineLearningLabel): void => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.SelectionLabelWasChanged,
+                label: name,
+            });
+        },
+        onUndo: () => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.UndoWasRequested,
+            });
+        },
+        onRedo: () => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.RedoWasRequested,
+            });
+        },
+        onChangeColorMode: (colorMode: MachineLearningColorMode) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.ColorModeWasChanged,
+                colorMode: colorMode,
+            });
+        },
+        onSwapTruePredDisplay: () => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.VisiblityStatesSwapped,
+            });
+        },
+    });
+}
 
+export const ConnectedLabelTableComponent = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableComponent);
 
-
-export const ConnectedLabelTableComponent = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(LabelTableComponent);
-
-export const ConnectedLabelTableComponentPopout = connect<StateFromProps, DispatchFromProps>(mapStateToPropsForPopout, mapDispatchToProps)(LabelTableComponent);
+export const ConnectedLabelTableComponentPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableComponent);

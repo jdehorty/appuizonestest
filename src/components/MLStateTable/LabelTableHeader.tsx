@@ -1,27 +1,185 @@
-import React, { FunctionComponent } from 'react';
+import React, {Dispatch, FunctionComponent, useState} from 'react';
 import { connect } from 'react-redux';
-import {RootState} from "../../store/AppState";
+import {IModelApp} from "@bentley/imodeljs-frontend";
+import AppearanceBatchToggleComponent from "../AppearanceBatchToggle";
+import {GroupSelectButtonComponent} from "../GroupSelectButton";
+import {Button, Icon, LabeledToggle, ButtonType} from "@bentley/ui-core";
+import {LabelTableComponent, LabelTableComponentProps, ILabelSectionAttributes, IPredictionSectionAttributes} from "./LabelTable";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
+import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
+import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
+import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
+import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
+import {LabelTableDispatchFromProps, LabelTableStateFromProps, mapLabelTableStateToProps, mapLabelTableDispatchToProps, mapLabelTableStateToPropsForPopout} from "./ConnectedLabelTable";
+import {ColorDef} from "@bentley/imodeljs-common";
+import MLStateTablePopout from "../MLStateTablePopout";
 
-interface OwnProps {}
 
-type Props = OwnProps & ReturnType<typeof mapStateToProps>;
+interface OwnProps extends LabelTableComponentProps {
+    isPoppedOut: boolean;
+}
+
+type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
+
 
 const LabelTableHeader: FunctionComponent<Props> = (props) => {
 
+  const [filterEmptyRows, setFilterEmptyRows] = useState<boolean> (false);
+  const [readyForPopout, setReadyForPopout] = useState<boolean> (props.readyForPopout);
+
+      const handleColorModeChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+          if (event.target !== undefined) {
+              const colorMode = event.target.value as MachineLearningColorMode;
+              props.onChangeColorMode(colorMode);
+          }
+      }
+
+      const _onPopoutButtonClick = () => {
+        setReadyForPopout(true);
+      }
+
+      const _onPopoutWindowClosing = () => {
+        // console.log("_onPopoutWindowClosing was fired");
+        setReadyForPopout(false);
+      }
+
+      const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableComponent.getSectionAttributes(props);
+
+      const renderTableHead = (labelSectionAttributes: ILabelSectionAttributes, predSectionAttributes: IPredictionSectionAttributes) : JSX.Element => {
+
+          let headerStyle = {
+          backgroundColor: "#ddd",
+          fontSize: "11px"
+          }
+
+          const colorModeOptions: JSX.Element[] = [];
+
+          for (const colorMode of props.availableColorModes) {
+            const colorModeI18n = IModelApp.i18n.translate(colorMode);
+            colorModeOptions.push(
+                <option key={`color-mode-option-${colorMode}`} value={colorMode}>{colorModeI18n}</option>
+            );
+          }
+
+          return <>
+          <thead>
+                <tr>
+                <td className="mltc-name-td-v2">
+                <div>
+                   <table className="mltc-name-subtable-td-v2">
+                       <tbody>
+                           <tr>
+                               <td>
+                                   <span>{IModelApp.i18n.translate("LabelingApp:hideEmpty")}</span>
+                               </td>
+                               <td>
+                                   <div>
+                                       <span>{IModelApp.i18n.translate("LabelingApp:colorMode")}</span>
+                                   </div>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                               <LabeledToggle
+                                   className="sstc-hide-empty-toggle"
+                                   label=""
+                                   isOn={filterEmptyRows}
+                                   onChange={setFilterEmptyRows}
+                               />
+                               </td>
+                               <td>
+                                   <div>
+                                       <label>
+                                           <select
+                                               className="sstc-color-mode-select"
+                                               value={props.currentColorMode}
+                                               onChange={handleColorModeChange}
+                                           >
+                                               {colorModeOptions}
+                                           </select>
+                                       </label>
+                                   </div>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                </div>
+                {/* <Button
+                   className="sstc-swap-button"
+                       buttonType={ButtonType.Blue}
+                   onClick={this.props.onSwapTruePredDisplay}
+                >
+                   <Icon iconSpec="icon-replace"/>
+                </Button> */}
+                </td>
+                <td className="mltc-label-td-v2">
+                <AppearanceBatchToggleComponent
+                   transparencyAvailable={true}
+                   allHidden={labelSectionAttributes.allLabelHidden}
+                   allVisible={labelSectionAttributes.allLabelVisible}
+                   allTransparent={labelSectionAttributes.allLabelTransparent}
+                   allOpaque={labelSectionAttributes.allLabelOpaque}
+                   onClick={
+                       (newVisible: boolean, newTransparent: boolean) => {
+                           props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                       }
+                   }
+                />
+                <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                           onClick={() => {
+                                               props.onLabelSelectionClick(undefined);
+                                           }}/>
+                </td>
+                <td className="mltc-prediction-td-v2">
+                <AppearanceBatchToggleComponent
+                   transparencyAvailable={true}
+                   allHidden={predSectionAttributes.allPredictionHidden}
+                   allVisible={predSectionAttributes.allPredictionVisible}
+                   allTransparent={predSectionAttributes.allPredictionTransparent}
+                   allOpaque={predSectionAttributes.allPredictionOpaque}
+                   onClick={
+                       (newVisible: boolean, newTransparent: boolean) => {
+                           props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
+                       }
+                   }
+                />
+                <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                           onClick={() => {
+                                               props.onPredictionSelectionClick(undefined);
+                                           }}/>
+                </td>
+                { !props.isPoppedOut &&
+                       <td>
+                           <Button className="sstc-window-new-button"
+                                   buttonType={ButtonType.Hollow}
+                                   onClick={_onPopoutButtonClick}
+                           >
+                               <Icon iconSpec="icon-window-new"/>
+                           </Button>
+                
+                           {
+                               readyForPopout && <MLStateTablePopout title={"ML Audit"} closingPopout={_onPopoutWindowClosing}/>
+                           }
+                       </td>
+                   }
+                </tr>
+                <tr style={headerStyle}>
+                    <th className="mltc-name-th-v2">Name</th>
+                    <th className="mltc-label-th-v2">Label</th>
+                    <th className="mltc-prediction-th-v2">Prediction</th>
+                </tr>
+          </thead>
+          </>
+      }
+
   return (
       <>
+       {props.ready && renderTableHead(labelSectionAttributes, predSectionAttributes)}
       </>
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
+export const ConnectedLabelTableHeader = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableHeader);
 
-  };
-};
+export const ConnectedLabelTableHeaderPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableHeader);
 
-const mapDispatchToProps = (dispatch: any) => ({
-
-});
-
-export default connect(mapStateToProps)(LabelTableHeader);
