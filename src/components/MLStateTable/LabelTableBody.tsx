@@ -30,24 +30,15 @@ const LabelTableBody: FC<Props> = (props) => {
         props.onLabelColorChange(color, name);
     }
 
-    const handleCheckboxChange = <T extends HTMLInputElement>(item: MLStateTableDataItem) => {
-
+    const itemSelectChangeReducer = <T extends HTMLInputElement>(item: MLStateTableDataItem) => {
         return (event: React.SyntheticEvent<T>) => {
-
             let value: boolean | string;
-
             if (event.currentTarget.type === "checkbox") {
                 value = (event.currentTarget as HTMLInputElement).checked;
             } else {
                 value = event.currentTarget.value;
             }
-
-            console.log("wasSelected = " + item.isSelected);
-
             item.isSelected = (value.toString() === "true");
-
-            console.log("item.name =>" + item.name + " state => " + value + "   isSelected = " + item.isSelected);
-
         };
     }
 
@@ -71,7 +62,7 @@ const LabelTableBody: FC<Props> = (props) => {
             <label>
                 <input
                     type="checkbox"
-                    onChange={handleCheckboxChange(item!)}
+                    onChange={itemSelectChangeReducer(item!)}
                 />
             </label>
 
@@ -116,7 +107,7 @@ const LabelTableBody: FC<Props> = (props) => {
         </>
     }
 
-    const renderTableRows = (): JSX.Element => {
+    const jsxForTableRows = (): JSX.Element => {
 
         const onlyShowPresent = true;
 
@@ -177,7 +168,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
     return (
         <>
-            {props.ready && renderTableRows()}
+            {props.ready && jsxForTableRows()}
         </>
     );
 };
