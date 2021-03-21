@@ -1,14 +1,13 @@
-import React, {Dispatch, FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {connect} from 'react-redux';
 import {Button, Icon, LabeledToggle, SvgPath} from "@bentley/ui-core";
 import {LabelTableComponentProps} from "./LabelTable";
-import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
-import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
-import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
-import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
-import {LabelTableDispatchFromProps, LabelTableStateFromProps, mapLabelTableStateToProps, mapLabelTableDispatchToProps} from "./ConnectedLabelTable";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
-import {ColorDef} from "@bentley/imodeljs-common";
+import {
+    LabelTableDispatchFromProps,
+    LabelTableStateFromProps,
+    mapLabelTableDispatchToProps,
+    mapLabelTableStateToProps
+} from "./ConnectedLabelTable";
 
 const MINUTES = 1.0;
 
@@ -55,7 +54,7 @@ const LabelTableFooter: FunctionComponent<Props> = (props) => {
 
     return (
         <>
-            {props.ready && 
+            {props.ready &&
             <div className="sstc-action-container">
                 <Button className="sstc-control-button"
                         onClick={props.onSave}
@@ -93,7 +92,7 @@ const LabelTableFooter: FunctionComponent<Props> = (props) => {
                     ]}/>
                 </Button> &nbsp;
             </div>
-            }       
+            }
         </>
     );
 };

@@ -1,15 +1,10 @@
 import {Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef} from "@bentley/imodeljs-common";
-import {IModelApp} from "@bentley/imodeljs-frontend";
-import {ColorPickerButton} from "@bentley/ui-components";
-import {Button, Icon, Spinner, SpinnerSize, LabeledToggle, ButtonType, SvgPath} from "@bentley/ui-core";
+import {Spinner, SpinnerSize} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
 import "../../styles/LabelingWorkflowStylesV2.scss";
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
-import AppearanceBatchToggleComponent from "../AppearanceBatchToggle";
-import {GroupSelectButtonComponent} from "../GroupSelectButton";
-import MLStateTablePopout from "../MLStateTablePopout";
 import ConnectedLabelTableBody from "./LabelTableBody";
 import ConnectedLabelTableFooter from "./LabelTableFooter";
 import {ConnectedLabelTableHeader, ConnectedLabelTableHeaderPopout} from "./LabelTableHeader";
@@ -23,15 +18,15 @@ export interface ILabelSectionAttributes {
     allLabelHidden: boolean;
     allLabelTransparent: boolean;
     allLabelOpaque: boolean;
-  }
-  
- export interface IPredictionSectionAttributes {
+}
+
+export interface IPredictionSectionAttributes {
     allPredictionVisible: boolean;
     allPredictionHidden: boolean;
     allPredictionTransparent: boolean;
     allPredictionOpaque: boolean;
     anyPredictionSelected: boolean;
-  }
+}
 
 interface LabelTableComponentState {
     timerVar: any;
@@ -71,7 +66,7 @@ export interface LabelTableComponentProps {
 
 export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
 
-    constructor(props: LabelTableComponentProps, ) {
+    constructor(props: LabelTableComponentProps,) {
         super(props);
 
         this.state = {
@@ -137,13 +132,20 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
         return [anyLabelSelected, labelSectionAttributes, predSectionAttributes];
     }
 
+    public render() {
+        return <>
+            {!this.props.ready && this.renderLoading()}
+            {this.props.ready && this.renderTable()}
+        </>;
+    }
+
     private renderTable(): JSX.Element {
         return <>
             <Provider store={LabelerState.store}>
                 <div className="sstc-data-container">
                     <table className="sstc-data-table">
-                        {!this.props.isPoppedOut && <ConnectedLabelTableHeader />}
-                        {this.props.isPoppedOut && <ConnectedLabelTableHeaderPopout />}
+                        {!this.props.isPoppedOut && <ConnectedLabelTableHeader/>}
+                        {this.props.isPoppedOut && <ConnectedLabelTableHeaderPopout/>}
                         <ConnectedLabelTableBody/>
                     </table>
                 </div>
@@ -152,7 +154,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
         </>;
     }
 
-    private renderLoading (): JSX.Element {
+    private renderLoading(): JSX.Element {
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">
@@ -160,12 +162,5 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
                 </div>
             </div>
         </>
-      }
-
-    public render() {
-        return <>
-            {!this.props.ready && this.renderLoading()}
-            {this.props.ready && this.renderTable()}
-        </>;
     }
 }
