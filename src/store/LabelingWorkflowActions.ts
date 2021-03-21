@@ -7,7 +7,7 @@ import { Frustum, ColorDef } from "@bentley/imodeljs-common";
 /** Reducer action type */
 export enum LabelingWorkflowManagerActionType {
     DataWasInitialized = "LabelingWorkflowManagerActionType.DataWasInitialized",
-    SelectionHasChanged = "LabelingWorkflowManagerActionType.SelectionHasChanged",
+    ElementSelectionHasChanged = "LabelingWorkflowManagerActionType.SelectionHasChanged",
     ElementLabelsWereChanged = "LabelingWorkflowManagerActionType.ElementLabelsWereChanged",
     ModelVisibilityWasChanged = "LabelingWorkflowManagerActionType.ModelVisibilityWasChanged",
     CategoryVisibilityWasChanged = "LabelingWorkflowManagerActionType.CategoryVisibilityWasChanged",

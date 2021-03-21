@@ -54,7 +54,7 @@ export function LabelingWorkflowManagerReducer(
                 filterEmptyRows: action.filterEmptyRows!,
             };
 
-        case LabelingWorkflowManagerActionType.SelectionHasChanged:
+        case LabelingWorkflowManagerActionType.ElementSelectionHasChanged:
             // Selection has changed, store the new set
             return {
                 ...prevState,

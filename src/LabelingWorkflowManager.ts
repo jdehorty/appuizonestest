@@ -330,7 +330,7 @@ export class LabelingWorkflowManager {
         const elementSet = keySetToId64Set(keySet);
 
         this.store.dispatch<LabelingWorkflowManagerAction>({
-            type: LabelingWorkflowManagerActionType.SelectionHasChanged,
+            type: LabelingWorkflowManagerActionType.ElementSelectionHasChanged,
             elementSet: elementSet,
         });
 
