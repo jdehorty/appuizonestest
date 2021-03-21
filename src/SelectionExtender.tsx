@@ -13,7 +13,7 @@ import { filterKeySet } from "./utils/SelectionUtils";
 import { SelectionExtenderState } from "./store/SelectionExtenderState";
 import { SelectionExtenderActionType, SelectionExtenderAction } from "./store/SelectionExtenderActions";
 import {MatchingRuleType, SelectionExtenderConfig} from "./store/SelectionExtenderTypes";
-import {RootState} from "../../store/AppState";
+import {RootState} from "./store/AppState";
 
 const TOL = 1e-3;
 

@@ -52,7 +52,7 @@ export interface LabelTableDispatchFromProps {
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
     const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
-    
+    console.log('mapStateToProps3 => !state is state == ' + JSON.stringify(state));
     if (!state) {
         throw new Error();
     }
@@ -77,8 +77,8 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
     };
 }
 
-export function mapLabelTableStateToPropsForPopout(rootState: any): LabelTableStateFromProps {
-    const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
+export function mapLabelTableStateToPropsForPopout(rootState: RootState): LabelTableStateFromProps {
+    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
     }
