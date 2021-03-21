@@ -39,8 +39,8 @@ export class LabelerUiProvider implements UiItemsProvider {
             }
             if (location === StagePanelLocation.Bottom) {
                 widgets.push({
-                    id: "MLAuditId",
-                    label: "ML Audit",
+                    id: "MLLabelerId",
+                    label: "ML Labeler",
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
                             <ConnectedCycleElementComponent />
@@ -50,8 +50,8 @@ export class LabelerUiProvider implements UiItemsProvider {
             }
             if (location === StagePanelLocation.Left) {
                 widgets.push({
-                    id: "MLAuditV2Id",
-                    label: "ML Audit V2",
+                    id: "MLLabelerV2Id",
+                    label: "ML Labeler V2",
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
                             <ConnectedLabelTableComponent />
