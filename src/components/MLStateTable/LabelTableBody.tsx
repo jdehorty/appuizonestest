@@ -30,17 +30,22 @@ const addItemToSelectedItems = (item: MLStateTableDataItem,
             // It is already there. Return; 
             return;
         }
-        else { // Check for add vs. replace action.
-            if (selectedItems.values.length == 0) {
-                // Trigger Redux action to "Add new item".
-                // TODO: Perform Redux action to add new item to SelectedItems.
-            }
-            else { // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
-                // Since we are in single selection mode, the one and only element will be the first one. (Given a fresh iterator, "next"
-                // will return the first (and in our single-select case, the only) one.
-                const currentlySelectedItem: MLStateTableDataItem = selectedItems.values().next().value;
-                // TODO: Perform Redux action to replace "currentlySelectedItem" with "item".
-            }
+
+        // Check for add vs. replace action.
+        if (selectedItems.values.length == 0) {
+            // Trigger Redux action to "Add new item".
+            // TODO: Perform Redux action to add new item to SelectedItems.
+            // 1. action.labelItemToSelectOrUnselect = item;
+            // 2. dispatch LabelingWorkflowManagerActionType.AddSelectedLabelItem
+        }
+        else { // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
+            // Since we are in single selection mode, the one and only element will be the first one. (Given a fresh iterator, "next"
+            // will return the first (and in our single-select case, the only) one.
+            const currentlySelectedItem: MLStateTableDataItem = selectedItems.values().next().value;
+            // TODO: Perform Redux action to replace "currentlySelectedItem" with "item".
+            // 1. action.labelItemToSelectOrUnselect = item;
+            // 2. action.existingLabelItemToReplaceInSelection = currentlySelectedItem;
+            // 3. dispatch LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem
         }
     }
 }
@@ -50,7 +55,7 @@ const removeItemFromSelectedItems = (item: MLStateTableDataItem,
     
     if (selectedItems.values.length == 0) { 
         return; // It is not in the list. Nothing to do. Return;
-    };  
+    }
 
     const existingItemInMap = selectedItems.get(item.name);
     if (existingItemInMap == null) { 
@@ -58,10 +63,11 @@ const removeItemFromSelectedItems = (item: MLStateTableDataItem,
     }
 
     // Trigger Redux action to "remove item from list.
+    // TODO: Perform Redux action to remove "currentlySelectedItem".
+    // 1. action.labelItemToSelectOrUnselect = existingItemInMap;
+    // 2. dispatch LabelingWorkflowManagerActionType.RemoveSelectedLabelItem
     
 }
-
-
 
 interface OwnProps extends LabelTableComponentProps {
 
@@ -77,7 +83,7 @@ const LabelTableBody: FC<Props> = (props) => {
         props.onLabelColorChange(color, name);
     }
 
-    const itemSelectChangeReducer = <T extends HTMLInputElement>(item: MLStateTableDataItem) => {
+    const itemSelectChangeHandler = <T extends HTMLInputElement>(item: MLStateTableDataItem) => {
         return (event: React.SyntheticEvent<T>) => {
             let value: boolean | string;
             if (event.currentTarget.type === "checkbox") {
@@ -90,7 +96,6 @@ const LabelTableBody: FC<Props> = (props) => {
                 addItemToSelectedItems(item, props.selectedItems, allowMultiSelectionOfLabels);
             else
                 removeItemFromSelectedItems (item, props.selectedItems);
-
         };
     }
 
@@ -99,6 +104,9 @@ const LabelTableBody: FC<Props> = (props) => {
         const simpleLine = "";
         const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
         const collapsedCaret = "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
+
+        const selectedItem = props.selectedItems.get(item.name);
+        const itemIsSelected = selectedItem != null;
 
 
         let expanderOrLine = simpleLine;
@@ -114,8 +122,8 @@ const LabelTableBody: FC<Props> = (props) => {
             <label>
                 <input
                     type="checkbox"
-                    value={item.isSelected.toString()}
-                    onChange={itemSelectChangeReducer(item!)}
+                    value={itemIsSelected.toString()}
+                    onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
 

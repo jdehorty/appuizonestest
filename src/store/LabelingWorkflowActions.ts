@@ -3,6 +3,7 @@ import { Id64String, Id64Set, Id64Array } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 import { Frustum, ColorDef } from "@bentley/imodeljs-common";
+import {MLStateTableDataItem} from "./LabelingWorkflowTypes";
 
 /** Reducer action type */
 export enum LabelingWorkflowManagerActionType {
@@ -28,6 +29,9 @@ export enum LabelingWorkflowManagerActionType {
     VisiblityStatesSwapped = "LabelingWorkflowManagerActionType.VisiblityStatesSwapped",
     ForceShowAllChanged = "LabelingWorkflowManagerActionType.ForceShowAllChanged",
     FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
+    AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
+    ReplaceSelectedLabelItem = "LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem",
+    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem"
 }
 
 /** Reducer action */
@@ -61,5 +65,7 @@ export interface LabelingWorkflowManagerAction {
     newColor?: ColorDef;
     newExpanded?: boolean;
     newForceShowAll?: boolean;
-    filterEmptyRows?: boolean
+    filterEmptyRows?: boolean;
+    labelItemToSelectOrUnselect?: MLStateTableDataItem;
+    existingLabelItemToReplaceInSelection?: MLStateTableDataItem;
 }

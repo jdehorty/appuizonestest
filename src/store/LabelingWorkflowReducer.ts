@@ -36,6 +36,40 @@ export function LabelingWorkflowManagerReducer(
                 elementStateMapIsDirty: false,
             };
 
+        case LabelingWorkflowManagerActionType.AddSelectedLabelItem: {
+            // Copy existing selectedItems map.
+            const newSelectedItems = new Map(prevState.selectedItems);
+            const item = action.labelItemToSelectOrUnselect;
+            newSelectedItems.set(item!.name, item!);
+            return {
+                ...prevState,
+                selectedItems: newSelectedItems
+            };
+        }
+
+        case LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem: {
+            // Copy existing selectedItems map.
+            const newSelectedItems = new Map(prevState.selectedItems);
+            const existingItem = prevState.selectedItems.get(action.existingLabelItemToReplaceInSelection!.name);
+            const item = action.labelItemToSelectOrUnselect;
+            newSelectedItems.delete(existingItem!.name);
+            newSelectedItems.set(item!.name, item!);
+            return {
+                ...prevState,
+                selectedItems: newSelectedItems
+            };
+        }
+
+        case LabelingWorkflowManagerActionType.RemoveSelectedLabelItem:
+            /// Copy existing selectedItems map.
+            const newSelectedItems = new Map(prevState.selectedItems);
+            const existingItem = prevState.selectedItems.get(action.labelItemToSelectOrUnselect!.name);
+            newSelectedItems.delete(existingItem!.name);
+            return {
+                ...prevState,
+                selectedItems: newSelectedItems
+            };
+
         case LabelingWorkflowManagerActionType.ColorModeWasChanged:
             return {
                 ...prevState,
