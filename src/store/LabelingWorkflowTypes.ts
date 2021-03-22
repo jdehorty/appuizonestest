@@ -1,5 +1,5 @@
 import { Id64String } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel } from "../data/LabelTypes";
+import { MLLabelId } from "../data/LabelTypes";
 import { ColorDef } from "@bentley/imodeljs-common";
 
 export interface SimpleStateTableDataItem {
@@ -13,15 +13,16 @@ export interface SimpleStateTableDataItem {
 }
 
 export interface LabelTreeEntry {
-    name: MachineLearningLabel;
+    name: MLLabelId;
     isExpanded: boolean;
     level: number;
     children: LabelTreeEntry[];
     isSelected: boolean;
+    isChecked: boolean;
 }
 
 export interface MLStateTableDataItem {
-    name: MachineLearningLabel;
+    name: MLLabelId;
     color: ColorDef;
 
     hasData: boolean;

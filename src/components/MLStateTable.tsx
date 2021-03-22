@@ -4,7 +4,7 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {ColorPickerButton} from "@bentley/ui-components";
 import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
+import {MachineLearningColorMode, MLLabelId} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStyles.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 import AppearanceBatchToggleComponent from "./AppearanceBatchToggle";
@@ -37,7 +37,7 @@ interface IPredictionSectionAttributes {
 
 interface MLStateTableComponentProps {
     ready: boolean;
-    itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
+    itemMap: Map<MLLabelId, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
     canUndo: boolean;
     canRedo: boolean;
@@ -47,17 +47,17 @@ interface MLStateTableComponentProps {
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
-    onLabelSelectionClick(itemId?: MachineLearningLabel): void;
+    onLabelSelectionClick(itemId?: MLLabelId): void;
 
-    onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
+    onLabelColorChange(newColor: ColorDef, name: MLLabelId): void;
 
-    onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
+    onLabelExpandStateChange(newExpanded: boolean, name: MLLabelId): void;
 
-    onLabelApply(name: MachineLearningLabel): void;
+    onLabelApply(name: MLLabelId): void;
 
     onPredictionDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
-    onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
+    onPredictionSelectionClick(itemId?: MLLabelId): void;
 
     onSave(): void;
 
@@ -104,7 +104,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
         </div>
     </>;
 
-    private handleColorChange = (name: MachineLearningLabel) => (color: ColorDef) => {
+    private handleColorChange = (name: MLLabelId) => (color: ColorDef) => {
         this.props.onLabelColorChange(color, name);
     }
 

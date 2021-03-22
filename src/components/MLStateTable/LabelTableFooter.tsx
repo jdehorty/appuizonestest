@@ -1,13 +1,13 @@
 import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {Button, Icon, LabeledToggle, SvgPath} from "@bentley/ui-core";
-import {LabelTableComponentProps} from "./LabelTable";
+import {LabelTableComponentProps} from "./LabelTableComponent";
 import {
     LabelTableDispatchFromProps,
     LabelTableStateFromProps,
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
-} from "./LabelTableState";
+} from "./ConnectedLabelTableComponent";
 
 const MINUTES = 1.0;
 

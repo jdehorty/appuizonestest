@@ -1,7 +1,7 @@
 import { Id64Array, Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { createSelector } from "reselect";
-import { MachineLearningColorMode, MachineLearningLabel } from "../data/LabelTypes";
+import { MachineLearningColorMode, MLLabelId } from "../data/LabelTypes";
 import { getWithDefault, MapWithDefault } from "../utils/MapWithDefault";
 import { CategoryState, CommonLabelState, ECClassState, ElementState, LabelingWorkflowState, ModelState, PredLabelState, TrueLabelState } from "./LabelingWorkflowState";
 import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "./LabelingWorkflowTypes";
@@ -112,9 +112,9 @@ export class LabelingWorkflowManagerSelectors {
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
         (state: LabelingWorkflowState) => state.colorMode,
         (
-            trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
-            predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
-            commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
+            trueLabelStateMap: Map<MLLabelId, TrueLabelState>,
+            predLabelStateMap: Map<MLLabelId, PredLabelState>,
+            commonLabelStateMap: Map<MLLabelId, CommonLabelState>,
             elementStateMap: Map<Id64String, ElementState>,
             colorMode: MachineLearningColorMode,
         ): Map<Id64String, ColorDef> => {
@@ -155,9 +155,9 @@ export class LabelingWorkflowManagerSelectors {
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
         (
             elementStateMap: Map<Id64String, ElementState>,
-        ): Map<Id64String, MachineLearningLabel> => {
+        ): Map<Id64String, MLLabelId> => {
 
-            const labelMap = new Map<Id64String, MachineLearningLabel>();
+            const labelMap = new Map<Id64String, MLLabelId>();
             for (const [elementId, elementState] of elementStateMap) {
                 labelMap.set(elementId, elementState.trueLabel);
             }
@@ -192,13 +192,13 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Check if true label and predicted label match */
     private static _labelsMatch(
-        commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
-        trueLabel: MachineLearningLabel,
-        predLabel: MachineLearningLabel,
+        commonLabelStateMap: Map<MLLabelId, CommonLabelState>,
+        trueLabel: MLLabelId,
+        predLabel: MLLabelId,
     ): boolean {
 
         // Go upstream from true label
-        let current: MachineLearningLabel | undefined = trueLabel;
+        let current: MLLabelId | undefined = trueLabel;
         let target = predLabel;
         while (current !== undefined) {
             if (current === target) {
@@ -237,9 +237,9 @@ export class LabelingWorkflowManagerSelectors {
             modelStateMap: Map<Id64String, ModelState>,
             categoryStateMap: Map<Id64String, CategoryState>,
             classStateMap: Map<Id64String, ECClassState>,
-            trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
-            predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
-            commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
+            trueLabelStateMap: Map<MLLabelId, TrueLabelState>,
+            predLabelStateMap: Map<MLLabelId, PredLabelState>,
+            commonLabelStateMap: Map<MLLabelId, CommonLabelState>,
             elementStateMap: Map<Id64String, ElementState>,
             colorMode: MachineLearningColorMode,
             forceShowAll: boolean,
@@ -316,8 +316,8 @@ export class LabelingWorkflowManagerSelectors {
             modelStateMap: Map<Id64String, ModelState>,
             categoryStateMap: Map<Id64String, CategoryState>,
             classStateMap: Map<Id64String, ECClassState>,
-            trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
-            predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
+            trueLabelStateMap: Map<MLLabelId, TrueLabelState>,
+            predLabelStateMap: Map<MLLabelId, PredLabelState>,
             elementStateMap: Map<Id64String, ElementState>,
             forceShowAll: boolean,
         ): Map<Id64String, boolean> => {
@@ -501,16 +501,16 @@ export class LabelingWorkflowManagerSelectors {
         (state: LabelingWorkflowState) => state.selectionSet,
         (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
         (
-            trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
-            predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
-            commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
+            trueLabelStateMap: Map<MLLabelId, TrueLabelState>,
+            predLabelStateMap: Map<MLLabelId, PredLabelState>,
+            commonLabelStateMap: Map<MLLabelId, CommonLabelState>,
             elementStateMap: Map<Id64String, ElementState>,
             selectionSet: Id64Set,
             visibilityMap: Map<Id64String, boolean>,
-        ): Map<MachineLearningLabel, MLStateTableDataItem> => {
+        ): Map<MLLabelId, MLStateTableDataItem> => {
 
             // Get all available names
-            const allNames = new Set<MachineLearningLabel>();
+            const allNames = new Set<MLLabelId>();
             for (const name of trueLabelStateMap.keys()) {
                 allNames.add(name);
             }
@@ -520,13 +520,13 @@ export class LabelingWorkflowManagerSelectors {
 
             // Build the table
 
-            const labelTotalCountMap = new MapWithDefault<MachineLearningLabel, number>(()=>0);
-            const labelVisibleCountMap = new MapWithDefault<MachineLearningLabel, number>(()=>0);
-            const labelSelectedCountMap = new MapWithDefault<MachineLearningLabel, number>(()=>0);
-            const predictionTotalCountMap = new MapWithDefault<MachineLearningLabel, number>(()=>0);
-            const predictionVisibleCountMap = new MapWithDefault<MachineLearningLabel, number>(()=>0);
-            const predictionSelectedCountMap = new MapWithDefault<MachineLearningLabel, number>(()=>0);
-            const hasDataSet = new Set<MachineLearningLabel>();
+            const labelTotalCountMap = new MapWithDefault<MLLabelId, number>(()=>0);
+            const labelVisibleCountMap = new MapWithDefault<MLLabelId, number>(()=>0);
+            const labelSelectedCountMap = new MapWithDefault<MLLabelId, number>(()=>0);
+            const predictionTotalCountMap = new MapWithDefault<MLLabelId, number>(()=>0);
+            const predictionVisibleCountMap = new MapWithDefault<MLLabelId, number>(()=>0);
+            const predictionSelectedCountMap = new MapWithDefault<MLLabelId, number>(()=>0);
+            const hasDataSet = new Set<MLLabelId>();
             for (const [elementId, elementState] of elementStateMap) {
                 const label = elementState.trueLabel;
                 if (label !== undefined) {
@@ -556,7 +556,7 @@ export class LabelingWorkflowManagerSelectors {
                 }
             }
 
-            const itemMap = new Map<MachineLearningLabel, MLStateTableDataItem>();
+            const itemMap = new Map<MLLabelId, MLStateTableDataItem>();
             for (const name of allNames) {
                 let color = ColorDef.white;
                 if (commonLabelStateMap.has(name)) {
@@ -582,7 +582,7 @@ export class LabelingWorkflowManagerSelectors {
                     predLabelSelectedCount: 0,
                 };
 
-                const _recurse = (name: MachineLearningLabel, force_recurse: boolean) => {
+                const _recurse = (name: MLLabelId, force_recurse: boolean) => {
                     data.trueLabelTotalCount += labelTotalCountMap.get(name)!;
                     data.trueLabelVisibleCount += labelVisibleCountMap.get(name)!;
                     data.trueLabelSelectedCount += labelSelectedCountMap.get(name)!;
@@ -617,11 +617,11 @@ export class LabelingWorkflowManagerSelectors {
         (state: LabelingWorkflowState) => state.commonLabelStateMap,
         (
             /** Common label state map */
-            commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
+            commonLabelStateMap: Map<MLLabelId, CommonLabelState>,
         ): LabelTreeEntry[] => {
 
             // Find root-level labels
-            const rootLabels: Array<MachineLearningLabel> = [];
+            const rootLabels: Array<MLLabelId> = [];
             for (const [name, labelState] of commonLabelStateMap) {
                 if (labelState.parentLabel === undefined) {
                     rootLabels.push(name);
@@ -629,9 +629,9 @@ export class LabelingWorkflowManagerSelectors {
             }
 
             // Keep track of seen labels to detect loops
-            const seenLabels = new Set<MachineLearningLabel>();
+            const seenLabels = new Set<MLLabelId>();
 
-            const _recurse = (name: MachineLearningLabel, level: number = 0): LabelTreeEntry => {
+            const _recurse = (name: MLLabelId, level: number = 0): LabelTreeEntry => {
                 if (seenLabels.has(name)) {
                     throw new Error("Label graph/tree must be acyclical");
                 }
@@ -645,7 +645,8 @@ export class LabelingWorkflowManagerSelectors {
                     isExpanded: commonLabelStateMap.get(name)!.isExpanded,
                     level: level,
                     children: childEntries,
-                    isSelected: false
+                    isSelected: false,
+                    isChecked: false
                 };
             }
 

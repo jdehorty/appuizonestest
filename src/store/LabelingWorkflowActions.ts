@@ -1,9 +1,9 @@
 import { ElementState, ECClassState, ModelState, CategoryState, PredLabelState, TrueLabelState, CommonLabelState } from "./LabelingWorkflowState";
 import { Id64String, Id64Set, Id64Array } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
+import { MLLabelId, MachineLearningColorMode } from "../data/LabelTypes";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 import { Frustum, ColorDef } from "@bentley/imodeljs-common";
-import {MLStateTableDataItem} from "./LabelingWorkflowTypes";
+import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
 /** Reducer action type */
 export enum LabelingWorkflowManagerActionType {
@@ -31,14 +31,14 @@ export enum LabelingWorkflowManagerActionType {
     FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
     AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
     ReplaceSelectedLabelItem = "LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem",
-    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem"
+    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem",
+    CheckboxStateWasChanged = "LabelingWorkflowManagerActionType.CheckboxStateWasChanged"
 }
 
 /** Reducer action */
-export interface LabelingWorkflowManagerAction {
+export type LabelingWorkflowManagerAction = {
     /** Action type */
     type: LabelingWorkflowManagerActionType;
-
     /** State map for models */
     modelStateMap?: Map<Id64String, ModelState>;
     /** State map for categories */
@@ -46,15 +46,15 @@ export interface LabelingWorkflowManagerAction {
     /** State map for classes */
     classStateMap?: Map<Id64String, ECClassState>;
     /** State map for machine learning labels */
-    trueLabelStateMap?: Map<MachineLearningLabel, TrueLabelState>;
+    trueLabelStateMap?: Map<MLLabelId, TrueLabelState>;
     /** State map for machine learning predictions */
-    predLabelStateMap?: Map<MachineLearningLabel, PredLabelState>;
+    predLabelStateMap?: Map<MLLabelId, PredLabelState>;
     /** Common state map for labels */
-    commonLabelStateMap?: Map<MachineLearningLabel, CommonLabelState>;
+    commonLabelStateMap?: Map<MLLabelId, CommonLabelState>;
 
     elementStateMap?: Map<Id64String, ElementState>;
     elementSet?: Id64Set;
-    label?: MachineLearningLabel;
+    MLLabelId?: MLLabelId;
     elementId?: Id64String;
     displayed?: boolean;
     transparent?: boolean;
@@ -63,9 +63,11 @@ export interface LabelingWorkflowManagerAction {
     cycleList?: Id64Array;
     initialFrustums?: Map<ScreenViewport, Frustum>;
     newColor?: ColorDef;
-    newExpanded?: boolean;
+    newState?: boolean;
     newForceShowAll?: boolean;
     filterEmptyRows?: boolean;
     labelItemToSelectOrUnselect?: MLStateTableDataItem;
     existingLabelItemToReplaceInSelection?: MLStateTableDataItem;
+    newCheckboxState?: boolean;
+    oldCheckboxState?: boolean;
 }

@@ -1,5 +1,5 @@
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
-import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
+import {MachineLearningColorMode, MLLabelId} from "../../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
 import {Dispatch} from "react";
@@ -8,12 +8,12 @@ import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
-import {LabelTableComponent} from "./LabelTable";
+import {LabelTableComponent} from "./LabelTableComponent";
 import {RootState} from "../../store/AppState";
 
 export interface LabelTableStateFromProps {
     ready: boolean;
-    itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
+    itemMap: Map<MLLabelId, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
     canUndo: boolean;
     canRedo: boolean;
@@ -23,25 +23,28 @@ export interface LabelTableStateFromProps {
     isPoppedOut: boolean;
     readyForPopout: boolean;
     filterEmptyRows: boolean;
-    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    selectedItems: Map<MLLabelId, MLStateTableDataItem>;
 
-    onLabelSelectionClick(itemId?: MachineLearningLabel): void;
+    onLabelSelectionClick(itemId?: MLLabelId): void;
 
-    onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
+    onPredictionSelectionClick(itemId?: MLLabelId): void;
 
     onSave(): void;
+
 }
 
 export interface LabelTableDispatchFromProps {
-    onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
+    onLabelExpandStateChange(newExpandedState: boolean, id: MLLabelId): void;
 
-    onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
+    onCheckboxStateChange(newItem: boolean, id: MLLabelId): void;
+
+    onLabelColorChange(newColor: ColorDef, name: MLLabelId): void;
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
     onPredictionDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
-    onLabelApply(name: MachineLearningLabel): void;
+    onLabelApply(name: MLLabelId): void;
 
     onUndo(): void;
 
@@ -54,13 +57,14 @@ export interface LabelTableDispatchFromProps {
     onFilterEmptyRowsChange(filterEmptyRowsFlag: boolean): void;
 
     onAddSelectedLabelItem(item: MLStateTableDataItem): void;
+
     onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
+
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
 }
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
     const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
-    console.log('mapStateToProps3 => !state is state == ' + JSON.stringify(state));
     if (!state) {
         throw new Error();
     }
@@ -78,10 +82,10 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         filterEmptyRows: state.filterEmptyRows,
         selectedItems: state.selectedItems,
         
-        onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
+        onLabelSelectionClick: (itemId?: MLLabelId): void => {
             LabelingWorkflowManager.selectLabel(itemId);
         },
-        onPredictionSelectionClick: (itemId?: MachineLearningLabel): void => {
+        onPredictionSelectionClick: (itemId?: MLLabelId): void => {
             LabelingWorkflowManager.selectPrediction(itemId);
         },
         onSave: LabelingWorkflowManager.saveLabels,
@@ -101,40 +105,40 @@ export function mapLabelTableStateToPropsForPopout(rootState: RootState): LabelT
 
 export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflowManagerAction>): LabelTableDispatchFromProps {
     return ({
-        onLabelExpandStateChange: (newExpanded: boolean, name: MachineLearningLabel) => {
+        onLabelExpandStateChange: (newExpandedState: boolean, name: MLLabelId) => {
             dispatch({
                 type: LabelingWorkflowManagerActionType.LabelExpandStateWasChanged,
-                newExpanded: newExpanded,
-                label: name,
+                newState: newExpandedState,
+                MLLabelId: name,
             });
         },
-        onLabelColorChange: (newColor: ColorDef, name: MachineLearningLabel) => {
+        onLabelColorChange: (newColor: ColorDef, name: MLLabelId) => {
             dispatch({
                 type: LabelingWorkflowManagerActionType.LabelColorWasChanged,
                 newColor: newColor,
-                label: name,
+                MLLabelId: name,
             });
         },
-        onLabelDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel): void => {
+        onLabelDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MLLabelId): void => {
             dispatch({
                 type: LabelingWorkflowManagerActionType.TrueLabelVisibilityWasChanged,
-                label: name,
+                MLLabelId: name,
                 displayed: newVisible,
                 transparent: newTransparent,
             });
         },
-        onPredictionDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel): void => {
+        onPredictionDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MLLabelId): void => {
             dispatch({
                 type: LabelingWorkflowManagerActionType.PredLabelVisibilityWasChanged,
-                label: name,
+                MLLabelId: name,
                 displayed: newVisible,
                 transparent: newTransparent,
             });
         },
-        onLabelApply: (name: MachineLearningLabel): void => {
+        onLabelApply: (name: MLLabelId): void => {
             dispatch({
                 type: LabelingWorkflowManagerActionType.SelectionLabelWasChanged,
-                label: name,
+                MLLabelId: name,
             });
         },
         onUndo: () => {
@@ -182,12 +186,14 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
                 labelItemToSelectOrUnselect: newItem,
                 existingLabelItemToReplaceInSelection: oldItem
             })
+        },
+        onCheckboxStateChange: (newCheckboxState: boolean, name: string) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.CheckboxStateWasChanged,
+                newCheckboxState: newCheckboxState,
+                MLLabelId: name,
+            })
         }
-
-        // Trigger Redux action to "Add new item".
-        // TODO: Perform Redux action to add new item to SelectedItems.
-        // 1. action.labelItemToSelectOrUnselect = item;
-        // 2. dispatch LabelingWorkflowManagerActionType.AddSelectedLabelItem
     });
 }
 

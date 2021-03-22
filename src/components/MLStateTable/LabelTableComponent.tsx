@@ -2,7 +2,7 @@ import {Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {Spinner, SpinnerSize} from "@bentley/ui-core";
 import * as React from "react";
-import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
+import {MachineLearningColorMode, MLLabelId} from "../../data/LabelTypes";
 import "../../styles/LabelingWorkflowStylesV2.scss";
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import ConnectedLabelTableBody from "./LabelTableBody";
@@ -36,28 +36,28 @@ interface LabelTableComponentState {
 
 export interface LabelTableComponentProps {
     ready: boolean;
-    itemMap: Map<MachineLearningLabel, MLStateTableDataItem>;
+    itemMap: Map<MLLabelId, MLStateTableDataItem>;
     labelTree: LabelTreeEntry[];
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
     isPoppedOut: boolean;
     readyForPopout: boolean;
-    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    selectedItems: Map<MLLabelId, MLStateTableDataItem>;
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
-    onLabelSelectionClick(itemId?: MachineLearningLabel): void;
+    onLabelSelectionClick(itemId?: MLLabelId): void;
 
-    onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
+    onLabelColorChange(newColor: ColorDef, name: MLLabelId): void;
 
-    onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
+    onLabelExpandStateChange(newExpanded: boolean, name: MLLabelId): void;
 
-    onLabelApply(name: MachineLearningLabel): void;
+    onLabelApply(name: MLLabelId): void;
 
     onPredictionDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 
-    onPredictionSelectionClick(itemId?: MachineLearningLabel): void;
+    onPredictionSelectionClick(itemId?: MLLabelId): void;
 
     onChangeColorMode(colorMode: MachineLearningColorMode): void;
 
@@ -70,6 +70,7 @@ export interface LabelTableComponentProps {
     onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
 
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
+
 }
 
 export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
@@ -141,7 +142,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
 
     public render() {
         return <>
-            {!this.props.ready && this.renderLoading()}
+            {!this.props.ready && LabelTableComponent.renderLoading()}
             {this.props.ready && this.renderTable()}
         </>;
     }
@@ -161,7 +162,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
         </>;
     }
 
-    private renderLoading(): JSX.Element {
+    private static renderLoading(): JSX.Element {
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">

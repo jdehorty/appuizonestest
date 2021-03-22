@@ -1,7 +1,7 @@
 import { GuidString, Id64, Id64Arg, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { downloadBlobAsString, uploadBlobAsString } from "./blobs";
-import { LabelActivation, LabelDefinitions, MachineLearningLabel, MachineLearningLabelDef, MachineLearningLabelInterface, ModelPrediction } from "./LabelTypes";
+import { LabelActivation, LabelDefinitions, MLLabelId, MachineLearningLabelDef, MachineLearningLabelInterface, ModelPrediction } from "./LabelTypes";
 import { decToHex, hexToDec } from "../utils/dectohex";
 
 
@@ -21,7 +21,7 @@ interface MachineLearningLabelDefExt extends MachineLearningLabelDef {
 
 export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabelInterface {
 
-    private UNLABELED: MachineLearningLabel = "MachineLearning:label.unlabeled";
+    private UNLABELED: MLLabelId = "MachineLearning:label.unlabeled";
 
     private NO_PREDICTION: ModelPrediction = {
         label: this.UNLABELED,
@@ -155,13 +155,13 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
     }
 
 
-    private async _download_user_labels(): Promise<Map<Id64String, MachineLearningLabel>> {
+    private async _download_user_labels(): Promise<Map<Id64String, MLLabelId>> {
 
         const containerName = "abce-misclassification-labels";
 
         const blobName = `${this._config.projectGuid}_${this._config.imodelGuid}_${this._config.revisionId}_misclassification-labels-jkd.csv`;
 
-        const instanceMap = new Map<Id64String, MachineLearningLabel>();
+        const instanceMap = new Map<Id64String, MLLabelId>();
 
         try {
             const blobData = await downloadBlobAsString(this._config.accountName, this._config.sasString, containerName, blobName);
@@ -219,9 +219,9 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
         return instanceMap;
     }
 
-    private async _upload_user_labels(labelMap: Map<Id64String, MachineLearningLabel>): Promise<boolean> {
+    private async _upload_user_labels(labelMap: Map<Id64String, MLLabelId>): Promise<boolean> {
 
-        const labelLegacyMap = new Map<MachineLearningLabel, string>();
+        const labelLegacyMap = new Map<MLLabelId, string>();
         for (const labelDef of this.LABEL_DEFS) {
             labelLegacyMap.set(labelDef.label, labelDef.legacyName);
         }
@@ -248,7 +248,7 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
     }
 
     public async getLabelDefinitions(): Promise<LabelDefinitions> {
-        const labelDefMap = new Map<MachineLearningLabel, MachineLearningLabelDef>();
+        const labelDefMap = new Map<MLLabelId, MachineLearningLabelDef>();
         for (const labelDef of this.LABEL_DEFS) {
             labelDefMap.set(labelDef.label, labelDef);
         }
@@ -258,9 +258,9 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
         };
     }
 
-    public async getUserLabels(ids: Id64Arg): Promise<Map<Id64String, MachineLearningLabel>> {
+    public async getUserLabels(ids: Id64Arg): Promise<Map<Id64String, MLLabelId>> {
         const downloadedLabelMap = await this._download_user_labels();
-        const outputLabelMap = new Map<Id64String, MachineLearningLabel>();
+        const outputLabelMap = new Map<Id64String, MLLabelId>();
         Id64.toIdSet(ids).forEach((id) => {
             if (downloadedLabelMap.has(id)) {
                 outputLabelMap.set(id, downloadedLabelMap.get(id)!);
@@ -271,7 +271,7 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
         return outputLabelMap;
     }
 
-    public async setUserLabels(labelMap: Map<Id64String, MachineLearningLabel>): Promise<boolean> {
+    public async setUserLabels(labelMap: Map<Id64String, MLLabelId>): Promise<boolean> {
         return this._upload_user_labels(labelMap);
     }
 

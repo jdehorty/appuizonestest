@@ -9,7 +9,7 @@ import {
     IPredictionSectionAttributes,
     LabelTableComponent,
     LabelTableComponentProps
-} from "./LabelTable";
+} from "./LabelTableComponent";
 import {MachineLearningColorMode} from "../../data/LabelTypes";
 import {
     LabelTableDispatchFromProps,
@@ -17,7 +17,7 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps,
     mapLabelTableStateToPropsForPopout
-} from "./LabelTableState";
+} from "./ConnectedLabelTableComponent";
 import MLStateTablePopout from "../MLStateTablePopout";
 
 

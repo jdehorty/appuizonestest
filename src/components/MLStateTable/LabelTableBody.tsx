@@ -4,7 +4,7 @@ import { IModelApp } from "@bentley/imodeljs-frontend";
 import { Config } from "@bentley/bentleyjs-core";
 
 import { Button, SvgPath } from "@bentley/ui-core";
-import { MachineLearningLabel } from "../../data/LabelTypes";
+import { MLLabelId } from "../../data/LabelTypes";
 import { ColorDef } from "@bentley/imodeljs-common";
 
 import {
@@ -12,9 +12,9 @@ import {
     LabelTableStateFromProps,
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
-} from "./LabelTableState";
+} from "./ConnectedLabelTableComponent";
 import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkflowTypes";
-import { LabelTableComponent, LabelTableComponentProps } from "./LabelTable";
+import { LabelTableComponent, LabelTableComponentProps } from "./LabelTableComponent";
 import { ColorPickerButton } from "@bentley/ui-components";
 
 
@@ -28,14 +28,15 @@ const FORCE_ALL = true;
 
 const addItemToSelectedItems = (props: OwnProps,
                                 item: MLStateTableDataItem,
-                                selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>,
+                                selectedItems: Map<MLLabelId, MLStateTableDataItem>,
                                 allowMultiSelection: boolean): void => {
     if (allowMultiSelection) {
         // multi-selections are not supported yet, but if we need them in future, this is where we'd handle their selection.
     }
-    else { // We are running in single-selection mode. 
+    else {
+        // We are running in single-selection mode.
         if (selectedItems.get(item.name) != null) {
-            // It is already there. Return; 
+            // It is already there ==> return
             return;
         }
 
@@ -44,7 +45,8 @@ const addItemToSelectedItems = (props: OwnProps,
             // Trigger Redux action to "Add new item".
             props.onAddSelectedLabelItem(item);
         }
-        else { // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
+        else {
+            // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
             // Since we are in single selection mode, the one and only element will be the first one. (Given a fresh iterator, "next"
             // will return the first (and in our single-select case, the only) one.
             const existingItem: MLStateTableDataItem = selectedItems.values().next().value;
@@ -55,10 +57,10 @@ const addItemToSelectedItems = (props: OwnProps,
 
 const removeItemFromSelectedItems = (props: OwnProps,
                                      item: MLStateTableDataItem,
-                                     selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
+                                     selectedItems: Map<MLLabelId, MLStateTableDataItem>): void => {
     
-    if (selectedItems.values.length == 0) { 
-        return; // It is not in the list. Nothing to do. Return;
+    if (selectedItems.values.length === 0) {
+        // return; // It is not in the list. Nothing to do. Return;
     }
 
     const existingItemInMap = selectedItems.get(item.name);
@@ -74,7 +76,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
     const [allowMultiSelectionOfLabels, setAllowMultiSelectionOfLabels] = useState(Config.App.getBoolean("allowMultiSelectionOfLabels"));
 
-    const handleColorChange = (name: MachineLearningLabel) => (color: ColorDef) => {
+    const handleColorChange = (name: MLLabelId) => (color: ColorDef) => {
         props.onLabelColorChange(color, name);
     }
 
@@ -87,14 +89,22 @@ const LabelTableBody: FC<Props> = (props) => {
                 value = event.currentTarget.value;
             }
             item.isSelected = (value.toString() === "true");
-            if (item.isSelected)
+            if (item.isSelected === true) {
                 addItemToSelectedItems(props, item, props.selectedItems, allowMultiSelectionOfLabels);
-            else
-                removeItemFromSelectedItems (props, item, props.selectedItems);
+            }
+            else {
+                removeItemFromSelectedItems(props, item, props.selectedItems);
+            }
         };
     }
 
-    const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element => {
+    const jsxForClassNameAndColorSection = (
+        level: number,
+        isExpanded: boolean,
+        item: MLStateTableDataItem,
+        i18nName: string,
+        hasChildren: boolean,
+        isChecked: boolean): JSX.Element => {
 
         const simpleLine = "";
         const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
@@ -118,7 +128,9 @@ const LabelTableBody: FC<Props> = (props) => {
                 <input
                     type="checkbox"
                     value={itemIsSelected.toString()}
-                    onChange={itemSelectChangeHandler(item!)}
+                    onClick={() => {
+                        props.onCheckboxStateChange(!isChecked, item.name);
+                    }}
                 />
             </label>
 
@@ -171,7 +183,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
         const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableComponent.getSectionAttributes(props);
 
-        const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean, hasChildren: boolean) => {
+        const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean, hasChildren: boolean, isChecked: boolean) => {
 
             if (!onlyShowPresent || FORCE_ALL || item.hasData) {
 
@@ -184,7 +196,7 @@ const LabelTableBody: FC<Props> = (props) => {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td-v2" style={{ whiteSpace: "nowrap" }}>
-                                {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
+                                {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren, isChecked)}
                             </td>
                             <td className="mltc-label-td-v2" align={"right"} style={{ whiteSpace: "nowrap" }}>
                                 {jsxForLabelSection(item, i18nName, trueDisplayedCount)}
@@ -203,7 +215,7 @@ const LabelTableBody: FC<Props> = (props) => {
             if (item === undefined) {
                 return;
             }
-            processItem(item, treeItem.level, treeItem.isExpanded, treeItem.children.length !== 0);
+            processItem(item, treeItem.level, treeItem.isExpanded, treeItem.children.length !== 0, treeItem.isChecked);
             if (treeItem.isExpanded) {
                 for (const child of treeItem.children) {
                     _recurse(child);

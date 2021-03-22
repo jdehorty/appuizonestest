@@ -1,5 +1,5 @@
 import { Id64String, Id64Array, Id64Set } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
+import { MLLabelId, MachineLearningColorMode } from "../data/LabelTypes";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
@@ -25,19 +25,20 @@ export interface ECClassState extends BaseGroupState {
 }
 
 export interface TrueLabelState extends BaseGroupState {
-    label: MachineLearningLabel;
+    label: MLLabelId;
 }
 
 export interface PredLabelState extends BaseGroupState {
-    label: MachineLearningLabel;
+    label: MLLabelId;
 }
 
 export interface CommonLabelState {
-    label: MachineLearningLabel;
+    label: MLLabelId;
     color: ColorDef;
-    parentLabel?: MachineLearningLabel;
-    childrenLabels: Array<MachineLearningLabel>;
+    parentLabel?: MLLabelId;
+    childrenLabels: Array<MLLabelId>;
     isExpanded: boolean;
+    isChecked: boolean;
 }
 
 export interface CycleModeState {
@@ -61,9 +62,9 @@ export interface ElementState {
     /** The ECClass name associated with the element */
     className: string;
     /** The machine learning label associated with the element */
-    trueLabel: MachineLearningLabel;
+    trueLabel: MLLabelId;
     /** The machine learning prediction associated with the element */
-    predLabel: MachineLearningLabel;
+    predLabel: MLLabelId;
     /** Auxiliary storage */
     auxData: any;
 }
@@ -80,11 +81,11 @@ export interface LabelingWorkflowState {
     /** State map for classes */
     classStateMap: Map<Id64String, ECClassState>;
     /** State map for machine learning true labels */
-    trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>;
+    trueLabelStateMap: Map<MLLabelId, TrueLabelState>;
     /** State map for machine learning predicted labels */
-    predLabelStateMap: Map<MachineLearningLabel, PredLabelState>;
+    predLabelStateMap: Map<MLLabelId, PredLabelState>;
     /** Common state map for labels */
-    commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>;
+    commonLabelStateMap: Map<MLLabelId, CommonLabelState>;
     /** True if changes were made to labels */
     elementStateMapIsDirty: boolean;
     /** State map history for GeometricElement3d elements (that have a geometry stream) */
@@ -103,7 +104,7 @@ export interface LabelingWorkflowState {
     filterEmptyRows: boolean;
     /** Currently selected Label items in the ML State Table. 
      * Note: If Config.allowMultiSelectionOfLabels == false, then there will be no more than 1 selected label allowed at a time. */
-    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    selectedItems: Map<MLLabelId, MLStateTableDataItem>;
 }
 
 
@@ -114,9 +115,9 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     modelStateMap: new Map<Id64String, BaseGroupState>(),
     categoryStateMap: new Map<Id64String, BaseGroupState>(),
     classStateMap: new Map<Id64String, ECClassState>(),
-    trueLabelStateMap: new Map<MachineLearningLabel, TrueLabelState>(),
-    predLabelStateMap: new Map<MachineLearningLabel, PredLabelState>(),
-    commonLabelStateMap: new Map<MachineLearningLabel, CommonLabelState>(),
+    trueLabelStateMap: new Map<MLLabelId, TrueLabelState>(),
+    predLabelStateMap: new Map<MLLabelId, PredLabelState>(),
+    commonLabelStateMap: new Map<MLLabelId, CommonLabelState>(),
     elementStateMapIsDirty: false,
     elementStateMapHistory: [new Map<Id64String, ElementState>()],
     elementStateMapIndex: 0,
@@ -128,5 +129,5 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
     filterEmptyRows: false,
-    selectedItems: new Map<MachineLearningLabel, MLStateTableDataItem>()
+    selectedItems: new Map<MLLabelId, MLStateTableDataItem>()
 }

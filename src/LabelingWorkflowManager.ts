@@ -5,7 +5,7 @@ import { I18N } from "@bentley/imodeljs-i18n";
 import { KeySet } from "@bentley/presentation-common";
 import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@bentley/presentation-frontend";
 import { Store } from "redux";
-import { MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface } from "./data/LabelTypes";
+import { MachineLearningColorMode, MLLabelId, MachineLearningLabelInterface } from "./data/LabelTypes";
 import { getWithDefault } from "./utils/MapWithDefault";
 import { keySetToId64Set } from "./utils/SelectionUtils";
 import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./store/LabelingWorkflowActions";
@@ -187,11 +187,11 @@ export class LabelingWorkflowManager {
         /** Machine learning labeling interface */
         labelInterface: MachineLearningLabelInterface,
         /** Predicted label state map */
-        predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
+        predLabelStateMap: Map<MLLabelId, PredLabelState>,
         /** True label state map */
-        trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
+        trueLabelStateMap: Map<MLLabelId, TrueLabelState>,
         /** Common label state map */
-        commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,
+        commonLabelStateMap: Map<MLLabelId, CommonLabelState>,
     ): Promise<void> {
 
         const labelDefs = await labelInterface.getLabelDefinitions();
@@ -214,6 +214,7 @@ export class LabelingWorkflowManager {
 
             commonLabelStateMap.set(name, {
                 label: name,
+                isChecked: false,
                 parentLabel: parent,
                 childrenLabels: [],
                 color: labelDef.defaultColor ? labelDef.defaultColor : this.DEFAULT_COLOR,
@@ -276,9 +277,9 @@ export class LabelingWorkflowManager {
         const modelStateMap = new Map<Id64String, ModelState>();
         const categoryStateMap = new Map<Id64String, CategoryState>();
         const classStateMap = new Map<Id64String, ECClassState>();
-        const predLabelStateMap = new Map<MachineLearningLabel, PredLabelState>();
-        const trueLabelStateMap = new Map<MachineLearningLabel, TrueLabelState>();
-        const commonLabelStateMap = new Map<MachineLearningLabel, CommonLabelState>();
+        const predLabelStateMap = new Map<MLLabelId, PredLabelState>();
+        const trueLabelStateMap = new Map<MLLabelId, TrueLabelState>();
+        const commonLabelStateMap = new Map<MLLabelId, CommonLabelState>();
 
         await Promise.all([
             this._fillElementStateMap(this._imodel, elementStateMap),
@@ -407,7 +408,7 @@ export class LabelingWorkflowManager {
         } else {
 
             const commonLabelStateMap = this.state.commonLabelStateMap;
-            const acceptableLabelSet = new Set<MachineLearningLabel>();
+            const acceptableLabelSet = new Set<MLLabelId>();
 
             // Recursive selection
             this._doRecursiveSelection(acceptableLabelSet, commonLabelStateMap, label);
@@ -439,7 +440,7 @@ export class LabelingWorkflowManager {
         } else {
 
             const commonLabelStateMap = this.state.commonLabelStateMap;
-            const acceptableLabelSet = new Set<MachineLearningLabel>();
+            const acceptableLabelSet = new Set<MLLabelId>();
 
             // Recursive selection
             this._doRecursiveSelection(acceptableLabelSet, commonLabelStateMap, prediction);
@@ -463,7 +464,7 @@ export class LabelingWorkflowManager {
      * @param labelOrPrediction
      * @private
      */
-    private static _doRecursiveSelection(acceptableLabelSet: Set<MachineLearningLabel>, commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>, labelOrPrediction: string) {
+    private static _doRecursiveSelection(acceptableLabelSet: Set<MLLabelId>, commonLabelStateMap: Map<MLLabelId, CommonLabelState>, labelOrPrediction: string) {
         const _recursiveSelect = this._recursiveSelect(acceptableLabelSet, commonLabelStateMap);
         _recursiveSelect(labelOrPrediction);
     }
@@ -492,8 +493,8 @@ export class LabelingWorkflowManager {
      * @param commonLabelStateMap - Map of ML Labels derived from a blob file
      * @private
      */
-    private static _recursiveSelect(acceptableLabelSet: Set<MachineLearningLabel>, commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>) {
-        const _recurse = (name: MachineLearningLabel) => {
+    private static _recursiveSelect(acceptableLabelSet: Set<MLLabelId>, commonLabelStateMap: Map<MLLabelId, CommonLabelState>) {
+        const _recurse = (name: MLLabelId) => {
             acceptableLabelSet.add(name);
             if (commonLabelStateMap.get(name)!.isExpanded === false) {
                 for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
@@ -656,6 +657,8 @@ export class LabelingWorkflowManager {
             });
         });
     };
+
+    // public static
 
 }
 

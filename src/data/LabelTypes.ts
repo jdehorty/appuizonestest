@@ -9,33 +9,33 @@ export enum MachineLearningColorMode {
     ConfusionsWithPredictionColors = "MachineLearning:colorMode.confusionsWithPredictionColors",
 }
 
-export type MachineLearningLabel = string;
+export type MLLabelId = string;
 
 export interface MachineLearningLabelDef {
-    label: MachineLearningLabel;
+    label: MLLabelId;
     defaultColor?: ColorDef;
-    parentLabel?: MachineLearningLabel;
+    parentLabel?: MLLabelId;
     userLabelShown?: boolean;
     modelPredictionShown?: boolean;
 }
 
 export interface LabelDefinitions {
-    unlabeledValue: MachineLearningLabel;
-    labelDefMap: Map<MachineLearningLabel, MachineLearningLabelDef>;
+    unlabeledValue: MLLabelId;
+    labelDefMap: Map<MLLabelId, MachineLearningLabelDef>;
 }
 
 export interface LabelActivation {
-    label: MachineLearningLabel;
+    label: MLLabelId;
     activation: number;
 }
 
 export interface ModelPrediction {
-    label: MachineLearningLabel;
+    label: MLLabelId;
     labelActivations?: LabelActivation[];
     auxData?: any;
 }
 
-export type UserLabelMap = Map<Id64String, MachineLearningLabel>;
+export type UserLabelMap = Map<Id64String, MLLabelId>;
 export type ModelPredictionMap = Map<Id64String, ModelPrediction>;
 
 export abstract class MachineLearningLabelInterface {
