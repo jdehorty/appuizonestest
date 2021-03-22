@@ -1,10 +1,11 @@
-import React, {FC} from 'react';
-import {connect} from 'react-redux';
-import {IModelApp} from "@bentley/imodeljs-frontend";
+import React, { FC, useState } from 'react';
+import { connect } from 'react-redux';
+import { IModelApp } from "@bentley/imodeljs-frontend";
+import { Config } from "@bentley/bentleyjs-core";
 
-import {Button, SvgPath} from "@bentley/ui-core";
-import {MachineLearningLabel} from "../../data/LabelTypes";
-import {ColorDef} from "@bentley/imodeljs-common";
+import { Button, SvgPath } from "@bentley/ui-core";
+import { MachineLearningLabel } from "../../data/LabelTypes";
+import { ColorDef } from "@bentley/imodeljs-common";
 
 import {
     LabelTableDispatchFromProps,
@@ -12,11 +13,55 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
 } from "./LabelTableState";
-import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
-import {LabelTableComponent, LabelTableComponentProps} from "./LabelTable";
-import {ColorPickerButton} from "@bentley/ui-components";
+import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkflowTypes";
+import { LabelTableComponent, LabelTableComponentProps } from "./LabelTable";
+import { ColorPickerButton } from "@bentley/ui-components";
 
 const FORCE_ALL = true;
+
+const addItemToSelectedItems = (item: MLStateTableDataItem,
+                                selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>,
+                                allowMultiSelection: boolean): void => {
+    if (allowMultiSelection) {
+        // multi-selections are not supported yet, but if we need them in future, this is where we'd handle their selection.
+    }
+    else { // We are running in single-selection mode. 
+        if (selectedItems.get(item.name) != null) {
+            // It is already there. Return; 
+            return;
+        }
+        else { // Check for add vs. replace action.
+            if (selectedItems.values.length == 0) {
+                // Trigger Redux action to "Add new item".
+                // TODO: Perform Redux action to add new item to SelectedItems.
+            }
+            else { // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
+                // Since we are in single selection mode, the one and only element will be the first one. (Given a fresh iterator, "next"
+                // will return the first (and in our single-select case, the only) one.
+                const currentlySelectedItem: MLStateTableDataItem = selectedItems.values().next().value;
+                // TODO: Perform Redux action to replace "currentlySelectedItem" with "item".
+            }
+        }
+    }
+}
+
+const removeItemFromSelectedItems = (item: MLStateTableDataItem,
+                                     selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
+    
+    if (selectedItems.values.length == 0) { 
+        return; // It is not in the list. Nothing to do. Return;
+    };  
+
+    const existingItemInMap = selectedItems.get(item.name);
+    if (existingItemInMap == null) { 
+        return; // It is not in the list. Nothing to do. Return; 
+    }
+
+    // Trigger Redux action to "remove item from list.
+    
+}
+
+
 
 interface OwnProps extends LabelTableComponentProps {
 
@@ -25,6 +70,8 @@ interface OwnProps extends LabelTableComponentProps {
 type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
 
 const LabelTableBody: FC<Props> = (props) => {
+
+    const [allowMultiSelectionOfLabels, setAllowMultiSelectionOfLabels] = useState(Config.App.getBoolean("allowMultiSelectionOfLabels"));
 
     const handleColorChange = (name: MachineLearningLabel) => (color: ColorDef) => {
         props.onLabelColorChange(color, name);
@@ -39,6 +86,11 @@ const LabelTableBody: FC<Props> = (props) => {
                 value = event.currentTarget.value;
             }
             item.isSelected = (value.toString() === "true");
+            if (item.isSelected)
+                addItemToSelectedItems(item, props.selectedItems, allowMultiSelectionOfLabels);
+            else
+                removeItemFromSelectedItems (item, props.selectedItems);
+
         };
     }
 
@@ -62,14 +114,15 @@ const LabelTableBody: FC<Props> = (props) => {
             <label>
                 <input
                     type="checkbox"
+                    value={item.isSelected.toString()}
                     onChange={itemSelectChangeReducer(item!)}
                 />
             </label>
 
-            <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
+            <div className="mltc-level-spacer" style={{ minWidth: 16 * level }} />
             <Button
                 className="mltc-expand-button"
-                style={{minWidth: 26, maxWidth: 28}}
+                style={{ minWidth: 26, maxWidth: 28 }}
                 onClick={() => {
                     props.onLabelExpandStateChange(!isExpanded, item.name);
                 }}
@@ -77,7 +130,7 @@ const LabelTableBody: FC<Props> = (props) => {
                 {/*<Icon iconSpec={iconClass}/>*/}
                 <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
                     expanderOrLine
-                ]}/>
+                ]} />
             </Button>
             <ColorPickerButton
                 className="sstc-color-picker-button"
@@ -127,13 +180,13 @@ const LabelTableBody: FC<Props> = (props) => {
                 if (props.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
-                            <td className="mltc-name-td-v2" style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-name-td-v2" style={{ whiteSpace: "nowrap" }}>
                                 {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
                             </td>
-                            <td className="mltc-label-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-label-td-v2" align={"right"} style={{ whiteSpace: "nowrap" }}>
                                 {jsxForLabelSection(item, i18nName, trueDisplayedCount)}
                             </td>
-                            <td className="mltc-prediction-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-prediction-td-v2" align={"right"} style={{ whiteSpace: "nowrap" }}>
                                 {jsxForPredictionSection(item, i18nName, predDisplayedCount)}
                             </td>
                         </tr>
@@ -161,7 +214,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
         return <>
             <tbody>
-            {tableRows}
+                {tableRows}
             </tbody>
         </>;
     }

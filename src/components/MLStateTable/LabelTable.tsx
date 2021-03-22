@@ -43,6 +43,7 @@ export interface LabelTableComponentProps {
     isDirty: boolean;
     isPoppedOut: boolean;
     readyForPopout: boolean;
+    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
 

@@ -18,7 +18,8 @@ export function SetupConfigFromEnv(regionCode: number = 103) {
         mlIModelGuid: process.env.IMJS_IMODEL_ID,
         mlIModelName: "",
         mlChangeSetId: "",
-        mlPredSuffix: process.env.IMJS_PREDICTION_PREFIX
+        mlPredSuffix: process.env.IMJS_PREDICTION_PREFIX,
+        allowMultiSelectionOfLabels: false
     });
 
 }

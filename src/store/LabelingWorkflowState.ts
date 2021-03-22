@@ -2,6 +2,7 @@ import { Id64String, Id64Array, Id64Set } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
+import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
 interface BaseGroupState {
     displayLabel?: string;
@@ -100,6 +101,9 @@ export interface LabelingWorkflowState {
     forceShowAll: boolean;
     /** filtering out label rows with empty class counts */
     filterEmptyRows: boolean;
+    /** Currently selected Label items in the ML State Table. 
+     * Note: If Config.allowMultiSelectionOfLabels == false, then there will be no more than 1 selected label allowed at a time. */
+    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
 }
 
 
@@ -123,5 +127,6 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     },
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
-    filterEmptyRows: false
+    filterEmptyRows: false,
+    selectedItems: new Map<MachineLearningLabel, MLStateTableDataItem>()
 }
