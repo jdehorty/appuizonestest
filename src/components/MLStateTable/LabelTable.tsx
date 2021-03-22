@@ -64,6 +64,12 @@ export interface LabelTableComponentProps {
     onSwapTruePredDisplay(): void;
 
     onFilterEmptyRowsChange(filterEmptyRowsFlag: boolean): void;
+
+    onAddSelectedLabelItem(item: MLStateTableDataItem): void;
+
+    onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
+
+    onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
 }
 
 export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {

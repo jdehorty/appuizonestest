@@ -52,6 +52,10 @@ export interface LabelTableDispatchFromProps {
     onSwapTruePredDisplay(): void;
 
     onFilterEmptyRowsChange(filterEmptyRowsFlag: boolean): void;
+
+    onAddSelectedLabelItem(item: MLStateTableDataItem): void;
+    onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
+    onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
 }
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
@@ -160,6 +164,30 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
                 filterEmptyRows: filterEmptyRowsFlag
             });
         },
+        onAddSelectedLabelItem: (item: MLStateTableDataItem) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.AddSelectedLabelItem,
+                labelItemToSelectOrUnselect: item
+            })
+        },
+        onRemoveSelectedLabelItem: (item: MLStateTableDataItem) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.RemoveSelectedLabelItem,
+                labelItemToSelectOrUnselect: item
+            })
+        },
+        onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem) {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem,
+                labelItemToSelectOrUnselect: newItem,
+                existingLabelItemToReplaceInSelection: oldItem
+            })
+        }
+
+        // Trigger Redux action to "Add new item".
+        // TODO: Perform Redux action to add new item to SelectedItems.
+        // 1. action.labelItemToSelectOrUnselect = item;
+        // 2. dispatch LabelingWorkflowManagerActionType.AddSelectedLabelItem
     });
 }
 

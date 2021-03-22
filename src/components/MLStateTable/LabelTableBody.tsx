@@ -17,9 +17,17 @@ import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkfl
 import { LabelTableComponent, LabelTableComponentProps } from "./LabelTable";
 import { ColorPickerButton } from "@bentley/ui-components";
 
+
+interface OwnProps extends LabelTableDispatchFromProps {
+
+}
+
+type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
+
 const FORCE_ALL = true;
 
-const addItemToSelectedItems = (item: MLStateTableDataItem,
+const addItemToSelectedItems = (props: OwnProps,
+                                item: MLStateTableDataItem,
                                 selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>,
                                 allowMultiSelection: boolean): void => {
     if (allowMultiSelection) {
@@ -34,23 +42,19 @@ const addItemToSelectedItems = (item: MLStateTableDataItem,
         // Check for add vs. replace action.
         if (selectedItems.values.length == 0) {
             // Trigger Redux action to "Add new item".
-            // TODO: Perform Redux action to add new item to SelectedItems.
-            // 1. action.labelItemToSelectOrUnselect = item;
-            // 2. dispatch LabelingWorkflowManagerActionType.AddSelectedLabelItem
+            props.onAddSelectedLabelItem(item);
         }
         else { // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
             // Since we are in single selection mode, the one and only element will be the first one. (Given a fresh iterator, "next"
             // will return the first (and in our single-select case, the only) one.
-            const currentlySelectedItem: MLStateTableDataItem = selectedItems.values().next().value;
-            // TODO: Perform Redux action to replace "currentlySelectedItem" with "item".
-            // 1. action.labelItemToSelectOrUnselect = item;
-            // 2. action.existingLabelItemToReplaceInSelection = currentlySelectedItem;
-            // 3. dispatch LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem
+            const existingItem: MLStateTableDataItem = selectedItems.values().next().value;
+            props.onReplaceSelectedLabelItem(item, existingItem);
         }
     }
 }
 
-const removeItemFromSelectedItems = (item: MLStateTableDataItem,
+const removeItemFromSelectedItems = (props: OwnProps,
+                                     item: MLStateTableDataItem,
                                      selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
     
     if (selectedItems.values.length == 0) { 
@@ -63,17 +67,8 @@ const removeItemFromSelectedItems = (item: MLStateTableDataItem,
     }
 
     // Trigger Redux action to "remove item from list.
-    // TODO: Perform Redux action to remove "currentlySelectedItem".
-    // 1. action.labelItemToSelectOrUnselect = existingItemInMap;
-    // 2. dispatch LabelingWorkflowManagerActionType.RemoveSelectedLabelItem
-    
+    props.onRemoveSelectedLabelItem(item);
 }
-
-interface OwnProps extends LabelTableComponentProps {
-
-}
-
-type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
 
 const LabelTableBody: FC<Props> = (props) => {
 
@@ -93,9 +88,9 @@ const LabelTableBody: FC<Props> = (props) => {
             }
             item.isSelected = (value.toString() === "true");
             if (item.isSelected)
-                addItemToSelectedItems(item, props.selectedItems, allowMultiSelectionOfLabels);
+                addItemToSelectedItems(props, item, props.selectedItems, allowMultiSelectionOfLabels);
             else
-                removeItemFromSelectedItems (item, props.selectedItems);
+                removeItemFromSelectedItems (props, item, props.selectedItems);
         };
     }
 
