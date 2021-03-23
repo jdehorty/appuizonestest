@@ -33,7 +33,7 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
             return;
         }
         const newChildRules = Array.from(props.config.rule.childRules);
-        newChildRules[i].wanted = !newChildRules[i].wanted;
+        newChildRules[i].checked = !newChildRules[i].checked;
         props.onConfigChanged({
             ...props.config,
             rule: {
@@ -113,12 +113,21 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
             for (let i = 0; i < childRules.length; i++) {
                 if (props.contentMap!.has(childRules[i].type)) {
                     const content = props.contentMap!.get(childRules[i].type)!;
+
                     checkboxElements.push(
                         <div key={`childRule-${i}`} className="selhelp-criteria">
+
+
                             <div className="selhelp-criteria-checkbox-container">
-                                <input className="selhelp-criteria-checkbox" type="checkbox"
-                                       checked={childRules[i].wanted} onClick={handleFieldCheckboxClicked(i)}/>
+                                <input
+                                    className="selhelp-criteria-checkbox"
+                                    type="checkbox"
+                                    checked={childRules[i].checked}
+                                    onClick={handleFieldCheckboxClicked(i)}
+                                />
                             </div>
+
+
                             <div className="selhelp-criteria-content">
                                 <div className="selhelp-criteria-title">
                                     {IModelApp.i18n.translate(childRules[i].type)}
@@ -132,6 +141,7 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
                                 })}
                             </div>
                         </div>
+
                     );
                 }
             }
@@ -142,58 +152,72 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
         <>
             {props.isSearching && "Searching..."}
             {props.foundCount !== undefined && !props.isSearching && `Found ${props.foundCount} elements`}
+
             <LabeledInput readOnly label="Select Elements Similar to Id:"
-                          value={props.singleId !== undefined ? props.singleId : ""}/>
+                          value={props.singleId !== undefined ? props.singleId : ""}
+            />
+
             <div>
                 <Button buttonType={ButtonType.Primary} onClick={props.onExtendClicked}>Extend
                     Selection</Button>
                 <Button buttonType={ButtonType.Blue} onClick={props.onResetClicked}>Reset</Button>
             </div>
-            {props.config !== undefined && <div className="scroll-thing">
-                <LabeledToggle
-                    isOn={props.config.enableAuxData}
-                    label="Mesh-Derived Data"
-                    onChange={handleAuxDataClicked}
-                />
-                <LabeledToggle
-                    isOn={props.config.maxDistEnabled}
-                    label="Maximum Distance"
-                    onChange={handleMaxDistEnabledClicked}
-                />
-                {
-                    props.config.maxDistEnabled &&
-                    <NumberInputComponent
-                        isFloat={true}
-                        value={props.config.maxDistValue}
-                        minValue={0.0}
-                        onValidated={handleMaxDistValueValidated}
-                    />
-                }
-                <LabeledToggle
-                    isOn={props.config.maxCountEnabled}
-                    label="Maximum Count"
-                    onChange={handleMaxCountEnabledClicked}
-                />
-                {
-                    props.config.maxCountEnabled &&
-                    <NumberInputComponent
-                        isFloat={false}
-                        value={props.config.maxCountValue}
-                        minValue={1}
-                        onValidated={handleMaxCountValueValidated}
-                    />
-                }
 
-                {checkboxElements}
+            {
+                props.config !== undefined &&
 
-                <LabeledSelect
-                    label="Reduction Operator"
-                    // TODO: make this safer
-                    options={[MatchingOperator.And, MatchingOperator.Or]}
-                    value={props.config.rule.operator}
-                    onChange={handleOperatorChange}
-                />
-            </div>}
+                <div className="scroll-thing">
+
+                    <LabeledToggle
+                        isOn={props.config.enableAuxData}
+                        label="Mesh-Derived Data"
+                        onChange={handleAuxDataClicked}
+                    />
+
+                    <LabeledToggle
+                        isOn={props.config.maxDistEnabled}
+                        label="Maximum Distance"
+                        onChange={handleMaxDistEnabledClicked}
+                    />
+
+                    {
+                        props.config.maxDistEnabled &&
+                        <NumberInputComponent
+                            isFloat={true}
+                            value={props.config.maxDistValue}
+                            minValue={0.0}
+                            onValidated={handleMaxDistValueValidated}
+                        />
+                    }
+
+                    <LabeledToggle
+                        isOn={props.config.maxCountEnabled}
+                        label="Maximum Count"
+                        onChange={handleMaxCountEnabledClicked}
+                    />
+
+                    {
+                        props.config.maxCountEnabled &&
+                        <NumberInputComponent
+                            isFloat={false}
+                            value={props.config.maxCountValue}
+                            minValue={1}
+                            onValidated={handleMaxCountValueValidated}
+                        />
+                    }
+
+                    {checkboxElements}
+
+                    <LabeledSelect
+                        label="Reduction Operator"
+                        options={[MatchingOperator.And, MatchingOperator.Or]}
+                        value={props.config.rule.operator}
+                        onChange={handleOperatorChange}
+                    />
+
+                </div>
+
+            }
 
             {props.config === undefined && "Loading..."}
         </>

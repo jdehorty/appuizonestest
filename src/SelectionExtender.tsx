@@ -85,7 +85,7 @@ export class SelectionExtender {
         const conditions: string[] = ["e.GeometryStream IS NOT NULL"];
 
         for (const childRule of this.state.config.rule.childRules) {
-            if (!childRule.wanted) {
+            if (!childRule.checked) {
                 continue;
             }
             if (!this.state.contentMap.has(childRule.type)) {
@@ -222,12 +222,12 @@ export class SelectionExtender {
         }
     }
 
-    public static setConfig(newConfig: SelectionExtenderConfig): void {
+    public static setConfig = (newConfig: SelectionExtenderConfig): void => {
         SelectionExtender.store.dispatch({
             type: SelectionExtenderActionType.CONFIG_WAS_CHANGED,
             newConfig: newConfig,
         });
-    }
+    };
 
 
     private static async _createContentMap(imodel: IModelConnection, id: Id64String): Promise<Map<MatchingRuleType, string[]>> {
@@ -356,7 +356,7 @@ const mapStateToProps = (rootState: RootState): SelectionExtenderComponentProps 
         isSearching: state.isSearching,
         foundCount: state.foundCount,
         config: state.config,
-        onConfigChanged: (newConfig: SelectionExtenderConfig) => {SelectionExtender.setConfig(newConfig); },
+        onConfigChanged: (newConfig: SelectionExtenderConfig) => {SelectionExtender.setConfig(newConfig)},
         onExtendClicked: () => {SelectionExtender.extendSelection(); },
         onResetClicked: () => {SelectionExtender.resetSelection(); },
     };

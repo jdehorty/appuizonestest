@@ -25,6 +25,7 @@ export enum LabelingWorkflowManagerActionType {
     CycleModeIndexWasChanged = "LabelingWorkflowManagerActionType.CycleModeIndexWasChanged",
     LabelColorWasChanged = "LabelingWorkflowManagerActionType.LabelColorWasChanged",
     LabelExpandStateWasChanged = "LabelingWorkflowManagerActionType.LabelExpandStateWasChanged",
+    CheckboxStateWasChanged = "LabelingWorkflowManagerActionType.CheckboxStateWasChanged",
     LabelsWereSaved = "LabelingWorkflowManagerActionType.LabelsWereSaved",
     VisiblityStatesSwapped = "LabelingWorkflowManagerActionType.VisiblityStatesSwapped",
     ForceShowAllChanged = "LabelingWorkflowManagerActionType.ForceShowAllChanged",
@@ -68,4 +69,5 @@ export interface LabelingWorkflowManagerAction {
     filterEmptyRows?: boolean;
     labelItemToSelectOrUnselect?: MLStateTableDataItem;
     existingLabelItemToReplaceInSelection?: MLStateTableDataItem;
+    newBox?: boolean;
 }

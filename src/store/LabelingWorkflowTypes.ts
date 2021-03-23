@@ -18,6 +18,7 @@ export interface LabelTreeEntry {
     level: number;
     children: LabelTreeEntry[];
     isSelected: boolean;
+    isChecked: boolean;
 }
 
 export interface MLStateTableDataItem {

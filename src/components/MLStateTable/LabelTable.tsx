@@ -72,7 +72,7 @@ export interface LabelTableComponentProps {
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
 }
 
-export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
+export class LabelTable extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
 
     constructor(props: LabelTableComponentProps,) {
         super(props);
@@ -141,7 +141,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
 
     public render() {
         return <>
-            {!this.props.ready && this.renderLoading()}
+            {!this.props.ready && LabelTable.renderLoading()}
             {this.props.ready && this.renderTable()}
         </>;
     }
@@ -161,7 +161,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
         </>;
     }
 
-    private renderLoading(): JSX.Element {
+    private static renderLoading(): JSX.Element {
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">

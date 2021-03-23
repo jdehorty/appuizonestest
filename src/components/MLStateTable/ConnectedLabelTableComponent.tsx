@@ -2,13 +2,13 @@ import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflow
 import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
-import {Dispatch} from "react";
+import {ChangeEvent, ChangeEventHandler, Dispatch} from "react";
 import {connect} from "react-redux";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
-import {LabelTableComponent} from "./LabelTable";
+import {LabelTable} from "./LabelTable";
 import {RootState} from "../../store/AppState";
 
 export interface LabelTableStateFromProps {
@@ -35,6 +35,8 @@ export interface LabelTableStateFromProps {
 export interface LabelTableDispatchFromProps {
     onLabelExpandStateChange(newExpanded: boolean, name: MachineLearningLabel): void;
 
+    onCheckboxStateChange(newBox: boolean, name: MachineLearningLabel): ChangeEventHandler;
+
     onLabelColorChange(newColor: ColorDef, name: MachineLearningLabel): void;
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
@@ -56,6 +58,7 @@ export interface LabelTableDispatchFromProps {
     onAddSelectedLabelItem(item: MLStateTableDataItem): void;
     onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
+
 }
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
@@ -105,6 +108,13 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
             dispatch({
                 type: LabelingWorkflowManagerActionType.LabelExpandStateWasChanged,
                 newExpanded: newExpanded,
+                label: name,
+            });
+        },
+        onCheckboxStateChange: (newBox: boolean, name: MachineLearningLabel) => {
+            dispatch({
+                type: LabelingWorkflowManagerActionType.CheckboxStateWasChanged,
+                newBox: newBox,
                 label: name,
             });
         },
@@ -188,9 +198,9 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
         // TODO: Perform Redux action to add new item to SelectedItems.
         // 1. action.labelItemToSelectOrUnselect = item;
         // 2. dispatch LabelingWorkflowManagerActionType.AddSelectedLabelItem
-    });
+    }) as LabelTableDispatchFromProps;
 }
 
-export const ConnectedLabelTableComponent = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableComponent);
+export const ConnectedLabelTableComponent = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTable);
 
-export const ConnectedLabelTableComponentPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableComponent);
+export const ConnectedLabelTableComponentPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTable);

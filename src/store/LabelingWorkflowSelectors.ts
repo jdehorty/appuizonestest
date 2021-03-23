@@ -645,7 +645,8 @@ export class LabelingWorkflowManagerSelectors {
                     isExpanded: commonLabelStateMap.get(name)!.isExpanded,
                     level: level,
                     children: childEntries,
-                    isSelected: false
+                    isSelected: false,
+                    isChecked: false
                 };
             }
 

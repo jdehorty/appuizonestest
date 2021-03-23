@@ -18,7 +18,7 @@ import {ConnectedMLTableComponent} from "./components/ConnectedMLTable";
 import {Provider} from 'react-redux';
 import {LabelerState} from "./store/LabelerState";
 import {ConnectedCycleElementComponent} from "./components/ConnectedCycleElements";
-import {ConnectedLabelTableComponent} from "./components/MLStateTable/LabelTableState";
+import {ConnectedLabelTableComponent} from "./components/MLStateTable/ConnectedLabelTableComponent";
 
 
 export class LabelerUiProvider implements UiItemsProvider {

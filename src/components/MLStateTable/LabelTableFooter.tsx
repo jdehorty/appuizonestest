@@ -7,7 +7,7 @@ import {
     LabelTableStateFromProps,
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
-} from "./LabelTableState";
+} from "./ConnectedLabelTableComponent";
 
 const MINUTES = 1.0;
 

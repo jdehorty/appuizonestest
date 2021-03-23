@@ -35,6 +35,6 @@ export interface SimpleArrayRule {
 }
 
 export interface SimpleArrayRuleEntry {
-    wanted: boolean;
+    checked: boolean;
     type: MatchingRuleType;
 }
