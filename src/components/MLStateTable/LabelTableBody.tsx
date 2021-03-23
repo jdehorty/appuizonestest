@@ -40,7 +40,7 @@ const addItemToSelectedItems = (props: OwnProps,
         }
 
         // Check for add vs. replace action.
-        if (selectedItems.values.length == 0) {
+        if (selectedItems.size == 0) {
             // Trigger Redux action to "Add new item".
             props.onAddSelectedLabelItem(item);
         }
@@ -57,7 +57,7 @@ const removeItemFromSelectedItems = (props: OwnProps,
                                      item: MLStateTableDataItem,
                                      selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
     
-    if (selectedItems.values.length == 0) { 
+    if (selectedItems.size == 0) { 
         return; // It is not in the list. Nothing to do. Return;
     }
 
@@ -87,11 +87,18 @@ const LabelTableBody: FC<Props> = (props) => {
                 value = event.currentTarget.value;
             }
             item.isSelected = (value.toString() === "true");
-            if (item.isSelected)
+            if (item.isSelected) {
                 addItemToSelectedItems(props, item, props.selectedItems, allowMultiSelectionOfLabels);
-            else
+            }
+            else {
                 removeItemFromSelectedItems (props, item, props.selectedItems);
+            }
         };
+    }
+
+    const itemIsChecked = (item: MLStateTableDataItem): boolean => {
+        const existingItem = props.selectedItems.get(item!.name);
+        return (existingItem != null);
     }
 
     const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element => {
@@ -117,7 +124,7 @@ const LabelTableBody: FC<Props> = (props) => {
             <label>
                 <input
                     type="checkbox"
-                    value={itemIsSelected.toString()}
+                    checked={itemIsChecked(item!)}
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
