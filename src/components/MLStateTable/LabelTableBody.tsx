@@ -16,6 +16,8 @@ import {
 import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkflowTypes";
 import { LabelTableComponent, LabelTableComponentProps } from "./LabelTable";
 import { ColorPickerButton } from "@bentley/ui-components";
+import {AssignLabelButton} from "../AssignLabelButton";
+
 
 
 interface OwnProps extends LabelTableDispatchFromProps {
@@ -128,7 +130,9 @@ const LabelTableBody: FC<Props> = (props) => {
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
-
+            <div className="mltc-level-spacer" style={{ minWidth: 8 }} />
+            <AssignLabelButton label={i18nName} name={item.name}
+                               onClick={props.onLabelApply}/>
             <div className="mltc-level-spacer" style={{ minWidth: 16 * level }} />
             <Button
                 className="mltc-expand-button"
@@ -150,7 +154,6 @@ const LabelTableBody: FC<Props> = (props) => {
             <div className="mltc-label-container-v2-small">
                 {i18nName}
             </div>
-
         </>
     }
 
