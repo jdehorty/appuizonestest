@@ -130,9 +130,18 @@ $fontScale: 1.15em;
     /* background-color: rgb(73, 76, 77); */
 }
 
-.sstc-select-button, .sstc-label-button {
+.sstc-select-button {
     margin: 0;
     padding: 2px 4px;
+    min-width: 20px;
+    fill: white;
+}
+
+.sstc-label-button {
+    margin: 0;
+    padding: 2px 4px;
+    min-width: 20px;
+    fill: black;
 }
 
 .sstc-select-button.off {
@@ -216,7 +225,6 @@ $fontScale: 1.15em;
     max-width: 180px;
 }
 
-
 .mltc-label-container-v2-small
 {
     display: block;
@@ -227,24 +235,49 @@ $fontScale: 1.15em;
     margin: 0;
     padding: 0;
     font-size: 1.1em;
-    min-width: 190px;
-    max-width: 190px;
+    min-width: 145px;
 }
 
-.mltc-expand-button
+// Name Column - Spacing Between Checkbox and Elements
+.mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
+    min-width: 10px;
+}
+.mltc-name-td-v2 .mltc-level-spacer:nth-child(4) {
+    min-width: 1px;
+}
+.mltc-name-td-v2 .mltc-expand-button
 {
     color: black;
     background: none;
-    margin: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-right: 2px;
+    min-width: 2em;
+}
+.mltc-name-td-v2 .mltc-expand-button:hover
+{
+    min-width: 2em;
+    color: red;
 }
 
-.mltc-expand-button:hover
-{
-    color: #ff0000;
-    background: none;
+// labels
+.mltc-name-td-v2 .sstc-select-button {
+    background-color: transparent;
+    fill: lightgray;
+    opacity: 75%;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+
+}
+.mltc-name-td-v2 .sstc-select-button:hover {
+    transform: scale(1.5);
+    background-color: transparent;
+    fill: lightgray;
+    opacity: 75%;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+.mltc-name-td-v2 .sstc-select-button:focus {
+    background-color: transparent;
+    opacity: 100%;
+    fill: #53A21A;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
 }
 
 .mltc-name-td-v2
@@ -257,18 +290,12 @@ $fontScale: 1.15em;
     display: flex;
     flex-direction: row;
     border-left: 1px solid grey;
-    //border-right: 1px solid grey;
 }
 
 // This simply undoes unwanted styling that we get from ssts-data-table
 .mltc-name-subtable-td-v2 tbody td:nth-child(2)
 {
     white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // min-width: 250px;
-    // max-width: 250px;
-    // // display: flex;
     flex-direction: row;
     border-left: none;
     border-right: none;
