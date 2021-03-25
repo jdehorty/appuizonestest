@@ -35,6 +35,11 @@
     "color": "Color",
     "remap": "Remapped to"
   },
+  "labelTableHeading": {
+    "name": "Name",
+    "asLabeled": "Labeled",
+    "asPredicted": "Predicted"
+  },
   "Header": {
     "welcome": "Welcome to UI Sample Application"
   },

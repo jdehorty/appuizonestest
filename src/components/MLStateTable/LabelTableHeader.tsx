@@ -170,9 +170,9 @@ const LabelTableHeader: FC<Props> = (props) => {
                 }
             </tr>
             <tr style={headerStyle}>
-                <th className="mltc-name-th-v2">Name</th>
-                <th className="mltc-label-th-v2">Label</th>
-                <th className="mltc-prediction-th-v2">Prediction</th>
+                <th className="mltc-name-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}</th>
+                <th className="mltc-label-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}</th>
+                <th className="mltc-prediction-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}</th>
             </tr>
             </thead>
         </>
