@@ -101,6 +101,10 @@ const LabelTableBody: FC<Props> = (props) => {
 
     const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element => {
 
+        const expanderStyle = {
+            width: '24px',
+            height: '22px',
+        }
         const simpleLine = "";
         const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
         const collapsedCaret = "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
@@ -126,15 +130,10 @@ const LabelTableBody: FC<Props> = (props) => {
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
-            <div className="mltc-level-spacer" />
-            <AssignLabelButton
-                label={i18nName}
-                name={item.name}
-                onClick={props.onLabelApply}
-            />
-            <div className="mltc-level-spacer" style={{minWidth: 16 * level}}/>
+            <div className="mltc-level-spacer" style={{minWidth: 12 * level}}/>
             <Button
                 className="mltc-expand-button"
+                style={expanderStyle}
                 onClick={() => {
                     props.onLabelExpandStateChange(!isExpanded, item.name);
                 }}
@@ -156,7 +155,11 @@ const LabelTableBody: FC<Props> = (props) => {
 
             <div className="mltc-label-container-v2-small">
                 {i18nName}
-                {}
+                <AssignLabelButton
+                    label={i18nName}
+                    name={item.name}
+                    onClick={props.onLabelApply}
+            />
             </div>
         </>
     }
