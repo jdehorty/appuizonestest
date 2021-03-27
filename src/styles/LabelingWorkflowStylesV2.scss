@@ -347,6 +347,14 @@ $fontScale: 1.15em;
     font-size: $fontScale;
 }
 
+.mltc-prediction-td-v2.on {
+    background-color: lightgoldenrodyellow;
+}
+
+.mltc-prediction-td-v2.off {
+    background-color: transparent;
+}
+
 .mltc-prediction-td-v2 button:nth-child(1)
 {
    margin-left: 15px;

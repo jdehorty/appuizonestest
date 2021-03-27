@@ -132,7 +132,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                     />
                     <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
                                                 onClick={() => {
-                                                    props.onLabelSelectionClick(props.selectedItems.values()?.next()?.value?.name);
+                                                    props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
                                                 }}/>
                 </td>
                 <td className="mltc-prediction-td-v2">
@@ -150,7 +150,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                     />
                     <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
                                                 onClick={() => {
-                                                    props.onPredictionSelectionClick(props.selectedItems.values()?.next()?.value?.name);
+                                                    props.onPredictionSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
                                                 }}/>
                 </td>
                 {!props.isPoppedOut &&

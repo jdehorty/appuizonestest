@@ -1,6 +1,6 @@
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
-import {Id64String} from "@bentley/bentleyjs-core";
+import {Id64String, Id64Set} from "@bentley/bentleyjs-core";
 import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWorkflowManager";
 import {Dispatch} from "react";
 import {connect} from "react-redux";
@@ -10,6 +10,7 @@ import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSele
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
 import {LabelTableComponent} from "./LabelTable";
 import {RootState} from "../../store/AppState";
+
 
 export interface LabelTableStateFromProps {
     ready: boolean;
@@ -23,7 +24,8 @@ export interface LabelTableStateFromProps {
     isPoppedOut: boolean;
     readyForPopout: boolean;
     filterEmptyRows: boolean;
-    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    selectionSet: Id64Set;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
 
@@ -76,7 +78,8 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         isPoppedOut: false,
         readyForPopout: false,
         filterEmptyRows: state.filterEmptyRows,
-        selectedItems: state.selectedItems,
+        selectedUiItems: state.selectedUiItems,
+        selectionSet: state.selectionSet,
         
         onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
             LabelingWorkflowManager.selectLabel(itemId);

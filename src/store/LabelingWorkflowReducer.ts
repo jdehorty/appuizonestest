@@ -37,37 +37,37 @@ export function LabelingWorkflowManagerReducer(
             };
 
         case LabelingWorkflowManagerActionType.AddSelectedLabelItem: {
-            // Copy existing selectedItems map.
-            const newSelectedItems = new Map(prevState.selectedItems);
+            // Copy existing selectedUiItems map.
+            const newSelectedItems = new Map(prevState.selectedUiItems);
             const item = action.labelItemToSelectOrUnselect;
             newSelectedItems.set(item!.name, item!);
             return {
                 ...prevState,
-                selectedItems: newSelectedItems
+                selectedUiItems: newSelectedItems
             };
         }
 
         case LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem: {
             // Copy existing selectedItems map.
-            const newSelectedItems = new Map(prevState.selectedItems);
-            const existingItem = prevState.selectedItems.get(action.existingLabelItemToReplaceInSelection!.name);
+            const newSelectedItems = new Map(prevState.selectedUiItems);
+            const existingItem = prevState.selectedUiItems.get(action.existingLabelItemToReplaceInSelection!.name);
             const item = action.labelItemToSelectOrUnselect;
             newSelectedItems.delete(existingItem!.name);
             newSelectedItems.set(item!.name, item!);
             return {
                 ...prevState,
-                selectedItems: newSelectedItems
+                selectedUiItems: newSelectedItems
             };
         }
 
         case LabelingWorkflowManagerActionType.RemoveSelectedLabelItem:
             /// Copy existing selectedItems map.
-            const newSelectedItems = new Map(prevState.selectedItems);
-            const existingItem = prevState.selectedItems.get(action.labelItemToSelectOrUnselect!.name);
+            const newSelectedItems = new Map(prevState.selectedUiItems);
+            const existingItem = prevState.selectedUiItems.get(action.labelItemToSelectOrUnselect!.name);
             newSelectedItems.delete(existingItem!.name);
             return {
                 ...prevState,
-                selectedItems: newSelectedItems
+                selectedUiItems: newSelectedItems
             };
 
         case LabelingWorkflowManagerActionType.ColorModeWasChanged:

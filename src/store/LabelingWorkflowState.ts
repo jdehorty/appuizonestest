@@ -103,7 +103,7 @@ export interface LabelingWorkflowState {
     filterEmptyRows: boolean;
     /** Currently selected Label items in the ML State Table. 
      * Note: If Config.allowMultiSelectionOfLabels == false, then there will be no more than 1 selected label allowed at a time. */
-    selectedItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
 }
 
 
@@ -128,5 +128,5 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
     filterEmptyRows: false,
-    selectedItems: new Map<MachineLearningLabel, MLStateTableDataItem>()
+    selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>()
 }
