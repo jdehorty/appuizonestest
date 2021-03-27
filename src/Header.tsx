@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 export const Header = (props: HeaderProps) => {
-    const {loggedIn, handleLogin, handleLogout,} = props;
+    const {loggedIn, handleLogin, handleLogout} = props;
     const {button, text, buttonContainer, header} = styles;
 
     return (
