@@ -1,4 +1,4 @@
-@import "../../node_modules/@bentley/ui-core/lib/ui-core/typography";
+//@import "LabelButtonStyles";
 
 $fontScale: 1.15em;
 
@@ -244,28 +244,28 @@ $fontScale: 1.15em;
     color: red;
 }
 
-// labels
-.mltc-name-td-v2 .sstc-select-button {
-    background-color: transparent;
-    fill: lightgray;
-    opacity: 75%;
-    border: none;
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-
-}
-.mltc-name-td-v2 .sstc-select-button:hover {
-    transform: scale(1.5);
-    background-color: transparent;
-    fill: lightgray;
-    opacity: 75%;
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-}
-.mltc-name-td-v2 .sstc-select-button:focus {
-    background-color: transparent;
-    opacity: 100%;
-    fill: #53A21A;
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-}
+//// labels
+//.mltc-name-td-v2 .sstc-select-button {
+//    background-color: transparent;
+//    fill: lightgray;
+//    opacity: 75%;
+//    border: none;
+//    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+//
+//}
+//.mltc-name-td-v2 .sstc-select-button:hover {
+//    transform: scale(1.5);
+//    background-color: transparent;
+//    fill: lightgray;
+//    opacity: 75%;
+//    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+//}
+//.mltc-name-td-v2 .sstc-select-button:focus {
+//    background-color: transparent;
+//    opacity: 100%;
+//    fill: #53A21A;
+//    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+//}
 
 .mltc-name-td-v2
 {

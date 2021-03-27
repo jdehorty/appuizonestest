@@ -3,13 +3,17 @@ import {ColorDef} from "@bentley/imodeljs-common";
 import {Spinner, SpinnerSize} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
-import "../../styles/_LabelingWorkflowStylesV2.scss";
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import ConnectedLabelTableBody from "./LabelTableBody";
 import ConnectedLabelTableFooter from "./LabelTableFooter";
 import {ConnectedLabelTableHeader, ConnectedLabelTableHeaderPopout} from "./LabelTableHeader";
 import {LabelerState} from "../../store/LabelerState";
 import {Provider} from "react-redux";
+
+// Styling
+import "../../styles/_LabelingWorkflowStylesV2.scss";
+import "../../styles/styles.css";
+
 
 const FORCE_ALL = true;
 
@@ -72,7 +76,7 @@ export interface LabelTableComponentProps {
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
 }
 
-export class LabelTableComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
+export class LabelTableAllComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {
 
     constructor(props: LabelTableComponentProps,) {
         super(props);
@@ -141,7 +145,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
 
     public render() {
         return <>
-            {!this.props.ready && this.renderLoading()}
+            {!this.props.ready && LabelTableAllComponent.renderLoading()}
             {this.props.ready && this.renderTable()}
         </>;
     }
@@ -161,7 +165,7 @@ export class LabelTableComponent extends React.Component<LabelTableComponentProp
         </>;
     }
 
-    private renderLoading(): JSX.Element {
+    private static renderLoading(): JSX.Element {
         return <>
             <div className="sstc-spinner-container">
                 <div className="sstc-spinner-inner-container">

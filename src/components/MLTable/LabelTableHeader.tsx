@@ -7,9 +7,9 @@ import {Button, ButtonType, Icon, LabeledToggle} from "@bentley/ui-core";
 import {
     ILabelSectionAttributes,
     IPredictionSectionAttributes,
-    LabelTableComponent,
+    LabelTableAllComponent,
     LabelTableComponentProps
-} from "./LabelTable";
+} from "./LabelTableAllComponent";
 import {MachineLearningColorMode} from "../../data/LabelTypes";
 import {
     LabelTableDispatchFromProps,
@@ -17,7 +17,7 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps,
     mapLabelTableStateToPropsForPopout
-} from "./LabelTableState";
+} from "./ConnectedLabelTableAllComponent";
 import MLStateTablePopout from "../MLStateTablePopout";
 
 
@@ -48,7 +48,7 @@ const LabelTableHeader: FC<Props> = (props) => {
         setReadyForPopout(false);
     }
 
-    const [labelSectionAttributes, predSectionAttributes] = LabelTableComponent.getSectionAttributes(props);
+    const [labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
 
     const renderTableHead = (labelSectionAttributes: ILabelSectionAttributes, predSectionAttributes: IPredictionSectionAttributes): JSX.Element => {
 

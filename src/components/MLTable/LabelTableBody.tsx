@@ -2,7 +2,6 @@ import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Config} from "@bentley/bentleyjs-core";
-
 import {Button, SvgPath} from "@bentley/ui-core";
 import {MachineLearningLabel} from "../../data/LabelTypes";
 import {ColorDef} from "@bentley/imodeljs-common";
@@ -12,12 +11,11 @@ import {
     LabelTableStateFromProps,
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
-} from "./LabelTableState";
+} from "./ConnectedLabelTableAllComponent";
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
-import {LabelTableComponent} from "./LabelTable";
+import {LabelTableAllComponent} from "./LabelTableAllComponent";
 import {ColorPickerButton} from "@bentley/ui-components";
 import {LabelButtonComponent} from "../LabelButtonComponent";
-import AppearanceToggleComponent from "../VisibilityToggleComponent";
 import VisibilityToggleComponent from "../VisibilityToggleComponent";
 
 
@@ -200,7 +198,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
         const tableRows: JSX.Element[] = [];
 
-        const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableComponent.getSectionAttributes(props);
+        const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
 
         const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean, hasChildren: boolean) => {
 

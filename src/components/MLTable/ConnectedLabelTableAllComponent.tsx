@@ -8,7 +8,7 @@ import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
-import {LabelTableComponent} from "./LabelTable";
+import {LabelTableAllComponent} from "./LabelTableAllComponent";
 import {RootState} from "../../store/AppState";
 
 
@@ -194,6 +194,6 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
     });
 }
 
-export const ConnectedLabelTableComponent = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableComponent);
+export const ConnectedLabelTableAllComponent = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableAllComponent);
 
-export const ConnectedLabelTableComponentPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableComponent);
+export const ConnectedLabelTableComponentPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableAllComponent);
