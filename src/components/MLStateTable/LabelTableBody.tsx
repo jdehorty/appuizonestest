@@ -16,8 +16,9 @@ import {
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import {LabelTableComponent} from "./LabelTable";
 import {ColorPickerButton} from "@bentley/ui-components";
-import {AssignLabelButton} from "../AssignLabelButton";
-import AppearanceToggleComponent from "../AppearanceToggle";
+import {LabelButtonComponent} from "../LabelButtonComponent";
+import AppearanceToggleComponent from "../VisibilityToggleComponent";
+import VisibilityToggleComponent from "../VisibilityToggleComponent";
 
 
 interface OwnProps extends LabelTableDispatchFromProps {
@@ -131,6 +132,14 @@ const LabelTableBody: FC<Props> = (props) => {
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
+            <VisibilityToggleComponent
+                transparencyAvailable={true}
+                label={i18nName}
+                itemId={item.name}
+                visible={item.trueLabelIsDisplayed}
+                transparent={item.trueLabelIsTransparent}
+                onClick={props.onLabelDisplayChange}
+            />
             <div className="mltc-level-spacer" style={{minWidth: 12 * level}}/>
             <Button
                 className="mltc-expand-button"
@@ -144,8 +153,8 @@ const LabelTableBody: FC<Props> = (props) => {
                     viewBoxWidth={16}
                     viewBoxHeight={16}
                     paths={[
-                    expanderOrLine
-                ]}/>
+                        expanderOrLine
+                    ]}/>
             </Button>
 
             <ColorPickerButton
@@ -156,25 +165,18 @@ const LabelTableBody: FC<Props> = (props) => {
 
             <div className="mltc-label-container-v2-small">
                 {i18nName}
-                <AssignLabelButton
+                <LabelButtonComponent
                     label={i18nName}
                     name={item.name}
                     onClick={props.onLabelApply}
-            />
+                />
             </div>
         </>
     }
 
     const jsxForLabelSection = (item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element => {
         return <>
-            <div className="mltc-level-spacer" />
-            {/* <AppearanceToggleComponent
-                transparencyAvailable={true}
-                label={i18nName}
-                itemId={item.name}
-                visible={item.trueLabelIsDisplayed}
-                transparent={item.trueLabelIsTransparent}
-                onClick={props.onLabelDisplayChange}/> */}
+            <div className="mltc-level-spacer"/>
             <div className="sstc-count-container-v2">
                 {trueDisplayedCount}
             </div>
@@ -182,7 +184,7 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const jsxForPredictionSection = (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element => {
-        const uiItemIsSelected:boolean = props.selectedUiItems.get(item.name) != null;
+        const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
         let predCountClass = "sstc-count-container-v2 ";
         predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
         return <>
@@ -209,7 +211,7 @@ const LabelTableBody: FC<Props> = (props) => {
                 const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
                 const predDisplayedCount = predSectionAttributes.anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
-                const uiItemIsSelected:boolean = props.selectedUiItems.get(item.name) != null;
+                const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
                 let predCountClass = "mltc-prediction-td-v2 ";
                 predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
 

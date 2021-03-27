@@ -7,9 +7,9 @@ import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/LabelingWorkflowStyles.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
-import AppearanceBatchToggleComponent from "./AppearanceBatchToggle";
-import AppearanceToggleComponent from "./AppearanceToggle";
-import {AssignLabelButton} from "./AssignLabelButton";
+import AppearanceBatchToggleComponent from "./VisibilityToggleAllComponent";
+import AppearanceToggleComponent from "./VisibilityToggleComponent";
+import {LabelButtonComponent} from "./LabelButtonComponent";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
 
 
@@ -150,8 +150,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 itemId={item.name}
                 hilite={item.trueLabelSelectedCount !== 0}
                 onClick={this.props.onLabelSelectionClick}/>
-            <AssignLabelButton label={i18nName} name={item.name}
-                               onClick={this.props.onLabelApply}/>
+            <LabelButtonComponent label={i18nName} name={item.name}
+                                  onClick={this.props.onLabelApply}/>
             <div className="sstc-count-container">
                 {trueDisplayedCount}
             </div>

@@ -1,10 +1,10 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-import "../styles/LabelingWorkflowStyles.scss";
+// import "../styles/LabelingWorkflowStyles.scss";
 
 /** TristateVisiblityButton properties */
-interface AppearanceToggleComponentProps {
+interface VisibilityToggleProps {
     /** Label for flyover (not translated internally) */
     label?: string;
     /** Set if transparency is available */
@@ -21,7 +21,7 @@ interface AppearanceToggleComponentProps {
 }
 
 /** Button that shows/changes the visibility status of an item */
-const AppearanceToggleComponent = (props: AppearanceToggleComponentProps) => {
+const AppearanceToggleComponent = (props: VisibilityToggleProps) => {
     let newVisible: boolean;
     let newTransparent: boolean;
     let actionI18nKey: string;
@@ -74,6 +74,7 @@ const AppearanceToggleComponent = (props: AppearanceToggleComponentProps) => {
                 "1.9-1.3-2.5-2.3.6-1 1.4-1.8 2.4-2.4.1 0 .1-.1.2-.1-.2.4-.3.9-.3 1.4 0 2.2 1.8 4 4 4s4-1.8" +
                 " 4-4c0-.5-.1-.9-.1-1.3m-3.9.8c0 .8-.7 1.5-1.5 1.5-.8 0-1.5-.7-1.5-1.5 0-.8.7-1.5 1.5-1.5.8 0 1.5.6 1.5 1.5"
             ]}/>
+
         </Button>
     </>
 };

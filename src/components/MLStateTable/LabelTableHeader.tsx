@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import AppearanceBatchToggleComponent from "../AppearanceBatchToggle";
+import AppearanceBatchToggleComponent from "../VisibilityToggleAllComponent";
 import {GroupSelectButtonComponent} from "../GroupSelectButton";
 import {Button, ButtonType, Icon, LabeledToggle} from "@bentley/ui-core";
 import {

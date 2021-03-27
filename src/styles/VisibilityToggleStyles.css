@@ -1,0 +1,18 @@
+.sstc-visibility-button.mixed {
+  background: grey;
+}
+
+.sstc-visibility-button.transparent {
+  background: #99b1b4;
+}
+
+.sstc-visibility-button.hidden {
+  visibility: hidden;
+}
+
+.sstc-visibility-button.off {
+  color: black;
+  background: none;
+}
+
+/*# sourceMappingURL=VisibilityToggleStyles.css.map */

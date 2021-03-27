@@ -4,7 +4,7 @@ import * as React from "react";
 import "../styles/LabelingWorkflowStyles.scss";
 
 /** GroupVisiblityButton properties */
-export interface AppearanceBatchToggleComponentProps {
+export interface VisibilityBatchToggleProps {
     /** Label for flyover (not translated internally) */
     label?: string;
     /** Set if transparency is available */
@@ -23,7 +23,7 @@ export interface AppearanceBatchToggleComponentProps {
 }
 
 /** Button that shows/changes the visibility status of a group of items (that may have different statuses) */
-const AppearanceBatchToggleComponent = (props: AppearanceBatchToggleComponentProps) => {
+const AppearanceBatchToggleComponent = (props: VisibilityBatchToggleProps) => {
     let newVisible: boolean;
     let newTransparent: boolean;
     let labelToggleClass: string;
