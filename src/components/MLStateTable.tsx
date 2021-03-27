@@ -5,7 +5,7 @@ import {ColorPickerButton} from "@bentley/ui-components";
 import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
-import '../styles/LabelingWorkflowStyles.scss';
+import '../styles/_LabelingWorkflowStyles.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 import AppearanceBatchToggleComponent from "./VisibilityToggleAllComponent";
 import AppearanceToggleComponent from "./VisibilityToggleComponent";

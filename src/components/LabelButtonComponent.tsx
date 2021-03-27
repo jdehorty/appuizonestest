@@ -1,7 +1,7 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button} from "@bentley/ui-core";
 import * as React from "react";
-import "../styles/LabelingWorkflowStyles.scss";
+import "../styles/_LabelingWorkflowStyles.scss";
 import {Svg} from "./SvgComponent";
 
 export interface LabelButtonProps {

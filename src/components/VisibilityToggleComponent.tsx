@@ -1,7 +1,7 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-// import "../styles/LabelingWorkflowStyles.scss";
+// import "../styles/_LabelingWorkflowStyles.scss";
 
 /** TristateVisiblityButton properties */
 interface VisibilityToggleProps {
@@ -48,11 +48,6 @@ const AppearanceToggleComponent = (props: VisibilityToggleProps) => {
         buttonClassName = "sstc-visibility-button off";
     }
 
-    let btnStyle = {
-        width: '24px',
-        height: '22px',
-    }
-
     let title = IModelApp.i18n.translate(actionI18nKey);
     title += ": ";
     title += (props.label ? props.label : "");
@@ -66,7 +61,6 @@ const AppearanceToggleComponent = (props: VisibilityToggleProps) => {
                     props.onClick(newVisible, newTransparent, props.itemId);
                 }
             }}
-            style={btnStyle}
         >
             <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
                 "m8 3c-3.4 0-6.5 1.9-8 5 2.2 4.4 7.5 6.3 11.9 4.1 1.8-.9 3.2-2.3 4.1-4.1-1.5-3.1-4.6-5-8-5m3.9 " +

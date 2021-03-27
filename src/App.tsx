@@ -1,4 +1,4 @@
-import "./styles/App.scss";
+import "./styles/_App.scss";
 
 import {Viewer} from "@bentley/itwin-viewer-react";
 import React, {useEffect, useState} from "react";

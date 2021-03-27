@@ -9,7 +9,7 @@ import {Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle} from "@b
 import * as React from "react";
 import {MatchingOperator, MatchingRuleType, SelectionExtenderConfig} from "../store/SelectionExtenderTypes";
 import {NumberInputComponent} from "./NumberInputComponent";
-import "../styles/SelectionExtenderComponent.scss";
+import "../styles/_SelectionExtenderComponent.scss";
 
 export type SelectionExtenderComponentProps = {
     singleId?: Id64String;

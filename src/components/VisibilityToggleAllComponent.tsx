@@ -1,7 +1,7 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-import "../styles/LabelingWorkflowStyles.scss";
+import "../styles/_LabelingWorkflowStyles.scss";
 
 /** GroupVisiblityButton properties */
 export interface VisibilityBatchToggleProps {

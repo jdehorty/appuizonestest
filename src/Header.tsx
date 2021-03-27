@@ -1,7 +1,7 @@
 import {BlockText, Button, ButtonType} from "@bentley/ui-core";
 import React from "react";
 
-import styles from "./styles/Header.module.scss";
+import styles from "./styles/_Header.module.scss";
 
 interface HeaderProps {
     handleLogin: () => void;

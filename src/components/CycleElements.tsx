@@ -1,7 +1,7 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-import "../styles/LabelingWorkflowStyles.scss";
+import "../styles/_LabelingWorkflowStyles.scss";
 
 export interface CycleElementComponentProps {
     ready: boolean;
