@@ -1,35 +1,16 @@
-.mltc-name-td-v2 .sstc-visibility-button-on {
+.mltc-name-td-v2 .sstc-visibility-button {
   border: none;
-  margin-top: -.5em; // adjusts the icon to be even with checkbox
+  margin-top: 0; // adjusts the icon to be even with checkbox
   margin-left: -.2em; // adjust icon size (icon expands to 100% width)
   margin-right: -.2em; // adjust icon size (icon expands to 100% width)
-  margin-bottom: -.1em;
+  margin-bottom: .1em; // adjust inter-row distance
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
 }
 
-
-
-
-//.sstc-visibility-button-mixed {
-//  background: grey;
-//  background: none;
-//}
-//
-//.sstc-visibility-button-transparent {
-//  //background: rgb(153, 177, 180);
-//  background: none;
-//
-//}
-//
-//.sstc-visibility-button-hidden {
-//  visibility: hidden;
-//  background: none;
-//
-//}
-//
-//.sstc-visibility-button-off {
-//  color: black;
-//  background: none;
-//}
-
+.mltc-name-td-v2 .sstc-visibility-button.transparent {
+  background-color: transparent;
+  fill: lightgray;
+  opacity: 25%;
+}
 
 
