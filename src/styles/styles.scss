@@ -1,2 +1,4 @@
 // This is the file that gets compiled to CSS.
-@use "LabelButtonStyles";
+@use "components/LabelButtonComponent";
+@use "components/VisibilityButtonComponent";
+@use "components/SelectionExtenderComponent";

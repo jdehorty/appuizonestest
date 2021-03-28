@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import AppearanceBatchToggleComponent from "../VisibilityToggleAllComponent";
+import VisibilityButtonAllComponent from "../VisibilityButtonAllComponent";
 import {GroupSelectButtonComponent} from "../GroupSelectButton";
 import {Button, ButtonType, Icon, LabeledToggle} from "@bentley/ui-core";
 import {
@@ -118,7 +118,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                 </Button> */}
                 </td>
                 <td className="mltc-label-td-v2">
-                    <AppearanceBatchToggleComponent
+                    <VisibilityButtonAllComponent
                         transparencyAvailable={true}
                         allHidden={labelSectionAttributes.allLabelHidden}
                         allVisible={labelSectionAttributes.allLabelVisible}
@@ -136,7 +136,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                                                 }}/>
                 </td>
                 <td className="mltc-prediction-td-v2">
-                    <AppearanceBatchToggleComponent
+                    <VisibilityButtonAllComponent
                         transparencyAvailable={true}
                         allHidden={predSectionAttributes.allPredictionHidden}
                         allVisible={predSectionAttributes.allPredictionVisible}

@@ -33,4 +33,57 @@
   min-width: 145px;
 }
 
+.mltc-name-td-v2 .sstc-visibility-button-on {
+  border: none;
+  margin-top: -0.5em;
+  margin-left: -0.2em;
+  margin-right: -0.2em;
+  margin-bottom: -0.1em;
+}
+
+.scroll-thing {
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
+}
+
+.selhelp-criteria {
+  display: flex;
+  flex-flow: row;
+}
+
+.selhelp-criteria-checkbox-container {
+  display: inline-block;
+}
+
+.selhelp-criteria-checkbox {
+  margin: 4px;
+}
+
+.selhelp-criteria-content {
+  display: inline-block;
+  width: 100%;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+.selhelp-criteria-title {
+  text-decoration: underline;
+  margin: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: block;
+  color: grey;
+}
+
+.selhelp-criteria-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: block;
+  box-sizing: content-box;
+}
+
 /*# sourceMappingURL=styles.css.map */

@@ -7,8 +7,8 @@ import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../data/LabelTypes";
 import '../styles/_LabelingWorkflowStyles.scss';
 import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
-import AppearanceBatchToggleComponent from "./VisibilityToggleAllComponent";
-import AppearanceToggleComponent from "./VisibilityToggleComponent";
+import VisibilityButtonAllComponent from "./VisibilityButtonAllComponent";
+import VisibilityButtonComponent from "./VisibilityButtonComponent";
 import {LabelButtonComponent} from "./LabelButtonComponent";
 import {GroupSelectButtonComponent} from "./GroupSelectButton";
 
@@ -138,7 +138,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     private renderLabelSection(item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element {
         return <>
-            <AppearanceToggleComponent
+            <VisibilityButtonComponent
                 transparencyAvailable={true}
                 label={i18nName}
                 itemId={item.name}
@@ -160,7 +160,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
 
     private renderPredictionSection(item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element {
         return <>
-            <AppearanceToggleComponent
+            <VisibilityButtonComponent
                 transparencyAvailable={true}
                 label={i18nName}
                 itemId={item.name}
@@ -211,7 +211,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                     </Button>
                 </td>
                 <td className="mltc-label-td">
-                    <AppearanceBatchToggleComponent
+                    <VisibilityButtonAllComponent
                         transparencyAvailable={true}
                         allHidden={labelSectionAttributes.allLabelHidden}
                         allVisible={labelSectionAttributes.allLabelVisible}
@@ -229,7 +229,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                                                 }}/>
                 </td>
                 <td className="mltc-prediction-td">
-                    <AppearanceBatchToggleComponent
+                    <VisibilityButtonAllComponent
                         transparencyAvailable={true}
                         allHidden={predSectionAttributes.allPredictionHidden}
                         allVisible={predSectionAttributes.allPredictionVisible}

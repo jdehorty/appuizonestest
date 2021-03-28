@@ -16,11 +16,10 @@ import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflow
 import {LabelTableAllComponent} from "./LabelTableAllComponent";
 import {ColorPickerButton} from "@bentley/ui-components";
 import {LabelButtonComponent} from "../LabelButtonComponent";
-import VisibilityToggleComponent from "../VisibilityToggleComponent";
+import VisibilityButtonComponent from "../VisibilityButtonComponent";
 
 
 interface OwnProps extends LabelTableDispatchFromProps {
-
 }
 
 type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
@@ -130,7 +129,7 @@ const LabelTableBody: FC<Props> = (props) => {
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
-            <VisibilityToggleComponent
+            <VisibilityButtonComponent
                 transparencyAvailable={true}
                 label={i18nName}
                 itemId={item.name}
@@ -152,7 +151,8 @@ const LabelTableBody: FC<Props> = (props) => {
                     viewBoxHeight={16}
                     paths={[
                         expanderOrLine
-                    ]}/>
+                    ]}
+                />
             </Button>
 
             <ColorPickerButton
