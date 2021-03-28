@@ -98,7 +98,7 @@ const LabelTableBody: FC<Props> = (props) => {
         return (existingItem != null);
     }
 
-    const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean): JSX.Element => {
+    const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean, labelsAreAllowed: boolean): JSX.Element => {
 
         const expanderStyle = {
             width: '24px',
@@ -164,11 +164,13 @@ const LabelTableBody: FC<Props> = (props) => {
 
             <div className="mltc-label-container-v2-small">
                 {i18nName}
+                {labelsAreAllowed &&
                 <LabelButtonComponent
                     label={i18nName}
                     name={item.name}
                     onClick={props.onLabelApply}
                 />
+                }
             </div>
         </>
     }
@@ -201,7 +203,9 @@ const LabelTableBody: FC<Props> = (props) => {
 
         const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
 
-        const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean, hasChildren: boolean) => {
+        const labelsAreAllowed = props.selectionSet.size > 0;
+
+        const processItem = (item: MLStateTableDataItem, level: number, isExpanded: boolean, hasChildren: boolean, labelsAreAllowed: boolean) => {
 
             if (!onlyShowPresent || FORCE_ALL || item.hasData) {
 
@@ -218,7 +222,7 @@ const LabelTableBody: FC<Props> = (props) => {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td-v2">
-                                {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren)}
+                                {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren, labelsAreAllowed)}
                             </td>
                             <td className="mltc-label-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
                                 {jsxForLabelSection(item, i18nName, trueDisplayedCount)}
@@ -237,7 +241,7 @@ const LabelTableBody: FC<Props> = (props) => {
             if (item === undefined) {
                 return;
             }
-            processItem(item, treeItem.level, treeItem.isExpanded, treeItem.children.length !== 0);
+            processItem(item, treeItem.level, treeItem.isExpanded, treeItem.children.length !== 0, labelsAreAllowed);
             if (treeItem.isExpanded) {
                 for (const child of treeItem.children) {
                     _recurse(child);
