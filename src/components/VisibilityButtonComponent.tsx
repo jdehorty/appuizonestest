@@ -35,25 +35,36 @@ const VisibilityButtonComponent = (props: VisibilityButtonProps) => {
     buttonClassName = "sstc-visibility-button";
 
     if (props.visible && !props.transparent) { // the class is fully visible, next on deck is make transparent
+        // Current
+        // buttonClassName = "sstc-visibility-button";
+        svgVisibilityPathsArray = visibilityOn;
+
+        // Next
         if (props.transparencyAvailable) {
             newVisible = true;
             newTransparent = true;
+            actionI18nKey = "LabelingApp:makeTransparent";
         } else {
             newVisible = false;
             newTransparent = false;
+            actionI18nKey = "LabelingApp:hide";
         }
-        svgVisibilityPathsArray = visibilityOn;
-        actionI18nKey = "LabelingApp:makeTransparent";
+       
     } else if (props.visible && props.transparent) { // the class is transparent, next on deck is to hide
-        newVisible = false;
-        newTransparent = false;
+        // Current
         svgVisibilityPathsArray = visibilityOn;
         buttonClassName = "sstc-visibility-button transparent";
+        //Next
+        newVisible = false;
+        newTransparent = false;
         actionI18nKey = "LabelingApp:hide";
     } else { // the class is hidden, next on deck is to show
+        // Current
+        // buttonClassName = "sstc-visibility-button";
+        svgVisibilityPathsArray = visibilityOff;
+        // Next
         newVisible = true;
         newTransparent = false;
-        svgVisibilityPathsArray = visibilityOff;
         actionI18nKey = "LabelingApp:show";
     }
 
