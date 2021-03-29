@@ -35,35 +35,33 @@ const VisibilityButtonAllComponent = (props: VisibilityButtonProps) => {
 
     let svgVisibilityPathsArray: Array<string>;
 
-    buttonClassName = "sstc-visibility-all-button";
+    buttonClassName = "sstc-visibility-button";
 
-    if (props.allVisible && !props.allTransparent) { // visible ==> transparent
+    if (props.allVisible && !props.allTransparent) {
         if (props.transparencyAvailable) {
             newVisible = true;
             newTransparent = true;
-            svgVisibilityPathsArray = visibilityOn;
-            actionI18nKey = "LabelingApp:makeAllTransparent";
         } else {
             newVisible = false;
             newTransparent = false;
-            svgVisibilityPathsArray = visibilityOff;
-            actionI18nKey = "LabelingApp:hideAll";
         }
-    } else if (props.allVisible && props.allTransparent) { // transparent ==> hidden
+        svgVisibilityPathsArray = visibilityOn;
+        actionI18nKey = "LabelingApp:makeAllTransparent";
+    } else if (props.allVisible && props.allTransparent) {
         newVisible = false;
         newTransparent = false;
         svgVisibilityPathsArray = visibilityOn;
-        buttonClassName = "sstc-visibility-button-all transparent";
+        buttonClassName = "sstc-visibility-button transparent";
         actionI18nKey = "LabelingApp:hideAll";
-    } else if (props.allHidden) { // hidden ==> visible
+    } else if (props.allHidden) {
         newVisible = true;
         newTransparent = false;
         svgVisibilityPathsArray = visibilityOff;
         actionI18nKey = "LabelingApp:showAll"
-    } else { // mixed ==> visible
+    } else {
         newVisible = false;
         newTransparent = false;
-        svgVisibilityPathsArray = visibilityOn;
+        svgVisibilityPathsArray = visibilityOff;
         actionI18nKey = "LabelingApp:showAll";
     }
 
