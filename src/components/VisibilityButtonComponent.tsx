@@ -2,7 +2,6 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
 import "../styles/styles.css"
-import {Svg} from "./SvgComponent";
 
 /** TristateVisiblityButton properties */
 interface VisibilityButtonProps {
@@ -35,7 +34,7 @@ const VisibilityButtonComponent = (props: VisibilityButtonProps) => {
 
     buttonClassName = "sstc-visibility-button";
 
-    if (props.visible && !props.transparent) {
+    if (props.visible && !props.transparent) { // the class is fully visible, next on deck is make transparent
         if (props.transparencyAvailable) {
             newVisible = true;
             newTransparent = true;
@@ -43,19 +42,19 @@ const VisibilityButtonComponent = (props: VisibilityButtonProps) => {
             newVisible = false;
             newTransparent = false;
         }
-        actionI18nKey = "LabelerState:makeTransparent";
         svgVisibilityPathsArray = visibilityOn;
-    } else if (props.visible && props.transparent) {
+        actionI18nKey = "LabelingApp:makeTransparent";
+    } else if (props.visible && props.transparent) { // the class is transparent, next on deck is to hide
         newVisible = false;
         newTransparent = false;
-        actionI18nKey = "LabelerState:hide";
         svgVisibilityPathsArray = visibilityOn;
         buttonClassName = "sstc-visibility-button transparent";
-    } else {
+        actionI18nKey = "LabelingApp:hide";
+    } else { // the class is hidden, next on deck is to show
         newVisible = true;
         newTransparent = false;
-        actionI18nKey = "LabelerState:show";
         svgVisibilityPathsArray = visibilityOff;
+        actionI18nKey = "LabelingApp:show";
     }
 
     let title = IModelApp.i18n.translate(actionI18nKey);

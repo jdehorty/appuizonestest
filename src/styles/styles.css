@@ -49,6 +49,11 @@
   opacity: 25%;
 }
 
+.mltc-label-td-v2 .mixed {
+  width: 24px;
+  height: 22px;
+}
+
 .scroll-thing {
   overflow: scroll;
   height: 100%;
