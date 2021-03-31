@@ -301,6 +301,11 @@
   box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
 }
 
+.mltc-name-td-v2 .mltc-expand-button .core-icons-svgSprite {
+  width: 0.9em;
+  height: 0.9em;
+}
+
 .mltc-name-th-v2-selection .sstc-select-button {
   border: none;
   box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);

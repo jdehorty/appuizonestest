@@ -107,12 +107,11 @@ const LabelTableBody: FC<Props> = (props) => {
         }
 
         const simpleLine = "";
-        const expandedCaret = "M1.4,3.3h13.3c0.5,0,0.8,0.6,0.5,1l-6.6,7.8c-0.3,0.3-0.7,0.3-1,0L0.9,4.3C0.6,3.9,0.8,3.3,1.4,3.3z";
-        const collapsedCaret = "M3.5,14.6V1.3c0-0.5,0.6-0.8,1-0.5l7.8,6.6c0.3,0.3,0.3,0.7,0,1L4.5,15C4.2,15.4,3.5,15.1,3.5,14.6z";
+        const expandedCaret = "M16 4.7 14.6 3.3 8 9.9 1.4 3.3 0 4.7 8 12.7z";
+        const collapsedCaret = "m4.7 0l-1.4 1.4 6.6 6.6-6.6 6.6 1.4 1.4 8-8z";
 
         const selectedItem = props.selectedUiItems.get(item.name);
         const itemIsSelected = selectedItem != null;
-
 
         let expanderOrLine = simpleLine;
         if (hasChildren) {
