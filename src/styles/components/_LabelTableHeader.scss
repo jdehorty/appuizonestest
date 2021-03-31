@@ -1,5 +1,16 @@
 @use "../variables" as vars;
 
+// Visibility Column ///////////////////////////////////////////////////////////////////////////////////////////////////
+.mltc-visibility-th-v2,
+.mltc-visibility-td-v2
+{
+  min-width: 80px;
+  max-width: 80px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  font-size: vars.$fontScale;
+}
+
 // Name Column /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 .mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {

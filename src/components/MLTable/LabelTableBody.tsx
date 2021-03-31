@@ -99,6 +99,32 @@ const LabelTableBody: FC<Props> = (props) => {
         return (existingItem != null);
     }
 
+    const jsxForVisibilitySection = (item: MLStateTableDataItem, i18nName: string): JSX.Element => {
+        return <>
+        <table>
+            <tr>
+                <td>
+          <label>
+                <input
+                    type="checkbox"
+                    checked={itemIsChecked(item!)}
+                    onChange={itemSelectChangeHandler(item!)}
+                />
+            </label>
+            <VisibilityButtonComponent
+                transparencyAvailable={true}
+                label={i18nName}
+                itemId={item.name}
+                visible={item.trueLabelIsDisplayed}
+                transparent={item.trueLabelIsTransparent}
+                onClick={props.onLabelDisplayChange}
+            />
+            </td>
+            </tr>
+            </table>
+        </>
+    }
+
     const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean, labelsAreAllowed: boolean): JSX.Element => {
 
         const expanderStyle = {
@@ -124,21 +150,6 @@ const LabelTableBody: FC<Props> = (props) => {
         }
 
         return <>
-            <label>
-                <input
-                    type="checkbox"
-                    checked={itemIsChecked(item!)}
-                    onChange={itemSelectChangeHandler(item!)}
-                />
-            </label>
-            <VisibilityButtonComponent
-                transparencyAvailable={true}
-                label={i18nName}
-                itemId={item.name}
-                visible={item.trueLabelIsDisplayed}
-                transparent={item.trueLabelIsTransparent}
-                onClick={props.onLabelDisplayChange}
-            />
             <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level-1))}}/>
             <Button
                 className="mltc-expand-button"
@@ -222,6 +233,9 @@ const LabelTableBody: FC<Props> = (props) => {
                 if (props.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
+                            <td className="mltc-visibility-td-v2">
+                                {jsxForVisibilitySection(item, i18nName)}
+                            </td>
                             <td className="mltc-name-td-v2">
                                 {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren, labelsAreAllowed)}
                             </td>

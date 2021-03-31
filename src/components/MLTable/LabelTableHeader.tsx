@@ -69,14 +69,30 @@ const LabelTableHeader: FC<Props> = (props) => {
         return <>
             <thead>
             <tr>
+                <td className="mltc-visibility-th-v2">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>{IModelApp.i18n.translate("LabelingApp:hideEmpty")}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <LabeledToggle
+                                   className="sstc-hide-empty-toggle"
+                                   label=""
+                                   isOn={props.filterEmptyRows}
+                                   onChange={props.onFilterEmptyRowsChange}
+                               />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
                 <td className="mltc-name-td-v2">
                 <div>
                    <table className="mltc-name-subtable-td-v2">
                        <tbody>
                            <tr>
-                               <td>
-                                   <span>{IModelApp.i18n.translate("LabelingApp:hideEmpty")}</span>
-                               </td>
                                <td>
                                    <div>
                                        <span>{IModelApp.i18n.translate("LabelingApp:colorMode")}</span>
@@ -84,14 +100,6 @@ const LabelTableHeader: FC<Props> = (props) => {
                                </td>
                            </tr>
                            <tr>
-                               <td>
-                               <LabeledToggle
-                                   className="sstc-hide-empty-toggle"
-                                   label=""
-                                   isOn={props.filterEmptyRows}
-                                   onChange={props.onFilterEmptyRowsChange}
-                               />
-                               </td>
                                <td>
                                    <div>
                                        <label>
@@ -118,22 +126,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                 </Button> */}
                 </td>
                 <td className="mltc-label-td-v2">
-                    <VisibilityButtonAllComponent
-                        transparencyAvailable={true}
-                        allHidden={labelSectionAttributes.allLabelHidden}
-                        allVisible={labelSectionAttributes.allLabelVisible}
-                        allTransparent={labelSectionAttributes.allLabelTransparent}
-                        allOpaque={labelSectionAttributes.allLabelOpaque}
-                        onClick={
-                            (newVisible: boolean, newTransparent: boolean) => {
-                                props.onLabelDisplayChange(newVisible, newTransparent, undefined);
-                            }
-                        }
-                    />
-                    <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                onClick={() => {
-                                                    props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                                                }}/>
+                   
                 </td>
                 <td className="mltc-prediction-td-v2">
                     <VisibilityButtonAllComponent
@@ -170,6 +163,24 @@ const LabelTableHeader: FC<Props> = (props) => {
                 }
             </tr>
             <tr style={headerStyle}>
+                <th className="mltc-visibility-th-v2">  
+                    <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                        onClick={() => {
+                        props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
+                        }}/> 
+                    <VisibilityButtonAllComponent
+                        transparencyAvailable={true}
+                        allHidden={labelSectionAttributes.allLabelHidden}
+                        allVisible={labelSectionAttributes.allLabelVisible}
+                        allTransparent={labelSectionAttributes.allLabelTransparent}
+                        allOpaque={labelSectionAttributes.allLabelOpaque}
+                        onClick={
+                            (newVisible: boolean, newTransparent: boolean) => {
+                                props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                            }
+                        }
+                    />
+                </th>
                 <th className="mltc-name-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}</th>
                 <th className="mltc-label-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}</th>
                 <th className="mltc-prediction-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}</th>
