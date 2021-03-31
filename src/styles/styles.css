@@ -135,4 +135,13 @@
   height: 93%;
 }
 
+.mltc-label-th-v2,
+.mltc-label-td-v2 {
+  min-width: 80px;
+  max-width: 80px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  font-size: 1.15em;
+}
+
 /*# sourceMappingURL=styles.css.map */
