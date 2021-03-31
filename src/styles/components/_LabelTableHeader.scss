@@ -1,6 +1,16 @@
 @use "../variables" as vars;
 
-// Name Column /////////////////////////////////////////////////////////////////////////////////////////////////////////
+.-------------------------------------------{}
+// Name Column
+
+.mltc-name-th-v2
+{
+  min-width: 191px;
+  max-width: 191px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  font-size: vars.$fontScale;
+}
 
 .mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
   min-width: 10px;
@@ -42,15 +52,6 @@
   padding-left: 12px;
 }
 
-.mltc-name-th-v2
-{
-  min-width: 191px;
-  max-width: 191px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
-  font-size: vars.$fontScale;
-}
-
 .mltc-name-th-subtable-v2
 {
   min-width: 191px;
@@ -58,8 +59,9 @@
   font-size: vars.$fontScale;
 }
 
+.-------------------------------------------{}
 
-// Label Column  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+// Label Column
 
 .mltc-label-th-v2,
 .mltc-label-td-v2
@@ -95,7 +97,9 @@
   margin-left: 5px;
 }
 
-// Predictions Column  /////////////////////////////////////////////////////////////////////////////////////////////////
+.-------------------------------------------{}
+
+// Predictions Column
 
 .mltc-prediction-th-v2, .mltc-prediction-td-v2
 {

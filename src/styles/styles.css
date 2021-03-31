@@ -406,6 +406,14 @@
   height: 93%;
 }
 
+.mltc-name-th-v2 {
+  min-width: 191px;
+  max-width: 191px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  font-size: 1.15em;
+}
+
 .mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
   min-width: 10px;
 }
@@ -442,14 +450,6 @@
   border-left: none;
   border-right: none;
   padding-left: 12px;
-}
-
-.mltc-name-th-v2 {
-  min-width: 191px;
-  max-width: 191px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
-  font-size: 1.15em;
 }
 
 .mltc-name-th-subtable-v2 {
