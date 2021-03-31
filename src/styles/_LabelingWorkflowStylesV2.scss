@@ -30,12 +30,14 @@ $fontScale: 1.15em;
     display: flex;
     height: 100%;
     width: 100%;
+
     flex-direction: column;
 }
 
 .sstc-data-table td, .sstc-data-table th {
     margin: 0;
     padding-left: 1px;
+
     padding-right: 1px;
     white-space: nowrap;
 }
@@ -188,60 +190,65 @@ $fontScale: 1.15em;
 }
 
 
-.mltc-label-container-v2
-{
-    display: block;
-    flex-grow: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    padding: 0;
-    font-size: $fontScale;
-    min-width: 180px;
-    max-width: 180px;
-}
+//.mltc-label-container-v2
+//{
+//    display: block;
+//    flex-grow: 1;
+//    white-space: nowrap;
+//    overflow: hidden;
+//    text-overflow: ellipsis;
+//    margin: 0;
+//    padding: 0;
+//    font-size: $fontScale;
+//    min-width: 180px;
+//    max-width: 180px;
+//}
 
 // Name Column - Spacing Between Checkbox and Elements
-.mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
-    min-width: 10px;
-}
-.mltc-name-td-v2 .mltc-level-spacer:nth-child(4) {
-    min-width: 1px;
-}
-.mltc-name-td-v2 .mltc-expand-button
-{
-    color: black;
-    background: none;
-    min-width: 2em;
-}
-.mltc-name-td-v2 .mltc-expand-button:hover
-{
-    min-width: 2em;
-    color: red;
-}
-
-.mltc-name-td-v2
-{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 250px;
-    max-width: 250px;
-    display: flex;
-    flex-direction: row;
-    border-left: 1px solid grey;
-}
+//.mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
+//    min-width: 10px;
+//}
+//.mltc-name-td-v2 .mltc-level-spacer:nth-child(4) {
+//    min-width: 1px;
+//}
+//.mltc-name-td-v2 .mltc-expand-button
+//{
+//    color: black;
+//    background: none;
+//    min-width: 2em;
+//}
+//.mltc-name-td-v2 .mltc-expand-button:hover
+//{
+//    min-width: 2em;
+//    color: red;
+//}
+//.mltc-name-td-v2
+//{
+//    white-space: nowrap;
+//    overflow: hidden;
+//    text-overflow: ellipsis;
+//    min-width: 250px;
+//    max-width: 250px;
+//    display: flex;
+//    flex-direction: row;
+//    border-left: 1px solid grey;
+//}
 
 // This simply undoes unwanted styling that we get from ssts-data-table
-.mltc-name-subtable-td-v2 tbody td:nth-child(2)
-{
-    white-space: nowrap;
-    flex-direction: row;
-    border-left: none;
-    border-right: none;
-    padding-left: 12px;
-}
+//.mltc-name-subtable-td-v2 tbody td:nth-child(2)
+//{
+//    // .sstc-data-table override?
+//    border-left: none;
+//    border-right: none;
+//
+//    flex-direction: row;
+//
+//    // .sstc-data-table td, .sstc-data-table th override?
+//    padding-left: 12px;
+//    white-space: nowrap;
+//
+//
+//}
 
 //.mltc-label-th-v2, .mltc-label-td-v2
 //{
@@ -252,59 +259,59 @@ $fontScale: 1.15em;
 //    font-size: $fontScale;
 //}
 
-.mltc-label-td-v2 button:nth-child(1)
-{
-   margin-left: 15px;
-}
+//.mltc-label-td-v2 button:nth-child(1)
+//{
+//   margin-left: 15px;
+//}
+//
+//.mltc-label-td-v2 button:nth-child(2)
+//{
+//   margin-left: 5px;
+//}
+//
+//.mltc-name-th-v2
+//{
+//    min-width: 191px;
+//    max-width: 191px;
+//    border-left: 1px solid grey;
+//    border-right: 1px solid grey;
+//    font-size: $fontScale;
+//}
+//
+//.mltc-name-th-subtable-v2
+//{
+//    min-width: 191px;
+//    max-width: 191px;
+//    font-size: $fontScale;
+//}
 
-.mltc-label-td-v2 button:nth-child(2)
-{
-   margin-left: 5px;
-}
 
-.mltc-name-th-v2
-{
-    min-width: 191px;
-    max-width: 191px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-    font-size: $fontScale;
-}
+//.mltc-prediction-th-v2, .mltc-prediction-td-v2
+//{
+//    min-width: 80px;
+//    max-width: 80px;
+//    border-left: 1px solid grey;
+//    border-right: 1px solid grey;
+//    font-size: $fontScale;
+//}
 
-.mltc-name-th-subtable-v2
-{
-    min-width: 191px;
-    max-width: 191px;
-    font-size: $fontScale;
-}
+//.mltc-prediction-td-v2.on {
+//    background-color: lightgoldenrodyellow;
+//}
+//
+//.mltc-prediction-td-v2.off {
+//    background-color: transparent;
+//}
 
+//.mltc-prediction-td-v2 button:nth-child(1)
+//{
+//   margin-left: 15px;
+//}
 
-.mltc-prediction-th-v2, .mltc-prediction-td-v2
-{
-    min-width: 80px;
-    max-width: 80px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-    font-size: $fontScale;
-}
-
-.mltc-prediction-td-v2.on {
-    background-color: lightgoldenrodyellow;
-}
-
-.mltc-prediction-td-v2.off {
-    background-color: transparent;
-}
-
-.mltc-prediction-td-v2 button:nth-child(1)
-{
-   margin-left: 15px;
-}
-
-.mltc-prediction-td-v2 button:nth-child(2)
-{
-   margin-left: 5px;
-}
+//.mltc-prediction-td-v2 button:nth-child(2)
+//{
+//   margin-left: 5px;
+//}
 
 .sstc-spinner-container
 {
