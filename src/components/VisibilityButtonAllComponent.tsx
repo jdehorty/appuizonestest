@@ -47,10 +47,10 @@ const VisibilityButtonAllComponent = (props: VisibilityButtonAllProps) => {
         }
         svgVisibilityPathsArray = visibilityOn;
         actionI18nKey = "LabelingApp:makeAllTransparent";
-    } else if (props.allVisible && props.allTransparent) {
+    } else if (props.allTransparent) {
         newVisible = false;
         newTransparent = false;
-        svgVisibilityPathsArray = visibilityOn;
+        svgVisibilityPathsArray = visibilityTransparent;
         buttonClassName = "sstc-visibility-button transparent";
         actionI18nKey = "LabelingApp:hideAll";
     } else if (props.allHidden) {
@@ -61,7 +61,7 @@ const VisibilityButtonAllComponent = (props: VisibilityButtonAllProps) => {
     } else {
         newVisible = false;
         newTransparent = false;
-        svgVisibilityPathsArray = visibilityOn;
+        svgVisibilityPathsArray = visibilityTransparent;
         actionI18nKey = "LabelingApp:showAll";
     }
 

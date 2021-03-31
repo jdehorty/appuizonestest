@@ -54,6 +54,7 @@ export class LabelerUiProvider implements UiItemsProvider {
                     label: "ML Labeler V2",
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
+                            <ConnectedCycleElementComponent />
                             <ConnectedLabelTableAllComponent />
                         </Provider>
                 });

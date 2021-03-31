@@ -1,8 +1,6 @@
 @use "../variables" as vars;
 
-.-------------------------------------------{}
-// Name Column
-
+.NameColumn-----------------------------------------------------------------------------------------------------------{}
 .mltc-name-th-v2
 {
   min-width: 191px;
@@ -10,6 +8,21 @@
   border-left: 1px solid grey;
   border-right: 1px solid grey;
   font-size: vars.$fontScale;
+}
+
+.mltc-name-th-v2-selection {
+  float: left;
+  width: 1.5em;
+}
+
+.mltc-name-th-v2-visibility {
+  float: left;
+  width: 2.35em;
+}
+
+.mltc-name-th-v2-title {
+  float: left;
+  width: 10.3em;
 }
 
 .mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
@@ -42,6 +55,10 @@
   border-left: 1px solid grey;
 }
 
+tbody .mltc-name-td-v2 label {
+  padding-left: .25em;
+}
+
 // This simply undoes unwanted styling that we get from ssts-data-table
 .mltc-name-subtable-td-v2 tbody td:nth-child(2)
 {
@@ -59,10 +76,7 @@
   font-size: vars.$fontScale;
 }
 
-.-------------------------------------------{}
-
-// Label Column
-
+.LabelColumn----------------------------------------------------------------------------------------------------------{}
 .mltc-label-th-v2,
 .mltc-label-td-v2
 {
@@ -97,10 +111,7 @@
   margin-left: 5px;
 }
 
-.-------------------------------------------{}
-
-// Predictions Column
-
+.PredictionColumn-----------------------------------------------------------------------------------------------------{}
 .mltc-prediction-th-v2, .mltc-prediction-td-v2
 {
   min-width: 80px;

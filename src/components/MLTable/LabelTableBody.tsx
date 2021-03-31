@@ -139,7 +139,7 @@ const LabelTableBody: FC<Props> = (props) => {
                 transparent={item.trueLabelIsTransparent}
                 onClick={props.onLabelDisplayChange}
             />
-            <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level-1))}}/>
+            <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
             <Button
                 className="mltc-expand-button"
                 style={expanderStyle}
