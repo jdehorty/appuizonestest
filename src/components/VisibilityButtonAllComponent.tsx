@@ -4,7 +4,7 @@ import * as React from "react";
 import "../styles/styles.css"
 
 /** GroupVisiblityButton properties */
-export interface VisibilityButtonProps {
+export interface VisibilityButtonAllProps {
     /** Label for flyover (not translated internally) */
     label?: string;
     /** Set if transparency is available */
@@ -23,7 +23,7 @@ export interface VisibilityButtonProps {
 }
 
 /** Button that shows/changes the visibility status of a group of items (that may have different statuses) */
-const VisibilityButtonAllComponent = (props: VisibilityButtonProps) => {
+const VisibilityButtonAllComponent = (props: VisibilityButtonAllProps) => {
     let newVisible: boolean;
     let newTransparent: boolean;
     let actionI18nKey: string;
@@ -61,7 +61,7 @@ const VisibilityButtonAllComponent = (props: VisibilityButtonProps) => {
     } else {
         newVisible = false;
         newTransparent = false;
-        svgVisibilityPathsArray = visibilityOff;
+        svgVisibilityPathsArray = visibilityOn;
         actionI18nKey = "LabelingApp:showAll";
     }
 

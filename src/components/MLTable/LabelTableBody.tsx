@@ -34,7 +34,7 @@ const addItemToSelectedItems = (props: OwnProps,
         // multi-selections are not supported yet, but if we need them in future, this is where we'd handle their selection.
     } else { // We are running in single-selection mode.
         if (selectedUiItems.get(item.name) != null) {
-            // It is already there. Return; 
+            // It is already there, then return;
             return;
         }
 
@@ -42,7 +42,8 @@ const addItemToSelectedItems = (props: OwnProps,
         if (selectedUiItems.size == 0) {
             // Trigger Redux action to "Add new item".
             props.onAddSelectedLabelItem(item);
-        } else { // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
+        } else {
+            // Trigger a single Redux action to replace the existing single-select item with the new single-select item.
             // Since we are in single selection mode, the one and only element will be the first one. (Given a fresh iterator, "next"
             // will return the first (and in our single-select case, the only) one.
             const existingItem: MLStateTableDataItem = selectedUiItems.values().next().value;
@@ -185,9 +186,9 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const jsxForPredictionSection = (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element => {
-        const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
-        let predCountClass = "sstc-count-container-v2 ";
-        predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
+        let predCountClass = "sstc-count-container-v2 off";
+        // const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
+        // predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
         return <>
             <div className={predCountClass}>
                 {predDisplayedCount}
