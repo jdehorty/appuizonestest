@@ -164,7 +164,7 @@ const LabelTableHeader: FC<Props> = (props) => {
 
                     {
                         readyForPopout &&
-                        <MLStateTablePopout title={"ML Audit"} closingPopout={_onPopoutWindowClosing}/>
+                        <MLStateTablePopout title={"ML Labeler"} closingPopout={_onPopoutWindowClosing}/>
                     }
                 </td>
                 }
