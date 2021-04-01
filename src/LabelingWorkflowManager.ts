@@ -663,6 +663,6 @@ export const AVAILABLE_COLOR_MODES: MachineLearningColorMode[] = [
     MachineLearningColorMode.Native,
     MachineLearningColorMode.LabelColors,
     MachineLearningColorMode.PredictionColors,
-    MachineLearningColorMode.ConfusionsWithLabelColors,
-    MachineLearningColorMode.ConfusionsWithPredictionColors,
+    // MachineLearningColorMode.ConfusionsWithLabelColors,
+    // MachineLearningColorMode.ConfusionsWithPredictionColors,
 ];

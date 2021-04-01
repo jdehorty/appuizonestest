@@ -185,11 +185,9 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const jsxForPredictionSection = (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element => {
-        let predCountClass = "sstc-count-container-v2 off";
-        // const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
-        // predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
+     
         return <>
-            <div className={predCountClass}>
+            <div>
                 {predDisplayedCount}
             </div>
         </>
@@ -214,9 +212,9 @@ const LabelTableBody: FC<Props> = (props) => {
                 const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
                 const predDisplayedCount = predSectionAttributes.anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
-                const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
                 let predCountClass = "mltc-prediction-td-v2 ";
-                predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
+                // const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
+                //predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
 
                 if (props.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(

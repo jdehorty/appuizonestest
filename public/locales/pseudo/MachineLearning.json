@@ -70,9 +70,9 @@
         "notext": "No Text"
     },
     "colorMode": {
-        "native": "Native",
-        "labelColors": "Label Colors",
-        "predictionColors": "Prediction Colors",
+        "native": "Unlabeled (Native)",
+        "labelColors": "Labeled (Bootstrap)",
+        "predictionColors": "Predicted (Model)",
         "confusionsWithLabelColors": "Confusions with Label Colors",
         "confusionsWithPredictionColors": "Confusions with Prediction Colors"
     }

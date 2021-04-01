@@ -122,7 +122,7 @@ export class LabelingWorkflowManagerSelectors {
             if (colorMode !== MachineLearningColorMode.Native) {
                 for (const [elementId, elementState] of elementStateMap) {
                     switch (colorMode) {
-                        case MachineLearningColorMode.ConfusionsWithLabelColors:
+                        // case MachineLearningColorMode.ConfusionsWithLabelColors:
                         case MachineLearningColorMode.LabelColors:
                             {
                                 const labelState = commonLabelStateMap.get(elementState.trueLabel);
@@ -131,7 +131,7 @@ export class LabelingWorkflowManagerSelectors {
                                 }
                                 break;
                             }
-                        case MachineLearningColorMode.ConfusionsWithPredictionColors:
+                        // case MachineLearningColorMode.ConfusionsWithPredictionColors:
                         case MachineLearningColorMode.PredictionColors:
                             {
                                 const labelState = commonLabelStateMap.get(elementState.predLabel);
@@ -277,17 +277,17 @@ export class LabelingWorkflowManagerSelectors {
                     transparent = true;
                 }
                 // Special colorMode cases:
-                if (colorMode === MachineLearningColorMode.ConfusionsWithLabelColors ||
-                    colorMode === MachineLearningColorMode.ConfusionsWithPredictionColors)
-                {
-                    if (LabelingWorkflowManagerSelectors._labelsMatch(
-                        commonLabelStateMap,
-                        elementState.trueLabel,
-                        elementState.predLabel,
-                    )) {
-                        transparent = true;
-                    }
-                }
+                // if (colorMode === MachineLearningColorMode.ConfusionsWithLabelColors ||
+                //     colorMode === MachineLearningColorMode.ConfusionsWithPredictionColors)
+                // {
+                //     if (LabelingWorkflowManagerSelectors._labelsMatch(
+                //         commonLabelStateMap,
+                //         elementState.trueLabel,
+                //         elementState.predLabel,
+                //     )) {
+                //         transparent = true;
+                //     }
+                // }
                 // Special case for cycling mode
                 if (cycleEnabled === true && cycleSet !== undefined && !cycleSet.has(elementId)) {
                     transparent = true;
