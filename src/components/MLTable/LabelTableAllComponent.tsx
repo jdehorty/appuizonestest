@@ -74,6 +74,8 @@ export interface LabelTableComponentProps {
     onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
 
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
+
+    onToggleLabelTableEmphasis(): void;
 }
 
 export class LabelTableAllComponent extends React.Component<LabelTableComponentProps, LabelTableComponentState> {

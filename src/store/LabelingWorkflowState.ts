@@ -48,6 +48,11 @@ export interface CycleModeState {
     initialFrustums?: Map<ScreenViewport, Frustum>;
 }
 
+export enum LabelTableEmphasis {
+    ActOnLabels = 0,
+    ActOnPredictions = 1
+}
+
 /** State for a GeometricElement3d */
 export interface ElementState {
     /** The element's ECInstanceId */
@@ -104,6 +109,8 @@ export interface LabelingWorkflowState {
     /** Currently selected Label items in the ML State Table. 
      * Note: If Config.allowMultiSelectionOfLabels == false, then there will be no more than 1 selected label allowed at a time. */
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    /** Indicates whether bi-modal LabelTable controls are currently biased toward Labels or Predictions.  */
+    labelTableEmphasis: LabelTableEmphasis;
 }
 
 
@@ -128,5 +135,6 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
     filterEmptyRows: false,
-    selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>()
+    selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>(),
+    labelTableEmphasis: LabelTableEmphasis.ActOnLabels
 }

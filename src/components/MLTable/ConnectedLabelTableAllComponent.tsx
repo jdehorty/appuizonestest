@@ -5,7 +5,7 @@ import {AVAILABLE_COLOR_MODES, LabelingWorkflowManager} from "../../LabelingWork
 import {Dispatch} from "react";
 import {connect} from "react-redux";
 import {ColorDef} from "@bentley/imodeljs-common";
-import {LabelingWorkflowState} from "../../store/LabelingWorkflowState";
+import {LabelingWorkflowState, LabelTableEmphasis} from "../../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSelectors";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
 import {LabelTableAllComponent} from "./LabelTableAllComponent";
@@ -26,6 +26,7 @@ export interface LabelTableStateFromProps {
     filterEmptyRows: boolean;
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
     selectionSet: Id64Set;
+    labelTableEmphasis: LabelTableEmphasis;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
 
@@ -58,6 +59,8 @@ export interface LabelTableDispatchFromProps {
     onAddSelectedLabelItem(item: MLStateTableDataItem): void;
     onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
+
+    onToggleLabelTableEmphasis(): void;
 }
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
@@ -80,6 +83,7 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         filterEmptyRows: state.filterEmptyRows,
         selectedUiItems: state.selectedUiItems,
         selectionSet: state.selectionSet,
+        labelTableEmphasis: state.labelTableEmphasis,
         
         onLabelSelectionClick: (itemId?: MachineLearningLabel): void => {
             LabelingWorkflowManager.selectLabel(itemId);
@@ -184,6 +188,11 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
                 type: LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem,
                 labelItemToSelectOrUnselect: newItem,
                 existingLabelItemToReplaceInSelection: oldItem
+            })
+        },
+        onToggleLabelTableEmphasis() { 
+            dispatch ({
+                type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis
             })
         }
 

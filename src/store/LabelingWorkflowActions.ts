@@ -31,7 +31,8 @@ export enum LabelingWorkflowManagerActionType {
     FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
     AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
     ReplaceSelectedLabelItem = "LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem",
-    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem"
+    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem",
+    ToggleLabelTableEmphasis = "LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis"
 }
 
 /** Reducer action */

@@ -160,6 +160,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                 </td>
                 {!props.isPoppedOut &&
                 <td>
+                    <div>
                     <Button className="sstc-window-new-button"
                             buttonType={ButtonType.Hollow}
                             onClick={_onPopoutButtonClick}
@@ -170,6 +171,26 @@ const LabelTableHeader: FC<Props> = (props) => {
                         readyForPopout &&
                         <MLStateTablePopout title={"ML Labeler"} closingPopout={_onPopoutWindowClosing}/>
                     }
+                    </div>
+                    <div>
+                    <table className="mltc-name-subtable-td-v2">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span>{IModelApp.i18n.translate("LabelingApp:toggleEmphasis")}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <LabeledToggle
+                                        className="sstc-hide-empty-toggle"
+                                        onChange={props.onToggleLabelTableEmphasis}
+                                    />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
                 }
             </tr>

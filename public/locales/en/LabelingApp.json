@@ -6,6 +6,7 @@
   "showAll": "Show All",
   "hide": "Hide",
   "hideAll": "Hide All",
+  "toggleEmphasis": "Label/Prediction",
   "hideEmpty": "Hide Empty",
   "makeTransparent": "Make Transparent",
   "makeAllTransparent": "Make All Transparent",

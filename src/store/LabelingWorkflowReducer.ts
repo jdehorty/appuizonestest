@@ -1,4 +1,4 @@
-import { INITIAL_STATE, LabelingWorkflowState, ElementState, ModelState, CategoryState, ECClassState, PredLabelState, TrueLabelState, CommonLabelState } from "./LabelingWorkflowState";
+import { INITIAL_STATE, LabelingWorkflowState, ElementState, ModelState, CategoryState, ECClassState, PredLabelState, TrueLabelState, CommonLabelState, LabelTableEmphasis } from "./LabelingWorkflowState";
 import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./LabelingWorkflowActions";
 import { Id64String } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel } from "../data/LabelTypes";
@@ -449,6 +449,16 @@ export function LabelingWorkflowManagerReducer(
                     predLabelStateMap: newPredLabelStateMap,
                     trueLabelStateMap: newTrueLabelStateMap,
                 }
+            }
+
+        case LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis:
+            {
+                var newLableTableState: LabelTableEmphasis = (prevState.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) 
+                                                           ? LabelTableEmphasis.ActOnPredictions : LabelTableEmphasis.ActOnLabels;
+                return {
+                    ...prevState,
+                    labelTableEmphasis: newLableTableState
+                    }
             }
 
         default:
