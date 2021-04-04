@@ -141,26 +141,10 @@ const LabelTableHeader: FC<Props> = (props) => {
                     {/*</div>*/}
                 </td>
                 <td className="mltc-prediction-td-v2">
-                    <VisibilityButtonAllComponent
-                        transparencyAvailable={true}
-                        allHidden={predSectionAttributes.allPredictionHidden}
-                        allVisible={predSectionAttributes.allPredictionVisible}
-                        allTransparent={predSectionAttributes.allPredictionTransparent}
-                        allOpaque={predSectionAttributes.allPredictionOpaque}
-                        onClick={
-                            (newVisible: boolean, newTransparent: boolean) => {
-                                props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
-                            }
-                        }
-                    />
-                    <GroupSelectButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                onClick={() => {
-                                                    props.onPredictionSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                                                }}
-                    />
+                    
                 </td>
                 {!props.isPoppedOut &&
-                <td>
+                <td align="right" width="20%">
                     <div>
                     <Button className="sstc-window-new-button"
                             buttonType={ButtonType.Hollow}
