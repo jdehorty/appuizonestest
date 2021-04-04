@@ -19,6 +19,7 @@ import {
     mapLabelTableStateToPropsForPopout
 } from "./ConnectedLabelTableAllComponent";
 import MLStateTablePopout from "../MLStateTablePopout";
+import { LabelTableEmphasis } from '../../store/LabelingWorkflowState';
 
 
 interface OwnProps extends LabelTableComponentProps {
@@ -172,25 +173,6 @@ const LabelTableHeader: FC<Props> = (props) => {
                         <MLStateTablePopout title={"ML Labeler"} closingPopout={_onPopoutWindowClosing}/>
                     }
                     </div>
-                    <div>
-                    <table className="mltc-name-subtable-td-v2">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span>{IModelApp.i18n.translate("LabelingApp:toggleEmphasis")}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <LabeledToggle
-                                        className="sstc-hide-empty-toggle"
-                                        onChange={props.onToggleLabelTableEmphasis}
-                                    />
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </td>
                 }
             </tr>
@@ -228,9 +210,17 @@ const LabelTableHeader: FC<Props> = (props) => {
 
                 </th>
                 <th className="mltc-label-th-v2">
-                    {IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}
+                    <input id="LabelSelector" type="radio" name="labelTableEmphasis" value="label"
+                           checked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}
+                           onClick={props.onToggleLabelTableEmphasis}/>
+                        <label htmlFor="LabelSelector">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}</label>
                 </th>
-                <th className="mltc-prediction-th-v2">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}</th>
+                <th className="mltc-prediction-th-v2">
+                    <input id="PredictionSelector" type="radio" name="labelTableEmphasis" value="prediction" 
+                             checked={props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions}
+                             onClick={props.onToggleLabelTableEmphasis}/>
+                        <label htmlFor="PredictionSelector">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}</label>
+                </th>
             </tr>
             </thead>
         </>
