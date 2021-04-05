@@ -162,36 +162,68 @@ const LabelTableHeader: FC<Props> = (props) => {
             </tr>
             <tr style={headerStyle}>
                 <th className="mltc-name-th-v2">
+                    {
+                    (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
+                        <>
+                        <div className={"mltc-name-th-v2-selection"}>
+                            <GroupSelectButtonComponent
+                                label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                hilite={props.selectedUiItems.size !== 0}
+                                onClick={() => {
+                                    props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
+                                }}
+                            />
+                        </div>
 
-                    <div className={"mltc-name-th-v2-selection"}>
-                        <GroupSelectButtonComponent
-                            label={IModelApp.i18n.translate("LabelingApp.everything")}
-                            hilite={props.selectedUiItems.size !== 0}
-                            onClick={() => {
-                                props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                            }}
-                        />
-                    </div>
-
-                    <div className="mltc-name-th-v2-visibility">
-                        <VisibilityButtonAllComponent
-                            transparencyAvailable={true}
-                            allHidden={labelSectionAttributes.allLabelHidden}
-                            allVisible={labelSectionAttributes.allLabelVisible}
-                            allTransparent={labelSectionAttributes.allLabelTransparent}
-                            allOpaque={labelSectionAttributes.allLabelOpaque}
-                            onClick={
-                                (newVisible: boolean, newTransparent: boolean) => {
-                                    props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                        <div className="mltc-name-th-v2-visibility">
+                            <VisibilityButtonAllComponent
+                                transparencyAvailable={true}
+                                allHidden={labelSectionAttributes.allLabelHidden}
+                                allVisible={labelSectionAttributes.allLabelVisible}
+                                allTransparent={labelSectionAttributes.allLabelTransparent}
+                                allOpaque={labelSectionAttributes.allLabelOpaque}
+                                onClick={
+                                    (newVisible: boolean, newTransparent: boolean) => {
+                                        props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                                    }
                                 }
-                            }
-                        />
-                    </div>
-
+                            />
+                        </div>
+                        </>
+                    }
+                    {
+                    (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
+                        <>
+                        <div className={"mltc-name-th-v2-selection"}>
+                            <GroupSelectButtonComponent
+                                label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                hilite={props.selectedUiItems.size !== 0}
+                                onClick={() => {
+                                    props.onPredictionSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
+                                }}
+                            />
+                        </div>
+                                
+                        <div className="mltc-name-th-v2-visibility">
+                            <VisibilityButtonAllComponent
+                                transparencyAvailable={true}
+                                allHidden={predSectionAttributes.allPredictionHidden}
+                                allVisible={predSectionAttributes.allPredictionVisible}
+                                allTransparent={predSectionAttributes.allPredictionTransparent}
+                                allOpaque={predSectionAttributes.allPredictionOpaque}
+                                onClick={
+                                    (newVisible: boolean, newTransparent: boolean) => {
+                                        props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                                    }
+                                }
+                            />
+                        </div>
+                        </>
+                    }
+                    
                     <div className="mltc-name-th-v2-title">
                         {IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}
                     </div>
-
                 </th>
                 <th className="mltc-label-th-v2">
                     <input id="LabelSelector" type="radio" name="labelTableEmphasis" value="label"
