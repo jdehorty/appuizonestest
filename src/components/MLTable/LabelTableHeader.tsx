@@ -213,7 +213,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                                 allOpaque={predSectionAttributes.allPredictionOpaque}
                                 onClick={
                                     (newVisible: boolean, newTransparent: boolean) => {
-                                        props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                                        props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
                                     }
                                 }
                             />
