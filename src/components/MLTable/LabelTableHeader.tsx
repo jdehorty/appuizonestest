@@ -144,7 +144,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                     
                 </td>
                 {!props.isPoppedOut &&
-                <td align="right" width="20%">
+                <td className="mltc-popout-button">
                     <div>
                     <Button className="sstc-window-new-button"
                             buttonType={ButtonType.Hollow}
