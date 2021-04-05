@@ -110,54 +110,26 @@ const LabelTableHeader: FC<Props> = (props) => {
                             </tbody>
                         </table>
                     </div>
-                    {/* <Button
-                   className="sstc-swap-button"
-                       buttonType={ButtonType.Blue}
-                   onClick={this.props.onSwapTruePredDisplay}
-                >
-                   <Icon iconSpec="icon-replace"/>
-                </Button> */}
                 </td>
-                <td className="mltc-label-td-v2">
-                    {/*<VisibilityButtonAllComponent*/}
-                    {/*    transparencyAvailable={true}*/}
-                    {/*    allHidden={labelSectionAttributes.allLabelHidden}*/}
-                    {/*    allVisible={labelSectionAttributes.allLabelVisible}*/}
-                    {/*    allTransparent={labelSectionAttributes.allLabelTransparent}*/}
-                    {/*    allOpaque={labelSectionAttributes.allLabelOpaque}*/}
-                    {/*    onClick={*/}
-                    {/*        (newVisible: boolean, newTransparent: boolean) => {*/}
-                    {/*            props.onLabelDisplayChange(newVisible, newTransparent, undefined);*/}
-                    {/*        }*/}
-                    {/*    }*/}
-                    {/*/>*/}
-                    {/*<div className={".mltc-name-th-v2-right"}>*/}
-                    {/*    <GroupSelectButtonComponent*/}
-                    {/*        label={IModelApp.i18n.translate("LabelingApp.everything")}*/}
-                    {/*        onClick={() => {*/}
-                    {/*            props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);*/}
-                    {/*        }}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-                </td>
-                <td className="mltc-prediction-td-v2">
-                    
-                </td>
-                {!props.isPoppedOut &&
-                <td className="mltc-popout-button">
-                    <div>
-                    <Button className="sstc-window-new-button"
-                            buttonType={ButtonType.Hollow}
-                            onClick={_onPopoutButtonClick}
-                    >
-                        <Icon iconSpec="icon-window-new"/>
-                    </Button>
-                    {
-                        readyForPopout &&
-                        <MLStateTablePopout title={"ML Labeler"} closingPopout={_onPopoutWindowClosing}/>
-                    }
-                    </div>
-                </td>
+                <td className="mltc-label-td-v2"/>
+                <td className="mltc-prediction-td-v2"/>
+                {
+                    !props.isPoppedOut &&
+                    <td className="mltc-popout-button-td">
+                        <div>
+                            <Button
+                                className="sstc-window-new-button"
+                                buttonType={ButtonType.Hollow}
+                                onClick={_onPopoutButtonClick}
+                            >
+                                <Icon iconSpec="icon-window-new"/>
+                            </Button>
+                            {
+                                readyForPopout &&
+                                <MLStateTablePopout title={"ML Labeler"} closingPopout={_onPopoutWindowClosing}/>
+                            }
+                        </div>
+                    </td>
                 }
             </tr>
             <tr style={headerStyle}>
