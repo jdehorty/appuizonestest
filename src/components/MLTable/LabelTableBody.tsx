@@ -17,7 +17,7 @@ import {LabelTableAllComponent} from "./LabelTableAllComponent";
 import {ColorPickerButton} from "@bentley/ui-components";
 import {LabelButtonComponent} from "../LabelButtonComponent";
 import VisibilityButtonComponent from "../VisibilityButtonComponent";
-
+import { LabelTableEmphasis } from '../../store/LabelingWorkflowState';
 
 interface OwnProps extends LabelTableDispatchFromProps {
 }
@@ -130,14 +130,28 @@ const LabelTableBody: FC<Props> = (props) => {
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
-            <VisibilityButtonComponent
-                transparencyAvailable={true}
-                label={i18nName}
-                itemId={item.name}
-                visible={item.trueLabelIsDisplayed}
-                transparent={item.trueLabelIsTransparent}
-                onClick={props.onLabelDisplayChange}
-            />
+            {
+                (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
+                    <VisibilityButtonComponent
+                        transparencyAvailable={true}
+                        label={i18nName}
+                        itemId={item.name}
+                        visible={item.trueLabelIsDisplayed}
+                        transparent={item.trueLabelIsTransparent}
+                        onClick={props.onLabelDisplayChange}
+                    />
+            }
+             {
+                (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
+                    <VisibilityButtonComponent
+                        transparencyAvailable={true}
+                        label={i18nName}
+                        itemId={item.name}
+                        visible={item.predLabelIsDisplayed}
+                        transparent={item.predLabelIsTransparent}
+                        onClick={props.onPredictionDisplayChange}
+                    />
+            }
             <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
             <Button
                 className="mltc-expand-button"
