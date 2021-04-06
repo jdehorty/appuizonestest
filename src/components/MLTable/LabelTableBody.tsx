@@ -213,7 +213,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
         const tableRows: JSX.Element[] = [];
 
-        const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
+        const [labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
 
         const labelsAreAllowed = props.selectionSet.size > 0;
 
@@ -223,7 +223,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
                 const i18nName = IModelApp.i18n.translate(item.name);
 
-                const trueDisplayedCount = anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
+                const trueDisplayedCount = labelSectionAttributes.anyLabelSelected ? item.trueLabelSelectedCount : item.trueLabelTotalCount;
                 const predDisplayedCount = predSectionAttributes.anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
                 let predCountClass = "mltc-prediction-td-v2 ";

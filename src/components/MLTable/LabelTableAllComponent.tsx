@@ -22,6 +22,7 @@ export interface ILabelSectionAttributes {
     allLabelHidden: boolean;
     allLabelTransparent: boolean;
     allLabelOpaque: boolean;
+    anyLabelSelected: boolean;
 }
 
 export interface IPredictionSectionAttributes {
@@ -99,7 +100,8 @@ export class LabelTableAllComponent extends React.Component<LabelTableComponentP
             allLabelVisible: true,
             allLabelHidden: true,
             allLabelTransparent: true,
-            allLabelOpaque: true
+            allLabelOpaque: true,
+            anyLabelSelected: false
         }
 
         let predSectionAttributes: IPredictionSectionAttributes = {
@@ -109,9 +111,6 @@ export class LabelTableAllComponent extends React.Component<LabelTableComponentP
             allPredictionOpaque: true,
             anyPredictionSelected: false
         }
-
-        let anyLabelSelected = false;
-
 
         for (const item of props.itemMap.values()) {
             if (!item.trueLabelIsDisplayed) {
@@ -125,7 +124,7 @@ export class LabelTableAllComponent extends React.Component<LabelTableComponentP
                 labelSectionAttributes.allLabelOpaque = false;
             }
             if (item.trueLabelSelectedCount !== 0) {
-                anyLabelSelected = true;
+                labelSectionAttributes.anyLabelSelected = true;
             }
             if (!item.predLabelIsDisplayed) {
                 predSectionAttributes.allPredictionVisible = false;
@@ -142,7 +141,7 @@ export class LabelTableAllComponent extends React.Component<LabelTableComponentP
             }
         }
 
-        return [anyLabelSelected, labelSectionAttributes, predSectionAttributes];
+        return [labelSectionAttributes, predSectionAttributes];
     }
 
     public render() {

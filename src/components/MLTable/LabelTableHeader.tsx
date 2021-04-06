@@ -49,7 +49,7 @@ const LabelTableHeader: FC<Props> = (props) => {
         setReadyForPopout(false);
     }
 
-    const [anyLabelSelected, labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
+    const [labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
 
     const renderTableHead = (labelSectionAttributes: ILabelSectionAttributes, predSectionAttributes: IPredictionSectionAttributes): JSX.Element => {
 
