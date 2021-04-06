@@ -1,0 +1,22 @@
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+.mltc-name-td-v2 .sstc-visibility-button {
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  height: 20px;
+  margin-bottom: .1em; // adjust inter-row distance
+  margin-left: .2em; // adjust icon size (icon expands to 100% width)
+  margin-right: -.3em; // adjust icon size (icon expands to 100% width)
+  margin-top: 0; // adjust the icon to be even with checkbox
+  width: 22px;
+}
+
+.mltc-name-td-v2 .sstc-visibility-button.transparent {
+  background-color: transparent;
+  fill: lightgray;
+  opacity: 25%;
+}
+
+

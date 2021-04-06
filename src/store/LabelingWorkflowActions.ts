@@ -1,13 +1,18 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { ElementState, ECClassState, ModelState, CategoryState, PredLabelState, TrueLabelState, CommonLabelState } from "./LabelingWorkflowState";
 import { Id64String, Id64Set, Id64Array } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 import { Frustum, ColorDef } from "@bentley/imodeljs-common";
+import {MLStateTableDataItem} from "./LabelingWorkflowTypes";
 
 /** Reducer action type */
 export enum LabelingWorkflowManagerActionType {
     DataWasInitialized = "LabelingWorkflowManagerActionType.DataWasInitialized",
-    SelectionHasChanged = "LabelingWorkflowManagerActionType.SelectionHasChanged",
+    ElementSelectionHasChanged = "LabelingWorkflowManagerActionType.SelectionHasChanged",
     ElementLabelsWereChanged = "LabelingWorkflowManagerActionType.ElementLabelsWereChanged",
     ModelVisibilityWasChanged = "LabelingWorkflowManagerActionType.ModelVisibilityWasChanged",
     CategoryVisibilityWasChanged = "LabelingWorkflowManagerActionType.CategoryVisibilityWasChanged",
@@ -27,6 +32,11 @@ export enum LabelingWorkflowManagerActionType {
     LabelsWereSaved = "LabelingWorkflowManagerActionType.LabelsWereSaved",
     VisiblityStatesSwapped = "LabelingWorkflowManagerActionType.VisiblityStatesSwapped",
     ForceShowAllChanged = "LabelingWorkflowManagerActionType.ForceShowAllChanged",
+    FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
+    AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
+    ReplaceSelectedLabelItem = "LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem",
+    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem",
+    ToggleLabelTableEmphasis = "LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis"
 }
 
 /** Reducer action */
@@ -60,4 +70,7 @@ export interface LabelingWorkflowManagerAction {
     newColor?: ColorDef;
     newExpanded?: boolean;
     newForceShowAll?: boolean;
+    filterEmptyRows?: boolean;
+    labelItemToSelectOrUnselect?: MLStateTableDataItem;
+    existingLabelItemToReplaceInSelection?: MLStateTableDataItem;
 }

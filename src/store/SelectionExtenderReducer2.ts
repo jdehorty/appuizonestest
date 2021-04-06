@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { SelectionExtenderState } from "./SelectionExtenderState";
 import { INITIAL_STATE } from "./SelectionExtenderState";
 import { SelectionExtenderAction, SelectionExtenderActionType } from "./SelectionExtenderActions"

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { Id64String, Id64Arg } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 
@@ -5,8 +9,8 @@ export enum MachineLearningColorMode {
     Native = "MachineLearning:colorMode.native",
     LabelColors = "MachineLearning:colorMode.labelColors",
     PredictionColors = "MachineLearning:colorMode.predictionColors",
-    ConfusionsWithLabelColors = "MachineLearning:colorMode.confusionsWithLabelColors",
-    ConfusionsWithPredictionColors = "MachineLearning:colorMode.confusionsWithPredictionColors",
+    // ConfusionsWithLabelColors = "MachineLearning:colorMode.confusionsWithLabelColors",
+    // ConfusionsWithPredictionColors = "MachineLearning:colorMode.confusionsWithPredictionColors",
 }
 
 export type MachineLearningLabel = string;

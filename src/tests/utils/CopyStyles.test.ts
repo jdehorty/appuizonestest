@@ -1,11 +1,26 @@
-/*---------------------------------------------------------------------------------------------
- * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
- * See LICENSE.md in the project root for license terms and full copyright notice.
- *--------------------------------------------------------------------------------------------*/
-import {copyStyles} from "../../utils/CopyStyles";
-import {JSDOM} from "jsdom";
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+// import {generateText} from "../../utils/CopyStyles";
+import { copyStyles } from "../../utils/CopyStyles";
+import { JSDOM } from "jsdom";
+import { valueEquals } from "./valueEquals";
 
 describe("Copy Files Function", () => {
+    /* test("Should match text", () => {
+        // Step 1. Set up inputs for functionality being tested.
+            // in this case we have no inputs.
+
+        // Step 2. Created "canned" output variables (our expectations for the test).
+        const expectedOutput = "hello Leela";
+
+        // Step 3. Invoke target of test and capture "actual" output.
+        let actual = generateText();
+
+        expect(actual).toBe(expectedOutput);
+    });*/
+
 
     test("Count of copied styles should match", () => {
         // Step 1. Set up inputs for functionality being tested.
@@ -33,8 +48,7 @@ describe("Copy Files Function", () => {
                 </p>
             </body>
         </html>`
-
-        let targetHtml = `<!DOCTYPE html> 
+    let targetHtml = `<!DOCTYPE html> 
         <html lang="en">  
             <head>
                 <title>
@@ -45,7 +59,7 @@ describe("Copy Files Function", () => {
                 <p>This text will be green. Inline styles take precedence over CSS included externally.</p>  
             </body>
         </html>`
-
+   
         const sourceDom = new JSDOM(sourceHtml);
         const targetDom = new JSDOM(targetHtml);
 
@@ -58,15 +72,23 @@ describe("Copy Files Function", () => {
 
         // Now that we know we have the same number of stylesheets, check to 
         // see if each stylesheet (src and target) have the same count of styles.
-        for (let sheetIndex = 0; sheetIndex < srcLength; sheetIndex++) {
+        for (let sheetIndex=0; sheetIndex < srcLength; sheetIndex++) {
             const sourceSheet = sourceDom.window.document.styleSheets[sheetIndex];
             const targetSheet = targetDom.window.document.styleSheets[sheetIndex];
-            for (let ruleIndex = 0; ruleIndex < sourceSheet.cssRules.length; ruleIndex++) {
+            for (let ruleIndex=0; ruleIndex < sourceSheet.cssRules.length; ruleIndex++) {
                 let srcRule = sourceSheet.cssRules[ruleIndex];
                 let targetRule = targetSheet.cssRules[ruleIndex];
                 expect(srcRule.cssText).toBe(targetRule.cssText);
             }
-        }
+        } 
+       
 
+        // Now check to see if src style color matches target style color.
+        // <Add code here>
+
+
+        
+       
+        
     });
 });

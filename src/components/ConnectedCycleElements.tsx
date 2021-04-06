@@ -1,13 +1,18 @@
-import { connect } from "react-redux";
-import { LabelingWorkflowManager } from "../LabelingWorkflowManager";
-import { CycleElementComponent, CycleElementComponentProps } from "./CycleElements";
-import { LabelingWorkflowState } from "../store/LabelingWorkflowState";
-import { LabelingWorkflowManagerSelectors } from "../store/LabelingWorkflowSelectors";
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+import {connect} from "react-redux";
+import {LabelingWorkflowManager} from "../LabelingWorkflowManager";
+import {CycleElementComponent, CycleElementComponentProps} from "./CycleElements";
+import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
+import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
+import {RootState} from "../store/AppState";
 
 
 /** Map state to props */
-function mapStateToProps(rootState: any): CycleElementComponentProps {
-    const state = rootState[LabelingWorkflowManager.stateKey] as LabelingWorkflowState | undefined;
+const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
+    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
     }
@@ -17,7 +22,6 @@ function mapStateToProps(rootState: any): CycleElementComponentProps {
         working: state.cycleModeState.working,
         cycleSetSize: state.cycleModeState.cycleList !== undefined ? state.cycleModeState.cycleList.length : undefined,
         cycleIndex: state.cycleModeState.currentIndex,
-        poppedOut: state.cycleModeState.poppedOut,
         totalCount: LabelingWorkflowManagerSelectors.elementStateMap(state).size,
         selectedCount: state.selectionSet.size,
         forceShowAll: state.forceShowAll,
@@ -28,8 +32,7 @@ function mapStateToProps(rootState: any): CycleElementComponentProps {
         onForceShowAllChanged: LabelingWorkflowManager.setForceShowAll,
         onPopout: LabelingWorkflowManager.popOutWindow
     };
-}
-
+};
 
 /**
  * Connected CycleElementComponent component that allows to cycle through a set of elements

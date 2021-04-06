@@ -1,4 +1,8 @@
-import { INITIAL_STATE, LabelingWorkflowState, ElementState, ModelState, CategoryState, ECClassState, PredLabelState, TrueLabelState, CommonLabelState } from "./LabelingWorkflowState";
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+import { INITIAL_STATE, LabelingWorkflowState, ElementState, ModelState, CategoryState, ECClassState, PredLabelState, TrueLabelState, CommonLabelState, LabelTableEmphasis } from "./LabelingWorkflowState";
 import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./LabelingWorkflowActions";
 import { Id64String } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel } from "../data/LabelTypes";
@@ -36,6 +40,40 @@ export function LabelingWorkflowManagerReducer(
                 elementStateMapIsDirty: false,
             };
 
+        case LabelingWorkflowManagerActionType.AddSelectedLabelItem: {
+            // Copy existing selectedUiItems map.
+            const newSelectedItems = new Map(prevState.selectedUiItems);
+            const item = action.labelItemToSelectOrUnselect;
+            newSelectedItems.set(item!.name, item!);
+            return {
+                ...prevState,
+                selectedUiItems: newSelectedItems
+            };
+        }
+
+        case LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem: {
+            // Copy existing selectedItems map.
+            const newSelectedItems = new Map(prevState.selectedUiItems);
+            const existingItem = prevState.selectedUiItems.get(action.existingLabelItemToReplaceInSelection!.name);
+            const item = action.labelItemToSelectOrUnselect;
+            newSelectedItems.delete(existingItem!.name);
+            newSelectedItems.set(item!.name, item!);
+            return {
+                ...prevState,
+                selectedUiItems: newSelectedItems
+            };
+        }
+
+        case LabelingWorkflowManagerActionType.RemoveSelectedLabelItem:
+            /// Copy existing selectedItems map.
+            const newSelectedItems = new Map(prevState.selectedUiItems);
+            const existingItem = prevState.selectedUiItems.get(action.labelItemToSelectOrUnselect!.name);
+            newSelectedItems.delete(existingItem!.name);
+            return {
+                ...prevState,
+                selectedUiItems: newSelectedItems
+            };
+
         case LabelingWorkflowManagerActionType.ColorModeWasChanged:
             return {
                 ...prevState,
@@ -48,7 +86,13 @@ export function LabelingWorkflowManagerReducer(
                 forceShowAll: action.newForceShowAll!,
             };
 
-        case LabelingWorkflowManagerActionType.SelectionHasChanged:
+        case LabelingWorkflowManagerActionType.FilterEmptyRowsChanged:
+            return {
+                ...prevState,
+                filterEmptyRows: action.filterEmptyRows!,
+            };
+
+        case LabelingWorkflowManagerActionType.ElementSelectionHasChanged:
             // Selection has changed, store the new set
             return {
                 ...prevState,
@@ -409,6 +453,16 @@ export function LabelingWorkflowManagerReducer(
                     predLabelStateMap: newPredLabelStateMap,
                     trueLabelStateMap: newTrueLabelStateMap,
                 }
+            }
+
+        case LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis:
+            {
+                var newLableTableState: LabelTableEmphasis = (prevState.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) 
+                                                           ? LabelTableEmphasis.ActOnPredictions : LabelTableEmphasis.ActOnLabels;
+                return {
+                    ...prevState,
+                    labelTableEmphasis: newLableTableState
+                    }
             }
 
         default:

@@ -1,4 +1,8 @@
-import "./styles/index.scss";
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+import "./styles/_index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";

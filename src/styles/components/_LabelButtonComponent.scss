@@ -1,0 +1,40 @@
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+// labels
+.mltc-name-td-v2 .sstc-label-button {
+    background-color: transparent;
+    fill: lightgray;
+    opacity: 75%;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    height: 15px;
+}
+.mltc-name-td-v2 .sstc-label-button:hover {
+    transform: scale(1.5);
+    background-color: transparent;
+    fill: lightgray;
+    opacity: 75%;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+.mltc-name-td-v2 .sstc-label-button:focus {
+    background-color: transparent;
+    opacity: 100%;
+    fill: #53A21A;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+
+// container for labels
+.mltc-label-container-v2-small
+{
+    display: block;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+    font-size: 1.15em;
+    min-width: 145px;
+}

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, SvgPath} from "@bentley/ui-core";
 import * as React from "react";

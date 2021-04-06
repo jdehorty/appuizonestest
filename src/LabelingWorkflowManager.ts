@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {Id64Arg, Id64String} from "@bentley/bentleyjs-core";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { IModelApp, IModelConnection, MarginPercent, ScreenViewport, SpatialModelState, ViewChangeOptions, ZoomToOptions } from "@bentley/imodeljs-frontend";
@@ -330,7 +334,7 @@ export class LabelingWorkflowManager {
         const elementSet = keySetToId64Set(keySet);
 
         this.store.dispatch<LabelingWorkflowManagerAction>({
-            type: LabelingWorkflowManagerActionType.SelectionHasChanged,
+            type: LabelingWorkflowManagerActionType.ElementSelectionHasChanged,
             elementSet: elementSet,
         });
 
@@ -512,6 +516,14 @@ export class LabelingWorkflowManager {
         });
     }
 
+      /** Set Force Show all */
+      public static setFilterEmptyRows = (filterEmptyRowsFlags?: boolean): void => {
+        LabelingWorkflowManager.store.dispatch<LabelingWorkflowManagerAction>({
+            type: LabelingWorkflowManagerActionType.FilterEmptyRowsChanged,
+            filterEmptyRows: filterEmptyRowsFlags,
+        });
+    }
+
     /** Enable cycle mode */
     public static cycleElementsEnable = (): void => {
         let selectableList: Id64Arg = Array.from(LabelingWorkflowManagerSelectors.selectableSet(LabelingWorkflowManager.state));
@@ -655,6 +667,6 @@ export const AVAILABLE_COLOR_MODES: MachineLearningColorMode[] = [
     MachineLearningColorMode.Native,
     MachineLearningColorMode.LabelColors,
     MachineLearningColorMode.PredictionColors,
-    MachineLearningColorMode.ConfusionsWithLabelColors,
-    MachineLearningColorMode.ConfusionsWithPredictionColors,
+    // MachineLearningColorMode.ConfusionsWithLabelColors,
+    // MachineLearningColorMode.ConfusionsWithPredictionColors,
 ];

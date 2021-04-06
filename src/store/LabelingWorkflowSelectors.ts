@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { Id64Array, Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { createSelector } from "reselect";
@@ -122,7 +126,7 @@ export class LabelingWorkflowManagerSelectors {
             if (colorMode !== MachineLearningColorMode.Native) {
                 for (const [elementId, elementState] of elementStateMap) {
                     switch (colorMode) {
-                        case MachineLearningColorMode.ConfusionsWithLabelColors:
+                        // case MachineLearningColorMode.ConfusionsWithLabelColors:
                         case MachineLearningColorMode.LabelColors:
                             {
                                 const labelState = commonLabelStateMap.get(elementState.trueLabel);
@@ -131,7 +135,7 @@ export class LabelingWorkflowManagerSelectors {
                                 }
                                 break;
                             }
-                        case MachineLearningColorMode.ConfusionsWithPredictionColors:
+                        // case MachineLearningColorMode.ConfusionsWithPredictionColors:
                         case MachineLearningColorMode.PredictionColors:
                             {
                                 const labelState = commonLabelStateMap.get(elementState.predLabel);
@@ -180,7 +184,7 @@ export class LabelingWorkflowManagerSelectors {
             const cycleSet = cycleSelection !== undefined ? new Set(cycleSelection) : undefined;
             for (const elementId of elementStateMap.keys()) {
                 // Special case for cycling mode
-                if (cycleEnabled && cycleSet !== undefined && cycleSet.has(elementId)) {
+                if (cycleEnabled === true && cycleSet !== undefined && cycleSet.has(elementId)) {
                     emphasisMap.set(elementId, true);
                 } else {
                     emphasisMap.set(elementId, false);
@@ -277,19 +281,19 @@ export class LabelingWorkflowManagerSelectors {
                     transparent = true;
                 }
                 // Special colorMode cases:
-                if (colorMode === MachineLearningColorMode.ConfusionsWithLabelColors ||
-                    colorMode === MachineLearningColorMode.ConfusionsWithPredictionColors)
-                {
-                    if (LabelingWorkflowManagerSelectors._labelsMatch(
-                        commonLabelStateMap,
-                        elementState.trueLabel,
-                        elementState.predLabel,
-                    )) {
-                        transparent = true;
-                    }
-                }
+                // if (colorMode === MachineLearningColorMode.ConfusionsWithLabelColors ||
+                //     colorMode === MachineLearningColorMode.ConfusionsWithPredictionColors)
+                // {
+                //     if (LabelingWorkflowManagerSelectors._labelsMatch(
+                //         commonLabelStateMap,
+                //         elementState.trueLabel,
+                //         elementState.predLabel,
+                //     )) {
+                //         transparent = true;
+                //     }
+                // }
                 // Special case for cycling mode
-                if (cycleEnabled && cycleSet !== undefined && !cycleSet.has(elementId)) {
+                if (cycleEnabled === true && cycleSet !== undefined && !cycleSet.has(elementId)) {
                     transparent = true;
                 }
                 // Override transparency based on forceShowAll
@@ -565,6 +569,7 @@ export class LabelingWorkflowManagerSelectors {
                 const data: MLStateTableDataItem = {
                     name: name,
                     color: color,
+                    isSelected: false,
 
                     hasData: hasDataSet.has(name),
 
@@ -588,7 +593,7 @@ export class LabelingWorkflowManagerSelectors {
                     data.predLabelTotalCount += predictionTotalCountMap.get(name)!;
                     data.predLabelVisibleCount += predictionVisibleCountMap.get(name)!;
                     data.predLabelSelectedCount += predictionSelectedCountMap.get(name)!;
-                    if (!commonLabelStateMap.get(name)!.isExpanded || force_recurse) {
+                    if (commonLabelStateMap.get(name)!.isExpanded === false || force_recurse) {
                         for (const child of commonLabelStateMap.get(name)!.childrenLabels) {
                             _recurse(child, true);
                         }
@@ -644,6 +649,7 @@ export class LabelingWorkflowManagerSelectors {
                     isExpanded: commonLabelStateMap.get(name)!.isExpanded,
                     level: level,
                     children: childEntries,
+                    isSelected: false
                 };
             }
 

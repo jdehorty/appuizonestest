@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { DisposeFunc, Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { LowAndHighXYZ } from "@bentley/geometry-core";
 import { IModelConnection } from "@bentley/imodeljs-frontend";
@@ -7,11 +11,13 @@ import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@ben
 import { UiFramework } from "@bentley/ui-framework";
 import { Store } from "redux";
 import { connect } from "react-redux";
-import { SelectionExtenderComponentProps, SelectionHelperComponent } from "./components/SelectionExtenderComponent";
+import { SelectionExtenderComponentProps } from "./components/SelectionExtenderComponent";
+import SelectionHelperComponent from "./components/SelectionExtenderComponent";
 import { filterKeySet } from "./utils/SelectionUtils";
 import { SelectionExtenderState } from "./store/SelectionExtenderState";
 import { SelectionExtenderActionType, SelectionExtenderAction } from "./store/SelectionExtenderActions";
 import {MatchingRuleType, SelectionExtenderConfig} from "./store/SelectionExtenderTypes";
+import {RootState} from "./store/AppState";
 
 const TOL = 1e-3;
 
@@ -319,7 +325,6 @@ export class SelectionExtender {
         }
     }
 
-    // TODO: bring back i18n argument and return legitimate promise
     public static async initialize(store: Store<any>, i18n: I18N, stateKey: string): Promise<void> {
         console.log("Inside SelectionExtender2 initialize()");
 
@@ -344,9 +349,8 @@ export class SelectionExtender {
 }
 
 
-function mapStateToProps(rootState: any): SelectionExtenderComponentProps | undefined {
-    // debugger;
-    const state = rootState[SelectionExtender.stateKey] as SelectionExtenderState | undefined;
+const mapStateToProps = (rootState: RootState): SelectionExtenderComponentProps | undefined => {
+    const state = rootState.selectionExtenderState as SelectionExtenderState | undefined;
     if (!state) {
         return undefined;
     }
@@ -360,7 +364,7 @@ function mapStateToProps(rootState: any): SelectionExtenderComponentProps | unde
         onExtendClicked: () => {SelectionExtender.extendSelection(); },
         onResetClicked: () => {SelectionExtender.resetSelection(); },
     };
-}
+};
 
 
 export const ConnectedSelectionHelperComponent = connect(mapStateToProps)(SelectionHelperComponent);

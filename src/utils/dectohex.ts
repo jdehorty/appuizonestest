@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 /**
  * Taken from:
  * https://www.danvk.org/hex2dec.html

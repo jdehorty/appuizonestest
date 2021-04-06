@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { Id64String } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel } from "../data/LabelTypes";
 import { ColorDef } from "@bentley/imodeljs-common";
@@ -17,6 +21,7 @@ export interface LabelTreeEntry {
     isExpanded: boolean;
     level: number;
     children: LabelTreeEntry[];
+    isSelected: boolean;
 }
 
 export interface MLStateTableDataItem {
@@ -24,6 +29,7 @@ export interface MLStateTableDataItem {
     color: ColorDef;
 
     hasData: boolean;
+    isSelected: boolean;
 
     trueLabelIsDisplayed: boolean;
     trueLabelIsTransparent: boolean;

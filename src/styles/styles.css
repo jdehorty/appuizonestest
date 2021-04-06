@@ -1,0 +1,707 @@
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.sstc-data-header {
+  margin: 10px;
+}
+
+.sstc-data-container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 9pt;
+  margin-left: 10px;
+}
+
+.sstc-table-container {
+  display: block;
+  overflow-y: hidden;
+  flex-grow: 1;
+}
+
+.sstc-options-container {
+  display: block;
+}
+
+.sstc-data-table {
+  border-collapse: collapse;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+.sstc-data-table td, .sstc-data-table th {
+  margin: 0;
+  padding-left: 1px;
+  padding-right: 1px;
+  white-space: nowrap;
+}
+
+.sstc-cycler {
+  margin-left: 10px;
+}
+
+.vertical-rule {
+  margin-left: 15px;
+  margin-right: 15px;
+  border-left: 1px solid #000;
+  height: 30px;
+}
+
+.sstc-data-table tbody td:nth-child(2) {
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.sstc-data-table thead td:nth-child(2) {
+  border-left: 1px solid grey;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.sstc-data-table tr {
+  margin: 0;
+  height: 0;
+}
+
+.sstc-data-table thead {
+  display: table-header-group;
+}
+
+.sstc-data-table tbody {
+  flex: 1;
+  overflow-y: scroll;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+.sstc-visibility-button {
+  margin: 0;
+  padding: 2px 4px;
+}
+
+.sstc-isolate-button-v2 {
+  margin: 0 0 0 2px;
+  padding: 2px 4px;
+  fill: transparent;
+  border: 0 none;
+  font-size: 1.15em;
+}
+
+.sstc-window-new-button {
+  margin: 0 0 0 2px;
+  padding: 2px 2px 2px;
+  fill: transparent;
+  border: 0 none;
+  font-size: 1.2em;
+  text-align: right;
+}
+
+.sstc-swap-button {
+  margin: 0 0 0 2px;
+  padding: 2px 4px;
+}
+
+.sstc-label-button {
+  margin: 0;
+  padding: 2px 4px;
+  min-width: 20px;
+  fill: black;
+}
+
+.sstc-label-container {
+  /* width: 150px; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0;
+}
+
+.cycler-progress {
+  font-size: 0.6em;
+}
+
+.sstc-count-container-v2 {
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0;
+}
+
+.sstc-color-picker-button {
+  margin: 0 2px;
+  float: right;
+  /* display: inline; */
+}
+
+.sstc-color-mode-select {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.sstc-action-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.sstc-action-container-expand {
+  flex-grow: 1;
+}
+
+.sstc-title-container {
+  font-weight: bold;
+}
+
+.sstc-spinner-container {
+  display: table-cell;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.sstc-spinner-inner-container {
+  width: fit-content;
+  display: block;
+}
+
+.cycler-container {
+  /* display: inline-block; */
+  display: flex;
+  align-items: center;
+  box-sizing: content-box;
+  height: 100%;
+}
+
+.cycler-total-count,
+.cycler-selected-count,
+.cycler-progress {
+  /* display: inline-block; */
+  margin: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: fit-content;
+  height: fit-content;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 0.6em;
+}
+
+.cycler-title {
+  text-align: center;
+  text-decoration: underline;
+  margin: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: block;
+  font-size: 1.3em;
+  /* background-color: white; */
+}
+
+.cycler-value {
+  margin: 0;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: block;
+  /* border-left: 1px solid white;
+  border-right: 1px solid white; */
+}
+
+.cycler-button {
+  margin: 0;
+  padding: 2px 4px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.cycler-previous {
+  fill: transparent;
+  margin-right: 1px;
+  margin-left: 0;
+  border: 0 none;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.cycler-next {
+  fill: transparent;
+  margin-right: 0;
+  margin-left: 1px;
+  border: 0 none;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.sstc-control-button {
+  margin: 1px;
+  padding: 3px 5px;
+}
+
+.sstc-hide-empty-toggle {
+  font-size: 9pt;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-name-td-v2 .mltc-expand-button {
+  padding: 5px;
+  width: 24px;
+  height: 22px;
+}
+
+.mltc-name-td-v2 .mltc-expand-button {
+  color: black;
+  background: none;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 3px;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+
+.mltc-name-td-v2 .mltc-expand-button:hover {
+  color: #ff0000;
+  background: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+
+.mltc-name-td-v2 .mltc-expand-button:focus {
+  color: black;
+  background: none;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 3px;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+
+.mltc-name-td-v2 .mltc-expand-button .core-icons-svgSprite {
+  width: 0.9em;
+  height: 0.9em;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-name-td-v2 .sstc-label-button {
+  background-color: transparent;
+  fill: lightgray;
+  opacity: 75%;
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  height: 15px;
+}
+
+.mltc-name-td-v2 .sstc-label-button:hover {
+  transform: scale(1.5);
+  background-color: transparent;
+  fill: lightgray;
+  opacity: 75%;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+
+.mltc-name-td-v2 .sstc-label-button:focus {
+  background-color: transparent;
+  opacity: 100%;
+  fill: #53A21A;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+}
+
+.mltc-label-container-v2-small {
+  display: block;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0;
+  font-size: 1.15em;
+  min-width: 145px;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-first-row {
+  background-color: #DCE0E3;
+  font-size: 11px;
+}
+
+.mltc-name-th-v2 {
+  min-width: 191px;
+  max-width: 191px;
+  font-size: 1.15em;
+}
+
+.mltc-name-th-v2-selection {
+  float: left;
+  width: 1.5em;
+}
+
+.mltc-name-th-v2-visibility {
+  float: left;
+  width: 2.35em;
+}
+
+.mltc-name-th-v2-title {
+  float: left;
+  width: 10.3em;
+}
+
+.mltc-name-td-v2 .mltc-level-spacer:nth-child(2) {
+  min-width: 10px;
+}
+
+.mltc-name-td-v2 .mltc-level-spacer:nth-child(4) {
+  min-width: 1px;
+}
+
+.mltc-name-td-v2 .mltc-expand-button {
+  color: black;
+  background: none;
+  min-width: 2em;
+}
+
+.mltc-name-td-v2 .mltc-expand-button:hover {
+  min-width: 2em;
+  color: red;
+}
+
+.mltc-name-td-v2 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 250px;
+  max-width: 250px;
+  display: flex;
+  flex-direction: row;
+  border-left: 1px solid grey;
+}
+
+tbody .mltc-name-td-v2 label {
+  padding-left: 0.25em;
+}
+
+.mltc-name-subtable-td-v2 tbody td:nth-child(2) {
+  white-space: nowrap;
+  flex-direction: row;
+  border-left: none;
+  border-right: none;
+  padding-left: 12px;
+}
+
+.mltc-name-th-subtable-v2 {
+  min-width: 191px;
+  max-width: 191px;
+  font-size: 1.15em;
+}
+
+.mltc-label-th-v2,
+.mltc-label-td-v2 {
+  min-width: 80px;
+  max-width: 80px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  font-size: 1.15em;
+}
+
+.mltc-label-container-v2 {
+  display: block;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0;
+  font-size: 1.15em;
+  min-width: 180px;
+  max-width: 180px;
+}
+
+.mltc-label-td-v2 button:nth-child(1) {
+  margin-left: 15px;
+}
+
+.mltc-label-td-v2 button:nth-child(2) {
+  margin-left: 5px;
+}
+
+.mltc-prediction-th-v2, .mltc-prediction-td-v2 {
+  min-width: 80px;
+  max-width: 80px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  font-size: 1.15em;
+}
+
+.mltc-prediction-td-v2.on {
+  background-color: lightgoldenrodyellow;
+}
+
+.mltc-prediction-td-v2.off {
+  background-color: transparent;
+}
+
+.mltc-prediction-td-v2 button:nth-child(1) {
+  margin-left: 15px;
+}
+
+.mltc-prediction-td-v2 button:nth-child(2) {
+  margin-left: 5px;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.nz-left .sstc-data-container {
+  height: 93%;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.uicore-inputs-radio {
+  transform: scale(0.8);
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-name-th-v2-selection-clear {
+  width: 1.5em;
+  float: left;
+}
+
+.mltc-name-th-v2-selection-clear .sstc-select-button {
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  height: 20px;
+  margin: 0 -0.3em 0.1em 0.2em;
+  width: 22px;
+}
+
+.mltc-name-th-v2-selection-clear :focus {
+  animation: bounce 0.2s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-1px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  75% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-name-th-v2-selection .sstc-select-button {
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  height: 20px;
+  margin-bottom: 0.1em;
+  margin-left: 0.2em;
+  margin-right: -0.3em;
+  margin-top: 0;
+  width: 22px;
+}
+
+.sstc-select-button.off {
+  background: #85929D;
+}
+
+.sstc-select-button.on {
+  background: #53A11A;
+}
+
+.mltc-name-th-v2-selection :focus {
+  animation: bounce 0.2s;
+  background: #53A11A;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-1px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  75% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.scroll-thing {
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
+}
+
+.selhelp-criteria {
+  display: flex;
+  flex-flow: row;
+}
+
+.selhelp-criteria-checkbox-container {
+  display: inline-block;
+}
+
+.selhelp-criteria-checkbox {
+  margin: 4px;
+}
+
+.selhelp-criteria-content {
+  display: inline-block;
+  width: 100%;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+.selhelp-criteria-title {
+  text-decoration: underline;
+  margin: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: block;
+  color: grey;
+}
+
+.selhelp-criteria-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: block;
+  box-sizing: content-box;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-name-th-v2-visibility .sstc-visibility-button {
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  height: 20px;
+  margin-bottom: 0.1em;
+  margin-left: 0.2em;
+  margin-right: -0.3em;
+  margin-top: 0;
+  width: 22px;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.mltc-name-td-v2 .sstc-visibility-button {
+  border: none;
+  box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  height: 20px;
+  margin-bottom: 0.1em;
+  margin-left: 0.2em;
+  margin-right: -0.3em;
+  margin-top: 0;
+  width: 22px;
+}
+
+.mltc-name-td-v2 .sstc-visibility-button.transparent {
+  background-color: transparent;
+  fill: lightgray;
+  opacity: 25%;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.sstc-data-table {
+  border-collapse: collapse;
+  margin: 0.3em;
+  font-size: 0.9em;
+  width: 90%;
+  height: 80%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+tbody .mltc-label-td-v2 {
+  border: none;
+}
+
+.nz-border-top thead {
+  border: thin solid;
+}
+
+thead .mltc-name-td-v2,
+tbody .mltc-name-td-v2,
+.mltc-name-th-v2-selection,
+.mltc-name-th-v2,
+tbody .mltc-prediction-td-v2,
+thead .mltc-label-td-v2 {
+  border: none;
+}
+
+.sstc-data-table thead,
+.sstc-data-table th {
+  background-color: #F3F3F3;
+}
+
+.sstc-data-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.nz-border-top .sstc-data-container {
+  height: 85%;
+}
+
+div table thead {
+  border: none;
+}
+
+td.mltc-prediction-td-v2 {
+  border-right: thin solid;
+}
+
+.nz-border-top thead {
+  border: none;
+}
+
+.nz-border-top .sstc-data-table > tbody {
+  border-bottom: none;
+}
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+/*# sourceMappingURL=styles.css.map */

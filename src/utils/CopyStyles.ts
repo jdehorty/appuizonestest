@@ -1,7 +1,7 @@
-/*---------------------------------------------------------------------------------------------
- * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
- * See LICENSE.md in the project root for license terms and full copyright notice.
- *--------------------------------------------------------------------------------------------*/
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 /**
  * Copies the source CSS into the destination
  * @param targetDoc - target document
@@ -27,4 +27,6 @@ export function copyStyles(targetDoc: Document, sourceDoc: Document = document) 
     });
 }
 
-
+export function greeting() {
+    return "hello world"
+}

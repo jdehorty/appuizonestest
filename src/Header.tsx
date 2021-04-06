@@ -1,11 +1,11 @@
-/*---------------------------------------------------------------------------------------------
- * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
- * See LICENSE.md in the project root for license terms and full copyright notice.
- *--------------------------------------------------------------------------------------------*/
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {BlockText, Button, ButtonType} from "@bentley/ui-core";
 import React from "react";
 
-import styles from "./styles/Header.module.scss";
+import styles from "./styles/_Header.module.scss";
 
 interface HeaderProps {
     handleLogin: () => void;
@@ -13,9 +13,10 @@ interface HeaderProps {
     loggedIn: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+export const Header = (props: HeaderProps) => {
     const {loggedIn, handleLogin, handleLogout} = props;
     const {button, text, buttonContainer, header} = styles;
+
     return (
         <header className={header}>
             <table>

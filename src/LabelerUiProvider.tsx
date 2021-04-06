@@ -18,6 +18,7 @@ import {ConnectedMLTableComponent} from "./components/ConnectedMLTable";
 import {Provider} from 'react-redux';
 import {LabelerState} from "./store/LabelerState";
 import {ConnectedCycleElementComponent} from "./components/ConnectedCycleElements";
+import {ConnectedLabelTableAllComponent} from "./components/MLTable/ConnectedLabelTableAllComponent";
 
 
 export class LabelerUiProvider implements UiItemsProvider {
@@ -38,12 +39,23 @@ export class LabelerUiProvider implements UiItemsProvider {
             }
             if (location === StagePanelLocation.Bottom) {
                 widgets.push({
-                    id: "MLAuditId",
-                    label: "ML Audit",
+                    id: "MLLabelerId",
+                    label: "ML Labeler",
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
                             <ConnectedCycleElementComponent />
                             <ConnectedMLTableComponent />
+                        </Provider>
+                });
+            }
+            if (location === StagePanelLocation.Left) {
+                widgets.push({
+                    id: "MLLabelerV2Id",
+                    label: "ML Labeler V2",
+                    getWidgetContent: () =>
+                        <Provider store={LabelerState.store}>
+                            <ConnectedCycleElementComponent />
+                            <ConnectedLabelTableAllComponent />
                         </Provider>
                 });
             }

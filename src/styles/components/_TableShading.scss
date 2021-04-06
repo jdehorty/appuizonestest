@@ -1,0 +1,60 @@
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
+.sstc-data-table {
+  border-collapse: collapse;
+  margin: .3em;
+  font-size: 0.9em;
+  width: 90%;
+  height: 80%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+tbody .mltc-label-td-v2 {
+  border: none;
+}
+
+.nz-border-top thead {
+  border: thin solid;
+}
+
+thead .mltc-name-td-v2,
+tbody .mltc-name-td-v2,
+.mltc-name-th-v2-selection,
+.mltc-name-th-v2,
+tbody .mltc-prediction-td-v2,
+thead .mltc-label-td-v2
+{
+  border: none;
+}
+
+.sstc-data-table thead,
+.sstc-data-table th
+{
+  background-color: #F3F3F3;
+}
+
+.sstc-data-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.nz-border-top .sstc-data-container {
+  height: 85%;
+}
+
+div table thead {
+  border: none;
+}
+
+td.mltc-prediction-td-v2 {
+  border-right: thin solid;
+}
+
+.nz-border-top thead {
+  border: none;
+}
+
+.nz-border-top .sstc-data-table > tbody {
+  border-bottom: none;
+}

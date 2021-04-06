@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 export enum MatchingRuleType {
     SameClass = "SelectionExtender:MatchingRuleType.SameClass",
     SameUserLabel = "SelectionExtender:MatchingRuleType.SameUserLabel",

@@ -1,0 +1,15 @@
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.header {
+  background-color: #282c34;
+}
+.header .buttonContainer {
+  text-align: center;
+}
+.header .buttonContainer button {
+  width: 100px;
+  margin: 10px !important;
+}
+
+/*# sourceMappingURL=Header.module.css.map */

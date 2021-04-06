@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { Id64String, Id64Array, Id64Set } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
+import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
 interface BaseGroupState {
     displayLabel?: string;
@@ -45,7 +50,11 @@ export interface CycleModeState {
     currentIndex?: number;
     cycleList?: Id64Array;
     initialFrustums?: Map<ScreenViewport, Frustum>;
-    poppedOut: boolean;
+}
+
+export enum LabelTableEmphasis {
+    ActOnLabels = 0,
+    ActOnPredictions = 1
 }
 
 /** State for a GeometricElement3d */
@@ -99,8 +108,13 @@ export interface LabelingWorkflowState {
     colorMode: MachineLearningColorMode;
     /** Force show flag */
     forceShowAll: boolean;
-    /** Popped out */
-    poppedOut: boolean;
+    /** filtering out label rows with empty class counts */
+    filterEmptyRows: boolean;
+    /** Currently selected Label items in the ML State Table. 
+     * Note: If Config.allowMultiSelectionOfLabels == false, then there will be no more than 1 selected label allowed at a time. */
+    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
+    /** Indicates whether bi-modal LabelTable controls are currently biased toward Labels or Predictions.  */
+    labelTableEmphasis: LabelTableEmphasis;
 }
 
 
@@ -117,13 +131,14 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     elementStateMapIsDirty: false,
     elementStateMapHistory: [new Map<Id64String, ElementState>()],
     elementStateMapIndex: 0,
-    poppedOut: false,
     selectionSet: new Set<Id64String>(),
     cycleModeState: {
         working: false,
-        enabled: false,
-        poppedOut: false
+        enabled: false
     },
     colorMode: MachineLearningColorMode.Native,
     forceShowAll: false,
+    filterEmptyRows: false,
+    selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>(),
+    labelTableEmphasis: LabelTableEmphasis.ActOnLabels
 }

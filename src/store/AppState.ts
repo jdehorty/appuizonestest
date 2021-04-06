@@ -38,9 +38,12 @@ export class AppState {
             labelingWorkflowManagerState: LabelingWorkflowManagerReducer,
         } as any);
 
+        // TODO: Remove this before we push to PROD.
+        let enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 })
+
         // create the Redux Store.
-        this._store = createStore(this._rootReducer,
-            (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }));
+        this._store = createStore(this._rootReducer, enhancer);
+        // this._store = createStore(this._rootReducer)
     }
 
     public get store(): Store<RootState> {

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {InstanceKey} from "@bentley/presentation-common";
 import {MatchingRuleType, SelectionExtenderConfig} from "./SelectionExtenderTypes";
 
