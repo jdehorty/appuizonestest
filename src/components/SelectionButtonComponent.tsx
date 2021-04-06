@@ -5,7 +5,7 @@ import '../styles/_LabelingWorkflowStyles.scss';
 import {FC} from "react";
 
 /** SelectionButton properties */
-interface Props {
+interface SelectButtonProps {
     /** Label for flyover (not translated internally) */
     label?: string;
     /** Item reference */
@@ -17,7 +17,7 @@ interface Props {
 }
 
 /** Button to select an item */
-export const SelectionButtonComponent: FC<Props> = (props) => {
+export const SelectionButtonComponent: FC<SelectButtonProps> = (props) => {
     let title = IModelApp.i18n.translate("LabelingApp:select");
     title += ": ";
     title += (props.label ? props.label : "");

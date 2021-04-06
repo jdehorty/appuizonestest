@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import VisibilityButtonAllComponent from "../VisibilityButtonAllComponent";
 import {SelectionButtonComponent} from "../SelectionButtonComponent";
-import {Button, ButtonType, Icon, LabeledToggle} from "@bentley/ui-core";
+import {Button, ButtonType, Icon, LabeledToggle, Radio} from "@bentley/ui-core";
 import {
     ILabelSectionAttributes,
     IPredictionSectionAttributes,
@@ -19,18 +19,17 @@ import {
     mapLabelTableStateToPropsForPopout
 } from "./ConnectedLabelTableAllComponent";
 import MLStateTablePopout from "../MLStateTablePopout";
-import { LabelTableEmphasis } from '../../store/LabelingWorkflowState';
+import {LabelTableEmphasis} from '../../store/LabelingWorkflowState';
 import SelectionClearButtonComponent from "../SelectionClearButtonComponent";
-
 
 interface OwnProps extends LabelTableComponentProps {
     isPoppedOut: boolean;
 }
 
-type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
+export type LabelTableHeaderProps = OwnProps & LabelTableStateFromProps;
 
 
-const LabelTableHeader: FC<Props> = (props) => {
+const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
 
     const [readyForPopout, setReadyForPopout] = useState<boolean>(props.readyForPopout);
 
@@ -53,11 +52,6 @@ const LabelTableHeader: FC<Props> = (props) => {
     const [labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
 
     const renderTableHead = (labelSectionAttributes: ILabelSectionAttributes, predSectionAttributes: IPredictionSectionAttributes): JSX.Element => {
-
-        let headerStyle = {
-            backgroundColor: "#ddd",
-            fontSize: "11px"
-        }
 
         const colorModeOptions: JSX.Element[] = [];
 
@@ -127,70 +121,72 @@ const LabelTableHeader: FC<Props> = (props) => {
                             </Button>
                             {
                                 readyForPopout &&
-                                <MLStateTablePopout title={"ML Labeler"} closingPopout={_onPopoutWindowClosing}/>
+                                <MLStateTablePopout
+                                    title={"ML Labeler"}
+                                    closingPopout={_onPopoutWindowClosing}/>
                             }
                         </div>
                     </td>
                 }
             </tr>
-            <tr style={headerStyle}>
+            <tr className="mltc-first-row">
                 <th className="mltc-name-th-v2">
                     {
-                    (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
+                        (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
                         <>
-                        <div className={"mltc-name-th-v2-selection"}>
-                            <SelectionButtonComponent
-                                label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                hilite={props.selectedUiItems.size !== 0}
-                                onClick={() => {
-                                    props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                                }}
-                            />
-                        </div>
+                            <div className={"mltc-name-th-v2-selection"}>
+                                <SelectionButtonComponent
+                                    label={IModelApp.i18n.translate("LabelingApp.selectAll")}
+                                    hilite={props.selectedUiItems.size !== 0}
+                                    onClick={() => {
+                                        props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
+                                    }}
+                                />
+                            </div>
 
-                        <div className="mltc-name-th-v2-visibility">
-                            <VisibilityButtonAllComponent
-                                transparencyAvailable={true}
-                                allHidden={labelSectionAttributes.allLabelHidden}
-                                allVisible={labelSectionAttributes.allLabelVisible}
-                                allTransparent={labelSectionAttributes.allLabelTransparent}
-                                allOpaque={labelSectionAttributes.allLabelOpaque}
-                                onClick={
-                                    (newVisible: boolean, newTransparent: boolean) => {
-                                        props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                            <div className="mltc-name-th-v2-visibility">
+                                <VisibilityButtonAllComponent
+                                    transparencyAvailable={true}
+                                    allHidden={labelSectionAttributes.allLabelHidden}
+                                    allVisible={labelSectionAttributes.allLabelVisible}
+                                    allTransparent={labelSectionAttributes.allLabelTransparent}
+                                    allOpaque={labelSectionAttributes.allLabelOpaque}
+                                    onClick={
+                                        (newVisible: boolean, newTransparent: boolean) => {
+                                            props.onLabelDisplayChange(newVisible, newTransparent, undefined);
+                                        }
                                     }
-                                }
-                            />
-                        </div>
+                                />
+                            </div>
                         </>
                     }
                     {
-                    (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
+                        (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
                         <>
-                        <div className={"mltc-name-th-v2-selection"}>
-                            <SelectionButtonComponent
-                                label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                hilite={props.selectedUiItems.size !== 0}
-                                onClick={() => {
-                                    props.onPredictionSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                                }}
-                            />
-                        </div>
-                                
-                        <div className="mltc-name-th-v2-visibility">
-                            <VisibilityButtonAllComponent
-                                transparencyAvailable={true}
-                                allHidden={predSectionAttributes.allPredictionHidden}
-                                allVisible={predSectionAttributes.allPredictionVisible}
-                                allTransparent={predSectionAttributes.allPredictionTransparent}
-                                allOpaque={predSectionAttributes.allPredictionOpaque}
-                                onClick={
-                                    (newVisible: boolean, newTransparent: boolean) => {
-                                        props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
+                            <div className={"mltc-name-th-v2-selection"}>
+                                <SelectionButtonComponent
+                                    label={IModelApp.i18n.translate("LabelingApp.select")}
+                                    hilite={props.selectedUiItems.size !== 0}
+                                    onClick={() => {
+                                        props.onPredictionSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
+                                    }}
+                                />
+                            </div>
+
+                            <div className="mltc-name-th-v2-visibility">
+                                <VisibilityButtonAllComponent
+                                    transparencyAvailable={true}
+                                    allHidden={predSectionAttributes.allPredictionHidden}
+                                    allVisible={predSectionAttributes.allPredictionVisible}
+                                    allTransparent={predSectionAttributes.allPredictionTransparent}
+                                    allOpaque={predSectionAttributes.allPredictionOpaque}
+                                    onClick={
+                                        (newVisible: boolean, newTransparent: boolean) => {
+                                            props.onPredictionDisplayChange(newVisible, newTransparent, undefined);
+                                        }
                                     }
-                                }
-                            />
-                        </div>
+                                />
+                            </div>
                         </>
                     }
 
@@ -203,16 +199,34 @@ const LabelTableHeader: FC<Props> = (props) => {
                     </div>
                 </th>
                 <th className="mltc-label-th-v2">
-                    <input id="LabelSelector" type="radio" name="labelTableEmphasis" value="label"
-                           checked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}
-                           onClick={props.onToggleLabelTableEmphasis}/>
-                        <label htmlFor="LabelSelector">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}</label>
+                    <Radio
+                        value={"LabelSelector"}
+                        name={"labelTableEmphasis"}
+                        label={IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}
+                        defaultChecked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}
+                        onClick={props.onToggleLabelTableEmphasis}
+                    />
+
+                    {/*<input*/}
+                    {/*    id="LabelSelector"*/}
+                    {/*    type="radio"*/}
+                    {/*    name="labelTableEmphasis"*/}
+                    {/*    value="label"*/}
+                    {/*    checked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}*/}
+                    {/*    onClick={props.onToggleLabelTableEmphasis}/>*/}
+                    {/*<label*/}
+                    {/*    htmlFor="LabelSelector">*/}
+                    {/*    {IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}*/}
+                    {/*</label>*/}
                 </th>
                 <th className="mltc-prediction-th-v2">
-                    <input id="PredictionSelector" type="radio" name="labelTableEmphasis" value="prediction" 
-                             checked={props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions}
-                             onClick={props.onToggleLabelTableEmphasis}/>
-                        <label htmlFor="PredictionSelector">{IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}</label>
+                    <Radio
+                        value={"PredictionSelector"}
+                        name={"labelTableEmphasis"}
+                        label={IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}
+                        defaultChecked={props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions}
+                        onClick={props.onToggleLabelTableEmphasis}
+                    />
                 </th>
             </tr>
             </thead>

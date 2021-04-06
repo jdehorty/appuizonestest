@@ -1,4 +1,4 @@
-// Temporary - will remove once all styles are scoped
+// Temporary - will remove once all styles are properly scoped
 @use "LabelingWorkflowStylesV2";
 
 // This is the file that gets compiled to CSS.
@@ -6,8 +6,12 @@
 @use "components/LabelButtonComponent";
 @use "components/LabelTableHeader";
 @use "components/MLTableComponent";
+@use "components/RadioButtonComponent";
 @use "components/SelectionClearButtonComponent";
 @use "components/SelectionButtonComponent";
 @use "components/SelectionExtenderComponent";
 @use "components/VisibilityButtonAllComponent";
 @use "components/VisibilityButtonComponent";
+
+@use "components/TableShading";
+

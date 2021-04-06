@@ -9,9 +9,17 @@
   width: 22px;
 }
 
+.sstc-select-button.off {
+  background: #85929D;
+}
+
+.sstc-select-button.on {
+  background: #53A11A;
+}
+
 .mltc-name-th-v2-selection :focus {
   animation: bounce 0.2s;
-  background: rgb(0, 128, 0);
+  background: #53A11A;
 }
 
 @keyframes bounce {

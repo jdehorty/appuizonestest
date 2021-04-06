@@ -1,12 +1,16 @@
 @use "../variables" as vars;
 
+.mltc-first-row {
+  background-color: #DCE0E3;
+  font-size: 11px;
+}
+
 .NameColumn-----------------------------------------------------------------------------------------------------------{}
-.mltc-name-th-v2
-{
+.mltc-name-th-v2 {
   min-width: 191px;
   max-width: 191px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
+  //border-left: 1px solid grey;
+  //border-right: 1px solid grey;
   font-size: vars.$fontScale;
 }
 
