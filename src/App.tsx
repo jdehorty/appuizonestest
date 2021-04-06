@@ -105,7 +105,7 @@ const App: React.FC = () => {
         SelectionExtender.auxDataMap = LabelingWorkflowManager.auxDataMap;
     }
 
-    const onIModelConnected = async (connection: any) => {
+    const onIModelConnected = async (connection: IModelConnection) => {
         try {
             await Presentation.initialize({
                 // activeLocale: IModelApp.i18n.languageList()[0],

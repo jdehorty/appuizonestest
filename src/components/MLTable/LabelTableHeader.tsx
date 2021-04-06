@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import VisibilityButtonAllComponent from "../VisibilityButtonAllComponent";
-import {GroupSelectButtonComponent} from "../GroupSelectButton";
+import {SelectionCreateButtonComponent} from "../SelectionCreateButtonComponent";
 import {Button, ButtonType, Icon, LabeledToggle} from "@bentley/ui-core";
 import {
     ILabelSectionAttributes,
@@ -20,6 +20,7 @@ import {
 } from "./ConnectedLabelTableAllComponent";
 import MLStateTablePopout from "../MLStateTablePopout";
 import { LabelTableEmphasis } from '../../store/LabelingWorkflowState';
+import SelectionClearButtonComponent from "../SelectionClearButtonComponent";
 
 
 interface OwnProps extends LabelTableComponentProps {
@@ -138,7 +139,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                     (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
                         <>
                         <div className={"mltc-name-th-v2-selection"}>
-                            <GroupSelectButtonComponent
+                            <SelectionCreateButtonComponent
                                 label={IModelApp.i18n.translate("LabelingApp.everything")}
                                 hilite={props.selectedUiItems.size !== 0}
                                 onClick={() => {
@@ -167,7 +168,7 @@ const LabelTableHeader: FC<Props> = (props) => {
                     (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
                         <>
                         <div className={"mltc-name-th-v2-selection"}>
-                            <GroupSelectButtonComponent
+                            <SelectionCreateButtonComponent
                                 label={IModelApp.i18n.translate("LabelingApp.everything")}
                                 hilite={props.selectedUiItems.size !== 0}
                                 onClick={() => {
@@ -192,7 +193,13 @@ const LabelTableHeader: FC<Props> = (props) => {
                         </div>
                         </>
                     }
-                    
+
+                    <div className="mltc-name-th-v2-selection">
+                        <SelectionClearButtonComponent>
+
+                        </SelectionClearButtonComponent>
+                    </div>
+
                     <div className="mltc-name-th-v2-title">
                         {IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}
                     </div>
