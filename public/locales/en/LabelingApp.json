@@ -1,10 +1,14 @@
 {
   "forceShowAll": "Force Show All",
-  "colorMode": "Color Mode",
+  "colorMode": "View Colors As:",
   "assignLabel": "Assign Label",
   "show": "Show",
+  "showAll": "Show All",
   "hide": "Hide",
+  "hideAll": "Hide All",
+  "hideEmpty": "Hide Empty",
   "makeTransparent": "Make Transparent",
+  "makeAllTransparent": "Make All Transparent",
   "models": "Models",
   "categories": "Categories",
   "classes": "Classes",
@@ -22,9 +26,9 @@
     "toolTip": "Selection Scope"
   },
   "cycler": {
-    "totalTitle": "Total 3D Elements",
-    "selectedTitle": "Selected & Visible",
-    "startCycling": "Cycle Selection...",
+    "totalTitle": "Total",
+    "selectedTitle": "Selected",
+    "startCycling": "Cycle Elements...",
     "cyclingTitle": "Cycling"
   },
   "labelRemapping": {
@@ -33,6 +37,11 @@
     "name": "Label",
     "color": "Color",
     "remap": "Remapped to"
+  },
+  "labelTableHeading": {
+    "name": "Name",
+    "asLabeled": "Labeled",
+    "asPredicted": "Predicted"
   },
   "Header": {
     "welcome": "Welcome to UI Sample Application"
