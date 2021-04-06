@@ -10,7 +10,7 @@ import {LabelTreeEntry, MLStateTableDataItem} from "../store/LabelingWorkflowTyp
 import VisibilityButtonAllComponent from "./VisibilityButtonAllComponent";
 import VisibilityButtonComponent from "./VisibilityButtonComponent";
 import {LabelButtonComponent} from "./LabelButtonComponent";
-import {SelectionCreateButtonComponent} from "./SelectionCreateButtonComponent";
+import {SelectionButtonComponent} from "./SelectionButtonComponent";
 
 
 const FORCE_ALL = true;
@@ -145,7 +145,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 visible={item.trueLabelIsDisplayed}
                 transparent={item.trueLabelIsTransparent}
                 onClick={this.props.onLabelDisplayChange}/>
-            <SelectionCreateButtonComponent
+            <SelectionButtonComponent
                 label={i18nName}
                 itemId={item.name}
                 hilite={item.trueLabelSelectedCount !== 0}
@@ -168,7 +168,7 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 transparent={item.predLabelIsTransparent}
                 onClick={this.props.onPredictionDisplayChange}
             />
-            <SelectionCreateButtonComponent
+            <SelectionButtonComponent
                 label={i18nName}
                 itemId={item.name}
                 hilite={item.predLabelSelectedCount !== 0}
@@ -223,8 +223,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                             }
                         }
                     />
-                    <SelectionCreateButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                    onClick={() => {
+                    <SelectionButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                              onClick={() => {
                                                     this.props.onLabelSelectionClick(undefined);
                                                 }}/>
                 </td>
@@ -241,8 +241,8 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                             }
                         }
                     />
-                    <SelectionCreateButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
-                                                    onClick={() => {
+                    <SelectionButtonComponent label={IModelApp.i18n.translate("LabelingApp.everything")}
+                                              onClick={() => {
                                                     this.props.onPredictionSelectionClick(undefined);
                                                 }}/>
                 </td>

@@ -1,22 +1,26 @@
 import React, {FC} from 'react';
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import {Presentation} from "@bentley/presentation-frontend";
-import {IModelConnection} from "@bentley/imodeljs-frontend";
+import {IModelApp, IModelConnection} from "@bentley/imodeljs-frontend";
 import {UiFramework} from "@bentley/ui-framework";
 
 interface Props {
+    label?: string;
+    hilite?: boolean;
     onClick?(itemId?: string): void;
 }
 
 export const SelectionClearButtonComponent: FC<Props> = (props) => {
 
     const imodelConnection: IModelConnection | undefined = UiFramework.getIModelConnection();
+    let title = IModelApp.i18n.translate("LabelingApp:everything");
+    let className = "sstc-select-button";
 
     return <>
         <Button
-            title={"LabelingApp:clearSelection"}
-            className={"sstc-select-button"}
-            buttonType={ButtonType.Blue}
+            title={title}
+            className={className}
+            buttonType={ButtonType.Hollow}
             onClick={() => {
                 Presentation.selection.clearSelection("", imodelConnection!);
             }}

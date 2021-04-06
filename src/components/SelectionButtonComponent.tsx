@@ -12,19 +12,18 @@ interface Props {
     itemId?: string;
     /** Hilite */
     hilite?: boolean;
-
     /** Click handler */
     onClick?(itemId?: string): void;
 }
 
 /** Button to select an item */
-export const SelectionCreateButtonComponent: FC<Props> = (props) => {
+export const SelectionButtonComponent: FC<Props> = (props) => {
     let title = IModelApp.i18n.translate("LabelingApp:select");
     title += ": ";
     title += (props.label ? props.label : "");
     let className = "sstc-select-button";
     if (props.hilite !== undefined) {
-        className += " " + (props.hilite ? "on" : "off");
+        className += props.hilite ? " on" : " off";
     }
     return <>
         <Button

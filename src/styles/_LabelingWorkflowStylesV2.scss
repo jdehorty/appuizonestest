@@ -109,12 +109,12 @@ $fontScale: 1.15em;
     padding: 2px 4px;
 }
 
-.sstc-select-button {
-    margin: 0;
-    padding: 2px 4px;
-    min-width: 20px;
-    fill: white;
-}
+//.sstc-select-button {
+//    margin: 0;
+//    padding: 2px 4px;
+//    min-width: 20px;
+//    fill: white;
+//}
 
 .sstc-label-button {
     margin: 0;
@@ -136,13 +136,8 @@ $fontScale: 1.15em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* display: inline; */
     margin: 0;
     padding: 0;
-    /* padding-left: 6px;
-    padding-right: 6px;
-    display: block;
-    box-sizing: content-box; */
 }
 
 .cycler-progress{

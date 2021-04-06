@@ -17,7 +17,7 @@ export const LabelButtonComponent = (props: LabelButtonProps) => {
     return <>
             <Button
                 title={title}
-                className="sstc-select-button"
+                className="sstc-label-button"
                 onClick={() => {
                     if (props.onClick !== undefined) {
                         props.onClick(props.name);
