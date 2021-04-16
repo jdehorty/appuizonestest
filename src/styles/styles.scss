@@ -4,14 +4,14 @@
 // This is the file that gets compiled to CSS.
 @use "components/ExpanderComponent";
 @use "components/LabelButtonComponent";
+@use "components/LabelTableBody";
 @use "components/LabelTableHeader";
 @use "components/MLTableComponent";
 @use "components/RadioButtonComponent";
-@use "components/SelectionClearButtonComponent";
 @use "components/SelectionButtonComponent";
+@use "components/SelectionClearButtonComponent";
 @use "components/SelectionExtenderComponent";
+@use "components/TableShading";
 @use "components/VisibilityButtonAllComponent";
 @use "components/VisibilityButtonComponent";
-
-@use "components/TableShading";
 
