@@ -130,6 +130,8 @@ const LabelTableBody: FC<Props> = (props) => {
                     onChange={itemSelectChangeHandler(item!)}
                 />
             </label>
+            <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
+            
             {
                 (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
                     <VisibilityButtonComponent
@@ -152,7 +154,6 @@ const LabelTableBody: FC<Props> = (props) => {
                         onClick={props.onPredictionDisplayChange}
                     />
             }
-            <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
             <Button
                 className="mltc-expand-button"
                 style={expanderStyle}
