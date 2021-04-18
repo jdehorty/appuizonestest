@@ -6,7 +6,7 @@ import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTy
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import ConnectedLabelTableBody from "./LabelTableBody";
 import ConnectedLabelTableFooter from "./LabelTableFooter";
-import {ConnectedLabelTableHeader, ConnectedLabelTableHeaderPopout} from "./LabelTableHeader";
+import {ConnectedLabelTableHeader} from "./LabelTableHeader";
 import {LabelerState} from "../../store/LabelerState";
 import {Provider} from "react-redux";
 
@@ -46,8 +46,6 @@ export interface LabelTableComponentProps {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
-    isPoppedOut: boolean;
-    readyForPopout: boolean;
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
 
     onLabelDisplayChange(newVisible: boolean, newTransparent: boolean, itemId?: Id64String): void;
@@ -156,8 +154,7 @@ export class LabelTableAllComponent extends React.Component<LabelTableComponentP
             <Provider store={LabelerState.store}>
                 <div className="sstc-data-container">
                     <table className="sstc-data-table">
-                        {!this.props.isPoppedOut && <ConnectedLabelTableHeader/>}
-                        {this.props.isPoppedOut && <ConnectedLabelTableHeaderPopout/>}
+                        <ConnectedLabelTableHeader/>
                         <ConnectedLabelTableBody/>
                     </table>
                 </div>

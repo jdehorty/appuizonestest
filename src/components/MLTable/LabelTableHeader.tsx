@@ -1,9 +1,9 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import VisibilityButtonAllComponent from "../VisibilityButtonAllComponent";
 import {SelectionButtonComponent} from "../SelectionButtonComponent";
-import {Button, ButtonType, Icon, LabeledToggle, Radio} from "@bentley/ui-core";
+import {LabeledToggle, Radio} from "@bentley/ui-core";
 import {
     ILabelSectionAttributes,
     IPredictionSectionAttributes,
@@ -15,15 +15,13 @@ import {
     LabelTableDispatchFromProps,
     LabelTableStateFromProps,
     mapLabelTableDispatchToProps,
-    mapLabelTableStateToProps,
-    mapLabelTableStateToPropsForPopout
+    mapLabelTableStateToProps
 } from "./ConnectedLabelTableAllComponent";
-import MLStateTablePopout from "../MLStateTablePopout";
 import {LabelTableEmphasis} from '../../store/LabelingWorkflowState';
 import SelectionClearButtonComponent from "../SelectionClearButtonComponent";
 
 interface OwnProps extends LabelTableComponentProps {
-    isPoppedOut: boolean;
+   
 }
 
 export type LabelTableHeaderProps = OwnProps & LabelTableStateFromProps;
@@ -31,22 +29,11 @@ export type LabelTableHeaderProps = OwnProps & LabelTableStateFromProps;
 
 const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
 
-    const [readyForPopout, setReadyForPopout] = useState<boolean>(props.readyForPopout);
-
     const handleColorModeChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
         if (event.target !== undefined) {
             const colorMode = event.target.value as MachineLearningColorMode;
             props.onChangeColorMode(colorMode);
         }
-    }
-
-    const _onPopoutButtonClick = () => {
-        setReadyForPopout(true);
-    }
-
-    const _onPopoutWindowClosing = () => {
-        // console.log("_onPopoutWindowClosing was fired");
-        setReadyForPopout(false);
     }
 
     const [labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
@@ -108,26 +95,6 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                 </td>
                 <td className="mltc-label-td-v2"/>
                 <td className="mltc-prediction-td-v2"/>
-                {
-                    !props.isPoppedOut &&
-                    <td className="mltc-popout-button-td">
-                        <div>
-                            <Button
-                                className="sstc-window-new-button"
-                                buttonType={ButtonType.Hollow}
-                                onClick={_onPopoutButtonClick}
-                            >
-                                <Icon iconSpec="icon-window-new"/>
-                            </Button>
-                            {
-                                readyForPopout &&
-                                <MLStateTablePopout
-                                    title={"ML Labeler"}
-                                    closingPopout={_onPopoutWindowClosing}/>
-                            }
-                        </div>
-                    </td>
-                }
             </tr>
             <tr className="mltc-first-row">
                 <th className="mltc-name-th-v2">
@@ -241,5 +208,3 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
 };
 
 export const ConnectedLabelTableHeader = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableHeader);
-
-export const ConnectedLabelTableHeaderPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableHeader);

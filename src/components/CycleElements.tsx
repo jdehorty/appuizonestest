@@ -1,7 +1,9 @@
+import React, {useState} from 'react';
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
-import * as React from "react";
+import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
+import MLStateTablePopout from "./MLStateTablePopout";
 import "../styles/_LabelingWorkflowStyles.scss";
+
 
 export interface CycleElementComponentProps {
     ready: boolean;
@@ -12,6 +14,8 @@ export interface CycleElementComponentProps {
     totalCount: number;
     selectedCount: number;
     forceShowAll: boolean;
+    isPoppedOut: boolean;
+    readyForPopout: boolean;
 
     onStart(): void;
 
@@ -27,6 +31,17 @@ export interface CycleElementComponentProps {
 }
 
 export const CycleElementComponent = (props: CycleElementComponentProps) => {
+
+    const [readyForPopout, setReadyForPopout] = useState<boolean>(props.readyForPopout);
+
+    const _onPopoutButtonClick = () => {
+        setReadyForPopout(true);
+    }
+    
+    const _onPopoutWindowClosing = () => {
+        // console.log("_onPopoutWindowClosing was fired");
+        setReadyForPopout(false);
+    }
 
     let fastCount = 1;
     if (props.cycleSetSize !== undefined) {
@@ -154,6 +169,26 @@ export const CycleElementComponent = (props: CycleElementComponentProps) => {
                                 />
                             </div>
                         </td>
+                        {
+                        !props.isPoppedOut &&
+                        <td className="mltc-popout-button-td">
+                            <div>
+                                <Button
+                                    className="sstc-window-new-button"
+                                    buttonType={ButtonType.Hollow}
+                                    onClick={_onPopoutButtonClick}
+                                >
+                                    <Icon iconSpec="icon-window-new"/>
+                                </Button>
+                                {
+                                    readyForPopout &&
+                                    <MLStateTablePopout
+                                        title={"ML Labeler"}
+                                        closingPopout={_onPopoutWindowClosing}/>
+                                }
+                            </div>
+                        </td>
+                }
                     </tr>
                     </tbody>
                 </table>

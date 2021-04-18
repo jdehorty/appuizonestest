@@ -21,8 +21,6 @@ export interface LabelTableStateFromProps {
     availableColorModes: MachineLearningColorMode[];
     currentColorMode: MachineLearningColorMode;
     isDirty: boolean;
-    isPoppedOut: boolean;
-    readyForPopout: boolean;
     filterEmptyRows: boolean;
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
     selectionSet: Id64Set;
@@ -78,8 +76,6 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         availableColorModes: AVAILABLE_COLOR_MODES,
         currentColorMode: state.colorMode,
         isDirty: state.elementStateMapIsDirty,
-        isPoppedOut: false,
-        readyForPopout: false,
         filterEmptyRows: state.filterEmptyRows,
         selectedUiItems: state.selectedUiItems,
         selectionSet: state.selectionSet,
@@ -93,17 +89,6 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
         },
         onSave: LabelingWorkflowManager.saveLabels,
     };
-}
-
-export function mapLabelTableStateToPropsForPopout(rootState: RootState): LabelTableStateFromProps {
-    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
-    if (!state) {
-        throw new Error();
-    }
-
-    let stateProps3 = mapLabelTableStateToProps(rootState);
-    stateProps3["isPoppedOut"] = true;
-    return stateProps3;
 }
 
 export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflowManagerAction>): LabelTableDispatchFromProps {
@@ -205,4 +190,3 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
 
 export const ConnectedLabelTableAllComponent = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToProps, mapLabelTableDispatchToProps)(LabelTableAllComponent);
 
-export const ConnectedLabelTableComponentPopout = connect<LabelTableStateFromProps, LabelTableDispatchFromProps>(mapLabelTableStateToPropsForPopout, mapLabelTableDispatchToProps)(LabelTableAllComponent);

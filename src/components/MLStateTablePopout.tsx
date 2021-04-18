@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from "react-redux";
 import {LabelerState} from "../store/LabelerState";
-import {ConnectedLabelTableComponentPopout} from "./MLTable/ConnectedLabelTableAllComponent";
+import {ConnectedLabelTableAllComponent} from "./MLTable/ConnectedLabelTableAllComponent";
+import {ConnectedCycleElementComponentPopout} from "./ConnectedCycleElements";
 import {copyStyles} from "../utils/CopyStyles";
 
 
@@ -52,8 +53,8 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
     let wrappedWidget = <>
         <Provider store={LabelerState.store}>
-            {/*<ConnectedCycleElementComponentPopout />*/}
-            <ConnectedLabelTableComponentPopout/>
+            <ConnectedCycleElementComponentPopout />
+            <ConnectedLabelTableAllComponent/>
         </Provider>
     </>
 

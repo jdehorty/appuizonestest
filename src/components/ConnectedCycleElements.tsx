@@ -21,6 +21,8 @@ const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
         totalCount: LabelingWorkflowManagerSelectors.elementStateMap(state).size,
         selectedCount: state.selectionSet.size,
         forceShowAll: state.forceShowAll,
+        isPoppedOut: false,
+        readyForPopout: false,
         onStart: LabelingWorkflowManager.cycleElementsEnable,
         onStop: LabelingWorkflowManager.cycleElementsDisable,
         onForward: LabelingWorkflowManager.cycleElementsForward,
@@ -30,7 +32,21 @@ const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
     };
 };
 
+export function mapStateToPropsForPopout(rootState: RootState): CycleElementComponentProps {
+    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
+    if (!state) {
+        throw new Error();
+    }
+
+    let stateProps3 = mapStateToProps(rootState);
+    stateProps3["isPoppedOut"] = true;
+    return stateProps3;
+}
+
 /**
  * Connected CycleElementComponent component that allows to cycle through a set of elements
  */
 export const ConnectedCycleElementComponent = connect(mapStateToProps)(CycleElementComponent);
+
+export const ConnectedCycleElementComponentPopout = connect(mapStateToPropsForPopout)(CycleElementComponent);
+
