@@ -102,7 +102,8 @@ const LabelTableBody: FC<Props> = (props) => {
 
     const itemIsChecked = (item: MLStateTableDataItem): boolean => {
         const existingItem = props.selectedUiItems.get(item!.name);
-        return (existingItem !== null);
+        const itemIsChecked = existingItem != null;
+        return (itemIsChecked);
     }
 
     const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean, labelsAreAllowed: boolean): JSX.Element => {
@@ -139,7 +140,8 @@ const LabelTableBody: FC<Props> = (props) => {
 
                 <Radio
                     name={"selectedClass"}
-                    defaultChecked={itemIsChecked(item!)}
+                    // defaultChecked={itemIsChecked(item!)}
+                    checked={itemIsChecked(item!)}
                     onClick={itemSelectChangeHandler(item!)}
                 />
 

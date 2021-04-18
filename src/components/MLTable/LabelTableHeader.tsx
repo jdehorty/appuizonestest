@@ -98,19 +98,15 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
             </tr>
             <tr className="mltc-first-row">
                 <th className="mltc-name-th-v2">
+                      <div className="mltc-name-th-v2-selection-clear">
+                          <SelectionClearButtonComponent
+                          selectedUiItems={props.selectedUiItems}
+                          />
+                      </div>
+  
                     {
                         (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
                         <>
-                            <div className={"mltc-name-th-v2-selection"}>
-                                <SelectionButtonComponent
-                                    label={IModelApp.i18n.translate("LabelingApp.selectAll")}
-                                    hilite={props.selectedUiItems.size !== 0}
-                                    onClick={() => {
-                                        props.onLabelSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                                    }}
-                                />
-                            </div>
-
                             <div className="mltc-name-th-v2-visibility">
                                 <VisibilityButtonAllComponent
                                     transparencyAvailable={true}
@@ -130,16 +126,6 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                     {
                         (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
                         <>
-                            <div className={"mltc-name-th-v2-selection"}>
-                                <SelectionButtonComponent
-                                    label={IModelApp.i18n.translate("LabelingApp.select")}
-                                    hilite={props.selectedUiItems.size !== 0}
-                                    onClick={() => {
-                                        props.onPredictionSelectionClick(props.selectedUiItems.values()?.next()?.value?.name);
-                                    }}
-                                />
-                            </div>
-
                             <div className="mltc-name-th-v2-visibility">
                                 <VisibilityButtonAllComponent
                                     transparencyAvailable={true}
@@ -157,12 +143,7 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                         </>
                     }
 
-                    <div className="mltc-name-th-v2-selection-clear">
-                        <SelectionClearButtonComponent
-                        selectedUiItems={props.selectedUiItems}
-                        />
-                    </div>
-
+                  
                     <div className="mltc-name-th-v2-title">
                         {IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}
                     </div>
