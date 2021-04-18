@@ -102,7 +102,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
     const itemIsChecked = (item: MLStateTableDataItem): boolean => {
         const existingItem = props.selectedUiItems.get(item!.name);
-        return (existingItem != null);
+        return (existingItem !== null);
     }
 
     const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean, labelsAreAllowed: boolean): JSX.Element => {

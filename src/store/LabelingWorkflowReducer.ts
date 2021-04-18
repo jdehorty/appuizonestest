@@ -453,7 +453,7 @@ export function LabelingWorkflowManagerReducer(
 
         case LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis:
             {
-                var newLableTableState: LabelTableEmphasis = (prevState.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) 
+                let newLableTableState: LabelTableEmphasis = (prevState.labelTableEmphasis == LabelTableEmphasis.ActOnLabels)
                                                            ? LabelTableEmphasis.ActOnPredictions : LabelTableEmphasis.ActOnLabels;
                 return {
                     ...prevState,

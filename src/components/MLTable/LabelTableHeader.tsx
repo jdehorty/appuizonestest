@@ -158,7 +158,9 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                     }
 
                     <div className="mltc-name-th-v2-selection-clear">
-                        <SelectionClearButtonComponent/>
+                        <SelectionClearButtonComponent
+                        selectedUiItems={props.selectedUiItems}
+                        />
                     </div>
 
                     <div className="mltc-name-th-v2-title">

@@ -3,10 +3,13 @@ import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import {Presentation} from "@bentley/presentation-frontend";
 import {IModelApp, IModelConnection} from "@bentley/imodeljs-frontend";
 import {UiFramework} from "@bentley/ui-framework";
+import {MachineLearningLabel} from "../data/LabelTypes";
+import {MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 
 interface Props {
     label?: string;
     hilite?: boolean;
+    selectedUiItems?: Map<MachineLearningLabel, MLStateTableDataItem>;
     onClick?(itemId?: string): void;
 }
 
@@ -23,6 +26,8 @@ export const SelectionClearButtonComponent: FC<Props> = (props) => {
             buttonType={ButtonType.Hollow}
             onClick={() => {
                 Presentation.selection.clearSelection("", imodelConnection!);
+                props.selectedUiItems?.clear();
+
             }}
         >
             <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
