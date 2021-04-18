@@ -35,6 +35,11 @@
 .mltc-name-td-v2 .mltc-level-spacer:nth-child(4) {
   min-width: 1px;
 }
+
+.mltc-name-td-v2 .mltc-level-spacer {
+  margin-right: 1.5em; // ensure enough space between radio button and visibility button
+}
+
 .mltc-name-td-v2 .mltc-expand-button
 {
   color: black;

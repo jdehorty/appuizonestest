@@ -367,6 +367,10 @@
   min-width: 1px;
 }
 
+.mltc-name-td-v2 .mltc-level-spacer {
+  margin-right: 1.5em;
+}
+
 .mltc-name-td-v2 .mltc-expand-button {
   color: black;
   background: none;
