@@ -165,30 +165,17 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                         {IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}
                     </div>
                 </th>
+
                 <th className="mltc-label-th-v2">
                     <Radio
-                        value={"LabelSelector"}
                         name={"labelTableEmphasis"}
                         label={IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}
                         defaultChecked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}
                         onClick={props.onToggleLabelTableEmphasis}
                     />
-
-                    {/*<input*/}
-                    {/*    id="LabelSelector"*/}
-                    {/*    type="radio"*/}
-                    {/*    name="labelTableEmphasis"*/}
-                    {/*    value="label"*/}
-                    {/*    checked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}*/}
-                    {/*    onClick={props.onToggleLabelTableEmphasis}/>*/}
-                    {/*<label*/}
-                    {/*    htmlFor="LabelSelector">*/}
-                    {/*    {IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}*/}
-                    {/*</label>*/}
                 </th>
                 <th className="mltc-prediction-th-v2">
                     <Radio
-                        value={"PredictionSelector"}
                         name={"labelTableEmphasis"}
                         label={IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}
                         defaultChecked={props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions}

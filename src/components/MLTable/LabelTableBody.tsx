@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Config} from "@bentley/bentleyjs-core";
-import {Button, SvgPath} from "@bentley/ui-core";
+import {Button, Radio, SvgPath} from "@bentley/ui-core";
 import {MachineLearningLabel} from "../../data/LabelTypes";
 import {ColorDef} from "@bentley/imodeljs-common";
 
@@ -65,7 +65,7 @@ const removeItemFromSelectedItems = (props: OwnProps,
         return; // It is not in the list. Nothing to do. Return; 
     }
 
-    // Trigger Redux action to "remove item from list.
+    // Trigger Redux action to remove item from list.
     props.onRemoveSelectedLabelItem(item);
 }
 
@@ -80,7 +80,7 @@ const LabelTableBody: FC<Props> = (props) => {
     const itemSelectChangeHandler = <T extends HTMLInputElement>(item: MLStateTableDataItem) => {
         return (event: React.SyntheticEvent<T>) => {
             let value: boolean | string;
-            if (event.currentTarget.type === "checkbox") {
+            if (event.currentTarget.type === "radio") {
                 value = (event.currentTarget as HTMLInputElement).checked;
             } else {
                 value = event.currentTarget.value;
@@ -88,6 +88,12 @@ const LabelTableBody: FC<Props> = (props) => {
             item.isSelected = (value.toString() === "true");
             if (item.isSelected) {
                 addItemToSelectedItems(props, item, props.selectedUiItems, allowMultiSelectionOfLabels);
+                if (props.labelTableEmphasis === LabelTableEmphasis.ActOnLabels) {
+                    props.onLabelSelectionClick(item?.name);
+                }
+                else {
+                    props.onPredictionSelectionClick(item?.name);
+                }
             } else {
                 removeItemFromSelectedItems(props, item, props.selectedUiItems);
             }
@@ -124,11 +130,19 @@ const LabelTableBody: FC<Props> = (props) => {
 
         return <>
             <label>
-                <input
-                    type="checkbox"
-                    checked={itemIsChecked(item!)}
-                    onChange={itemSelectChangeHandler(item!)}
+
+                {/*<input*/}
+                {/*    type="checkbox"*/}
+                {/*    checked={itemIsChecked(item!)}*/}
+                {/*    onChange={itemSelectChangeHandler(item!)}*/}
+                {/*/>*/}
+
+                <Radio
+                    name={"selectedClass"}
+                    defaultChecked={itemIsChecked(item!)}
+                    onClick={itemSelectChangeHandler(item!)}
                 />
+
             </label>
             <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
             
@@ -254,6 +268,7 @@ const LabelTableBody: FC<Props> = (props) => {
             if (item === undefined) {
                 return;
             }
+
             processItem(item, treeItem.level, treeItem.isExpanded, treeItem.children.length !== 0, labelsAreAllowed);
             if (treeItem.isExpanded) {
                 for (const child of treeItem.children) {

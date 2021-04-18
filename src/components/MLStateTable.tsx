@@ -144,14 +144,19 @@ export class MLStateTableComponent extends React.Component<MLStateTableComponent
                 itemId={item.name}
                 visible={item.trueLabelIsDisplayed}
                 transparent={item.trueLabelIsTransparent}
-                onClick={this.props.onLabelDisplayChange}/>
+                onClick={this.props.onLabelDisplayChange}
+            />
             <SelectionButtonComponent
                 label={i18nName}
                 itemId={item.name}
                 hilite={item.trueLabelSelectedCount !== 0}
-                onClick={this.props.onLabelSelectionClick}/>
-            <LabelButtonComponent label={i18nName} name={item.name}
-                                  onClick={this.props.onLabelApply}/>
+                onClick={this.props.onLabelSelectionClick}
+            />
+            <LabelButtonComponent
+                label={i18nName}
+                name={item.name}
+                onClick={this.props.onLabelApply}
+            />
             <div className="sstc-count-container">
                 {trueDisplayedCount}
             </div>
