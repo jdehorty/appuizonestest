@@ -178,8 +178,6 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
             })
         },
         onToggleLabelTableEmphasis() {
-            Presentation.selection.clearSelection("", UiFramework.getIModelConnection()!);
-
             dispatch ({
                 type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis
             })

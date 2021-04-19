@@ -19,6 +19,8 @@ import {
 } from "./ConnectedLabelTableAllComponent";
 import {LabelTableEmphasis} from '../../store/LabelingWorkflowState';
 import SelectionClearButtonComponent from "../SelectionClearButtonComponent";
+import {Presentation} from "@bentley/presentation-frontend";
+import {UiFramework} from "@bentley/ui-framework";
 
 interface OwnProps extends LabelTableComponentProps {
    
@@ -34,6 +36,13 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
             const colorMode = event.target.value as MachineLearningColorMode;
             props.onChangeColorMode(colorMode);
         }
+    }
+
+    const toggleLabelTableEmphasis = (): void => {
+        // Before we dispatch the change of emphasis, clear the currently selected graphics and UI elements.
+        Presentation.selection.clearSelection("", UiFramework.getIModelConnection()!);
+        props.selectedUiItems?.clear();
+        props.onToggleLabelTableEmphasis();
     }
 
     const [labelSectionAttributes, predSectionAttributes] = LabelTableAllComponent.getSectionAttributes(props);
@@ -154,7 +163,7 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                         name={"labelTableEmphasis"}
                         label={IModelApp.i18n.translate("LabelingApp:labelTableHeading.asLabeled")}
                         defaultChecked={props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels}
-                        onClick={props.onToggleLabelTableEmphasis}
+                        onClick={toggleLabelTableEmphasis}
                     />
                 </th>
                 <th className="mltc-prediction-th-v2">
@@ -162,7 +171,7 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                         name={"labelTableEmphasis"}
                         label={IModelApp.i18n.translate("LabelingApp:labelTableHeading.asPredicted")}
                         defaultChecked={props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions}
-                        onClick={props.onToggleLabelTableEmphasis}
+                        onClick={toggleLabelTableEmphasis}
                     />
                 </th>
             </tr>
