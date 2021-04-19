@@ -2,6 +2,7 @@
 @use "LabelingWorkflowStylesV2";
 
 // This is the file that gets compiled to CSS.
+@use "components/DataContainerComponent";
 @use "components/ExpanderComponent";
 @use "components/LabelButtonComponent";
 @use "components/LabelTableBody";

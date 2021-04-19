@@ -249,6 +249,17 @@
   font-size: 9pt;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+.nz-left .sstc-data-table > tbody {
+  overflow-y: auto;
+}
+
+.nz-left .sstc-data-container {
+  overflow-x: auto;
+}
+
 .mltc-name-td-v2 .mltc-expand-button {
   padding: 5px;
   width: 24px;
