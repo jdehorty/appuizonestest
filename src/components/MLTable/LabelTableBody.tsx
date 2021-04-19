@@ -101,12 +101,22 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const itemIsChecked = (item: MLStateTableDataItem): boolean => {
-        const existingItem = props.selectedUiItems.get(item!.name);
-        const itemIsChecked = existingItem != null;
+        let itemIsChecked = false;
+
+        if (props.selectedUiItems.get(item?.name) != null && props.selectedUiItems.size > 0) {
+            itemIsChecked = true
+        }
+
         return (itemIsChecked);
     }
 
-    const jsxForClassNameAndColorSection = (level: number, isExpanded: boolean, item: MLStateTableDataItem, i18nName: string, hasChildren: boolean, labelsAreAllowed: boolean): JSX.Element => {
+    const jsxForClassNameAndColorSection = (level: number,
+                                            isExpanded: boolean,
+                                            item: MLStateTableDataItem,
+                                            i18nName: string,
+                                            hasChildren: boolean,
+                                            labelsAreAllowed: boolean): JSX.Element =>
+    {
 
         const expanderStyle = {
             width: '24px',
@@ -118,7 +128,7 @@ const LabelTableBody: FC<Props> = (props) => {
         const collapsedCaret = "m4.7 0l-1.4 1.4 6.6 6.6-6.6 6.6 1.4 1.4 8-8z";
 
         const selectedItem = props.selectedUiItems.get(item.name);
-        const itemIsSelected = selectedItem != null;
+        const itemIsSelected = selectedItem !== null;
 
         let expanderOrLine = simpleLine;
         if (hasChildren) {
@@ -130,7 +140,7 @@ const LabelTableBody: FC<Props> = (props) => {
         }
 
         return <>
-            <label>
+
 
                 {/*<input*/}
                 {/*    type="checkbox"*/}
@@ -145,7 +155,7 @@ const LabelTableBody: FC<Props> = (props) => {
                     onClick={itemSelectChangeHandler(item!)}
                 />
 
-            </label>
+
             <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
             
             {

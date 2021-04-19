@@ -10,6 +10,8 @@ import {LabelingWorkflowManagerSelectors} from "../../store/LabelingWorkflowSele
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions";
 import {LabelTableAllComponent} from "./LabelTableAllComponent";
 import {RootState} from "../../store/AppState";
+import {Presentation} from "@bentley/presentation-frontend";
+import {UiFramework} from "@bentley/ui-framework";
 
 
 export interface LabelTableStateFromProps {
@@ -175,7 +177,9 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
                 existingLabelItemToReplaceInSelection: oldItem
             })
         },
-        onToggleLabelTableEmphasis() { 
+        onToggleLabelTableEmphasis() {
+            Presentation.selection.clearSelection("", UiFramework.getIModelConnection()!);
+
             dispatch ({
                 type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis
             })
