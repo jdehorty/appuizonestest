@@ -9,8 +9,8 @@
 .mltc-name-th-v2 {
   min-width: 191px;
   max-width: 191px;
-  //border-left: 1px solid grey;
-  //border-right: 1px solid grey;
+  // border-left: 1px solid grey;
+  // border-right: 1px solid grey;
   font-size: vars.$fontScale;
 }
 
@@ -38,6 +38,14 @@
 
 .mltc-name-td-v2 .mltc-level-spacer {
   margin-right: 1.5em; // ensure enough space between radio button and visibility button
+}
+
+.mltc-name-td-v2 .uicore-inputs-radio {
+  padding-left: .45em; // fix alignment of item visibility toggles relative to visibility button in the column header
+}
+
+.mltc-name-td-v2 .core-radio-checkmark {
+  margin-left: .55em; // align radio button with deselection button in column header
 }
 
 .mltc-name-td-v2 .mltc-expand-button

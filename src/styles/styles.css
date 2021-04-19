@@ -382,6 +382,14 @@
   margin-right: 1.5em;
 }
 
+.mltc-name-td-v2 .uicore-inputs-radio {
+  padding-left: 0.45em;
+}
+
+.mltc-name-td-v2 .core-radio-checkmark {
+  margin-left: 0.55em;
+}
+
 .mltc-name-td-v2 .mltc-expand-button {
   color: black;
   background: none;
