@@ -9,12 +9,11 @@ import {MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 interface Props {
     label?: string;
     hilite?: boolean;
-    selectedUiItems?: Map<MachineLearningLabel, MLStateTableDataItem>;
     onClick?(itemId?: string): void;
+    clearSelectionAction(): void;
 }
 
 export const SelectionClearButtonComponent: FC<Props> = (props) => {
-
     const imodelConnection: IModelConnection | undefined = UiFramework.getIModelConnection();
     let title = IModelApp.i18n.translate("LabelingApp:everything");
     let className = "sstc-select-button";
@@ -26,8 +25,7 @@ export const SelectionClearButtonComponent: FC<Props> = (props) => {
             buttonType={ButtonType.Hollow}
             onClick={() => {
                 Presentation.selection.clearSelection("", imodelConnection!);
-                props.selectedUiItems?.clear();
-
+                props.clearSelectionAction();
             }}
         >
             <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[

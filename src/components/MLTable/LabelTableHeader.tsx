@@ -23,7 +23,6 @@ import {Presentation} from "@bentley/presentation-frontend";
 import {UiFramework} from "@bentley/ui-framework";
 
 interface OwnProps extends LabelTableComponentProps {
-   
 }
 
 export type LabelTableHeaderProps = OwnProps & LabelTableStateFromProps;
@@ -41,7 +40,8 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
     const toggleLabelTableEmphasis = (): void => {
         // Before we dispatch the change of emphasis, clear the currently selected graphics and UI elements.
         Presentation.selection.clearSelection("", UiFramework.getIModelConnection()!);
-        props.selectedUiItems?.clear();
+        // props.selectedUiItems?.clear();
+        props.onClearSelection();
         props.onToggleLabelTableEmphasis();
     }
 
@@ -109,7 +109,8 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                 <th className="mltc-name-th-v2">
                       <div className="mltc-name-th-v2-selection-clear">
                           <SelectionClearButtonComponent
-                          selectedUiItems={props.selectedUiItems}
+                            // selectedUiItems={props.selectedUiItems}
+                            clearSelectionAction = {props.onClearSelection}
                           />
                       </div>
   

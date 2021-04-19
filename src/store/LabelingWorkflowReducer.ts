@@ -2,6 +2,8 @@ import { INITIAL_STATE, LabelingWorkflowState, ElementState, ModelState, Categor
 import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./LabelingWorkflowActions";
 import { Id64String } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel } from "../data/LabelTypes";
+import {UiFramework} from "@bentley/ui-framework";
+import {Presentation} from "@bentley/presentation-frontend";
 
 const MAX_UNDO = 10;
 
@@ -460,6 +462,16 @@ export function LabelingWorkflowManagerReducer(
                     labelTableEmphasis: newLableTableState
                     }
             }
+
+        case LabelingWorkflowManagerActionType.ClearSelection:
+        {
+            const clearedItems = new Map(prevState.selectedUiItems);
+            clearedItems?.clear();
+            return {
+                ...prevState,
+                selectedUiItems: clearedItems
+            }
+        }
 
         default:
             return prevState;
