@@ -108,10 +108,16 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
             <tr className="mltc-first-row">
                 <th className="mltc-name-th-v2">
                       <div className="mltc-name-th-v2-selection-clear">
+                          {(props.selectedUiItems.size > 0) &&
+                          
                           <SelectionClearButtonComponent
                             // selectedUiItems={props.selectedUiItems}
                             clearSelectionAction = {props.onClearSelection}
                           />
+                          }
+                          {(props.selectedUiItems.size == 0) &&
+                          <span>&nbsp;</span>
+                          }
                       </div>
   
                     {
