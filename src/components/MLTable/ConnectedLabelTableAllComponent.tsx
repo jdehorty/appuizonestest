@@ -57,14 +57,10 @@ export interface LabelTableDispatchFromProps {
     onFilterEmptyRowsChange(filterEmptyRowsFlag: boolean): void;
 
     onAddSelectedLabelItem(item: MLStateTableDataItem): void;
-
     onRemoveSelectedLabelItem(item: MLStateTableDataItem): void;
-
     onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void;
 
     onToggleLabelTableEmphasis(): void;
-
-    onClearSelection(): void;
 }
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
@@ -97,7 +93,7 @@ export function mapLabelTableStateToProps(rootState: RootState): LabelTableState
     };
 }
 
-export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflowManagerAction>): { onUndo: () => void; onRedo: () => void; onChangeColorMode: (colorMode: MachineLearningColorMode) => void; onReplaceSelectedLabelItem(newItem: MLStateTableDataItem, oldItem: MLStateTableDataItem): void; onLabelExpandStateChange: (newExpanded: boolean, name: MachineLearningLabel) => void; onClearSelection(): void; onRemoveSelectedLabelItem: (item: MLStateTableDataItem) => void; onLabelColorChange: (newColor: ColorDef, name: MachineLearningLabel) => void; onPredictionDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel) => void; onLabelDisplayChange: (newVisible: boolean, newTransparent: boolean, name?: MachineLearningLabel) => void; onSwapTruePredDisplay: () => void; onToggleLabelTableEmphasis(): void; onLabelApply: (name: MachineLearningLabel) => void; onFilterEmptyRowsChange: (filterEmptyRowsFlag: boolean) => void; onAddSelectedLabelItem: (item: MLStateTableDataItem) => void } {
+export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflowManagerAction>): LabelTableDispatchFromProps {
     return ({
         onLabelExpandStateChange: (newExpanded: boolean, name: MachineLearningLabel) => {
             dispatch({
@@ -184,11 +180,6 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
         onToggleLabelTableEmphasis() {
             dispatch ({
                 type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis
-            })
-        },
-        onClearSelection(){
-            dispatch ({
-                type: LabelingWorkflowManagerActionType.ClearSelection
             })
         }
 

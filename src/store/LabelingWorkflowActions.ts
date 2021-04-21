@@ -7,39 +7,39 @@ import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
 /** Reducer action type */
 export enum LabelingWorkflowManagerActionType {
-    AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
+    DataWasInitialized = "LabelingWorkflowManagerActionType.DataWasInitialized",
+    ElementSelectionHasChanged = "LabelingWorkflowManagerActionType.SelectionHasChanged",
+    ElementLabelsWereChanged = "LabelingWorkflowManagerActionType.ElementLabelsWereChanged",
+    ModelVisibilityWasChanged = "LabelingWorkflowManagerActionType.ModelVisibilityWasChanged",
     CategoryVisibilityWasChanged = "LabelingWorkflowManagerActionType.CategoryVisibilityWasChanged",
     ClassVisibilityWasChanged = "LabelingWorkflowManagerActionType.ClassVisibilityWasChanged",
-    ClearSelection = "LabelingWorkflowManagerActionType.ClearSelection",
+    PredLabelVisibilityWasChanged = "LabelingWorkflowManagerActionType.PredictionVisibilityWasChanged",
+    TrueLabelVisibilityWasChanged = "LabelingWorkflowManagerActionType.LabelVisibilityWasChanged",
+    SelectionLabelWasChanged = "LabelingWorkflowManagerActionType.SelectionLabelWasChanged",
+    UndoWasRequested = "LabelingWorkflowManagerActionType.UndoWasRequested",
+    RedoWasRequested = "LabelingWorkflowManagerActionType.RedoWasRequested",
     ColorModeWasChanged = "LabelingWorkflowManagerActionType.ColorModeWasChanged",
     CycleModeActionStarted = "LabelingWorkflowManagerActionType.CycleModeActionStarted",
-    CycleModeIndexWasChanged = "LabelingWorkflowManagerActionType.CycleModeIndexWasChanged",
-    CycleModeWasDisabled = "LabelingWorkflowManagerActionType.CycleModeWasDisabled",
     CycleModeWasEnabled = "LabelingWorkflowManagerActionType.CycleModeWasEnabled",
-    DataWasInitialized = "LabelingWorkflowManagerActionType.DataWasInitialized",
-    ElementLabelsWereChanged = "LabelingWorkflowManagerActionType.ElementLabelsWereChanged",
-    ElementSelectionHasChanged = "LabelingWorkflowManagerActionType.SelectionHasChanged",
-    FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
-    ForceShowAllChanged = "LabelingWorkflowManagerActionType.ForceShowAllChanged",
+    CycleModeWasDisabled = "LabelingWorkflowManagerActionType.CycleModeWasDisabled",
+    CycleModeIndexWasChanged = "LabelingWorkflowManagerActionType.CycleModeIndexWasChanged",
     LabelColorWasChanged = "LabelingWorkflowManagerActionType.LabelColorWasChanged",
     LabelExpandStateWasChanged = "LabelingWorkflowManagerActionType.LabelExpandStateWasChanged",
     LabelsWereSaved = "LabelingWorkflowManagerActionType.LabelsWereSaved",
-    ModelVisibilityWasChanged = "LabelingWorkflowManagerActionType.ModelVisibilityWasChanged",
-    PredLabelVisibilityWasChanged = "LabelingWorkflowManagerActionType.PredictionVisibilityWasChanged",
-    RedoWasRequested = "LabelingWorkflowManagerActionType.RedoWasRequested",
-    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem",
-    ReplaceSelectedLabelItem = "LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem",
-    SelectionLabelWasChanged = "LabelingWorkflowManagerActionType.SelectionLabelWasChanged",
-    ToggleLabelTableEmphasis = "LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis",
-    TrueLabelVisibilityWasChanged = "LabelingWorkflowManagerActionType.LabelVisibilityWasChanged",
-    UndoWasRequested = "LabelingWorkflowManagerActionType.UndoWasRequested",
     VisiblityStatesSwapped = "LabelingWorkflowManagerActionType.VisiblityStatesSwapped",
+    ForceShowAllChanged = "LabelingWorkflowManagerActionType.ForceShowAllChanged",
+    FilterEmptyRowsChanged = "LabelingWorkflowManagerActionType.FilterEmptyRowsChanged",
+    AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
+    ReplaceSelectedLabelItem = "LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem",
+    RemoveSelectedLabelItem = "LabelingWorkflowManagerActionType.RemoveSelectedLabelItem",
+    ToggleLabelTableEmphasis = "LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis"
 }
 
 /** Reducer action */
 export interface LabelingWorkflowManagerAction {
     /** Action type */
     type: LabelingWorkflowManagerActionType;
+
     /** State map for models */
     modelStateMap?: Map<Id64String, ModelState>;
     /** State map for categories */
@@ -53,20 +53,20 @@ export interface LabelingWorkflowManagerAction {
     /** Common state map for labels */
     commonLabelStateMap?: Map<MachineLearningLabel, CommonLabelState>;
 
-    colorMode?: MachineLearningColorMode;
-    cycleList?: Id64Array;
-    displayed?: boolean;
-    elementId?: Id64String;
-    elementSet?: Id64Set;
     elementStateMap?: Map<Id64String, ElementState>;
-    existingLabelItemToReplaceInSelection?: MLStateTableDataItem;
-    filterEmptyRows?: boolean;
-    initialFrustums?: Map<ScreenViewport, Frustum>;
+    elementSet?: Id64Set;
     label?: MachineLearningLabel;
-    labelItemToSelectOrUnselect?: MLStateTableDataItem;
+    elementId?: Id64String;
+    displayed?: boolean;
+    transparent?: boolean;
+    colorMode?: MachineLearningColorMode;
+    newIndex?: number;
+    cycleList?: Id64Array;
+    initialFrustums?: Map<ScreenViewport, Frustum>;
     newColor?: ColorDef;
     newExpanded?: boolean;
     newForceShowAll?: boolean;
-    newIndex?: number;
-    transparent?: boolean;
+    filterEmptyRows?: boolean;
+    labelItemToSelectOrUnselect?: MLStateTableDataItem;
+    existingLabelItemToReplaceInSelection?: MLStateTableDataItem;
 }
