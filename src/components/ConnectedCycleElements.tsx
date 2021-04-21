@@ -32,7 +32,7 @@ const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
     };
 };
 
-export function mapStateToPropsForPopout(rootState: RootState): CycleElementComponentProps {
+export const mapStateToPropsForPopout = (rootState: RootState): CycleElementComponentProps => {
     const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
     if (!state) {
         throw new Error();
@@ -41,7 +41,7 @@ export function mapStateToPropsForPopout(rootState: RootState): CycleElementComp
     let stateProps3 = mapStateToProps(rootState);
     stateProps3["isPoppedOut"] = true;
     return stateProps3;
-}
+};
 
 /**
  * Connected CycleElementComponent component that allows to cycle through a set of elements

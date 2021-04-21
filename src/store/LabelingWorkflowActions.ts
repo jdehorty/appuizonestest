@@ -3,7 +3,7 @@ import { Id64String, Id64Set, Id64Array } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 import { Frustum, ColorDef } from "@bentley/imodeljs-common";
-import {MLStateTableDataItem} from "./LabelingWorkflowTypes";
+import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
 /** Reducer action type */
 export enum LabelingWorkflowManagerActionType {

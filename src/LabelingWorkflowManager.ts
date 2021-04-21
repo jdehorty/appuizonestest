@@ -1,17 +1,35 @@
 import {Id64Arg, Id64String} from "@bentley/bentleyjs-core";
-import { ColorDef, Frustum } from "@bentley/imodeljs-common";
-import { IModelApp, IModelConnection, MarginPercent, ScreenViewport, SpatialModelState, ViewChangeOptions, ZoomToOptions } from "@bentley/imodeljs-frontend";
-import { I18N } from "@bentley/imodeljs-i18n";
-import { KeySet } from "@bentley/presentation-common";
-import { ISelectionProvider, Presentation, SelectionChangeEventArgs } from "@bentley/presentation-frontend";
-import { Store } from "redux";
-import { MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface } from "./data/LabelTypes";
-import { getWithDefault } from "./utils/MapWithDefault";
-import { keySetToId64Set } from "./utils/SelectionUtils";
-import { LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType } from "./store/LabelingWorkflowActions";
-import { LabelingWorflowOverrideElements } from "./LabelingWorkflowOverrideElements";
-import { LabelingWorkflowManagerSelectors } from "./store/LabelingWorkflowSelectors";
-import { ECClassState, ElementState, LabelingWorkflowState, ModelState, CategoryState, PredLabelState, TrueLabelState, CommonLabelState } from "./store/LabelingWorkflowState";
+import {ColorDef, Frustum} from "@bentley/imodeljs-common";
+import {
+    IModelApp,
+    IModelConnection,
+    MarginPercent,
+    ScreenViewport,
+    SpatialModelState,
+    ViewChangeOptions,
+    ZoomToOptions
+} from "@bentley/imodeljs-frontend";
+import {I18N} from "@bentley/imodeljs-i18n";
+import {KeySet} from "@bentley/presentation-common";
+import {ISelectionProvider, Presentation, SelectionChangeEventArgs} from "@bentley/presentation-frontend";
+import {Store} from "redux";
+import {MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface} from "./data/LabelTypes";
+import {getWithDefault} from "./utils/MapWithDefault";
+import {keySetToId64Set} from "./utils/SelectionUtils";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./store/LabelingWorkflowActions";
+import {LabelingWorflowOverrideElements} from "./LabelingWorkflowOverrideElements";
+import {LabelingWorkflowManagerSelectors} from "./store/LabelingWorkflowSelectors";
+import {
+    CategoryState,
+    CommonLabelState,
+    ECClassState,
+    ElementState,
+    LabelingWorkflowState,
+    ModelState,
+    PredLabelState,
+    TrueLabelState
+} from "./store/LabelingWorkflowState";
+import {mockGetModelPredictions, mockGetUserLabels} from "./utils/mockUtils";
 
 
 const ZOOM_OPTIONS: ViewChangeOptions & ZoomToOptions = {
@@ -32,10 +50,14 @@ export class LabelingWorkflowManager {
     public static stateKey: string;
 
     /** Store accessor */
-    private static get store() { return this._store; }
+    private static get store() {
+        return this._store;
+    }
 
     /** State accessor */
-    private static get state(): LabelingWorkflowState { return this.store.getState()[this.stateKey]; }
+    private static get state(): LabelingWorkflowState {
+        return this.store.getState()[this.stateKey];
+    }
 
     /**
      * Initialization function, to be called during app startup.
@@ -241,10 +263,14 @@ export class LabelingWorkflowManager {
         elementStateMap: Map<Id64String, ElementState>
     ): Promise<void> {
 
-        const idArray = Array.from(elementStateMap.keys());
+        const idArray = Array.from(elementStateMap.keys()); // mock this?
         const labelDefs = await labelInterface.getLabelDefinitions();
-        const userLabelMap = await labelInterface.getUserLabels(idArray);
-        const modelPredictionMap = await labelInterface.getModelPredictions(idArray);
+
+        const userLabelMap = await labelInterface.getUserLabels(idArray); // mock this
+        // const userLabelMap = await mockGetUserLabels(); // mocked
+
+        const modelPredictionMap = await labelInterface.getModelPredictions(idArray); // mock this
+        // const modelPredictionMap2 = await mockGetModelPredictions(); // mocked
 
         for (const [elementId, elementState] of elementStateMap) {
             elementState.trueLabel = getWithDefault(userLabelMap, elementId, labelDefs.unlabeledValue);
@@ -512,8 +538,8 @@ export class LabelingWorkflowManager {
         });
     }
 
-      /** Set Force Show all */
-      public static setFilterEmptyRows = (filterEmptyRowsFlags?: boolean): void => {
+    /** Set Force Show all */
+    public static setFilterEmptyRows = (filterEmptyRowsFlags?: boolean): void => {
         LabelingWorkflowManager.store.dispatch<LabelingWorkflowManagerAction>({
             type: LabelingWorkflowManagerActionType.FilterEmptyRowsChanged,
             filterEmptyRows: filterEmptyRowsFlags,
