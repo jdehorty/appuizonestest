@@ -4,12 +4,17 @@
 *--------------------------------------------------------------------------------------------*/
 
 import {Id64String} from "@bentley/bentleyjs-core";
-import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle} from "@bentley/ui-core";
+import {IModelApp, IModelConnection} from "@bentley/imodeljs-frontend";
+import {Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle, Textarea} from "@bentley/ui-core";
 import * as React from "react";
 import {MatchingOperator, MatchingRuleType, SelectionExtenderConfig} from "../store/SelectionExtenderTypes";
 import {NumberInputComponent} from "./NumberInputComponent";
 import "../styles/components/_SelectionExtenderComponent.scss";
+import {TextareaEditor} from "@bentley/ui-components";
+import {UiFramework} from "@bentley/ui-framework";
+import {SelectionExtender} from "../SelectionExtender";
+import {SelectionExtenderAction, SelectionExtenderActionType} from "../store/SelectionExtenderActions";
+import {Primitives} from "@bentley/ui-abstract";
 
 export type SelectionExtenderComponentProps = {
     singleId?: Id64String;
@@ -142,13 +147,26 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
         <>
             {props.isSearching && "Searching..."}
             {props.foundCount !== undefined && !props.isSearching && `Found ${props.foundCount} elements`}
-            <LabeledInput readOnly label="Select Elements Similar to Id:"
-                          value={props.singleId !== undefined ? props.singleId : ""}/>
+
+            <LabeledInput
+                readOnly label="Select Elements Similar to Id:"
+                value={props.singleId !== undefined ? props.singleId : ""}
+            />
+
             <div>
-                <Button buttonType={ButtonType.Primary} onClick={props.onExtendClicked}>Extend
-                    Selection</Button>
-                <Button buttonType={ButtonType.Blue} onClick={props.onResetClicked}>Reset</Button>
+                <Button
+                    buttonType={ButtonType.Primary}
+                    onClick={props.onExtendClicked}>
+                    Extend Selection
+                </Button>
+
+                <Button
+                    buttonType={ButtonType.Blue}
+                    onClick={props.onResetClicked}>
+                    Reset
+                </Button>
             </div>
+
             {props.config !== undefined && <div className="scroll-thing">
                 <LabeledToggle
                     isOn={props.config.enableAuxData}
@@ -193,11 +211,34 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
                     value={props.config.rule.operator}
                     onChange={handleOperatorChange}
                 />
+
+                <Textarea
+                    onKeyDown={async (event: React.KeyboardEvent<HTMLElement>) => {
+
+                        const addElementsToSelection = async (imodel: IModelConnection, elementIds: string) => {
+                            const elementsAsList = elementIds.split(",")
+                            const className = elementsAsList[0].replace('.', ':');
+                            await SelectionExtender.manualSelection(className, elementsAsList.slice(1))
+                        };
+
+                        const onInputEntered = async (event: React.KeyboardEvent<HTMLElement>) => {
+                            const value = (event.target as any).value.trim();
+                            const imodel = UiFramework.getIModelConnection()!;
+                            await addElementsToSelection(imodel, value);
+                        };
+
+                        if (event.key.toLowerCase() === "enter") {
+                            await onInputEntered(event);
+                        }
+
+                    }}
+                />
+
             </div>}
 
             {props.config === undefined && "Loading..."}
         </>
     )
-}
+};
 
 export default SelectionExtenderComponent;

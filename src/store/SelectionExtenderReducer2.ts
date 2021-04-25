@@ -4,7 +4,7 @@ import { SelectionExtenderAction, SelectionExtenderActionType } from "./Selectio
 import { SelectionExtenderConfig } from "./SelectionExtenderTypes";
 
 
-export function SelectionExtenderReducer(prevState: SelectionExtenderState = INITIAL_STATE, action: SelectionExtenderAction): SelectionExtenderState {
+export const SelectionExtenderReducer = (prevState: SelectionExtenderState = INITIAL_STATE, action: SelectionExtenderAction): SelectionExtenderState => {
     switch (action.type) {
         case SelectionExtenderActionType.SINGLE_KEY_HAS_CHANGED:
             return {
@@ -36,4 +36,4 @@ export function SelectionExtenderReducer(prevState: SelectionExtenderState = INI
         default:
             return prevState;
     }
-}
+};

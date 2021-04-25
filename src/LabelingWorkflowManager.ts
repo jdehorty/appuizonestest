@@ -29,7 +29,6 @@ import {
     PredLabelState,
     TrueLabelState
 } from "./store/LabelingWorkflowState";
-import {mockGetModelPredictions, mockGetUserLabels} from "./utils/mockUtils";
 
 const ZOOM_OPTIONS: ViewChangeOptions & ZoomToOptions = {
     animateFrustumChange: true,
@@ -262,16 +261,12 @@ export class LabelingWorkflowManager {
         elementStateMap: Map<Id64String, ElementState>
     ): Promise<void> {
 
-        const idArray = Array.from(elementStateMap.keys()); // mock this?
+        const idArray = Array.from(elementStateMap.keys());
         const labelDefs = await labelInterface.getLabelDefinitions();
 
+        const userLabelMap = await labelInterface.getUserLabels(idArray);
 
-
-        const userLabelMap = await labelInterface.getUserLabels(idArray); // mock this
-        // const userLabelMap = await mockGetUserLabels(); // mocked
-
-        const modelPredictionMap = await labelInterface.getModelPredictions(idArray); // mock this
-        // const modelPredictionMap2 = await mockGetModelPredictions(); // mocked
+        const modelPredictionMap = await labelInterface.getModelPredictions(idArray);
 
         for (const [elementId, elementState] of elementStateMap) {
             elementState.trueLabel = getWithDefault(userLabelMap, elementId, labelDefs.unlabeledValue);

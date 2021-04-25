@@ -14,4 +14,5 @@ export enum SelectionExtenderActionType {
     CONFIG_WAS_CHANGED = "SelectionExtender.configWasChanged",
     SEARCH_HAS_STARTED = "SelectionExtender.searchHasStarted",
     ELEMENTS_WERE_FOUND = "SelectionExtender.elementsWereFound",
+
 }

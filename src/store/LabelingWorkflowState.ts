@@ -4,7 +4,7 @@ import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
 import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
-interface BaseGroupState {
+export interface BaseGroupState {
     displayLabel?: string;
     displayI18nKey?: string;
     isDisplayed: boolean;
