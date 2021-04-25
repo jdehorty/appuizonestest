@@ -10,7 +10,7 @@ export enum LabelingWorkflowManagerActionType {
     AddSelectedLabelItem = "LabelingWorkflowManagerActionType.AddSelectedLabelItem",
     CategoryVisibilityWasChanged = "LabelingWorkflowManagerActionType.CategoryVisibilityWasChanged",
     ClassVisibilityWasChanged = "LabelingWorkflowManagerActionType.ClassVisibilityWasChanged",
-    ClearSelection = "LabelingWorkflowManagerActionType.ClearSelection",
+    ClearSelectedUiItems = "LabelingWorkflowManagerActionType.ClearSelectedUiItems",
     ColorModeWasChanged = "LabelingWorkflowManagerActionType.ColorModeWasChanged",
     CycleModeActionStarted = "LabelingWorkflowManagerActionType.CycleModeActionStarted",
     CycleModeIndexWasChanged = "LabelingWorkflowManagerActionType.CycleModeIndexWasChanged",

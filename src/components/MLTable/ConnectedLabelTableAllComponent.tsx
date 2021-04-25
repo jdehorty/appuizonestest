@@ -14,7 +14,7 @@ import * as actions from "./LabelTableAllComponentActions"
 import {
     AddSelectedLabelItem,
     ChangeColorMode,
-    ClearSelect,
+    ClearSelectedUiItems,
     FilterEmptyRowsChange,
     LabelApply,
     LabelColorChange,
@@ -158,7 +158,7 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
             dispatch (ToggleLabelTableEmphasis())
         },
         onClearSelection(){
-            dispatch (ClearSelect())
+            dispatch (ClearSelectedUiItems())
         }
 
         // Trigger Redux action to "Add new item".

@@ -2,7 +2,7 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import { createStore, combineReducers, Store } from "redux";
+import { createStore, combineReducers, Store, compose } from "redux";
 import { FrameworkState, FrameworkReducer } from "@bentley/ui-framework";
 // import { SelectionExtenderState, SelectionExtenderReducer } from "../SelectionExtender";
 import { LabelingWorkflowManagerReducer } from "./LabelingWorkflowReducer";
@@ -38,8 +38,17 @@ export class AppState {
             labelingWorkflowManagerState: LabelingWorkflowManagerReducer,
         } as any);
 
+        // import { createStore, compose } from 'redux';
+        //
+        // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+        //
+        // const store = createStore(
+        //     counterReducer,
+        //     composeEnhancers()
+        // );
+
         // TODO: Remove this before we push to PROD.
-        let enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 })
+        let enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__();
 
         // create the Redux Store.
         this._store = createStore(this._rootReducer, enhancer);
@@ -49,5 +58,7 @@ export class AppState {
     public get store(): Store<RootState> {
         return this._store;
     }
+
+
 
 }

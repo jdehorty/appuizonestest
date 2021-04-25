@@ -76,6 +76,6 @@ export const ToggleLabelTableEmphasis = () => ({
     type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis
 });
 
-export const ClearSelect = () => ({
-    type: LabelingWorkflowManagerActionType.ClearSelection
+export const ClearSelectedUiItems = () => ({
+    type: LabelingWorkflowManagerActionType.ClearSelectedUiItems
 });

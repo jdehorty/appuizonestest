@@ -458,7 +458,7 @@ export const LabelingWorkflowManagerReducer = (
             }
         }
 
-        case LabelingWorkflowManagerActionType.ClearSelection: {
+        case LabelingWorkflowManagerActionType.ClearSelectedUiItems: {
             const clearedItems = new Map(prevState.selectedUiItems);
             clearedItems?.clear();
             return {

@@ -160,11 +160,11 @@ describe('LabelTableAllComponent Actions', () => {
         expect(actions.ToggleLabelTableEmphasis()).toEqual(expectedAction);
     });
 
-    test('ClearSelect', () => {
+    test('ClearSelectedUiItems', () => {
         const expectedAction = {
-            type: LabelingWorkflowManagerActionType.ClearSelection
+            type: LabelingWorkflowManagerActionType.ClearSelectedUiItems
         }
-        expect(actions.ClearSelect()).toEqual(expectedAction);
+        expect(actions.ClearSelectedUiItems()).toEqual(expectedAction);
     });
 
 })
