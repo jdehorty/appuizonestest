@@ -7,31 +7,75 @@ import {
     LabelingWorkflowManagerAction,
     LabelingWorkflowManagerActionType
 } from "../../store/LabelingWorkflowActionsTypes";
-import {
-    BaseGroupState,
-    CommonLabelState,
-    ECClassState,
-    ElementState,
-    INITIAL_STATE,
-    LabelTableEmphasis,
-    PredLabelState,
-    TrueLabelState
-} from "../../store/LabelingWorkflowState";
+import {INITIAL_STATE} from "../../store/LabelingWorkflowState";
 
 describe('LabelTableAllComponent Reducers', () => {
-    it('should return the initial state', () => {
+
+    it('should return initial state', () => {
         expect(reducer(undefined, <LabelingWorkflowManagerAction>{})).toEqual(INITIAL_STATE)
-    })
+    });
 
     test('DataWasInitialized', () => {
         expect(reducer(INITIAL_STATE, <LabelingWorkflowManagerAction>{
             type: LabelingWorkflowManagerActionType.DataWasInitialized,
+            ready: false
         }))
             .toEqual({
                 ...INITIAL_STATE,
                 ready: true
             })
     });
+
+    test('LabelsWereSaved', () => {
+        expect(reducer(INITIAL_STATE, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.LabelsWereSaved,
+        }))
+            .toEqual({
+                ...INITIAL_STATE,
+                elementStateMapIsDirty: false
+            })
+    });
+
+    // test('AddSelectedLabelItem', () => {
+    //     const item = {
+    //         name: 'MachineLearning:label.beam',
+    //         color: 4210752,
+    //         isSelected: true,
+    //         hasData: true,
+    //         trueLabelIsDisplayed: true,
+    //         trueLabelIsTransparent: true,
+    //         trueLabelTotalCount: 0,
+    //         trueLabelVisibleCount: 0,
+    //         trueLabelSelectedCount: 0,
+    //         predLabelIsDisplayed: true,
+    //         predLabelIsTransparent: false,
+    //         predLabelTotalCount: 52,
+    //         predLabelVisibleCount: 52,
+    //         predLabelSelectedCount: 0,
+    //     }
+    //
+    //     expect(reducer(INITIAL_STATE, <LabelingWorkflowManagerAction>{
+    //         type: LabelingWorkflowManagerActionType.AddSelectedLabelItem,
+    //         name: item
+    //     }))
+    //         .toEqual({
+    //             ...INITIAL_STATE,
+    //             name: 'MachineLearning:label.beam',
+    //             color: 4210752,
+    //             isSelected: true,
+    //             hasData: true,
+    //             trueLabelIsDisplayed: true,
+    //             trueLabelIsTransparent: true,
+    //             trueLabelTotalCount: 0,
+    //             trueLabelVisibleCount: 0,
+    //             trueLabelSelectedCount: 0,
+    //             predLabelIsDisplayed: true,
+    //             predLabelIsTransparent: false,
+    //             predLabelTotalCount: 52,
+    //             predLabelVisibleCount: 52,
+    //             predLabelSelectedCount: 0,
+    //         })
+    // });
 
 })
 
