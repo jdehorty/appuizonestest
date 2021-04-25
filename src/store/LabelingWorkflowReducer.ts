@@ -10,7 +10,7 @@ import {
     PredLabelState,
     TrueLabelState
 } from "./LabelingWorkflowState";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./LabelingWorkflowActions";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./LabelingWorkflowActionsTypes";
 import {Id64String} from "@bentley/bentleyjs-core";
 import {MachineLearningLabel} from "../data/LabelTypes";
 

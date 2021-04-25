@@ -1,5 +1,5 @@
-import * as actions from "../../store/LabelingWorkflowActions"
-import {LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActions"
+import * as actions from "../../store/LabelingWorkflowActionsTypes"
+import {LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActionsTypes"
 
 import {LabelingWorkflowManagerReducer} from "../../store/LabelingWorkflowReducer";
 
@@ -34,7 +34,9 @@ describe('ClearSelection', () => {
             selectedUiItems: {},
             labelTableEmphasis: 0
         }
-        expect(LabelingWorkflowManagerReducer(undefined, {type: LabelingWorkflowManagerActionType.ClearSelection})).toMatchObject(labelingWorkflowManagerState)
+
+        const resultingStateFromClearSelection = LabelingWorkflowManagerReducer(undefined, {type: LabelingWorkflowManagerActionType.ClearSelection});
+        expect(resultingStateFromClearSelection).toMatchObject(labelingWorkflowManagerState);
     })
 })
 

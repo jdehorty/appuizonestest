@@ -53,6 +53,7 @@
     "jsdom": "^16.5.0",
     "node-sass": "^4.14.1",
     "oidc-client": "^1.11.3",
+    "parse-json-object-as-map": "^1.2.0",
     "react": "^16.13.1",
     "react-bootstrap-table-next": "^4.0.3",
     "react-dom": "^16.13.1",

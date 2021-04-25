@@ -57,6 +57,7 @@ specifiers:
   jsdom: ^16.5.0
   node-sass: ^4.14.1
   oidc-client: ^1.11.3
+  parse-json-object-as-map: ^1.2.0
   react: ^16.13.1
   react-bootstrap-table-next: ^4.0.3
   react-dom: ^16.13.1
@@ -122,6 +123,7 @@ dependencies:
   jsdom: 16.5.0
   node-sass: 4.14.1
   oidc-client: 1.11.5
+  parse-json-object-as-map: 1.2.0
   react: 16.14.0
   react-bootstrap-table-next: 4.0.3_react-dom@16.14.0+react@16.14.0
   react-dom: 16.14.0_react@16.14.0
@@ -11001,6 +11003,11 @@ packages:
       evp_bytestokey: 1.0.3
       pbkdf2: 3.1.1
       safe-buffer: 5.2.1
+    dev: false
+
+  /parse-json-object-as-map/1.2.0:
+    resolution: {integrity: sha512-4evH1ABzrFcelSVk8YEtd8TWkRB44eeQNcn5blhH/AdkQkyfs024xGt3eDbW/Ej8cc79Wi3uW/GgeKQA+//d5A==}
+    engines: {node: '>=6.5.0'}
     dev: false
 
   /parse-json/2.2.0:

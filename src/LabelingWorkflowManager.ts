@@ -16,7 +16,7 @@ import {Store} from "redux";
 import {MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface} from "./data/LabelTypes";
 import {getWithDefault} from "./utils/MapWithDefault";
 import {keySetToId64Set} from "./utils/SelectionUtils";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./store/LabelingWorkflowActions";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./store/LabelingWorkflowActionsTypes";
 import {LabelingWorflowOverrideElements} from "./LabelingWorkflowOverrideElements";
 import {LabelingWorkflowManagerSelectors} from "./store/LabelingWorkflowSelectors";
 import {
@@ -30,7 +30,6 @@ import {
     TrueLabelState
 } from "./store/LabelingWorkflowState";
 import {mockGetModelPredictions, mockGetUserLabels} from "./utils/mockUtils";
-
 
 const ZOOM_OPTIONS: ViewChangeOptions & ZoomToOptions = {
     animateFrustumChange: true,
@@ -266,6 +265,8 @@ export class LabelingWorkflowManager {
         const idArray = Array.from(elementStateMap.keys()); // mock this?
         const labelDefs = await labelInterface.getLabelDefinitions();
 
+
+
         const userLabelMap = await labelInterface.getUserLabels(idArray); // mock this
         // const userLabelMap = await mockGetUserLabels(); // mocked
 
@@ -323,6 +324,7 @@ export class LabelingWorkflowManager {
 
         this.store.subscribe(this.handleStateChange.bind(this));
 
+        // signal that data was initialized from the Labels and Predictions
         this.store.dispatch<LabelingWorkflowManagerAction>({
             type: LabelingWorkflowManagerActionType.DataWasInitialized,
             elementStateMap: elementStateMap,

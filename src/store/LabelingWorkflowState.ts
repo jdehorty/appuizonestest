@@ -117,7 +117,6 @@ export interface LabelingWorkflowState {
 /** Initial state for the reducer */
 export const INITIAL_STATE: LabelingWorkflowState = {
     ready: false,
-
     modelStateMap: new Map<Id64String, BaseGroupState>(),
     categoryStateMap: new Map<Id64String, BaseGroupState>(),
     classStateMap: new Map<Id64String, ECClassState>(),

@@ -8,7 +8,7 @@ import {MLStateTableComponent} from "./MLStateTable";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
 import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../store/LabelingWorkflowActions";
+import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../store/LabelingWorkflowActionsTypes";
 import {RootState} from "../store/AppState";
 
 interface StateFromProps3 {
