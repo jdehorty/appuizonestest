@@ -1,4 +1,8 @@
 
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 export class MapWithDefault<KeyT, ValueT> extends Map<KeyT, ValueT> {
     get(key: KeyT): ValueT {
         if (!this.has(key))

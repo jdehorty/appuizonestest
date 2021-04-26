@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import * as actions from "../../components/MLTable/LabelTableAllComponentActions"
 import {ColorDef} from "@bentley/imodeljs-common";
 import {LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActionsTypes"

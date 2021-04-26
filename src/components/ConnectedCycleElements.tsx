@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {connect} from "react-redux";
 import {LabelingWorkflowManager} from "../LabelingWorkflowManager";
 import {CycleElementComponent, CycleElementComponentProps} from "./CycleElements";

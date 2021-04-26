@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import { Id64String } from "@bentley/bentleyjs-core";
 import { MachineLearningLabel } from "../data/LabelTypes";
 import { ColorDef } from "@bentley/imodeljs-common";

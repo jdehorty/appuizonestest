@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {copyStyles, greeting} from "../../utils/CopyStyles";
 import {JSDOM} from "jsdom";
 

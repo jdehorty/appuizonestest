@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {DisposeFunc, Id64Set, Id64String} from "@bentley/bentleyjs-core";
 import {LowAndHighXYZ} from "@bentley/geometry-core";
 import {IModelConnection} from "@bentley/imodeljs-frontend";

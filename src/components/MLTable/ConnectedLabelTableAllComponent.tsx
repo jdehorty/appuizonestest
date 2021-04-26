@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
 import {Id64Set, Id64String} from "@bentley/bentleyjs-core";

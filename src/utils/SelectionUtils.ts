@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {IModelConnection, Viewport} from "@bentley/imodeljs-frontend";
 import {InstanceKey, KeySet} from "@bentley/presentation-common";
 import {Id64Set, Id64String} from "@bentley/bentleyjs-core";

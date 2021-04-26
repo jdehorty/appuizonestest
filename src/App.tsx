@@ -1,3 +1,9 @@
+/*
+ *
+ *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ *
+ */
+
 import "./styles/_App.scss";
 
 import {Viewer} from "@bentley/itwin-viewer-react";

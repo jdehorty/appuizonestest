@@ -1,3 +1,9 @@
+/*
+ *
+ *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ *
+ */
+
 import {BlockText, Button, ButtonType} from "@bentley/ui-core";
 import React from "react";
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActionsTypes";
 import {MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
 import {ColorDef} from "@bentley/imodeljs-common";

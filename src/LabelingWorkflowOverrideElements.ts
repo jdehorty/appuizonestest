@@ -1,3 +1,9 @@
+/*
+ *
+ *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ *
+ */
+
 import { Id64String } from "@bentley/bentleyjs-core";
 import { RgbColor } from "@bentley/imodeljs-common";
 import { FeatureOverrideProvider, FeatureSymbology, Viewport } from "@bentley/imodeljs-frontend";

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
@@ -140,7 +144,6 @@ const LabelTableBody: FC<Props> = (props) => {
         }
 
         return <>
-
 
                 {/*<input*/}
                 {/*    type="checkbox"*/}

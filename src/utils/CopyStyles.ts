@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 /**
  * Copies the source CSS into the destination
  * @param targetDoc - target document

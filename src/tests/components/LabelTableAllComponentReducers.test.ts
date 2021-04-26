@@ -1,13 +1,14 @@
 /*
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-
 import {LabelingWorkflowManagerReducer as reducer} from "../../store/LabelingWorkflowReducer";
 import {
     LabelingWorkflowManagerAction,
     LabelingWorkflowManagerActionType
 } from "../../store/LabelingWorkflowActionsTypes";
 import {INITIAL_STATE} from "../../store/LabelingWorkflowState";
+import {ColorDef} from "@bentley/imodeljs-common";
+import {MachineLearningColorMode} from "../../data/LabelTypes";
 
 describe('LabelTableAllComponent Reducers', () => {
 
@@ -29,25 +30,25 @@ describe('LabelTableAllComponent Reducers', () => {
     });
 
     test('LabelsWereSaved', () => {
-        const prevState = {
+        const before = {
             ...stateAfterDataWasInitialized,
-            elementStateMapIsDirtytruefalse: true
+            elementStateMapIsDirty: true
         }
-        const newState = {
+        const after = {
             ...stateAfterDataWasInitialized,
-            elementStateMapIsDirtytruefalse: false
+            elementStateMapIsDirty: false
         }
 
-        expect(reducer(prevState, <LabelingWorkflowManagerAction>{
+        expect(reducer(before, <LabelingWorkflowManagerAction>{
             type: LabelingWorkflowManagerActionType.LabelsWereSaved,
         }))
-            .toEqual(newState)
+            .toEqual(after)
     });
 
     test('AddSelectedLabelItem', () => {
-        const item = {
+        const inputItem = {
             name: 'MachineLearning:label.beam',
-            color: 4210752,
+            color: ColorDef.blue,
             isSelected: true,
             hasData: true,
             trueLabelIsDisplayed: true,
@@ -59,69 +60,118 @@ describe('LabelTableAllComponent Reducers', () => {
             predLabelIsTransparent: false,
             predLabelTotalCount: 52,
             predLabelVisibleCount: 52,
-            predLabelSelectedCount: 0,
-        }
+            predLabelSelectedCount: 0
+        };
 
-        // expect(reducer(stateAfterDataWasInitialized, <LabelingWorkflowManagerAction>{
-        //     type: LabelingWorkflowManagerActionType.AddSelectedLabelItem,
-        //     labelItemToSelectOrUnselect: item
-        // }))
-        //     .toEqual({
-        //         ...INITIAL_STATE,
-        //         name: 'MachineLearning:label.beam',
-        //         color: 4210752,
-        //         isSelected: true,
-        //         hasData: true,
-        //         trueLabelIsDisplayed: true,
-        //         trueLabelIsTransparent: true,
-        //         trueLabelTotalCount: 0,
-        //         trueLabelVisibleCount: 0,
-        //         trueLabelSelectedCount: 0,
-        //         predLabelIsDisplayed: true,
-        //         predLabelIsTransparent: false,
-        //         predLabelTotalCount: 52,
-        //         predLabelVisibleCount: 52,
-        //         predLabelSelectedCount: 0,
-        //     })
+        const receivedMap =
+            reducer(stateAfterDataWasInitialized, <LabelingWorkflowManagerAction>{
+                type: LabelingWorkflowManagerActionType.AddSelectedLabelItem,
+                labelItemToSelectOrUnselect: inputItem
+            });
+
+        // stringify the selectedUiItems Map in the received object for comparison with its expected value
+        const receivedJson = JSON.stringify([...receivedMap.selectedUiItems]);
+        const expectedJson = JSON.stringify([[
+            "MachineLearning:label.beam",
+            {
+                "name": "MachineLearning:label.beam",
+                "color": ColorDef.blue,
+                "isSelected": true,
+                "hasData": true,
+                "trueLabelIsDisplayed": true,
+                "trueLabelIsTransparent": true,
+                "trueLabelTotalCount": 0,
+                "trueLabelVisibleCount": 0,
+                "trueLabelSelectedCount": 0,
+                "predLabelIsDisplayed": true,
+                "predLabelIsTransparent": false,
+                "predLabelTotalCount": 52,
+                "predLabelVisibleCount": 52,
+                "predLabelSelectedCount": 0
+            }]]
+        );
+        expect(receivedJson).toEqual(expectedJson)
     });
 
-})
+    test('ColorModeWasChanged: LabelColors', () => {
+        const before = {
+            ...stateAfterDataWasInitialized,
+            colorMode: MachineLearningColorMode.Native
+        }
+        const after = {
+            ...stateAfterDataWasInitialized,
+            colorMode: MachineLearningColorMode.LabelColors
+        }
 
+        expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ColorModeWasChanged,
+            colorMode: MachineLearningColorMode.LabelColors,
+        }))
+            .toEqual(after)
+    });
 
-// format
-// it('should handle ADD_TODO', () => {
-//     expect(
-//         reducer([], {
-//             type: types.ADD_TODO,
-//             text: 'Run the tests'
-//         })
-//     ).toEqual([
-//         {
-//             text: 'Run the tests',
-//             completed: false,
-//             id: 0
-//         }
-//     ])
+    test('ColorModeWasChanged: PredictionColors', () => {
+        const before = {
+            ...stateAfterDataWasInitialized,
+            colorMode: MachineLearningColorMode.Native
+        }
+        const after = {
+            ...stateAfterDataWasInitialized,
+            colorMode: MachineLearningColorMode.PredictionColors
+        }
 
-// let state = {
-//     categoryStateMap: new Map<Id64String, BaseGroupState>(),
-//     classStateMap: new Map<Id64String, ECClassState>(),
-//     colorMode: MachineLearningColorMode.Native,
-//     commonLabelStateMap: new Map<MachineLearningLabel, CommonLabelState>(),
-//     cycleModeState: {
-//         working: false,
-//         enabled: false
-//     },
-//     elementStateMapHistory: [new Map<Id64String, ElementState>()],
-//     elementStateMapIndex: 0,
-//     elementStateMapIsDirty: false,
-//     filterEmptyRows: false,
-//     forceShowAll: false,
-//     labelTableEmphasis: LabelTableEmphasis.ActOnLabels,
-//     modelStateMap: new Map<Id64String, BaseGroupState>(),
-//     predLabelStateMap: new Map<MachineLearningLabel, PredLabelState>(),
-//     ready: true,
-//     selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>(),
-//     selectionSet: new Set<Id64String>(),
-//     trueLabelStateMap: new Map<MachineLearningLabel, TrueLabelState>(),
-// }
+        expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ColorModeWasChanged,
+            colorMode: MachineLearningColorMode.PredictionColors,
+        }))
+            .toEqual(after)
+    });
+
+    // test('ReplaceSelectedLabelItem', () => {
+    //     const inputItem = {
+    //         name: "MachineLearning:label.column",
+    //         color: ColorDef.blue,
+    //         isSelected: true,
+    //         hasData: true,
+    //         trueLabelIsDisplayed: true,
+    //         trueLabelIsTransparent: false,
+    //         trueLabelTotalCount: 18,
+    //         trueLabelVisibleCount: 18,
+    //         trueLabelSelectedCount: 0,
+    //         predLabelIsDisplayed: true,
+    //         predLabelIsTransparent: false,
+    //         predLabelTotalCount: 21,
+    //         predLabelVisibleCount: 21,
+    //         predLabelSelectedCount: 3
+    //     }
+    //     const receivedMap =
+    //         reducer(stateAfterDataWasInitialized, <LabelingWorkflowManagerAction>{
+    //             type: LabelingWorkflowManagerActionType.ReplaceSelectedLabelItem,
+    //             labelItemToSelectOrUnselect: inputItem
+    //         });
+    //
+    //     // stringify the selectedUiItems Map in the received object for comparison with its expected value
+    //     const receivedJson = JSON.stringify([...receivedMap.selectedUiItems]);
+    //     const expectedJson = JSON.stringify([[
+    //         "MachineLearning:label.beam",
+    //         {
+    //             "name": "MachineLearning:label.beam",
+    //             "color": ColorDef.blue,
+    //             "isSelected": true,
+    //             "hasData": true,
+    //             "trueLabelIsDisplayed": true,
+    //             "trueLabelIsTransparent": true,
+    //             "trueLabelTotalCount": 0,
+    //             "trueLabelVisibleCount": 0,
+    //             "trueLabelSelectedCount": 0,
+    //             "predLabelIsDisplayed": true,
+    //             "predLabelIsTransparent": false,
+    //             "predLabelTotalCount": 52,
+    //             "predLabelVisibleCount": 52,
+    //             "predLabelSelectedCount": 0
+    //         }]]
+    //     );
+    //     expect(receivedJson).toEqual(expectedJson)
+    // });
+
+});

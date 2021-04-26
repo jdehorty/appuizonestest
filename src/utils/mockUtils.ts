@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import fs from 'fs';
 import {LabelActivation, MachineLearningLabel, ModelPrediction} from "../data/LabelTypes";
 import {Id64String} from "@bentley/bentleyjs-core";

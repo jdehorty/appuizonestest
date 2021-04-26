@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import React, {FC, useState} from 'react';
 import {connect} from 'react-redux';
 import {Button, Icon, LabeledToggle, SvgPath} from "@bentley/ui-core";

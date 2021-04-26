@@ -1,5 +1,9 @@
 
 
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 export function valueEquals (o1: any, o2: any){
     for(var p in o1){
         if(o1.hasOwnProperty(p)){

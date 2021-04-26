@@ -1,3 +1,6 @@
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .sstc-data-header {
   margin: 10px;
 }
@@ -260,6 +263,9 @@
   overflow-x: auto;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-name-td-v2 .mltc-expand-button {
   padding: 5px;
   width: 24px;
@@ -297,6 +303,9 @@
   height: 0.9em;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-name-td-v2 .sstc-label-button {
   background-color: transparent;
   fill: lightgray;
@@ -344,6 +353,12 @@
   padding-right: 1.5em;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-first-row {
   background-color: #DCE0E3;
   font-size: 11px;
@@ -484,14 +499,23 @@ tbody .mltc-name-td-v2 label {
   margin-left: 5px;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .nz-left .sstc-data-container {
   height: 93%;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .uicore-inputs-radio {
   transform: scale(0.8);
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-name-th-v2-selection .sstc-select-button {
   border: none;
   box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
@@ -533,6 +557,9 @@ tbody .mltc-name-td-v2 label {
     transform: translateY(0);
   }
 }
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-name-th-v2-selection-clear {
   width: 1.5em;
   float: left;
@@ -567,6 +594,9 @@ tbody .mltc-name-td-v2 label {
     transform: translateY(0);
   }
 }
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .scroll-thing {
   overflow: scroll;
   height: 100%;
@@ -612,6 +642,9 @@ tbody .mltc-name-td-v2 label {
   box-sizing: content-box;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .sstc-data-table {
   border-collapse: collapse;
   margin: 0.3em;
@@ -667,6 +700,9 @@ td.mltc-prediction-td-v2 {
   border-bottom: none;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-name-th-v2-visibility .sstc-visibility-button {
   border: none;
   box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
@@ -678,6 +714,9 @@ td.mltc-prediction-td-v2 {
   width: 22px;
 }
 
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 .mltc-name-td-v2 .sstc-visibility-button {
   border: none;
   box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
@@ -698,5 +737,9 @@ td.mltc-prediction-td-v2 {
 .mltc-name-td-v2 .sstc-visibility-button {
   min-width: 22px;
 }
+
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
 
 /*# sourceMappingURL=styles.css.map */

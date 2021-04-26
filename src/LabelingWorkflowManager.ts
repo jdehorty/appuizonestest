@@ -1,3 +1,8 @@
+/*
+ *
+ *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ *
+ */
 import {Id64Arg, Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef, Frustum} from "@bentley/imodeljs-common";
 import {

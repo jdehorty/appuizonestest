@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
+ */
+
 import React, {FC} from 'react';
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import {Presentation} from "@bentley/presentation-frontend";
