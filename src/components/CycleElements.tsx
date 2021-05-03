@@ -43,7 +43,6 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
     }
 
     const _onPopoutWindowClosing = () => {
-        // console.log("_onPopoutWindowClosing was fired");
         setReadyForPopout(false);
     }
 

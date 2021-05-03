@@ -9,8 +9,6 @@ export enum MachineLearningColorMode {
     Native = "MachineLearning:colorMode.native",
     LabelColors = "MachineLearning:colorMode.labelColors",
     PredictionColors = "MachineLearning:colorMode.predictionColors",
-    // ConfusionsWithLabelColors = "MachineLearning:colorMode.confusionsWithLabelColors",
-    // ConfusionsWithPredictionColors = "MachineLearning:colorMode.confusionsWithPredictionColors",
 }
 
 export type MachineLearningLabel = string;

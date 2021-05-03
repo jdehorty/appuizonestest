@@ -64,7 +64,7 @@ export const filterOutHiddenInstanceKeys = (keySet: Readonly<KeySet>, vp: Viewpo
 
 export function keySetToId64Set(keySet: Readonly<KeySet>): Id64Set {
     const idSet: Id64Set = new Set<Id64String>();
-    for (const [className, ids] of keySet.instanceKeys) {
+    for (const [, ids] of keySet.instanceKeys) {
         for (const id of ids) {
             idSet.add(id);
         }

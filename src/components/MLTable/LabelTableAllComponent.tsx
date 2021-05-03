@@ -16,8 +16,6 @@ import {Provider} from "react-redux";
 
 // Styling
 import "../../styles/styles.css";
-// import "../../styles/_LabelingWorkflowStylesV2.scss";
-
 
 const FORCE_ALL = true;
 

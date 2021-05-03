@@ -6,7 +6,6 @@ import React, {FC} from 'react';
 import {connect} from 'react-redux';
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import VisibilityButtonAllComponent from "../VisibilityButtonAllComponent";
-import {SelectionButtonComponent} from "../SelectionButtonComponent";
 import {LabeledToggle, Radio} from "@bentley/ui-core";
 import {
     ILabelSectionAttributes,
@@ -26,11 +25,7 @@ import SelectionClearButtonComponent from "../SelectionClearButtonComponent";
 import {Presentation} from "@bentley/presentation-frontend";
 import {UiFramework} from "@bentley/ui-framework";
 
-interface OwnProps extends LabelTableComponentProps {
-}
-
-export type LabelTableHeaderProps = OwnProps & LabelTableStateFromProps;
-
+export type LabelTableHeaderProps = LabelTableComponentProps & LabelTableStateFromProps;
 
 const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
 

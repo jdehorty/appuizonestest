@@ -1,7 +1,5 @@
 /*
- *
- *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
- *
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
 import {

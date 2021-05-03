@@ -16,24 +16,24 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
 } from "./ConnectedLabelTableAllComponent";
-import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
-import {LabelTableAllComponent} from "./LabelTableAllComponent";
-import {ColorPickerButton} from "@bentley/ui-components";
-import {LabelButtonComponent} from "../LabelButtonComponent";
+import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkflowTypes";
+import { LabelTableAllComponent } from "./LabelTableAllComponent";
+import { ColorPickerButton } from "@bentley/ui-components";
+import { LabelButtonComponent } from "../LabelButtonComponent";
 import VisibilityButtonComponent from "../VisibilityButtonComponent";
 import { LabelTableEmphasis } from '../../store/LabelingWorkflowState';
 
-interface OwnProps extends LabelTableDispatchFromProps {
-}
-
-type Props = OwnProps & ReturnType<typeof mapLabelTableStateToProps>;
+type Props = LabelTableDispatchFromProps & ReturnType<typeof mapLabelTableStateToProps>;
 
 const FORCE_ALL = true;
 
-const addItemToSelectedItems = (props: OwnProps,
-                                item: MLStateTableDataItem,
-                                selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>,
-                                allowMultiSelection: boolean): void => {
+const addItemToSelectedItems = (props: Props,
+    item: MLStateTableDataItem,
+    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
+
+    // implement logic for this later
+    let allowMultiSelection = false;
+
     if (allowMultiSelection) {
         // multi-selections are not supported yet, but if we need them in future, this is where we'd handle their selection.
     } else { // We are running in single-selection mode.
@@ -56,9 +56,9 @@ const addItemToSelectedItems = (props: OwnProps,
     }
 }
 
-const removeItemFromSelectedItems = (props: OwnProps,
-                                     item: MLStateTableDataItem,
-                                     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
+const removeItemFromSelectedItems = (props: Props,
+    item: MLStateTableDataItem,
+    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
 
     if (selectedUiItems.size == 0) {
         return; // It is not in the list. Nothing to do. Return;
@@ -75,8 +75,6 @@ const removeItemFromSelectedItems = (props: OwnProps,
 
 const LabelTableBody: FC<Props> = (props) => {
 
-    const [allowMultiSelectionOfLabels, setAllowMultiSelectionOfLabels] = useState(Config.App.getBoolean("allowMultiSelectionOfLabels"));
-
     const handleColorChange = (name: MachineLearningLabel) => (color: ColorDef) => {
         props.onLabelColorChange(color, name);
     }
@@ -91,7 +89,7 @@ const LabelTableBody: FC<Props> = (props) => {
             }
             item.isSelected = (value.toString() === "true");
             if (item.isSelected) {
-                addItemToSelectedItems(props, item, props.selectedUiItems, allowMultiSelectionOfLabels);
+                addItemToSelectedItems(props, item, props.selectedUiItems);
                 if (props.labelTableEmphasis === LabelTableEmphasis.ActOnLabels) {
                     props.onLabelSelectionClick(item?.name);
                 }
@@ -115,12 +113,11 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const jsxForClassNameAndColorSection = (level: number,
-                                            isExpanded: boolean,
-                                            item: MLStateTableDataItem,
-                                            i18nName: string,
-                                            hasChildren: boolean,
-                                            labelsAreAllowed: boolean): JSX.Element =>
-    {
+        isExpanded: boolean,
+        item: MLStateTableDataItem,
+        i18nName: string,
+        hasChildren: boolean,
+        labelsAreAllowed: boolean): JSX.Element => {
 
         const expanderStyle = {
             width: '24px',
@@ -130,10 +127,7 @@ const LabelTableBody: FC<Props> = (props) => {
         const simpleLine = "";
         const expandedCaret = "M16 4.7 14.6 3.3 8 9.9 1.4 3.3 0 4.7 8 12.7z";
         const collapsedCaret = "m4.7 0l-1.4 1.4 6.6 6.6-6.6 6.6 1.4 1.4 8-8z";
-
-        const selectedItem = props.selectedUiItems.get(item.name);
-        const itemIsSelected = selectedItem !== null;
-
+        props.selectedUiItems.get(item.name);
         let expanderOrLine = simpleLine;
         if (hasChildren) {
             if (isExpanded) {
@@ -145,43 +139,35 @@ const LabelTableBody: FC<Props> = (props) => {
 
         return <>
 
-                {/*<input*/}
-                {/*    type="checkbox"*/}
-                {/*    checked={itemIsChecked(item!)}*/}
-                {/*    onChange={itemSelectChangeHandler(item!)}*/}
-                {/*/>*/}
+            <Radio
+                name={"selectedClass"}
+                checked={itemIsChecked(item!)}
+                onClick={itemSelectChangeHandler(item!)}
+            />
 
-                <Radio
-                    name={"selectedClass"}
-                    // defaultChecked={itemIsChecked(item!)}
-                    checked={itemIsChecked(item!)}
-                    onClick={itemSelectChangeHandler(item!)}
-                />
+            <div className="mltc-level-spacer" style={{ minWidth: 1 + (12 * (level)) }} />
 
-
-            <div className="mltc-level-spacer" style={{minWidth: 1 + (12 * (level))}}/>
-            
             {
                 (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
-                    <VisibilityButtonComponent
-                        transparencyAvailable={true}
-                        label={i18nName}
-                        itemId={item.name}
-                        visible={item.trueLabelIsDisplayed}
-                        transparent={item.trueLabelIsTransparent}
-                        onClick={props.onLabelDisplayChange}
-                    />
+                <VisibilityButtonComponent
+                    transparencyAvailable={true}
+                    label={i18nName}
+                    itemId={item.name}
+                    visible={item.trueLabelIsDisplayed}
+                    transparent={item.trueLabelIsTransparent}
+                    onClick={props.onLabelDisplayChange}
+                />
             }
-             {
+            {
                 (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
-                    <VisibilityButtonComponent
-                        transparencyAvailable={true}
-                        label={i18nName}
-                        itemId={item.name}
-                        visible={item.predLabelIsDisplayed}
-                        transparent={item.predLabelIsTransparent}
-                        onClick={props.onPredictionDisplayChange}
-                    />
+                <VisibilityButtonComponent
+                    transparencyAvailable={true}
+                    label={i18nName}
+                    itemId={item.name}
+                    visible={item.predLabelIsDisplayed}
+                    transparent={item.predLabelIsTransparent}
+                    onClick={props.onPredictionDisplayChange}
+                />
             }
             <Button
                 className="mltc-expand-button"
@@ -190,7 +176,6 @@ const LabelTableBody: FC<Props> = (props) => {
                     props.onLabelExpandStateChange(!isExpanded, item.name);
                 }}
             >
-                {/*<Icon iconSpec={iconClass}/>*/}
                 <SvgPath
                     viewBoxWidth={16}
                     viewBoxHeight={16}
@@ -209,11 +194,11 @@ const LabelTableBody: FC<Props> = (props) => {
             <div className="mltc-label-container-v2-small">
                 {i18nName}
                 {labelsAreAllowed &&
-                <LabelButtonComponent
-                    label={i18nName}
-                    name={item.name}
-                    onClick={props.onLabelApply}
-                />
+                    <LabelButtonComponent
+                        label={i18nName}
+                        name={item.name}
+                        onClick={props.onLabelApply}
+                    />
                 }
             </div>
         </>
@@ -221,7 +206,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
     const jsxForLabelSection = (item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element => {
         return <>
-            <div className="mltc-level-spacer"/>
+            <div className="mltc-level-spacer" />
             <div className="sstc-count-container-v2">
                 {trueDisplayedCount}
             </div>
@@ -229,7 +214,7 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const jsxForPredictionSection = (item: MLStateTableDataItem, i18nName: string, predDisplayedCount: number): JSX.Element => {
-     
+
         return <>
             <div>
                 {predDisplayedCount}
@@ -257,19 +242,17 @@ const LabelTableBody: FC<Props> = (props) => {
                 const predDisplayedCount = predSectionAttributes.anyPredictionSelected ? item.predLabelSelectedCount : item.predLabelTotalCount;
 
                 let predCountClass = "mltc-prediction-td-v2 ";
-                // const uiItemIsSelected: boolean = props.selectedUiItems.get(item.name) != null;
-                //predCountClass += (props.selectionSet.size > 0 && uiItemIsSelected) ? "on" : "off";
 
-                if (props.filterEmptyRows === false || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
+                if (!props.filterEmptyRows || trueDisplayedCount !== 0 || predDisplayedCount !== 0) {
                     tableRows.push(
                         <tr key={'table-row-' + item.name}>
                             <td className="mltc-name-td-v2">
                                 {jsxForClassNameAndColorSection(level, isExpanded, item, i18nName, hasChildren, labelsAreAllowed)}
                             </td>
-                            <td className="mltc-label-td-v2" align={"right"} style={{whiteSpace: "nowrap"}}>
+                            <td className="mltc-label-td-v2" align={"right"} style={{ whiteSpace: "nowrap" }}>
                                 {jsxForLabelSection(item, i18nName, trueDisplayedCount)}
                             </td>
-                            <td className={predCountClass} align={"right"} style={{whiteSpace: "nowrap"}}>
+                            <td className={predCountClass} align={"right"} style={{ whiteSpace: "nowrap" }}>
                                 {jsxForPredictionSection(item, i18nName, predDisplayedCount)}
                             </td>
                         </tr>
@@ -298,7 +281,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
         return <>
             <tbody>
-            {tableRows}
+                {tableRows}
             </tbody>
         </>;
     }

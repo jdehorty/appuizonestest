@@ -7,8 +7,6 @@ import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import {Presentation} from "@bentley/presentation-frontend";
 import {IModelApp, IModelConnection} from "@bentley/imodeljs-frontend";
 import {UiFramework} from "@bentley/ui-framework";
-import {MachineLearningLabel} from "../data/LabelTypes";
-import {MLStateTableDataItem} from "../store/LabelingWorkflowTypes";
 
 interface Props {
     label?: string;

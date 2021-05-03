@@ -27,6 +27,4 @@ export function copyStyles(targetDoc: Document, sourceDoc: Document = document) 
     });
 }
 
-export function greeting() {
-    return "hello world"
-}
+

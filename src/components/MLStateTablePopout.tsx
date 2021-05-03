@@ -42,7 +42,7 @@ const MLStateTablePopout: React.FC<Props> = (props: Props) => {
 
         setContainerElement(containerElement);
 
-        // componentWillUnmount equivalent
+        // hook equivalent of componentWillUnmount
         return () => {
             console.log("we reached unmount of MLStateTablePopout");
             if (popout) {

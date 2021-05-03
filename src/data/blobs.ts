@@ -38,7 +38,6 @@ export async function uploadBlobAsString(
 
     const tmp = `BlobEndpoint=https://${accountName}.blob.core.windows.net/;SharedAccessSignature=${sasString}`;
     const something = new AzureStorageBlob.BlockBlobClient(tmp, containerName, blobName);
-    //const something = (new AzureStorageBlob.BlobServiceClient(tmp).getContainerClient(containerName)).getBlobClient(blobName).getBlockBlobClient();
     const response = await something.upload(content, content.length);
     return response.requestId !== undefined;
 }

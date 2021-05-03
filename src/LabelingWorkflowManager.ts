@@ -1,8 +1,7 @@
-/*
- *
- *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
- *
+/*!
+ * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
+
 import {Id64Arg, Id64String} from "@bentley/bentleyjs-core";
 import {ColorDef, Frustum} from "@bentley/imodeljs-common";
 import {
@@ -691,6 +690,4 @@ export const AVAILABLE_COLOR_MODES: MachineLearningColorMode[] = [
     MachineLearningColorMode.Native,
     MachineLearningColorMode.LabelColors,
     MachineLearningColorMode.PredictionColors,
-    // MachineLearningColorMode.ConfusionsWithLabelColors,
-    // MachineLearningColorMode.ConfusionsWithPredictionColors,
 ];

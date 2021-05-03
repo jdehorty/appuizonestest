@@ -11,6 +11,7 @@
 # production
 /build
 /.idea
+/.vscode
 .run
 .run/*
 
@@ -26,3 +27,5 @@ yarn-debug.log*
 yarn-error.log*
 *.css
 *.map
+!src/styles/styles.css
+!src/styles/styles.css.map

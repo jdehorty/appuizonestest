@@ -10,11 +10,8 @@ import * as React from "react";
 import {MatchingOperator, MatchingRuleType, SelectionExtenderConfig} from "../store/SelectionExtenderTypes";
 import {NumberInputComponent} from "./NumberInputComponent";
 import "../styles/components/_SelectionExtenderComponent.scss";
-import {TextareaEditor} from "@bentley/ui-components";
 import {UiFramework} from "@bentley/ui-framework";
 import {SelectionExtender} from "../SelectionExtender";
-import {SelectionExtenderAction, SelectionExtenderActionType} from "../store/SelectionExtenderActions";
-import {Primitives} from "@bentley/ui-abstract";
 
 export type SelectionExtenderComponentProps = {
     singleId?: Id64String;
