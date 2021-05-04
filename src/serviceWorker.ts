@@ -1,7 +1,3 @@
-/*!
- * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
- */
-
 /* eslint-disable */
 // This optional code is used to register a service worker.
 // register() is not called by default.

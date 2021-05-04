@@ -3,7 +3,7 @@
  */
 
 
-import {BlockText, Button, ButtonType} from "@bentley/ui-core";
+import { BlockText, Button, ButtonType } from "@bentley/ui-core";
 import React from "react";
 
 import styles from "./styles/_Header.module.scss";
@@ -15,40 +15,37 @@ interface HeaderProps {
 }
 
 export const Header = (props: HeaderProps) => {
-    const {loggedIn, handleLogin, handleLogout} = props;
-    const {button, text, buttonContainer, header} = styles;
+    const { loggedIn, handleLogin, handleLogout } = props;
+    const { button, text, buttonContainer, header } = styles;
 
     return (
         <header className={header}>
             <table>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div className={buttonContainer}>
-                                <Button className={button} onClick={handleLogin} buttonType={ButtonType.Primary}
-                                        disabled={loggedIn}>
-                                    {"Sign In"}
-                                </Button>
-                                <Button className={button} onClick={handleLogout} buttonType={ButtonType.Primary}
-                                        disabled={!loggedIn}>
-                                    {"Sign Out"}
-                                </Button>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <BlockText
-                                    className={text}
-                                >
-                                    {"ML Labeler"}
-                                </BlockText>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <div className={buttonContainer}>
+                            <Button className={button} onClick={handleLogin} buttonType={ButtonType.Primary}
+                                    disabled={loggedIn}>
+                                {"Sign In"}
+                            </Button>
+                            <Button className={button} onClick={handleLogout} buttonType={ButtonType.Primary}
+                                    disabled={!loggedIn}>
+                                {"Sign Out"}
+                            </Button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <BlockText
+                                className={text}>
+                                {"ML Labeling Tool"}
+                            </BlockText>
+                        </div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </header>
     );
 };
-
-
