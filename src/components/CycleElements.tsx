@@ -4,9 +4,14 @@
 
 import React, {FC, useState} from 'react';
 import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize, SvgPath} from "@bentley/ui-core";
+import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize} from "@bentley/ui-core";
 import MLStateTablePopout from "./MLStateTablePopout";
 import "../styles/_LabelingWorkflowStyles.scss";
+import {CyclerButtonBackFastSvg} from "./CyclerButtonBackFastSvg";
+import {CyclerButtonBackSvg} from "./CyclerButtonBackSvg";
+import {CyclerButtonForwardSvg} from "./CyclerButtonForwardSvg";
+import {CyclerButtonForwardFastSvg} from "./CyclerButtonForwardFastSvg";
+import {CycleElementsPlaySvg} from "./CycleElementsPlaySvg";
 
 
 export interface CycleElementComponentProps {
@@ -97,25 +102,13 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                                 disabled={props.working || !props.ready}
                                                 style={{width: '24px', height: '22px'}}
                                                 onClick={() => props.onBackward(-fastCount)}>
-                                            <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                                                "m14.2222 4a.76016.76016 0 0 1 .3904.1081.80441.80441 0 0 1 " +
-                                                ".3874.6919v6.4a.80441.80441 0 0 1 -.3874.6919.75908.75908 0 0 1 " +
-                                                "-.7763.0027l-5.4444-3.2a.8115.8115 0 0 1 0-1.3892l5.4444-3.2a.76069.76069 0 0 1 " +
-                                                ".3859-.1054zm-7 0a.76016.76016 0 0 1 .3904.1081.80441.80441 0 0 1 " +
-                                                ".3874.6919v6.4a.80441.80441 0 0 1 -.3874.6919.75908.75908 0 0 1 " +
-                                                "-.7763.0027l-5.4444-3.2a.8115.8115 0 0 1 0-1.3892l5.4444-3.2a.76069.76069 0 0 1 .3859-.1054z"]}
-                                            />
+                                            <CyclerButtonBackFastSvg/>
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
                                                 style={{width: '24px', height: '22px'}}
                                                 onClick={() => props.onBackward(-1)}>
-                                            <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                                                "m9.2222 4a.76016.76016 0 0 1 .3904.1081.80441.80441 0 0 1 .3874.6919v6.4a.80441.80441 0 0 1" +
-                                                " -.3874.6919.75908.75908 0 0 1 -.7763.0027l-5.4444-3.2a.8115.8115 0 0 1 " +
-                                                "0-1.3892l5.4444-3.2a.76069.76069 0 0 1 .3859-.1054zm2.7778-1a1 1 0 0 1 1 " +
-                                                "1v8a1 1 0 0 1 -1 1 1 1 0 0 1 -1-1v-8a1 1 0 0 1 1-1z"]}
-                                            />
+                                            <CyclerButtonBackSvg/>
                                         </Button>
                                         <div className="cycler-progress">
                                             <div
@@ -132,35 +125,20 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                                 disabled={props.working || !props.ready}
                                                 style={{width: '24px', height: '22px'}}
                                                 onClick={() => props.onForward(1)}>
-                                            <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                                                "m6.7778 4a.76016.76016 0 0 0 -.3904.1081.80441.80441 0 0 0 -.3874.6919v6.4a.80441.80441 0 0 0 " +
-                                                ".3874.6919.75908.75908 0 0 0 .7763.0027l5.4444-3.2a.8115.8115 0 0 0 " +
-                                                "0-1.3892l-5.4444-3.2a.76069.76069 0 0 0 -.3859-.1054zm-2.7778-1a1 1 0 0 0 " +
-                                                "-1 1v8a1 1 0 0 0 1 1 1 1 0 0 0 1-1v-8a1 1 0 0 0 -1-1z"]}
-                                            />
+                                            <CyclerButtonForwardSvg/>
 
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
                                                 style={{width: '24px', height: '22px'}}
                                                 onClick={() => props.onForward(fastCount)}>
-                                            <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                                                "m1.7778 4a.76016.76016 0 0 0 -.3904.1081.80441.80441 0 0 0 -.3874.6919v6.4a.80441.80441 0 0 0 " +
-                                                ".3874.6919.75908.75908 0 0 0 .7763.0027l5.4444-3.2a.8115.8115 0 0 0 0-1.3892l-5.4444-3.2a.76069.76069 " +
-                                                "0 0 0 -.3859-.1054zm7 0a.76016.76016 0 0 0 -.3904.1081.80441.80441 0 0 0 -.3874.6919v6.4a.80441.80441 0 0 0 " +
-                                                ".3874.6919.75908.75908 0 0 0 .7763.0027l5.4444-3.2a.8115.8115 0 0 0 0-1.3892l-5.4444-3.2a.76069.76069 0 0 0 " +
-                                                "-.3859-.1054z"
-                                            ]}
-                                            />
+                                            <CyclerButtonForwardFastSvg/>
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
                                                 style={{width: '24px', height: '22px'}}
                                                 onClick={props.onStop}>
-                                            <SvgPath viewBoxWidth={16} viewBoxHeight={16} paths={[
-                                                "m12 3h-8a1 1 0 0 0 -1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-8a1 1 0 0 0 -1-1z"
-                                            ]}
-                                            />
+                                            <CycleElementsPlaySvg/>
                                         </Button>
                                     </>
                                 }

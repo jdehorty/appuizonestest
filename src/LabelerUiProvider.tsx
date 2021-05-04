@@ -37,21 +37,22 @@ export class LabelerUiProvider implements UiItemsProvider {
                         </Provider>
                 });
             }
-            if (location === StagePanelLocation.Bottom) {
-                widgets.push({
-                    id: "MLLabelerId",
-                    label: "ML Labeler",
-                    getWidgetContent: () =>
-                        <Provider store={LabelerState.store}>
-                            <ConnectedCycleElementComponent />
-                            <ConnectedMLTableComponent />
-                        </Provider>
-                });
-            }
+            // Old Interface (keep for reference)
+//            if (location === StagePanelLocation.Bottom) {
+//                widgets.push({
+//                    id: "MLLabelingToolId",
+//                    label: "ML Labeling Tool",
+//                    getWidgetContent: () =>
+//                        <Provider store={LabelerState.store}>
+//                            <ConnectedCycleElementComponent />
+//                            <ConnectedMLTableComponent />
+//                        </Provider>
+//                });
+//            }
             if (location === StagePanelLocation.Left) {
                 widgets.push({
-                    id: "MLLabelerV2Id",
-                    label: "ML Labeler V2",
+                    id: "MLLabelingToolV2Id",
+                    label: "ML Labeling Tool",
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
                             <ConnectedCycleElementComponent />
