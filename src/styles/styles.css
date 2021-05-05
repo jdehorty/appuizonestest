@@ -1,260 +1,6 @@
 /*!
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-.sstc-data-header {
-  margin: 10px;
-}
-
-.sstc-data-container {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: 9pt;
-  margin-left: 10px;
-}
-
-.sstc-table-container {
-  display: block;
-  overflow-y: hidden;
-  flex-grow: 1;
-}
-
-.sstc-options-container {
-  display: block;
-}
-
-.sstc-data-table {
-  border-collapse: collapse;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-}
-
-.sstc-data-table td, .sstc-data-table th {
-  margin: 0;
-  padding-left: 1px;
-  padding-right: 1px;
-  white-space: nowrap;
-}
-
-.sstc-cycler {
-  margin-left: 10px;
-}
-
-.vertical-rule {
-  margin-left: 15px;
-  margin-right: 15px;
-  border-left: 1px solid #000;
-  height: 30px;
-}
-
-.sstc-data-table tbody td:nth-child(2) {
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-.sstc-data-table thead td:nth-child(2) {
-  border-left: 1px solid grey;
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-.sstc-data-table tr {
-  margin: 0;
-  height: 0;
-}
-
-.sstc-data-table thead {
-  display: table-header-group;
-}
-
-.sstc-data-table tbody {
-  flex: 1;
-  overflow-y: scroll;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-}
-
-.sstc-visibility-button {
-  margin: 0;
-  padding: 2px 4px;
-}
-
-.sstc-isolate-button-v2 {
-  margin: 0 0 0 2px;
-  padding: 2px 4px;
-  fill: transparent;
-  border: 0 none;
-  font-size: 1.15em;
-}
-
-.sstc-window-new-button {
-  margin: 0 0 0 2px;
-  padding: 2px 2px 2px;
-  fill: transparent;
-  border: 0 none;
-  font-size: 1.2em;
-  text-align: right;
-}
-
-.sstc-swap-button {
-  margin: 0 0 0 2px;
-  padding: 2px 4px;
-}
-
-.sstc-label-button {
-  margin: 0;
-  padding: 2px 4px;
-  min-width: 20px;
-  fill: black;
-}
-
-.sstc-label-container {
-  /* width: 150px; */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-  padding: 0;
-}
-
-.cycler-progress {
-  font-size: 0.6em;
-}
-
-.sstc-count-container-v2 {
-  display: inline;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-  padding: 0;
-}
-
-.sstc-color-picker-button {
-  margin: 0 2px;
-  float: right;
-  /* display: inline; */
-}
-
-.sstc-color-mode-select {
-  min-width: 150px;
-  max-width: 150px;
-}
-
-.sstc-action-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.sstc-action-container-expand {
-  flex-grow: 1;
-}
-
-.sstc-title-container {
-  font-weight: bold;
-}
-
-.sstc-spinner-container {
-  display: table-cell;
-  vertical-align: middle;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  height: 100%;
-}
-
-.sstc-spinner-inner-container {
-  width: fit-content;
-  display: block;
-}
-
-.cycler-container {
-  /* display: inline-block; */
-  display: flex;
-  align-items: center;
-  box-sizing: content-box;
-  height: 100%;
-}
-
-.cycler-total-count,
-.cycler-selected-count,
-.cycler-progress {
-  /* display: inline-block; */
-  margin: 2px;
-  padding-left: 2px;
-  padding-right: 2px;
-  width: fit-content;
-  height: fit-content;
-  display: inline-block;
-  box-sizing: border-box;
-  font-size: 0.6em;
-}
-
-.cycler-title {
-  text-align: center;
-  text-decoration: underline;
-  margin: 0;
-  padding-left: 6px;
-  padding-right: 6px;
-  display: block;
-  font-size: 1.3em;
-  /* background-color: white; */
-}
-
-.cycler-value {
-  margin: 0;
-  text-align: center;
-  padding-left: 4px;
-  padding-right: 4px;
-  display: block;
-  /* border-left: 1px solid white;
-  border-right: 1px solid white; */
-}
-
-.cycler-button {
-  margin: 0;
-  padding: 2px 4px;
-  height: fit-content;
-  box-sizing: border-box;
-}
-
-.cycler-previous {
-  fill: transparent;
-  margin-right: 1px;
-  margin-left: 0;
-  border: 0 none;
-  font-size: 0.75em;
-  font-weight: bold;
-}
-
-.cycler-next {
-  fill: transparent;
-  margin-right: 0;
-  margin-left: 1px;
-  border: 0 none;
-  font-size: 0.75em;
-  font-weight: bold;
-}
-
-.sstc-control-button {
-  margin: 1px;
-  padding: 3px 5px;
-}
-
-.sstc-hide-empty-toggle {
-  font-size: 9pt;
-}
-
-/*!
- * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
- */
 .nz-left .sstc-data-table > tbody {
   overflow-y: auto;
 }
@@ -359,6 +105,23 @@
 /*!
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
+div.sstc-data-container table.sstc-data-table tbody:nth-child(1) tr td:nth-child(2) {
+  border-left: none;
+  border-right: none;
+}
+
+.mltc-name-subtable-td-v2 div span {
+  margin-left: 1.1em;
+}
+
+.sstc-color-mode-select {
+  margin-left: 0.9em;
+}
+
+.core-inputs-labeled-toggle.sstc-hide-empty-toggle {
+  margin-left: 0.2em;
+}
+
 .mltc-first-row {
   background-color: #DCE0E3;
   font-size: 11px;
@@ -424,7 +187,7 @@
   max-width: 250px;
   display: flex;
   flex-direction: row;
-  border-left: 1px solid grey;
+  border-left: thin solid grey;
 }
 
 tbody .mltc-name-td-v2 label {
@@ -449,8 +212,8 @@ tbody .mltc-name-td-v2 label {
 .mltc-label-td-v2 {
   min-width: 80px;
   max-width: 80px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
+  border-left: thin solid grey;
+  border-right: thin solid grey;
   font-size: 1.15em;
 }
 
@@ -478,8 +241,8 @@ tbody .mltc-name-td-v2 label {
 .mltc-prediction-th-v2, .mltc-prediction-td-v2 {
   min-width: 80px;
   max-width: 80px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
+  border-left: thin solid grey;
+  border-right: thin solid grey;
   font-size: 1.15em;
 }
 

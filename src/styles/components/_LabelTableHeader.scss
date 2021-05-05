@@ -4,17 +4,41 @@
 
 @use "../variables" as vars;
 
+// Table Header
+
+// "View Colors As" and "Color Mode" Borders
+div.sstc-data-container table.sstc-data-table tbody:nth-child(1) tr td:nth-child(2) {
+  border-left: none;
+  border-right: none;
+}
+
+// "View Colors As" Alignment
+.mltc-name-subtable-td-v2 div span {
+  margin-left: 1.1em;
+}
+
+// Color Picker Alignment
+.sstc-color-mode-select {
+  margin-left: .9em;
+}
+
+// Hide Empty Switch Alignment
+.core-inputs-labeled-toggle.sstc-hide-empty-toggle {
+  margin-left: .2em;
+}
+
+
+.NameColumn-----------------------------------------------------------------------------------------------------------{}
+
+// Column Names
 .mltc-first-row {
   background-color: #DCE0E3;
   font-size: 11px;
 }
 
-.NameColumn-----------------------------------------------------------------------------------------------------------{}
 .mltc-name-th-v2 {
   min-width: 191px;
   max-width: 191px;
-  // border-left: 1px solid grey;
-  // border-right: 1px solid grey;
   font-size: vars.$fontScale;
 }
 
@@ -73,7 +97,7 @@
   max-width: 250px;
   display: flex;
   flex-direction: row;
-  border-left: 1px solid grey;
+  border-left: thin solid grey;
 }
 
 tbody .mltc-name-td-v2 label {
@@ -103,8 +127,8 @@ tbody .mltc-name-td-v2 label {
 {
   min-width: 80px;
   max-width: 80px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
+  border-left: thin solid grey;
+  border-right: thin solid grey;
   font-size: vars.$fontScale;
 }
 
@@ -137,8 +161,8 @@ tbody .mltc-name-td-v2 label {
 {
   min-width: 80px;
   max-width: 80px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
+  border-left: thin solid grey;
+  border-right: thin solid grey;
   font-size: vars.$fontScale;
 }
 

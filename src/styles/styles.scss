@@ -2,9 +2,6 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-// Temporary - will remove once all styles are properly scoped
-@use "LabelingWorkflowStylesV2";
-
 // This is the file that gets compiled to CSS.
 @use "components/DataContainerComponent";
 @use "components/ExpanderComponent";

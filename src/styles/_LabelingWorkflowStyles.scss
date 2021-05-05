@@ -60,14 +60,14 @@
 }
 
 .sstc-data-table tbody td:nth-child(2)  {
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    border-left: thin solid grey;
+    border-right: thin solid grey;
     padding-left: 2px;
     padding-right: 2px;
 }
 
 .sstc-data-table thead td:nth-child(2) {
-    border-left: 1px solid grey;
+    border-left: thin solid grey;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -84,8 +84,8 @@
 .sstc-data-table tbody {
     flex: 1;
     overflow-y: scroll;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-top: thin solid grey;
+    border-bottom: thin solid grey;
 }
 
 .sstc-visibility-button {
@@ -202,23 +202,23 @@
     max-width: 160px;
     display: flex;
     flex-direction: row;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    border-left: thin solid grey;
+    border-right: thin solid grey;
 }
 
 .mltc-label-th, .mltc-label-td, .mltc-name-th
 {
     min-width: 105px;
     max-width: 105px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    border-left: thin solid grey;
+    border-right: thin solid grey;
 }
 .mltc-prediction-th, .mltc-prediction-td 
 {
     min-width: 80px;
     max-width: 80px;
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
+    border-left: thin solid grey;
+    border-right: thin solid grey;
 }
 
 .sstc-spinner-container
