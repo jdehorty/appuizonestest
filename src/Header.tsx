@@ -14,7 +14,7 @@ interface HeaderProps {
     loggedIn: boolean;
 }
 
-export const Header = (props: HeaderProps) => {
+export const Header: React.FC<HeaderProps> = (props) => {
     const { loggedIn, handleLogin, handleLogout } = props;
     const { button, text, buttonContainer, header } = styles;
 
@@ -22,28 +22,28 @@ export const Header = (props: HeaderProps) => {
         <header className={header}>
             <table>
                 <tbody>
-                <tr>
-                    <td>
-                        <div className={buttonContainer}>
-                            <Button className={button} onClick={handleLogin} buttonType={ButtonType.Primary}
+                    <tr>
+                        <td>
+                            <div className={buttonContainer}>
+                                <Button className={button} onClick={handleLogin} buttonType={ButtonType.Primary}
                                     disabled={loggedIn}>
-                                {"Sign In"}
-                            </Button>
-                            <Button className={button} onClick={handleLogout} buttonType={ButtonType.Primary}
+                                    {"Sign In"}
+                                </Button>
+                                <Button className={button} onClick={handleLogout} buttonType={ButtonType.Primary}
                                     disabled={!loggedIn}>
-                                {"Sign Out"}
-                            </Button>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <BlockText
-                                className={text}>
-                                {"ML Labeling Tool"}
-                            </BlockText>
-                        </div>
-                    </td>
-                </tr>
+                                    {"Sign Out"}
+                                </Button>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <BlockText
+                                    className={text}>
+                                    {"ML Labeling Tool"}
+                                </BlockText>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </header>
