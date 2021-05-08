@@ -9,3 +9,33 @@
   padding-right: 1.5em;
 }
 
+// Synchronize Body/Header Spacing and Remove Unwanted Borders
+
+.mltc-name-th-v2 {
+  border-right: none;
+}
+
+.mltc-label-th-v2 span:nth-child(1) {
+  padding: .25em;
+}
+
+tr th.mltc-label-th-v2 {
+  width: 52%;
+  border-right: none;
+}
+
+tr th.mltc-prediction-th-v2{
+  width: 50%;
+  border: none;
+}
+
+tbody td.mltc-label-td-v2 {
+  width: 50%;
+  border: none;
+
+}
+tbody td.mltc-prediction-td-v2{
+  width: 50%;
+  border: none;
+}
+

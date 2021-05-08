@@ -67,7 +67,7 @@
 }
 
 .sstc-data-table thead td:nth-child(2) {
-    border-left: thin solid grey;
+    //border-left: thin solid grey;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -166,7 +166,7 @@
     /* display: inline; */
 }
 
-.sstc-action-container 
+.sstc-action-container
 {
     display: flex;
     flex-direction: row;
@@ -193,7 +193,7 @@
     padding: 0;
 }
 
-.mltc-name-td 
+.mltc-name-td
 {
     white-space: nowrap;
     overflow: hidden;
@@ -202,23 +202,21 @@
     max-width: 160px;
     display: flex;
     flex-direction: row;
-    border-left: thin solid grey;
-    border-right: thin solid grey;
+    //border-left: thin solid grey;
+    //border-right: thin solid grey;
 }
 
 .mltc-label-th, .mltc-label-td, .mltc-name-th
 {
     min-width: 105px;
     max-width: 105px;
-    border-left: thin solid grey;
-    border-right: thin solid grey;
 }
-.mltc-prediction-th, .mltc-prediction-td 
+.mltc-prediction-th, .mltc-prediction-td
 {
     min-width: 80px;
     max-width: 80px;
-    border-left: thin solid grey;
-    border-right: thin solid grey;
+    //border-left: thin solid grey;
+    //border-right: thin solid grey;
 }
 
 .sstc-spinner-container

@@ -6,9 +6,12 @@
   border-collapse: collapse;
   margin: .3em;
   font-size: 0.9em;
-  width: 90%;
   height: 80%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.sstc-data-container .sstc-data-table {
+  width: 95%; // Enforce uniform width for vertical/horizontal UI panels
 }
 
 tbody .mltc-label-td-v2 {
@@ -47,8 +50,10 @@ div table thead {
   border: none;
 }
 
+th.mltc-prediction-th-v2,
 td.mltc-prediction-td-v2 {
-  border-right: thin solid;
+  border-left: none;
+  border-right: none;
 }
 
 .nz-border-top thead {
