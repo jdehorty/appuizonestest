@@ -2,16 +2,17 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-import React, {FC, useState} from 'react';
-import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize} from "@bentley/ui-core";
+import React, { FC, useState } from 'react';
+import { IModelApp } from "@bentley/imodeljs-frontend";
+import { Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize } from "@bentley/ui-core";
 import MLStateTablePopout from "./MLStateTablePopout";
 import "../styles/_LabelingWorkflowStyles.scss";
-import {CyclerButtonBackFastSvg} from "./CyclerButtonBackFastSvg";
-import {CyclerButtonBackSvg} from "./CyclerButtonBackSvg";
-import {CyclerButtonForwardSvg} from "./CyclerButtonForwardSvg";
-import {CyclerButtonForwardFastSvg} from "./CyclerButtonForwardFastSvg";
-import {CycleElementsPlaySvg} from "./CycleElementsPlaySvg";
+import { CyclerButtonBackFastSvg } from "./CyclerButtonBackFastSvg";
+import { CyclerButtonBackSvg } from "./CyclerButtonBackSvg";
+import { CyclerButtonForwardSvg } from "./CyclerButtonForwardSvg";
+import { CyclerButtonForwardFastSvg } from "./CyclerButtonForwardFastSvg";
+import { CycleElementsPlaySvg } from "./CycleElementsPlaySvg";
+import { IsolateButton } from "./IsolateButton";
 
 
 export interface CycleElementComponentProps {
@@ -86,13 +87,25 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                 {
                                     !props.enabled &&
                                     <>
+                                        {/*<Button*/}
+                                        {/*    className="cycler-button"*/}
+                                        {/*    onClick={props.onStart}*/}
+                                        {/*    disabled={props.selectedCount === 0 || !props.ready}*/}
+                                        {/*>*/}
+                                        {/*    {IModelApp.i18n.translate("LabelingApp:cycler.startCycling")}*/}
+                                        {/*</Button>*/}
+
                                         <Button
-                                            className="cycler-button"
+                                            className=".sstc-isolate-button"
+                                            buttonType={ButtonType.Hollow}
                                             onClick={props.onStart}
                                             disabled={props.selectedCount === 0 || !props.ready}
+                                            style={{ minWidth: 24, maxWidth: 24 }}
                                         >
-                                            {IModelApp.i18n.translate("LabelingApp:cycler.startCycling")}
+                                            <IsolateButton/>
                                         </Button>
+
+
                                     </>
                                 }
                                 {
@@ -100,13 +113,13 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                     <>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
-                                                style={{width: '24px', height: '22px'}}
+                                                style={{ width: '24px', height: '22px' }}
                                                 onClick={() => props.onBackward(-fastCount)}>
                                             <CyclerButtonBackFastSvg/>
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
-                                                style={{width: '24px', height: '22px'}}
+                                                style={{ width: '24px', height: '22px' }}
                                                 onClick={() => props.onBackward(-1)}>
                                             <CyclerButtonBackSvg/>
                                         </Button>
@@ -123,20 +136,20 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                         </div>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
-                                                style={{width: '24px', height: '22px'}}
+                                                style={{ width: '24px', height: '22px' }}
                                                 onClick={() => props.onForward(1)}>
                                             <CyclerButtonForwardSvg/>
 
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
-                                                style={{width: '24px', height: '22px'}}
+                                                style={{ width: '24px', height: '22px' }}
                                                 onClick={() => props.onForward(fastCount)}>
                                             <CyclerButtonForwardFastSvg/>
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
-                                                style={{width: '24px', height: '22px'}}
+                                                style={{ width: '24px', height: '22px' }}
                                                 onClick={props.onStop}>
                                             <CycleElementsPlaySvg/>
                                         </Button>

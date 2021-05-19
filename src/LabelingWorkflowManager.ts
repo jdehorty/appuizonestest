@@ -10,7 +10,7 @@ import {
     MarginPercent,
     ScreenViewport,
     SpatialModelState,
-    ViewChangeOptions,
+    ViewChangeOptions, ViewState3d,
     ZoomToOptions
 } from "@bentley/imodeljs-frontend";
 import {I18N} from "@bentley/imodeljs-i18n";

@@ -14,9 +14,6 @@ import {ConnectedLabelTableHeader} from "./LabelTableHeader";
 import {LabelerState} from "../../store/LabelerState";
 import {Provider} from "react-redux";
 
-// Styling
-import "../../styles/styles.css";
-
 const FORCE_ALL = true;
 
 export interface ILabelSectionAttributes {

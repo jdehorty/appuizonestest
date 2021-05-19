@@ -115,6 +115,11 @@ export interface LabelingWorkflowState {
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
     /** Indicates whether bi-modal LabelTable controls are currently biased toward Labels or Predictions.  */
     labelTableEmphasis: LabelTableEmphasis;
+
+    /**
+     * The name of the last class that was clicked to indicate which class we're using to label selected elements
+     */
+    labelClassPoked: MachineLearningLabel;
 }
 
 
@@ -139,5 +144,6 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     forceShowAll: false,
     filterEmptyRows: false,
     selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>(),
-    labelTableEmphasis: LabelTableEmphasis.ActOnLabels
+    labelTableEmphasis: LabelTableEmphasis.ActOnLabels,
+    labelClassPoked: ''
 }

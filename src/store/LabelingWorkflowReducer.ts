@@ -150,7 +150,10 @@ export const LabelingWorkflowManagerReducer = (
             // Label of selection was changed, return a new elementStateMap
             if (prevState.selectionSet.size === 0) {
                 // Short circuit of no elements
-                return prevState;
+                return {
+                    ...prevState,
+                    labelClassPoked: action.label!,
+                };
             }
 
             // Clone the current elementStateMap
@@ -181,6 +184,7 @@ export const LabelingWorkflowManagerReducer = (
                 elementStateMapHistory: newElementStateMapHistory,
                 elementStateMapIndex: newElementStateMapHistory.length - 1,
                 elementStateMapIsDirty: true,
+                labelClassPoked: action.label!,
             };
         }
 

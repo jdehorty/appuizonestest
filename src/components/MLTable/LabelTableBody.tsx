@@ -2,13 +2,12 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-import React, {FC, useState} from 'react';
-import {connect} from 'react-redux';
-import {IModelApp} from "@bentley/imodeljs-frontend";
-import {Config} from "@bentley/bentleyjs-core";
-import {Button, Radio, SvgPath} from "@bentley/ui-core";
-import {MachineLearningLabel} from "../../data/LabelTypes";
-import {ColorDef} from "@bentley/imodeljs-common";
+import React, { FC } from 'react';
+import { connect } from 'react-redux';
+import { IModelApp } from "@bentley/imodeljs-frontend";
+import { Button, Radio, SvgPath } from "@bentley/ui-core";
+import { MachineLearningLabel } from "../../data/LabelTypes";
+import { ColorDef } from "@bentley/imodeljs-common";
 
 import {
     LabelTableDispatchFromProps,
@@ -28,8 +27,8 @@ type Props = LabelTableDispatchFromProps & ReturnType<typeof mapLabelTableStateT
 const FORCE_ALL = true;
 
 const addItemToSelectedItems = (props: Props,
-    item: MLStateTableDataItem,
-    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
+                                item: MLStateTableDataItem,
+                                selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
 
     // implement logic for this later
     let allowMultiSelection = false;
@@ -57,8 +56,8 @@ const addItemToSelectedItems = (props: Props,
 }
 
 const removeItemFromSelectedItems = (props: Props,
-    item: MLStateTableDataItem,
-    selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
+                                     item: MLStateTableDataItem,
+                                     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>): void => {
 
     if (selectedUiItems.size == 0) {
         return; // It is not in the list. Nothing to do. Return;
@@ -92,8 +91,7 @@ const LabelTableBody: FC<Props> = (props) => {
                 addItemToSelectedItems(props, item, props.selectedUiItems);
                 if (props.labelTableEmphasis === LabelTableEmphasis.ActOnLabels) {
                     props.onLabelSelectionClick(item?.name);
-                }
-                else {
+                } else {
                     props.onPredictionSelectionClick(item?.name);
                 }
             } else {
@@ -113,11 +111,11 @@ const LabelTableBody: FC<Props> = (props) => {
     }
 
     const jsxForClassNameAndColorSection = (level: number,
-        isExpanded: boolean,
-        item: MLStateTableDataItem,
-        i18nName: string,
-        hasChildren: boolean,
-        labelsAreAllowed: boolean): JSX.Element => {
+                                            isExpanded: boolean,
+                                            item: MLStateTableDataItem,
+                                            i18nName: string,
+                                            hasChildren: boolean,
+                                            labelsAreAllowed: boolean): JSX.Element => {
 
         const expanderStyle = {
             width: '24px',
@@ -145,7 +143,7 @@ const LabelTableBody: FC<Props> = (props) => {
                 onClick={itemSelectChangeHandler(item!)}
             />
 
-            <div className="mltc-level-spacer" style={{ minWidth: 1 + (12 * (level)) }} />
+            <div className="mltc-level-spacer" style={{ minWidth: 1 + (12 * (level)) }}/>
 
             {
                 (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
@@ -193,11 +191,13 @@ const LabelTableBody: FC<Props> = (props) => {
 
             <div className="mltc-label-container-v2-small">
                 {i18nName}
-                {labelsAreAllowed &&
+                {
+                    labelsAreAllowed &&
                     <LabelButtonComponent
                         label={i18nName}
                         name={item.name}
                         onClick={props.onLabelApply}
+                        isPoked={item.name === props.labelClassPoked}
                     />
                 }
             </div>
@@ -206,7 +206,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
     const jsxForLabelSection = (item: MLStateTableDataItem, i18nName: string, trueDisplayedCount: number): JSX.Element => {
         return <>
-            <div className="mltc-level-spacer" />
+            <div className="mltc-level-spacer"/>
             <div className="sstc-count-container-v2">
                 {trueDisplayedCount}
             </div>
@@ -281,7 +281,7 @@ const LabelTableBody: FC<Props> = (props) => {
 
         return <>
             <tbody>
-                {tableRows}
+            {tableRows}
             </tbody>
         </>;
     }

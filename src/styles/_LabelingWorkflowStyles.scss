@@ -97,7 +97,7 @@
 
 
 .sstc-isolate-button {
-    margin: 0 0 0 2px;
+    margin: 0 0 0 -8px;
     padding: 2px 4px;
     fill: transparent;
     border: 0 none;
@@ -282,10 +282,22 @@
     border-right: 1px solid white; */
 }
 .cycler-button {
-    margin: 0;
+    border: 0 none;
+    fill: transparent;
+    font-size: 1.4em;
+    margin: 0 0 0 2px;
     padding: 2px 4px;
-    height: fit-content;
-    box-sizing: border-box;
+}
+
+.cycler-button:disabled,
+.cycler-button:hover {
+    background-color: transparent;
+    border: thin solid #999999;
+    color: #666666;
+    fill: transparent;
+    font-size: 1.4em;
+    margin: 0 0 0 2px;
+    padding: 2px 4px;
 }
 
 .cycler-previous {

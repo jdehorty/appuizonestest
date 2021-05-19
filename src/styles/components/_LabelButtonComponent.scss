@@ -2,27 +2,47 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-// labels
+// The button surrounding the svg for the label
 .mltc-name-td-v2 .sstc-label-button {
     background-color: transparent;
     fill: lightgray;
     opacity: 75%;
     border: none;
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-    height: 15px;
+    padding-top: 0;
+    padding-left: .2em;
+    padding-bottom: 0;
+    margin: 0;
 }
-.mltc-name-td-v2 .sstc-label-button:hover {
-    transform: scale(1.5);
-    background-color: transparent;
-    fill: lightgray;
-    opacity: 75%;
-    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+// The svg for the label
+.sstc-label-button svg {
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+    padding-right: 0;
+    padding-left: 0;
 }
-.mltc-name-td-v2 .sstc-label-button:focus {
+
+// The button surrounding the svg for the label
+.mltc-name-td-v2 .sstc-label-button-poked {
     background-color: transparent;
     opacity: 100%;
     fill: #53A21A;
     box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    padding-top: 0;
+    padding-left: .2em;
+    padding-bottom: 0;
+    margin: 0;
+    width: 24px;
+    height: 22px;
+}
+// The svg for the label
+.sstc-label-button-poked svg {
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 // container for labels
@@ -37,4 +57,5 @@
     padding: 0;
     font-size: 1.15em;
     min-width: 145px;
+    padding-left: .2em;
 }

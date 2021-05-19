@@ -9,6 +9,7 @@
     "@bentley/extension-client": "^2.10.7",
     "@bentley/frontend-application-insights-client": "^2.10.7",
     "@bentley/frontend-authorization-client": "^2.10.7",
+    "@bentley/frontend-devtools": "^2.15.1",
     "@bentley/geometry-core": "^2.13.1",
     "@bentley/icons-generic": "^1.0.32",
     "@bentley/imodelhub-client": "^2.10.7",

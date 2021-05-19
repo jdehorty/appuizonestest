@@ -6,25 +6,35 @@
 
 import "./styles/_App.scss";
 
-import {Viewer} from "@bentley/itwin-viewer-react";
-import React, {useEffect, useState} from "react";
+import { Viewer } from "@bentley/itwin-viewer-react";
+import React, { useEffect, useState } from "react";
 
-import {IModelApp, IModelConnection, AuthorizedFrontendRequestContext} from "@bentley/imodeljs-frontend";
-import {ChangeSetQuery} from "@bentley/imodelhub-client";
+import {
+    AuthorizedFrontendRequestContext,
+    DisplayStyle3dState,
+    IModelApp,
+    IModelConnection,
+    ScreenViewport,
+    ViewState3d
+} from "@bentley/imodeljs-frontend";
+
+import { ChangeSetQuery } from "@bentley/imodelhub-client";
 
 import AuthorizationClient from "./AuthorizationClient";
-import {Header} from "./Header";
-import {LabelerUiProvider} from "./LabelerUiProvider";
+import { Header } from "./Header";
+import { LabelerUiProvider } from "./LabelerUiProvider";
 
-import {LabelerState} from "./store/LabelerState";
+import { LabelerState } from "./store/LabelerState";
 
-import {SelectionExtender} from "./SelectionExtender";
+import { SelectionExtender } from "./SelectionExtender";
 
-import {Presentation} from "@bentley/presentation-frontend";
-import {SetupConfigFromEnv} from "./config/configuration";
-import {Config} from "@bentley/bentleyjs-core";
-import {LabelingWorkflowManager} from "./LabelingWorkflowManager";
-import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} from "./data/BlobLabelSources";
+import { Presentation } from "@bentley/presentation-frontend";
+import { SetupConfigFromEnv } from "./config/configuration";
+import { Config } from "@bentley/bentleyjs-core";
+import { LabelingWorkflowManager } from "./LabelingWorkflowManager";
+import { BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface } from "./data/BlobLabelSources";
+
+import { useActiveViewport, } from "@bentley/ui-framework";
 
 // import { UiItemsManager } from "@bentley/ui-abstract";
 // import { LabelerUiProvider } from "./sampleFrontstageProvider";
@@ -33,6 +43,7 @@ import {BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface} 
 const App: React.FC = () => {
     const [isAuthorized, setIsAuthorized] = useState(AuthorizationClient.oidcClient ? AuthorizationClient.oidcClient.isAuthorized : false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+
 
     useEffect(() => {
         const initOidc = async () => {
@@ -67,7 +78,6 @@ const App: React.FC = () => {
         }
     }, []);
 
-
     useEffect(() => {
         if (isLoggingIn && isAuthorized) {
             setIsLoggingIn(false);
@@ -101,7 +111,6 @@ const App: React.FC = () => {
             predSuffix: Config.App.getString("mlPredSuffix")
         }
 
-
         const labelInterface = new BlobBasedMachineLearningLabelInterface(config);
 
         LabelingWorkflowManager.configureDataSources(labelInterface, imodel);
@@ -118,11 +127,10 @@ const App: React.FC = () => {
                 activeLocale: "en",
             });
         } catch (error) {
+            // Ignore
         }
 
-
         const initPromises: Promise<void>[] = [];
-
         initPromises.push(SelectionExtender.initialize(LabelerState.store, IModelApp.i18n, "selectionExtenderState"));
         initPromises.push(LabelingWorkflowManager.initialize(LabelerState.store, IModelApp.i18n, "labelingWorkflowManagerState"));
         initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
@@ -148,6 +156,23 @@ const App: React.FC = () => {
         openLabelSource(connection).then(() => {
             // setReadyForPopup(true);
         });
+
+        let vpCount = 0;
+        IModelApp.viewManager.forEachViewport((vp: ScreenViewport) => {
+            vpCount++;
+            if (vp.view.is3d()) {
+                const view: ViewState3d = vp.view;
+                console.log('view is: ' + view === null ? "null" : "not null");
+
+                view.getDisplayStyle3d().environment.sky.display = false;
+                view.getDisplayStyle3d().environment.ground.display = false;
+            }
+        });
+        console.log("viewport count = " + vpCount);
+    }
+
+    const onIModelAppInit = async () => {
+
     }
 
     return (
@@ -165,7 +190,7 @@ const App: React.FC = () => {
                         <Viewer
                             contextId={process.env.IMJS_CONTEXT_ID ?? ""}
                             iModelId={process.env.IMJS_IMODEL_ID ?? ""}
-                            authConfig={{oidcClient: AuthorizationClient.oidcClient}}
+                            authConfig={{ oidcClient: AuthorizationClient.oidcClient }}
                             theme={"light"}
                             defaultUiConfig={
                                 {
@@ -175,6 +200,7 @@ const App: React.FC = () => {
                             }
                             uiProviders={[new LabelerUiProvider()]}
                             onIModelConnected={onIModelConnected}
+                            onIModelAppInit={onIModelAppInit}
                         />
                     </div>
                 )
