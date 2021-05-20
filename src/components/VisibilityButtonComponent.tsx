@@ -7,7 +7,9 @@
 import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType, SvgPath} from "@bentley/ui-core";
 import * as React from "react";
-import "../styles/styles.css"
+
+import "../styles/styles.scss"
+
 
 /** TristateVisiblityButton properties */
 interface VisibilityButtonProps {

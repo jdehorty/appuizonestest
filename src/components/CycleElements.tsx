@@ -6,7 +6,6 @@ import React, { FC, useState } from 'react';
 import { IModelApp } from "@bentley/imodeljs-frontend";
 import { Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize } from "@bentley/ui-core";
 import MLStateTablePopout from "./MLStateTablePopout";
-import "../styles/_LabelingWorkflowStyles.scss";
 import { CyclerButtonBackFastSvg } from "./CyclerButtonBackFastSvg";
 import { CyclerButtonBackSvg } from "./CyclerButtonBackSvg";
 import { CyclerButtonForwardSvg } from "./CyclerButtonForwardSvg";
@@ -66,8 +65,21 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                 <table className="sstc-cycler-table">
                     <tbody>
                     <tr>
-                        <td>
+                        <td width="95%">
                             <div className="cycler-container">
+                                {
+                                    !props.enabled &&
+                                    <>
+                                        <Button
+                                            className="cycler-button"
+                                            buttonType={ButtonType.Hollow}
+                                            onClick={props.onStart}
+                                            style={{ minWidth: 24, maxWidth: 24 }}
+                                        >
+                                            <IsolateButton/>
+                                        </Button>
+                                    </>
+                                }
                                 <div className="cycler-total-count">
                                     <div
                                         className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.totalTitle")}</div>
@@ -84,30 +96,6 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                         {!props.ready && <Spinner size={SpinnerSize.Small}/>}
                                     </div>
                                 </div>
-                                {
-                                    !props.enabled &&
-                                    <>
-                                        {/*<Button*/}
-                                        {/*    className="cycler-button"*/}
-                                        {/*    onClick={props.onStart}*/}
-                                        {/*    disabled={props.selectedCount === 0 || !props.ready}*/}
-                                        {/*>*/}
-                                        {/*    {IModelApp.i18n.translate("LabelingApp:cycler.startCycling")}*/}
-                                        {/*</Button>*/}
-
-                                        <Button
-                                            className=".sstc-isolate-button"
-                                            buttonType={ButtonType.Hollow}
-                                            onClick={props.onStart}
-                                            disabled={props.selectedCount === 0 || !props.ready}
-                                            style={{ minWidth: 24, maxWidth: 24 }}
-                                        >
-                                            <IsolateButton/>
-                                        </Button>
-
-
-                                    </>
-                                }
                                 {
                                     props.enabled &&
                                     <>
@@ -156,11 +144,14 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                     </>
                                 }
                                 &nbsp;
-                                <LabeledToggle
-                                    label={IModelApp.i18n.translate("LabelingApp:forceShowAll")}
-                                    isOn={props.forceShowAll}
-                                    onChange={props.onForceShowAllChanged}
-                                />
+                                {
+                                    props.enabled &&
+                                    <LabeledToggle
+                                        label={IModelApp.i18n.translate("LabelingApp:forceShowAll")}
+                                        isOn={props.forceShowAll}
+                                        onChange={props.onForceShowAllChanged}
+                                    />
+                                }
                             </div>
                         </td>
                         {

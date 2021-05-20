@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 
 import {
     AuthorizedFrontendRequestContext,
-    DisplayStyle3dState,
     IModelApp,
     IModelConnection,
     ScreenViewport,
@@ -33,12 +32,6 @@ import { SetupConfigFromEnv } from "./config/configuration";
 import { Config } from "@bentley/bentleyjs-core";
 import { LabelingWorkflowManager } from "./LabelingWorkflowManager";
 import { BlobBasedLabelDataSourceConfig, BlobBasedMachineLearningLabelInterface } from "./data/BlobLabelSources";
-
-import { useActiveViewport, } from "@bentley/ui-framework";
-
-// import { UiItemsManager } from "@bentley/ui-abstract";
-// import { LabelerUiProvider } from "./sampleFrontstageProvider";
-
 
 const App: React.FC = () => {
     const [isAuthorized, setIsAuthorized] = useState(AuthorizationClient.oidcClient ? AuthorizationClient.oidcClient.isAuthorized : false);

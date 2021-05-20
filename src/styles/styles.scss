@@ -3,16 +3,161 @@
  */
 
 // This is the file that gets compiled to CSS.
-@use "components/DataContainerComponent";
-@use "components/ExpanderComponent";
-@use "components/LabelButtonComponent";
-@use "components/LabelTableBody";
-@use "components/LabelTableHeader";
-@use "components/MLTableComponent";
-@use "components/RadioButtonComponent";
-@use "components/SelectionButtonComponent";
-@use "components/SelectionClearButtonComponent";
-@use "components/SelectionExtenderComponent";
-@use "components/TableShading";
-@use "components/VisibilityButtonAllComponent";
-@use "components/VisibilityButtonComponent";
+@import "components/DataContainerComponent";
+@import "components/ExpanderComponent";
+@import "components/LabelButtonComponent";
+@import "components/LabelTableBody";
+@import "components/LabelTableHeader";
+@import "components/MLTableComponent";
+@import "components/RadioButtonComponent";
+@import "components/SelectionButtonComponent";
+@import "components/SelectionClearButtonComponent";
+@import "components/SelectionExtenderComponent";
+@import "components/TableShading";
+@import "components/VisibilityButtonAllComponent";
+@import "components/VisibilityButtonComponent";
+
+// Miscellaneous - To be sorted into separate files
+
+// Cycler Margins
+.sstc-data-header {
+  margin: 10px;
+}
+
+// Table Margins
+.sstc-data-container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 9pt;
+  margin-left: 10px;
+}
+
+// Table Spacing
+.sstc-data-table {
+  border-collapse: collapse;
+  display: flex;
+  height: 100%;
+  width: fit-content;
+  flex-direction: column;
+}
+
+// Visibility Button Sizing
+.sstc-visibility-button {
+  margin: 0;
+  padding: 2px 4px;
+  width: 24px;
+  height: 22px;
+}
+
+// Isolate Button in Cycling Component
+.sstc-isolate-button {
+  margin: 0 0 0 -8px;
+  padding: 2px 4px;
+  fill: transparent;
+  border: 0 none;
+  font-size: 1.4em;
+}
+
+// Popout Button
+.sstc-window-new-button {
+  margin: 0 0 0 2px;
+  fill: transparent;
+  border: 0 none;
+  font-size: 1.2em;
+  text-align: right;
+}
+
+// De-select button sizing
+.sstc-select-button {
+  margin: 0;
+  padding: 2px 4px;
+  width: 24px;
+  height: 22px;
+}
+
+// Color Picker Spacing
+.sstc-color-picker-button {
+  margin: 0 2px;
+  float: right;
+}
+
+// Table Formatting - General
+.sstc-action-container
+{
+  display: flex;
+  flex-direction: row;
+}
+
+// Spinner
+.sstc-spinner-container
+{
+  display: table-cell;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+}
+
+// Spinner
+.sstc-spinner-inner-container
+{
+  width: fit-content;
+  display: block;
+}
+
+// Cycler Container Alignment
+.cycler-container {
+  display: flex;
+  align-items: center;
+  box-sizing: content-box;
+  height: 100%;
+}
+
+// Cycler Counts
+.cycler-total-count,
+.cycler-selected-count,
+.cycler-progress {
+  margin: 2px;
+  padding-left: 6px;
+  padding-right: 2px;
+  width: fit-content;
+  height: fit-content;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: .6em;
+}
+
+// Cycler Text for Counts
+.cycler-title {
+  text-align: center;
+  text-decoration: underline;
+  margin: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: block;
+  font-size: 1.3em;
+}
+
+// Cycler Values
+.cycler-value {
+  margin: 0;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+  display: block;
+  font-size: 1.5em;
+}
+
+// Buttons in Cycler Component
+.cycler-button {
+  border: 0 none;
+  fill: transparent;
+  font-size: 1.2em;
+  margin: 0 0 0 2px;
+  padding: 2px 4px;
+}

@@ -6,7 +6,6 @@ import {IModelApp} from "@bentley/imodeljs-frontend";
 import {Button, ButtonType} from "@bentley/ui-core";
 import * as React from "react";
 import {FC} from "react";
-import '../styles/_LabelingWorkflowStyles.scss';
 import {SelectionButtonSvg} from "./SelectionButtonSvg";
 
 /** SelectionButton properties */

@@ -2,8 +2,6 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-@use "../variables" as vars;
-
 // Table Header
 
 // "View Colors As" and "Color Mode" Borders
@@ -27,9 +25,7 @@ div.sstc-data-container table.sstc-data-table tbody:nth-child(1) tr td:nth-child
   margin-left: .2em;
 }
 
-
-.NameColumn-----------------------------------------------------------------------------------------------------------{}
-
+// Name Column
 // Column Names
 .mltc-first-row {
   background-color: #DCE0E3;
@@ -39,7 +35,7 @@ div.sstc-data-container table.sstc-data-table tbody:nth-child(1) tr td:nth-child
 .mltc-name-th-v2 {
   min-width: 191px;
   max-width: 191px;
-  font-size: vars.$fontScale;
+  font-size: 1.15em;
 }
 
 .mltc-name-th-v2-selection {
@@ -118,10 +114,10 @@ tbody .mltc-name-td-v2 label {
 {
   min-width: 191px;
   max-width: 191px;
-  font-size: vars.$fontScale;
+  font-size: 1.15em;
 }
 
-.LabelColumn----------------------------------------------------------------------------------------------------------{}
+// Label Column
 .mltc-label-th-v2,
 .mltc-label-td-v2
 {
@@ -129,7 +125,7 @@ tbody .mltc-name-td-v2 label {
   //max-width: 80px;
   //border-left: thin solid grey;
   //border-right: thin solid grey;
-  font-size: vars.$fontScale;
+  font-size: 1.15em;
 }
 
 .mltc-label-container-v2
@@ -141,24 +137,21 @@ tbody .mltc-name-td-v2 label {
   text-overflow: ellipsis;
   margin: 0;
   padding: 0;
-  font-size: vars.$fontScale;
+  font-size: 1.15em;
   min-width: 180px;
   max-width: 180px;
 }
 
-.PredictionColumn-----------------------------------------------------------------------------------------------------{}
+// Predicted Column
 .mltc-prediction-th-v2
 {
-  //border-left: thin solid grey;
   border-right: none;
-  font-size: vars.$fontScale;
+  font-size: 1.15em;
 }
 
 .mltc-prediction-td-v2
 {
-  //border-left: thin solid grey;
-  //border-right: thin solid grey;
-  font-size: vars.$fontScale;
+  font-size: 1.15em;
 }
 
 .mltc-prediction-td-v2.on {
