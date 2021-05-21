@@ -125,25 +125,35 @@ export class LabelingWorkflowManagerSelectors {
             const colorMap = new Map<Id64String, ColorDef>();
             if (colorMode !== MachineLearningColorMode.Native) {
                 for (const [elementId, elementState] of elementStateMap) {
+                    let labelState: CommonLabelState | undefined = undefined;
                     switch (colorMode) {
                         case MachineLearningColorMode.LabelColors:
                             {
-                                const labelState = commonLabelStateMap.get(elementState.trueLabel);
-                                if (labelState !== undefined) {
-                                    colorMap.set(elementId, labelState.color);
-                                }
+                                labelState = commonLabelStateMap.get(elementState.trueLabel);
                                 break;
                             }
                         case MachineLearningColorMode.PredictionColors:
                             {
-                                const labelState = commonLabelStateMap.get(elementState.predLabel);
-                                if (labelState !== undefined) {
-                                    colorMap.set(elementId, labelState.color);
-                                }
+                                labelState = commonLabelStateMap.get(elementState.predLabel);
                                 break;
                             }
                         default:
                             break;
+                    }
+
+                    if (labelState !== undefined) {
+                        let parentLabelState = undefined;
+                        if (labelState?.parentLabel !== undefined) {
+                            parentLabelState = commonLabelStateMap.get(labelState?.parentLabel);
+                        }
+                        // If we don't have a parent, or the parent is expanded, use our own (labelState) color.
+                        if (parentLabelState === undefined || parentLabelState.isExpanded) {
+                            colorMap.set(elementId, labelState.color);
+                        }
+                        else {
+                            // Substitute Parent's color here since this child's parent node is NOT expanded.
+                            colorMap.set(elementId, parentLabelState.color);
+                        }
                     }
                 }
             }
