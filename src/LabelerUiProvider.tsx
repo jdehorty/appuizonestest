@@ -1,6 +1,5 @@
 /*---------------------------------------------------------------------------------------------
- * Copyright (c) Bentley Systems,
- Incorporated. All rights reserved.
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
@@ -8,8 +7,8 @@ import { AbstractWidgetProps, StagePanelLocation, StagePanelSection, UiItemsProv
 
 import React from "react";
 
-import { ToggleSkyboxTool } from "@bentley/frontend-devtools"
 import { ConnectedSelectionHelperComponent } from "./SelectionExtender";
+import {ConnectedMLTableComponent} from "./components/ConnectedMLTable";
 import { Provider } from 'react-redux';
 import { LabelerState } from "./store/LabelerState";
 import { ConnectedCycleElementComponent } from "./components/ConnectedCycleElements";

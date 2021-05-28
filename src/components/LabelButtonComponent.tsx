@@ -30,6 +30,7 @@ export const LabelButtonComponent = (props: LabelButtonProps) => {
                     }
                 }}
             >
+                {/* Label Icon */}
                 <Svg
                     width={"100%"}
                     height={"100%"}

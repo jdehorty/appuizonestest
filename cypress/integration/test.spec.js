@@ -1,16 +1,35 @@
-describe('Should Log In', () => {
-    it('Should log in', () => {
+describe('Integration Tests', () => {
+
+    beforeEach(() => {
         cy.viewport(1508, 813)
-        cy.visit('http://localhost:3000/24b566ed-a308-49b3-8831-8f4f3b0d17a5/82eccd21-bb76-414a-b82a-04913509d5d1')
-        cy.wait(9000);  // wait for redirect finish
-        // cy.visit('https://qa-imsoidc.bentley.com/connect/authorize?client_id=ml-labeling-spa-client&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fsignin-oidc&response_type=code&scope=openid%20profile%20organization%20email%20context-registry-service%3Aread-only%20general-purpose-imodeljs-backend%20imodelhub%20imodeljs-router%20product-settings-service%20urlps-third-party%20ml-labeling-tool-api&state=54b2f2f7d41c4953b406fc648974eeb8&code_challenge=jYX36aPhDyg7V_cwe6vslkF4axOzpiqyMDEU4s7euGU&code_challenge_method=S256&response_mode=query');
+    });
+
+    it('Should authenticate', () => {
+        cy.visit('https://qa-imsoidc.bentley.com/connect/authorize?client_id=ml-labeling-spa-client&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fsignin-oidc&response_type=code&scope=openid%20profile%20organization%20email%20context-registry-service%3Aread-only%20general-purpose-imodeljs-backend%20imodelhub%20imodeljs-router%20product-settings-service%20urlps-third-party%20ml-labeling-tool-api&state=54b2f2f7d41c4953b406fc648974eeb8&code_challenge=jYX36aPhDyg7V_cwe6vslkF4axOzpiqyMDEU4s7euGU&code_challenge_method=S256&response_mode=query');
         cy.get('.ping-container').click();
         cy.get('.ping-input-container').click();
         cy.get('#identifierInput').click();
         cy.get('#identifierInput').type('justin.dehorty@bentley.com');
         cy.get('#sign-in-button').click();
-        // cy.wait(9000);  // wait for redirect finish
+        // cy.wait(10000);
     })
+
+    it('Should log in', () => {
+        cy.visit('http://localhost:3000/24b566ed-a308-49b3-8831-8f4f3b0d17a5/82eccd21-bb76-414a-b82a-04913509d5d1')
+        cy.wait(12000);
+    });
+
+    // it('Should drag left side panel', () => {
+    //     const draggable = Cypress.$('.nz-widgetPanels-panels')[0]  // Pick up this
+    //     const droppable = Cypress.$('.nz-widgetPanels-panels')[0]  // Drop over this
+    //
+    //     draggable.dispatchEvent(new MouseEvent('mousedown'));
+    //     cy.wait(1000);  // wait for redirect finish
+    //     draggable.dispatchEvent(new MouseEvent('mousemove', {clientX: 1800, clientY: 0}));
+    //     cy.wait(1000);  // wait for redirect finish
+    //     draggable.dispatchEvent(new MouseEvent('mouseup'));
+    //     cy.wait(5000);  // wait for redirect finish
+    // });
 
     it('Should interact with the viewer', () => {
         cy.get('.nz-widgetPanels-panels > .nz-left > .nz-grip-container > .nz-widgetPanels-grip > .nz-handle').click()
@@ -27,16 +46,12 @@ describe('Should Log In', () => {
     });
 
     it('Should the adjust camera angle', () => {
-        cy.get('.core-cube-css3d > .cube-front > .nav-cube-face > .cube-center > .face-cell:nth-child(3)').click()
-        cy.wait(500);
-        cy.get('.core-cube-css3d > .cube-right > .nav-cube-face > .cube-center > .face-cell:nth-child(3)').click()
-        cy.wait(500);
-        cy.get('.core-cube-css3d > .cube-right > .nav-cube-face > .face-row:nth-child(3) > .cube-center').click()
-        cy.wait(500);
-        cy.get('.core-cube-css3d > .cube-right > .nav-cube-face > .face-row:nth-child(1) > .cube-center').click()
-        cy.wait(500);
-        cy.get('.core-cube-css3d > .cube-right > .nav-cube-face > .cube-center > .face-cell:nth-child(1)').click()
-        cy.wait(500);
+        cy.get('.components-toolbar-items-container > .components-toolbar-item-container > .components-toolbar-button-item > .components-icon > .icon-fit-to-view').click()
+        cy.get('[data-testid=cube-pointer-button-left]').click();
+        cy.get('[data-testid=cube-pointer-button-up]').click();
+        cy.get('[data-testid=cube-pointer-button-down]').click();
+        cy.get('[data-testid=cube-pointer-button-right]').click();
+        cy.get('[data-testid=cube-pointer-button-right]').click();
     });
 
     it('Should adjust the color mode', () => {
@@ -44,12 +59,19 @@ describe('Should Log In', () => {
         cy.wait(500);
         cy.get('tr > td > div > label > .sstc-color-mode-select').select('MachineLearning:colorMode.predictionColors')
         cy.wait(500);
-        cy.get('tr > td > div > label > .sstc-color-mode-select').select('MachineLearning:colorMode.nativeColors')
+        cy.get('tr > td > div > label > .sstc-color-mode-select').select('MachineLearning:colorMode.native')
         cy.wait(500);
         cy.get('tr > td > div > label > .sstc-color-mode-select').select('MachineLearning:colorMode.predictionColors')
         cy.wait(500);
         cy.get('tr > td > div > label > .sstc-color-mode-select').select('MachineLearning:colorMode.labelColors')
     })
+
+    it('Should toggle visibility', () => {
+        cy.get('.mltc-first-row > .mltc-name-th-v2 > .mltc-name-th-v2-visibility > .uicore-buttons-hollow > .core-icons-svgSprite').click()
+        for (let i = 1; i < 15; i++) {
+            cy.get(`tbody > tr:nth-child(${i}) > .mltc-name-td-v2 > .uicore-buttons-hollow > .core-icons-svgSprite`).click()
+        }
+    });
 
 })
 
