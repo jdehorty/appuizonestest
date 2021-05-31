@@ -1,7 +1,5 @@
 /*
- *
- *  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
- *
+ *  Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
 import {IModelApp} from "@bentley/imodeljs-frontend";
@@ -61,7 +59,7 @@ const VisibilityButtonComponent = (props: VisibilityButtonProps) => {
         // Current
         svgVisibilityPathsArray = visibilityOn;
         buttonClassName = "sstc-visibility-button transparent";
-        //Next
+        // Next
         newVisible = false;
         newTransparent = false;
         actionI18nKey = "LabelingApp:hide";

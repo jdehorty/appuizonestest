@@ -154,26 +154,26 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                 }
                             </div>
                         </td>
-                        {
-                            !props.isPoppedOut &&
-                            <td className="mltc-popout-button-td">
-                                <div>
-                                    <Button
-                                        className="sstc-window-new-button"
-                                        buttonType={ButtonType.Hollow}
-                                        onClick={_onPopoutButtonClick}
-                                    >
-                                        <Icon iconSpec="icon-window-new"/>
-                                    </Button>
-                                    {
-                                        readyForPopout &&
-                                        <MLStateTablePopout
-                                            title={"ML Labeler"}
-                                            closingPopout={_onPopoutWindowClosing}/>
-                                    }
-                                </div>
-                            </td>
-                        }
+                        {/*{*/}
+                        {/*    !props.isPoppedOut &&*/}
+                        {/*    <td className="mltc-popout-button-td">*/}
+                        {/*        <div>*/}
+                        {/*            <Button*/}
+                        {/*                className="sstc-window-new-button"*/}
+                        {/*                buttonType={ButtonType.Hollow}*/}
+                        {/*                onClick={_onPopoutButtonClick}*/}
+                        {/*            >*/}
+                        {/*                <Icon iconSpec="icon-window-new"/>*/}
+                        {/*            </Button>*/}
+                        {/*            {*/}
+                        {/*                readyForPopout &&*/}
+                        {/*                <MLStateTablePopout*/}
+                        {/*                    title={"ML Labeler"}*/}
+                        {/*                    closingPopout={_onPopoutWindowClosing}/>*/}
+                        {/*            }*/}
+                        {/*        </div>*/}
+                        {/*    </td>*/}
+                        {/*}*/}
                     </tr>
                     </tbody>
                 </table>

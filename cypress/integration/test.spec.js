@@ -19,18 +19,6 @@ describe('Integration Tests', () => {
         cy.wait(12000);
     });
 
-    // it('Should drag left side panel', () => {
-    //     const draggable = Cypress.$('.nz-widgetPanels-panels')[0]  // Pick up this
-    //     const droppable = Cypress.$('.nz-widgetPanels-panels')[0]  // Drop over this
-    //
-    //     draggable.dispatchEvent(new MouseEvent('mousedown'));
-    //     cy.wait(1000);  // wait for redirect finish
-    //     draggable.dispatchEvent(new MouseEvent('mousemove', {clientX: 1800, clientY: 0}));
-    //     cy.wait(1000);  // wait for redirect finish
-    //     draggable.dispatchEvent(new MouseEvent('mouseup'));
-    //     cy.wait(5000);  // wait for redirect finish
-    // });
-
     it('Should interact with the viewer', () => {
         cy.get('.nz-widgetPanels-panels > .nz-left > .nz-grip-container > .nz-widgetPanels-grip > .nz-handle').click()
         cy.get('.components-toolbar-items-container > .components-toolbar-item-container > .components-toolbar-button-item > .components-icon > .icon-fit-to-view').click()

@@ -19,6 +19,21 @@
 
 // Miscellaneous - To be sorted into separate files
 
+// Save, Auto-save, Undo, and Redo Buttons Styles
+.sstc-control-button {
+  margin: 1px;
+  padding: 3px 5px;
+}
+
+.sstc-action-container-expand .uicore-label {
+  margin-right: 2em;
+}
+
+.sstc-control-button:first-child {
+  margin-left: .8em;
+  margin-right: .5em;
+}
+
 // Cycler Margins
 .sstc-data-header {
   margin: 10px;
@@ -86,15 +101,13 @@
 }
 
 // Table Formatting - General
-.sstc-action-container
-{
+.sstc-action-container {
   display: flex;
   flex-direction: row;
 }
 
 // Spinner
-.sstc-spinner-container
-{
+.sstc-spinner-container {
   display: table-cell;
   vertical-align: middle;
   margin-left: auto;
@@ -104,8 +117,7 @@
 }
 
 // Spinner
-.sstc-spinner-inner-container
-{
+.sstc-spinner-inner-container {
   width: fit-content;
   display: block;
 }

@@ -177,7 +177,8 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
             dispatch(ReplaceSelectedLabelItem(newItem, oldItem))
         },
         onToggleLabelTableEmphasis() {
-            dispatch(ToggleLabelTableEmphasis())
+            dispatch(ToggleLabelTableEmphasis());
+            // dispatch(SwapTruePredDisplay());
         },
         onClearSelection() {
             dispatch(ClearSelectedUiItems())

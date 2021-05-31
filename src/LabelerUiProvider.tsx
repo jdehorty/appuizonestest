@@ -27,9 +27,7 @@ export class LabelerUiProvider implements UiItemsProvider {
             if (location === StagePanelLocation.Right) {
                 widgets.push({
                     id: "selectionExtenderId",
-
                     label: "Selection Extender",
-
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
                             <ConnectedSelectionHelperComponent/>
@@ -40,9 +38,8 @@ export class LabelerUiProvider implements UiItemsProvider {
             if (location === StagePanelLocation.Left) {
                 widgets.push({
                     id: "MLLabelingToolV2Id",
-
                     label: "ML Labeling Tool",
-
+                    canPopout: true,
                     getWidgetContent: () =>
                         <Provider store={LabelerState.store}>
                             <ConnectedCycleElementComponent/>

@@ -25,6 +25,33 @@ export const LabelingWorkflowManagerReducer = (
     action: LabelingWorkflowManagerAction
 ): LabelingWorkflowState => {
 
+    const swapVisibilityStates = () => {
+        const newPredLabelStateMap = new Map<MachineLearningLabel, PredLabelState>(prevState.predLabelStateMap);
+        const newTrueLabelStateMap = new Map<MachineLearningLabel, TrueLabelState>(prevState.trueLabelStateMap);
+        for (const name of prevState.commonLabelStateMap.keys()) {
+
+            if (newPredLabelStateMap.has(name) && newTrueLabelStateMap.has(name)) {
+
+                const trueLabelState = newTrueLabelStateMap.get(name)!;
+                const predLabelState = newPredLabelStateMap.get(name)!;
+                const newTrueLabelState = {
+                    ...trueLabelState,
+                    isDisplayed: predLabelState.isDisplayed,
+                    isTransparent: predLabelState.isTransparent,
+                };
+                const newPredLabelState = {
+                    ...predLabelState,
+                    isDisplayed: trueLabelState.isDisplayed,
+                    isTransparent: trueLabelState.isTransparent,
+                };
+                newTrueLabelStateMap.set(name, newTrueLabelState);
+                newPredLabelStateMap.set(name, newPredLabelState);
+            }
+
+        }
+        return { newPredLabelStateMap, newTrueLabelStateMap };
+    };
+
     switch (action.type) {
         case LabelingWorkflowManagerActionType.DataWasInitialized:
             // Data was initialized, directly set the state maps and raise the ready flag
@@ -425,31 +452,7 @@ export const LabelingWorkflowManagerReducer = (
         }
 
         case LabelingWorkflowManagerActionType.VisiblityStatesSwapped: {
-            const newPredLabelStateMap = new Map<MachineLearningLabel, PredLabelState>(prevState.predLabelStateMap);
-            const newTrueLabelStateMap = new Map<MachineLearningLabel, TrueLabelState>(prevState.trueLabelStateMap);
-            // const newCommonLabelStateMap = new Map<MachineLearningLabel, CommonLabelState>();
-            for (const name of prevState.commonLabelStateMap.keys()) {
-
-                if (newPredLabelStateMap.has(name) && newTrueLabelStateMap.has(name)) {
-
-                    const trueLabelState = newTrueLabelStateMap.get(name)!;
-                    const predLabelState = newPredLabelStateMap.get(name)!;
-                    const newTrueLabelState = {
-                        ...trueLabelState,
-                        isDisplayed: predLabelState.isDisplayed,
-                        isTransparent: predLabelState.isTransparent,
-                    };
-                    const newPredLabelState = {
-                        ...predLabelState,
-                        isDisplayed: trueLabelState.isDisplayed,
-                        isTransparent: trueLabelState.isTransparent,
-                    };
-                    newTrueLabelStateMap.set(name, newTrueLabelState);
-                    newPredLabelStateMap.set(name, newPredLabelState);
-                }
-
-            }
-
+            const { newPredLabelStateMap, newTrueLabelStateMap } = swapVisibilityStates();
             return {
                 ...prevState,
                 predLabelStateMap: newPredLabelStateMap,
@@ -460,9 +463,14 @@ export const LabelingWorkflowManagerReducer = (
         case LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis: {
             let newLableTableState: LabelTableEmphasis = (prevState.labelTableEmphasis == LabelTableEmphasis.ActOnLabels)
                 ? LabelTableEmphasis.ActOnPredictions : LabelTableEmphasis.ActOnLabels;
+
+            const { newPredLabelStateMap, newTrueLabelStateMap } = swapVisibilityStates();
+
             return {
                 ...prevState,
-                labelTableEmphasis: newLableTableState
+                labelTableEmphasis: newLableTableState,
+                predLabelStateMap: newPredLabelStateMap,
+                trueLabelStateMap: newTrueLabelStateMap,
             }
         }
 

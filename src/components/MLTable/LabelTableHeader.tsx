@@ -39,7 +39,6 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
     const toggleLabelTableEmphasis = (): void => {
         // Before we dispatch the change of emphasis, clear the currently selected graphics and UI elements.
         Presentation.selection.clearSelection("", UiFramework.getIModelConnection()!);
-        // props.selectedUiItems?.clear();
         props.onClearSelection();
         props.onToggleLabelTableEmphasis();
     }
@@ -157,7 +156,6 @@ const LabelTableHeader: FC<LabelTableHeaderProps> = (props) => {
                             </div>
                         </>
                     }
-
                   
                     <div className="mltc-name-th-v2-title">
                         {IModelApp.i18n.translate("LabelingApp:labelTableHeading.name")}
