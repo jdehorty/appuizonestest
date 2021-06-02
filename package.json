@@ -39,6 +39,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/lodash": "^4.14.170",
     "@typescript-eslint/eslint-plugin": "2.x",
+    "cypress": "^7.4.0",
     "eslint-webpack-plugin": "^2.5.2",
     "history": "^4.10.1",
     "jsdom": "^16.5.0",
