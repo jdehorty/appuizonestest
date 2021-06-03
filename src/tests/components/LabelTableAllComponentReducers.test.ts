@@ -9,7 +9,6 @@ import {
 import {INITIAL_STATE} from "../../store/LabelingWorkflowState";
 import {ColorDef} from "@bentley/imodeljs-common";
 import {MachineLearningColorMode} from "../../data/LabelTypes";
-import cloneDeep from 'lodash/cloneDeep';
 
 describe('LabelTableAllComponent Reducers', () => {
 
@@ -128,42 +127,6 @@ describe('LabelTableAllComponent Reducers', () => {
             .toEqual(after)
     });
 
-    test('LabelTableEmphasis toggle should cause pred-true flip-flop', () => {
-        const beamTrueLabelState = {
-            label: "MachineLearning:label.beam",
-            displayI18nKey: "MachineLearning:label.beam",
-            isDisplayed: false,
-            isTransparent: false,
-        };
 
-        const beamPredLabelState = {
-            label: "MachineLearning:label.beam",
-            displayI18nKey: "MachineLearning:label.beam",
-            isDisplayed: true,
-            isTransparent: true,
-        };
-
-        const before = {
-            ...stateAfterDataWasInitialized,
-        }
-
-        let expected = cloneDeep(before);
-        expected = {
-            ...expected,
-            labelTableEmphasis: 1
-        }
-
-        before.predLabelStateMap.set('MachineLearning:label.beam', beamPredLabelState);
-        before.trueLabelStateMap.set('MachineLearning:label.beam', beamTrueLabelState);
-
-        expected.predLabelStateMap.set('MachineLearning:label.beam', beamTrueLabelState);
-        expected.trueLabelStateMap.set('MachineLearning:label.beam', beamPredLabelState);
-
-        const after = reducer(before, <LabelingWorkflowManagerAction>{
-            type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis
-        });
-
-        expect(after).toEqual(expected);
-    });
 
 });
