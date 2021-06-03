@@ -1,0 +1,21 @@
+{
+  "baseUrl": "http://localhost:5001",
+  "video": false,
+  "chromeWebSecurity": false,
+  "modifyObstructiveCode": false,
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "tests/test-output-[hash].xml",
+    "toConsole": true,
+    "attachments": true
+  },
+
+  "env": {
+    "buddiRegion": 103,
+    "RETRIES": 3,
+    "proxyServer": "",
+    "userName": "designinsightuser01@bentleyconnectops.bentley.com",
+    "userPassword": "fuYumfJQ8CNzEemn"
+  },
+  "defaultCommandTimeout": 25000
+}
