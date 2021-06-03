@@ -1,0 +1,19 @@
+{
+  "baseUrl": "https://connect-projectwiseteamshost.bentley.com",
+  "integrationFolder": ".",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "supportFile": "cypress/support/index.ts",
+  "blacklistHosts": [
+    "dc.services.visualstudio.com",
+    "az416426.vo.msecnd.net",
+    "unpkg.com",
+    "statics.teams.cdn.office.net"
+  ],
+  "env": {
+    "baseUrl": "https://qa-connect-projectwiseteamshost.bentley.com"
+  },
+  "reporter": "junit",
+  "videoRecording": false,
+  "chromeWebSecurity": true,
+  "headless": true
+}

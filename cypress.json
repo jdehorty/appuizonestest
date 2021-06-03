@@ -1,4 +1,27 @@
 {
-  "projectId": "hrwscr",
-  "chromeWebSecurity": false
+  "baseUrl": "https://projectwiseteamshost.bentley.com:44313",
+  "integrationFolder": "cypress/integration",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "supportFile": "cypress/support/index.ts",
+  "blockHosts": [
+    "dc.services.visualstudio.com",
+    "az416426.vo.msecnd.net",
+    "unpkg.com",
+    "statics.teams.cdn.office.net"
+  ],
+  "env": {
+    "baseUrl": "https://projectwiseteamshost.bentley.com:44313",
+    "configFile": "local"
+  },
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "cypress/reports/teams_report.[hash].xml",
+    "toConsole": true,
+    "attachments": true
+  },
+  "video": false,
+  "chromeWebSecurity": false,
+  "headless": true,
+  "pageLoadTimeout": 10000,
+  "requestTimeout": 20000
 }
