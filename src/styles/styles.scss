@@ -101,13 +101,15 @@
 }
 
 // Table Formatting - General
-.sstc-action-container {
+.sstc-action-container
+{
   display: flex;
   flex-direction: row;
 }
 
 // Spinner
-.sstc-spinner-container {
+.sstc-spinner-container
+{
   display: table-cell;
   vertical-align: middle;
   margin-left: auto;
@@ -117,7 +119,8 @@
 }
 
 // Spinner
-.sstc-spinner-inner-container {
+.sstc-spinner-inner-container
+{
   width: fit-content;
   display: block;
 }

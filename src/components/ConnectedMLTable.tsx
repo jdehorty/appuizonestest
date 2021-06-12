@@ -131,7 +131,7 @@ const mapDispatchToProps3 = (dispatch: Dispatch<LabelingWorkflowManagerAction>):
     },
     onSwapTruePredDisplay: () => {
         dispatch({
-            type: LabelingWorkflowManagerActionType.VisiblityStatesSwapped,
+            type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped,
         });
     },
 });

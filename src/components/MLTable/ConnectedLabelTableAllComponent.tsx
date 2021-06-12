@@ -46,7 +46,7 @@ export interface LabelTableStateFromProps {
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
     selectionSet: Id64Set;
     labelTableEmphasis: LabelTableEmphasis;
-    labelClassPoked: MachineLearningLabel;
+    labelClassPoked: MachineLearningLabel | undefined;
 
     onLabelSelectionClick(itemId?: MachineLearningLabel): void;
 
@@ -89,7 +89,6 @@ export interface LabelTableDispatchFromProps {
 
 export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
     const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
-    console.log('mapStateToProps3 => !state is state == ' + JSON.stringify(state));
     if (!state) {
         throw new Error();
     }
@@ -178,7 +177,7 @@ export function mapLabelTableDispatchToProps(dispatch: Dispatch<LabelingWorkflow
         },
         onToggleLabelTableEmphasis() {
             dispatch(ToggleLabelTableEmphasis());
-            // dispatch(SwapTruePredDisplay());
+            dispatch(SwapTruePredDisplay());
         },
         onClearSelection() {
             dispatch(ClearSelectedUiItems())

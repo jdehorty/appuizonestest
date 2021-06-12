@@ -37,7 +37,7 @@ export enum LabelingWorkflowManagerActionType {
     ToggleLabelTableEmphasis = "LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis",
     TrueLabelVisibilityWasChanged = "LabelingWorkflowManagerActionType.LabelVisibilityWasChanged",
     UndoWasRequested = "LabelingWorkflowManagerActionType.UndoWasRequested",
-    VisiblityStatesSwapped = "LabelingWorkflowManagerActionType.VisiblityStatesSwapped",
+    VisibilityStateWasSwapped = "LabelingWorkflowManagerActionType.VisibilityStateWasSwapped"
 }
 
 /** Reducer action */

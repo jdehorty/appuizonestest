@@ -1,14 +1,14 @@
 /*
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-import {LabelingWorkflowManagerReducer as reducer} from "../../store/LabelingWorkflowReducer";
+import { LabelingWorkflowManagerReducer as reducer } from "../../store/LabelingWorkflowReducer";
 import {
     LabelingWorkflowManagerAction,
     LabelingWorkflowManagerActionType
 } from "../../store/LabelingWorkflowActionsTypes";
-import {INITIAL_STATE} from "../../store/LabelingWorkflowState";
-import {ColorDef} from "@bentley/imodeljs-common";
-import {MachineLearningColorMode} from "../../data/LabelTypes";
+import { INITIAL_STATE } from "../../store/LabelingWorkflowState";
+import { ColorDef } from "@bentley/imodeljs-common";
+import { MachineLearningColorMode } from "../../data/LabelTypes";
 
 describe('LabelTableAllComponent Reducers', () => {
 
@@ -45,8 +45,9 @@ describe('LabelTableAllComponent Reducers', () => {
             .toEqual(after)
     });
 
+
     test('AddSelectedLabelItem', () => {
-        const inputItem = {
+        let inputItem = {
             name: 'MachineLearning:label.beam',
             color: ColorDef.blue,
             isSelected: true,
@@ -70,7 +71,7 @@ describe('LabelTableAllComponent Reducers', () => {
             });
 
         // stringify the selectedUiItems Map in the received object for comparison with its expected value
-        const receivedJson = JSON.stringify([...receivedMap.selectedUiItems]);
+        let receivedJson = JSON.stringify([...receivedMap.selectedUiItems]);
         const expectedJson = JSON.stringify([[
             "MachineLearning:label.beam",
             {
@@ -127,6 +128,450 @@ describe('LabelTableAllComponent Reducers', () => {
             .toEqual(after)
     });
 
+    test('LabelTableEmphasis toggle should cause pred-true flip-flop', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            label: "MachineLearning:label.beam",
+            displayI18nKey: "MachineLearning:label.beam",
+            isDisplayed: true,
+            isTransparent: true,
+        };
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            label: "MachineLearning:label.beam",
+            displayI18nKey: "MachineLearning:label.beam",
+            isDisplayed: true,
+            isTransparent: true,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped
+        }))
+
+        received.toEqual(expected);
+    });
+
+    test('SelectionLabelWasChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            labelingWorkflowManagerState: {
+                ready: true,
+                elementStateMapIsDirty: true,
+                elementStateMapIndex: 3,
+                forceShowAll: false,
+                labelClassPoked: undefined,
+                filterEmptyRows: false,
+                labelTableEmphasis: 0,
+            }
+        }
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            labelingWorkflowManagerState: {
+                ready: true,
+                elementStateMapIsDirty: true,
+                elementStateMapIndex: 3,
+                forceShowAll: false,
+                labelClassPoked: undefined,
+                filterEmptyRows: false,
+                labelTableEmphasis: 0,
+            }
+        }
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.SelectionLabelWasChanged
+        }))
+        received.toEqual(expected)
+    });
+
+    it('UndoWasRequested', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            elementStateMapIsDirty: false,
+            elementStateMapIndex: 2
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            elementStateMapIsDirty: true,
+            elementStateMapIndex: 1
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.UndoWasRequested,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    it('RedoWasRequested', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            elementStateMapIsDirty: false,
+            elementStateMapIndex: 4
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            elementStateMapIsDirty: true,
+            elementStateMapIndex: 0
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.RedoWasRequested,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    it('LabelColorWasNotChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            "elementStateMapIsDirty": false,
+            newColor: 255
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            newColor: 255
+        }
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.LabelColorWasChanged,
+        }))
+        received.toEqual(expected)
+    });
+
+    test('LabelTableEmphasis', () => {
+
+        let before = {
+            ...stateAfterDataWasInitialized,
+            labelTableEmphasis: 0,
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            labelTableEmphasis: 1,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    test('CycleModeActionStarted', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                working: false,
+            }
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                working: false,
+            }
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.CycleModeActionStarted,
+        }))
+        received.toEqual(expected)
+    });
+
+    it('ClearSelectedUiItems', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ClearSelectedUiItems,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    it('CycleModeIndexWasChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+            }
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+            }
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.CycleModeIndexWasChanged,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    test('CycleModeWasDisabled', () => {
+
+        let before = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                enabled: false,
+                working: false,
+            }
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                enabled: false,
+                working: false,
+            }
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.CycleModeWasDisabled,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    it('VisibilityStateWasSwapped', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+        }
+        let expected = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    it('TrueLabelVisibilityWasChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            isDisplayed: true,
+            isTransparent: false
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            isDisplayed: true,
+            isTransparent: false
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.TrueLabelVisibilityWasChanged,
+        }))
+
+        received.toEqual(expected)
+    });
 
 
-});
+    it('LabelExpandStateWasChanged', () => {
+
+        let before = {
+            ...stateAfterDataWasInitialized
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.LabelExpandStateWasChanged,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    test('CycleModeWasDisabled', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                enabled: true,
+                working: true,
+                currentIndex: undefined,
+            }
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                enabled: false,
+                working: false,
+                currentIndex: undefined,
+            }
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.CycleModeWasDisabled,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    test('CycleModeWasEnabled', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                cycleList: undefined,
+                enabled: false,
+                working: false,
+                currentIndex: undefined,
+                initialFrustums: undefined
+            }
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            cycleModeState: {
+                ...stateAfterDataWasInitialized.cycleModeState,
+                cycleList: undefined,
+                enabled: true,
+                working: false,
+                currentIndex: undefined,
+                initialFrustums: undefined
+            }
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.CycleModeWasEnabled,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    test('ClassVisibilityWasChanged', () => {
+
+        let before = {
+            ...stateAfterDataWasInitialized
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ClassVisibilityWasChanged,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    test('PredLabelVisibilityWasChanged', () => {
+
+        let before = {
+            ...stateAfterDataWasInitialized,
+            isDisplayed: true,
+            isTransparent: false
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            isDisplayed: true,
+            isTransparent: false
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.PredLabelVisibilityWasChanged,
+        }))
+
+        received.toEqual(expected)
+    });
+
+    test('CategoryVisibilityWasChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.CategoryVisibilityWasChanged,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    test('ForceShowAllChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            forceShowAll: false,
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            forceShowAll: undefined,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ForceShowAllChanged,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    test('FilterEmptyRowsChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+            filterEmptyRows: false
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+            filterEmptyRows: undefined
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.FilterEmptyRowsChanged,
+        }))
+
+        received.toEqual(expected)
+
+    });
+
+    test('ModelVisibilityWasChanged', () => {
+        let before = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let expected = {
+            ...stateAfterDataWasInitialized,
+        }
+
+        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+            type: LabelingWorkflowManagerActionType.ModelVisibilityWasChanged,
+        }))
+
+        received.toEqual(expected)
+    });
+
+})
+;

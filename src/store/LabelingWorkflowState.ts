@@ -119,7 +119,7 @@ export interface LabelingWorkflowState {
     /**
      * The name of the last class that was clicked to indicate which class we're using to label selected elements
      */
-    labelClassPoked: MachineLearningLabel;
+    labelClassPoked: MachineLearningLabel | undefined;
 }
 
 
@@ -145,5 +145,5 @@ export const INITIAL_STATE: LabelingWorkflowState = {
     filterEmptyRows: false,
     selectedUiItems: new Map<MachineLearningLabel, MLStateTableDataItem>(),
     labelTableEmphasis: LabelTableEmphasis.ActOnLabels,
-    labelClassPoked: ''
+    labelClassPoked: undefined,
 }

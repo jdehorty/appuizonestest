@@ -63,7 +63,7 @@ export class LabelingWorflowOverrideElements implements FeatureOverrideProvider 
             if (entry.colorOverride !== undefined || entry.isTransparent || entry.isEmphasized) {
                 const app = FeatureSymbology.Appearance.fromJSON({ 
                     rgb: entry.colorOverride !== undefined ? RgbColor.fromColorDef(entry.colorOverride) : undefined, 
-                    transparency: entry.isTransparent ? 0.97 : undefined,
+                    transparency: entry.isTransparent ? 0.95 : undefined, 
                     emphasized: entry.isEmphasized ? true : undefined, 
                     nonLocatable: entry.isTransparent ? true : undefined,
                 });

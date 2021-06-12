@@ -155,13 +155,10 @@ const App: React.FC = () => {
             vpCount++;
             if (vp.view.is3d()) {
                 const view: ViewState3d = vp.view;
-                console.log('view is: ' + view === null ? "null" : "not null");
-
                 view.getDisplayStyle3d().environment.sky.display = false;
                 view.getDisplayStyle3d().environment.ground.display = false;
             }
         });
-        console.log("viewport count = " + vpCount);
     }
 
     const onIModelAppInit = async () => {

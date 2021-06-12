@@ -52,7 +52,7 @@ export const ChangeColorMode = (colorMode: MachineLearningColorMode) => ({
 });
 
 export const SwapTruePredDisplay = () => ({
-    type: LabelingWorkflowManagerActionType.VisiblityStatesSwapped,
+    type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped,
 });
 
 export const FilterEmptyRowsChange = (filterEmptyRowsFlag: boolean) => ({

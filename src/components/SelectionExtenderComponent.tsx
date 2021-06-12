@@ -50,8 +50,6 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
         vp.synchWithView();
     }
 
-    console.log("viewport count = " + vpCount);
-
 const handleFieldCheckboxClicked = (i: number) => (): void => {
     if (props.config === undefined) {
         return;

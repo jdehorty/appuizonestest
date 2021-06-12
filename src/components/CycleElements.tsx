@@ -69,7 +69,6 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                             <div className="cycler-container">
                                 {
                                     !props.enabled &&
-                                    <>
                                         <Button
                                             className="cycler-button"
                                             buttonType={ButtonType.Hollow}
@@ -78,7 +77,6 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                         >
                                             <IsolateButton/>
                                         </Button>
-                                    </>
                                 }
                                 <div className="cycler-total-count">
                                     <div

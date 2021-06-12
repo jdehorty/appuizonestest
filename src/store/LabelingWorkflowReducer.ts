@@ -4,7 +4,7 @@
 
 import {
     CategoryState,
-    CommonLabelState,
+    CommonLabelState, CycleModeState,
     ECClassState,
     ElementState,
     INITIAL_STATE,
@@ -15,8 +15,9 @@ import {
     TrueLabelState
 } from "./LabelingWorkflowState";
 import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./LabelingWorkflowActionsTypes";
-import {Id64String} from "@bentley/bentleyjs-core";
-import {MachineLearningLabel} from "../data/LabelTypes";
+import { Id64Set, Id64String } from "@bentley/bentleyjs-core";
+import { MachineLearningColorMode, MachineLearningLabel } from "../data/LabelTypes";
+import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
 
 const MAX_UNDO = 10;
 
@@ -25,7 +26,7 @@ export const LabelingWorkflowManagerReducer = (
     action: LabelingWorkflowManagerAction
 ): LabelingWorkflowState => {
 
-    const swapVisibilityStates = () => {
+     let swapVisibilityStates = () => {
         const newPredLabelStateMap = new Map<MachineLearningLabel, PredLabelState>(prevState.predLabelStateMap);
         const newTrueLabelStateMap = new Map<MachineLearningLabel, TrueLabelState>(prevState.trueLabelStateMap);
         for (const name of prevState.commonLabelStateMap.keys()) {
@@ -451,7 +452,7 @@ export const LabelingWorkflowManagerReducer = (
             }
         }
 
-        case LabelingWorkflowManagerActionType.VisiblityStatesSwapped: {
+        case LabelingWorkflowManagerActionType.VisibilityStateWasSwapped: {
             const { newPredLabelStateMap, newTrueLabelStateMap } = swapVisibilityStates();
             return {
                 ...prevState,
@@ -477,6 +478,7 @@ export const LabelingWorkflowManagerReducer = (
         case LabelingWorkflowManagerActionType.ClearSelectedUiItems: {
             const clearedItems = new Map(prevState.selectedUiItems);
             clearedItems?.clear();
+            console.log(`clearedItems = ${JSON.stringify(clearedItems)}`);
             return {
                 ...prevState,
                 selectedUiItems: clearedItems

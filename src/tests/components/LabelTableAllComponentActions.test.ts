@@ -109,7 +109,7 @@ describe('LabelTableAllComponent Actions', () => {
 
     test('SwapTruePredDisplay', () => {
         const expectedAction = {
-            type: LabelingWorkflowManagerActionType.VisiblityStatesSwapped,
+            type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped,
         }
         expect(actions.SwapTruePredDisplay()).toEqual(expectedAction);
     });
