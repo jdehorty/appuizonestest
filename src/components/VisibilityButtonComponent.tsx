@@ -22,6 +22,10 @@ interface VisibilityButtonProps {
     /** Is this item transparent? */
     transparent: boolean;
 
+    /** Does the item have children? */
+    // hasChildren: boolean;
+    /** What level is the item on? */
+    // level: number;
     /** Click handler */
     onClick?(newVisible: boolean, newTransparent: boolean, itemId?: string): void;
 }
@@ -41,7 +45,6 @@ const VisibilityButtonComponent = (props: VisibilityButtonProps) => {
 
     if (props.visible && !props.transparent) { // the class is fully visible, next on deck is make transparent
         // Current
-        // buttonClassName = "sstc-visibility-button";
         svgVisibilityPathsArray = visibilityOn;
 
         // Next
@@ -65,7 +68,6 @@ const VisibilityButtonComponent = (props: VisibilityButtonProps) => {
         actionI18nKey = "LabelingApp:hide";
     } else { // the class is hidden, next on deck is to show
         // Current
-        // buttonClassName = "sstc-visibility-button";
         svgVisibilityPathsArray = visibilityOff;
         // Next
         newVisible = true;

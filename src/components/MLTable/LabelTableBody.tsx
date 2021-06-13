@@ -147,24 +147,28 @@ const LabelTableBody: FC<Props> = (props) => {
             <div className="mltc-level-spacer" style={{ minWidth: 1 + (12 * (level)) }} />
 
             {
-                (props.labelTableEmphasis == LabelTableEmphasis.ActOnLabels) &&
+                (props.labelTableEmphasis === LabelTableEmphasis.ActOnLabels) &&
                 <VisibilityButtonComponent
                     transparencyAvailable={true}
                     label={i18nName}
                     itemId={item.name}
                     visible={item.trueLabelIsDisplayed}
                     transparent={item.trueLabelIsTransparent}
+                    // hasChildren={true}
+                    // level={0}
                     onClick={props.onLabelDisplayChange}
                 />
             }
             {
-                (props.labelTableEmphasis == LabelTableEmphasis.ActOnPredictions) &&
+                (props.labelTableEmphasis === LabelTableEmphasis.ActOnPredictions) &&
                 <VisibilityButtonComponent
                     transparencyAvailable={true}
                     label={i18nName}
                     itemId={item.name}
                     visible={item.predLabelIsDisplayed}
                     transparent={item.predLabelIsTransparent}
+                    // hasChildren={true}
+                    // level={0}
                     onClick={props.onPredictionDisplayChange}
                 />
             }
