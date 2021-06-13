@@ -18,7 +18,7 @@ interface Props {
 
 export const SelectionClearButtonComponent: FC<Props> = (props) => {
     const imodelConnection: IModelConnection | undefined = UiFramework.getIModelConnection();
-    let title = IModelApp.i18n.translate("LabelingApp:everything");
+    let title = IModelApp.i18n.translate("LabelingApp:clearSelection");
     let className = "sstc-select-button";
 
     return <>

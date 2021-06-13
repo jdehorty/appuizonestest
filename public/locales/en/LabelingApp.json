@@ -9,6 +9,8 @@
   "hideEmpty": "Hide Empty",
   "makeTransparent": "Make Transparent",
   "makeAllTransparent": "Make All Transparent",
+  "clearSelection": "Clear Selection",
+  "isolateSelection": "Isolate Selection",
   "models": "Models",
   "categories": "Categories",
   "classes": "Classes",

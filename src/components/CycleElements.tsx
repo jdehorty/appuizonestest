@@ -4,8 +4,7 @@
 
 import React, { FC, useState } from 'react';
 import { IModelApp } from "@bentley/imodeljs-frontend";
-import { Button, ButtonType, Icon, LabeledToggle, Spinner, SpinnerSize } from "@bentley/ui-core";
-import MLStateTablePopout from "./MLStateTablePopout";
+import { Button, ButtonType, LabeledToggle, Spinner, SpinnerSize } from "@bentley/ui-core";
 import { CyclerButtonBackFastSvg } from "./CyclerButtonBackFastSvg";
 import { CyclerButtonBackSvg } from "./CyclerButtonBackSvg";
 import { CyclerButtonForwardSvg } from "./CyclerButtonForwardSvg";
@@ -68,16 +67,31 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                         <td width="95%">
                             <div className="cycler-container">
                                 {
-                                    !props.enabled &&
-                                        <Button
-                                            className="cycler-button"
-                                            buttonType={ButtonType.Hollow}
-                                            onClick={props.onStart}
-                                            style={{ minWidth: 24, maxWidth: 24 }}
-                                        >
-                                            <IsolateButton/>
-                                        </Button>
+                                    (props.selectedCount > 0) && !props.enabled &&
+                                    <Button
+                                        className="cycler-button"
+                                        buttonType={ButtonType.Hollow}
+                                        onClick={props.onStart}
+                                        style={{ minWidth: 24, maxWidth: 24 }}
+                                    >
+                                        <IsolateButton
+                                            isDisabled={false}
+                                        />
+                                    </Button>
                                 }
+                                {/*{*/}
+                                {/*    (props.selectedCount <= 0) && !props.enabled &&*/}
+                                {/*    <Button*/}
+                                {/*        className="cycler-button"*/}
+                                {/*        buttonType={ButtonType.Hollow}*/}
+                                {/*        onClick={props.onStart}*/}
+                                {/*        style={{ minWidth: 24, maxWidth: 24 }}*/}
+                                {/*    >*/}
+                                {/*        <IsolateButton*/}
+                                {/*            isDisabled={true}*/}
+                                {/*        />*/}
+                                {/*    </Button>*/}
+                                {/*}*/}
                                 <div className="cycler-total-count">
                                     <div
                                         className="cycler-title">{IModelApp.i18n.translate("LabelingApp:cycler.totalTitle")}</div>
