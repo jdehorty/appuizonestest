@@ -1,4 +1,4 @@
 {
-  "projectId": "hrwscr",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "video": false
 }

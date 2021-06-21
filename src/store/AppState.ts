@@ -25,7 +25,7 @@ export interface RootAction {
 
 export type AppStore = Store<RootState>;
 
-/**
+/*
  * Centralized state management class using Redux actions, reducers and store.
  */
 export class AppState {

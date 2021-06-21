@@ -36,18 +36,6 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
     };
 
     private LABEL_DEFS: Array<MachineLearningLabelDefExt> = [
-        { label: "MachineLearning:label.beamunclassified", legacyName: "BeamUnclassified", parentLabel: "MachineLearning:label.beam", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.columnunclassified", legacyName: "ColumnUnclassified", parentLabel: "MachineLearning:label.column", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.slabunclassified", legacyName: "SlabUnclassified", parentLabel: "MachineLearning:label.slab", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.doorunclassified", legacyName: "DoorUnclassified", parentLabel: "MachineLearning:label.door", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.windowunclassified", legacyName: "WindowUnclassified", parentLabel: "MachineLearning:label.window", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.otherunclassified", legacyName: "OtherUnclassified", parentLabel: "MachineLearning:label.other", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.stairunclassified", legacyName: "StairUnclassified", parentLabel: "MachineLearning:label.stair", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.wallunclassified", legacyName: "WallUnclassified", parentLabel: "MachineLearning:label.wall", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.pipeunclassified", legacyName: "PipeUnclassified", parentLabel: "MachineLearning:label.pipe", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.spaceunclassified", legacyName: "SpaceUnclassified", parentLabel: "MachineLearning:label.space", defaultColor: ColorDef.from(0, 0, 255) },
-        { label: "MachineLearning:label.pileunclassified", legacyName: "PileUnclassified", parentLabel: "MachineLearning:label.pile", defaultColor: ColorDef.from(0, 0, 255) },
-
         { label: "MachineLearning:label.beam", legacyName: "Beam", parentLabel: "MachineLearning:label.beam", defaultColor: ColorDef.from(64, 64, 64) },
         { label: "MachineLearning:label.brace", legacyName: "Brace", parentLabel: "MachineLearning:label.beam", defaultColor: ColorDef.from(0, 0, 0) },
         { label: "MachineLearning:label.bracevertical", legacyName: "BraceVertical", parentLabel: "MachineLearning:label.column", defaultColor: ColorDef.from(0, 0, 0) },
@@ -102,7 +90,6 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
         { label: "MachineLearning:label.placeholder4", legacyName: "PlaceHolder4", parentLabel: "MachineLearning:label.unlabeled", defaultColor: ColorDef.from(255, 255, 255) },
         { label: "MachineLearning:label.unmapped", legacyName: "Unmapped", parentLabel: "MachineLearning:label.unlabeled", defaultColor: ColorDef.from(255, 255, 255) },
         { label: "MachineLearning:label.notext", legacyName: "NoText", parentLabel: "MachineLearning:label.unlabeled", defaultColor: ColorDef.from(255, 255, 255) },
-
         { label: "MachineLearning:label.misclassified", legacyName: "Misclassified", parentLabel: "MachineLearning:label.misclassified", defaultColor: ColorDef.from(255, 0, 0) },
         { label: "MachineLearning:label.beammisclassified", legacyName: "BeamMisclassified", parentLabel: "MachineLearning:label.beam", defaultColor: ColorDef.from(255, 0, 0) },
         { label: "MachineLearning:label.columnmisclassified", legacyName: "ColumnMisclassified", parentLabel: "MachineLearning:label.column", defaultColor: ColorDef.from(255, 0, 0) },
@@ -115,7 +102,6 @@ export class BlobBasedMachineLearningLabelInterface extends MachineLearningLabel
         { label: "MachineLearning:label.pipemisclassified", legacyName: "PipeMisclassified", parentLabel: "MachineLearning:label.pipe", defaultColor: ColorDef.from(255, 0, 0) },
         { label: "MachineLearning:label.spacemisclassified", legacyName: "SpaceMisclassified", parentLabel: "MachineLearning:label.space", defaultColor: ColorDef.from(255, 0, 0) },
         { label: "MachineLearning:label.pilemisclassified", legacyName: "PileMisclassified", parentLabel: "MachineLearning:label.pile", defaultColor: ColorDef.from(255, 0, 0) },
-
         { label: this.UNLABELED, legacyName: "Unlabeled", parentLabel: this.UNLABELED, defaultColor: ColorDef.from(255, 255, 255) },
     ];
 

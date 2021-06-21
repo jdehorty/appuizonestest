@@ -57,7 +57,9 @@ export enum LabelTableEmphasis {
     ActOnPredictions = 1
 }
 
-/** State for a GeometricElement3d */
+/* 
+* State for a GeometricElement3d 
+*/
 export interface ElementState {
     /** The element's ECInstanceId */
     elementId: Id64String;
@@ -115,15 +117,16 @@ export interface LabelingWorkflowState {
     selectedUiItems: Map<MachineLearningLabel, MLStateTableDataItem>;
     /** Indicates whether bi-modal LabelTable controls are currently biased toward Labels or Predictions.  */
     labelTableEmphasis: LabelTableEmphasis;
-
-    /**
+    /*
      * The name of the last class that was clicked to indicate which class we're using to label selected elements
      */
     labelClassPoked: MachineLearningLabel | undefined;
 }
 
 
-/** Initial state for the reducer */
+/* 
+ * Initial state for the reducer
+ */
 export const INITIAL_STATE: LabelingWorkflowState = {
     ready: false,
     modelStateMap: new Map<Id64String, BaseGroupState>(),
