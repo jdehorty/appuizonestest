@@ -13,10 +13,11 @@ import {Store} from "redux";
 import {connect} from "react-redux";
 import SelectionHelperComponent, {SelectionExtenderComponentProps} from "./components/SelectionExtenderComponent";
 import {filterKeySet} from "./utils/SelectionUtils";
-import {SelectionExtenderState} from "./store/SelectionExtenderState";
-import {SelectionExtenderAction, SelectionExtenderActionType} from "./store/SelectionExtenderActions";
-import {MatchingRuleType, SelectionExtenderConfig} from "./store/SelectionExtenderTypes";
-import {RootState} from "./store/AppState";
+import { MatchingRuleType, SelectionExtenderConfig, SEStateType } from "./store/types/SETypes";
+import {RootStateType} from "./store/AppState";
+import { SelectionExtenderActionType } from "./store/actionTypes/SEActionTypes";
+import { SelectionExtenderAction } from "./store/definitions/SEActionsDef";
+import {SelectionExtenderState} from "./store/state/SEState";
 
 const TOL = 1e-3;
 
@@ -61,7 +62,7 @@ export class SelectionExtender {
         }
     }
 
-    private static get state(): SelectionExtenderState {
+    private static get state(): SEStateType {
         return this.store.getState()[this.stateKey];
     }
 
@@ -376,8 +377,8 @@ export class SelectionExtender {
 }
 
 
-const mapStateToProps = (rootState: RootState): SelectionExtenderComponentProps | undefined => {
-    const state = rootState.selectionExtenderState as SelectionExtenderState | undefined;
+const mapStateToProps = (rootState: RootStateType): SelectionExtenderComponentProps | undefined => {
+    const state = rootState.selectionExtenderState as SEStateType | undefined;
     if (!state) {
         return undefined;
     }

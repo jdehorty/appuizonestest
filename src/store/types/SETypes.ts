@@ -2,6 +2,16 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
+import { InstanceKey } from "@bentley/presentation-common";
+
+export type SEStateType = {
+    singleKey?: InstanceKey;
+    foundCount?: number;
+    isSearching: boolean;
+    config: SelectionExtenderConfig;
+    contentMap: Map<MatchingRuleType, string[]>;
+}
+
 export enum MatchingRuleType {
     SameClass = "SelectionExtender:MatchingRuleType.SameClass",
     SameUserLabel = "SelectionExtender:MatchingRuleType.SameUserLabel",

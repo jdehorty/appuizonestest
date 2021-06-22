@@ -1,16 +1,19 @@
 /*
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-import { LabelingWorkflowManagerReducer as reducer } from "../../store/LabelingWorkflowReducer";
-import {
-    LabelingWorkflowManagerAction,
-    LabelingWorkflowManagerActionType
-} from "../../store/LabelingWorkflowActionsTypes";
-import { INITIAL_STATE } from "../../store/LabelingWorkflowState";
+// import {
+//     LabelingWorkflowManagerAction,
+//     LabelingWorkflowManagerActionType
+// } from "../../store/LabelingWorkflowActionsTypes";
+// import { INITIAL_STATE } from "../../store/LabelingWorkflowState";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { MachineLearningColorMode } from "../../data/LabelTypes";
+import { INITIAL_STATE } from "../../store/state/LWState";
+import { LabelingWorkflowManagerAction as action } from "../../store/definitions/LWActionsDef";
+import { LabelingWorkflowManagerActionType } from "../../store/actionTypes/LWActionTypes";
+import { LabelingWorkflowManagerReducer as reducer } from "../../store/reducers/LWReducers";
 
-describe('LabelTableAllComponent Reducers', () => {
+describe('Connection Reducers', () => {
 
     let stateAfterDataWasInitialized = {
         ...INITIAL_STATE,
@@ -18,11 +21,11 @@ describe('LabelTableAllComponent Reducers', () => {
     }
 
     it('should return initial state', () => {
-        expect(reducer(undefined, <LabelingWorkflowManagerAction>{})).toEqual(INITIAL_STATE)
+        expect(reducer(undefined, <action>{})).toEqual(INITIAL_STATE)
     });
 
     test('DataWasInitialized', () => {
-        expect(reducer(INITIAL_STATE, <LabelingWorkflowManagerAction>{
+        expect(reducer(INITIAL_STATE, <action>{
             type: LabelingWorkflowManagerActionType.DataWasInitialized,
             ready: false
         }))
@@ -39,7 +42,7 @@ describe('LabelTableAllComponent Reducers', () => {
             elementStateMapIsDirty: false
         }
 
-        expect(reducer(before, <LabelingWorkflowManagerAction>{
+        expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.LabelsWereSaved,
         }))
             .toEqual(after)
@@ -65,7 +68,7 @@ describe('LabelTableAllComponent Reducers', () => {
         };
 
         const receivedMap =
-            reducer(stateAfterDataWasInitialized, <LabelingWorkflowManagerAction>{
+            reducer(stateAfterDataWasInitialized, <action>{
                 type: LabelingWorkflowManagerActionType.AddSelectedLabelItem,
                 labelItemToSelectOrUnselect: inputItem
             });
@@ -104,7 +107,7 @@ describe('LabelTableAllComponent Reducers', () => {
             colorMode: MachineLearningColorMode.LabelColors
         }
 
-        expect(reducer(before, <LabelingWorkflowManagerAction>{
+        expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ColorModeWasChanged,
             colorMode: MachineLearningColorMode.LabelColors,
         }))
@@ -121,7 +124,7 @@ describe('LabelTableAllComponent Reducers', () => {
             colorMode: MachineLearningColorMode.PredictionColors
         }
 
-        expect(reducer(before, <LabelingWorkflowManagerAction>{
+        expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ColorModeWasChanged,
             colorMode: MachineLearningColorMode.PredictionColors,
         }))
@@ -145,7 +148,7 @@ describe('LabelTableAllComponent Reducers', () => {
             isTransparent: true,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped
         }))
 
@@ -177,7 +180,7 @@ describe('LabelTableAllComponent Reducers', () => {
                 labelTableEmphasis: 0,
             }
         }
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.SelectionLabelWasChanged
         }))
         received.toEqual(expected)
@@ -196,7 +199,7 @@ describe('LabelTableAllComponent Reducers', () => {
             elementStateMapIndex: 1
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.UndoWasRequested,
         }))
 
@@ -216,7 +219,7 @@ describe('LabelTableAllComponent Reducers', () => {
             elementStateMapIndex: 0
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.RedoWasRequested,
         }))
 
@@ -234,7 +237,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized,
             newColor: 255
         }
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.LabelColorWasChanged,
         }))
         received.toEqual(expected)
@@ -252,7 +255,7 @@ describe('LabelTableAllComponent Reducers', () => {
             labelTableEmphasis: 1,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ToggleLabelTableEmphasis,
         }))
 
@@ -276,7 +279,7 @@ describe('LabelTableAllComponent Reducers', () => {
             }
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.CycleModeActionStarted,
         }))
         received.toEqual(expected)
@@ -291,7 +294,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ClearSelectedUiItems,
         }))
 
@@ -314,7 +317,7 @@ describe('LabelTableAllComponent Reducers', () => {
             }
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.CycleModeIndexWasChanged,
         }))
 
@@ -341,7 +344,7 @@ describe('LabelTableAllComponent Reducers', () => {
             }
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.CycleModeWasDisabled,
         }))
 
@@ -357,7 +360,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.VisibilityStateWasSwapped,
         }))
 
@@ -378,7 +381,7 @@ describe('LabelTableAllComponent Reducers', () => {
             isTransparent: false
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.TrueLabelVisibilityWasChanged,
         }))
 
@@ -396,7 +399,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.LabelExpandStateWasChanged,
         }))
 
@@ -424,7 +427,7 @@ describe('LabelTableAllComponent Reducers', () => {
             }
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.CycleModeWasDisabled,
         }))
 
@@ -456,7 +459,7 @@ describe('LabelTableAllComponent Reducers', () => {
             }
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.CycleModeWasEnabled,
         }))
 
@@ -473,7 +476,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ClassVisibilityWasChanged,
         }))
 
@@ -495,7 +498,7 @@ describe('LabelTableAllComponent Reducers', () => {
             isTransparent: false
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.PredLabelVisibilityWasChanged,
         }))
 
@@ -511,7 +514,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.CategoryVisibilityWasChanged,
         }))
 
@@ -530,7 +533,7 @@ describe('LabelTableAllComponent Reducers', () => {
             forceShowAll: undefined,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ForceShowAllChanged,
         }))
 
@@ -549,7 +552,7 @@ describe('LabelTableAllComponent Reducers', () => {
             filterEmptyRows: undefined
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.FilterEmptyRowsChanged,
         }))
 
@@ -566,7 +569,7 @@ describe('LabelTableAllComponent Reducers', () => {
             ...stateAfterDataWasInitialized,
         }
 
-        let received = expect(reducer(before, <LabelingWorkflowManagerAction>{
+        let received = expect(reducer(before, <action>{
             type: LabelingWorkflowManagerActionType.ModelVisibilityWasChanged,
         }))
 

@@ -5,7 +5,7 @@
 import { Id64String } from "@bentley/bentleyjs-core";
 import { RgbColor } from "@bentley/imodeljs-common";
 import { FeatureOverrideProvider, FeatureSymbology, Viewport } from "@bentley/imodeljs-frontend";
-import { MachineLearningElementOverrideData } from "./store/LabelingWorkflowTypes";
+import { MachineLearningElementOverrideData } from "./store/types/LWTypes";
 
 
 export class LabelingWorflowOverrideElements implements FeatureOverrideProvider {

@@ -16,12 +16,12 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
 } from "./ConnectedLabelTableAllComponent";
-import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkflowTypes";
+import { LabelTreeEntry, MLStateTableDataItem } from "../../store/types/LWTypes";
 import { LabelTableAllComponent } from "./LabelTableAllComponent";
 import { ColorPickerButton } from "@bentley/ui-components";
 import { LabelButtonComponent } from "../LabelButtonComponent";
 import VisibilityButtonComponent from "../VisibilityButtonComponent";
-import { LabelTableEmphasis } from '../../store/LabelingWorkflowState';
+import { LabelTableEmphasis } from '../../store/state/LWState';
 import { Tooltip } from "@bentley/ui-ninezone";
 
 type Props = LabelTableDispatchFromProps & ReturnType<typeof mapLabelTableStateToProps>;

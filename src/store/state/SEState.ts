@@ -5,20 +5,10 @@
 import {
     MatchingOperator,
     MatchingRuleType,
-    SelectionExtenderConfig,
-} from "./SelectionExtenderTypes";
-import {InstanceKey} from "@bentley/presentation-common";
+    SEStateType,
+} from "../types/SETypes";
 
-
-export interface SelectionExtenderState {
-    singleKey?: InstanceKey;
-    foundCount?: number;
-    isSearching: boolean;
-    config: SelectionExtenderConfig;
-    contentMap: Map<MatchingRuleType, string[]>;
-}
-
-export const INITIAL_STATE: SelectionExtenderState = {
+export const SelectionExtenderState: SEStateType = {
     singleKey: undefined,
     foundCount: undefined,
     isSearching: false,

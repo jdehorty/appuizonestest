@@ -4,27 +4,27 @@
 
 import {
     CategoryState,
-    CommonLabelState, CycleModeState,
+    CommonLabelState,
     ECClassState,
     ElementState,
     INITIAL_STATE,
-    LabelingWorkflowState,
+    LWState,
     LabelTableEmphasis,
     ModelState,
     PredLabelState,
     TrueLabelState
-} from "./LabelingWorkflowState";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./LabelingWorkflowActionsTypes";
+} from "../state/LWState";
+import {LabelingWorkflowManagerAction} from "../definitions/LWActionsDef";
 import { Id64Set, Id64String } from "@bentley/bentleyjs-core";
-import { MachineLearningColorMode, MachineLearningLabel } from "../data/LabelTypes";
-import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
+import { MachineLearningColorMode, MachineLearningLabel } from "../../data/LabelTypes";
+import { LabelingWorkflowManagerActionType } from "../actionTypes/LWActionTypes";
 
 const MAX_UNDO = 10;
 
 export const LabelingWorkflowManagerReducer = (
-    prevState: LabelingWorkflowState = INITIAL_STATE,
+    prevState: LWState = INITIAL_STATE,
     action: LabelingWorkflowManagerAction
-): LabelingWorkflowState => {
+): LWState => {
 
      let swapVisibilityStates = () => {
         const newPredLabelStateMap = new Map<MachineLearningLabel, PredLabelState>(prevState.predLabelStateMap);

@@ -7,7 +7,7 @@ import { Id64String } from "@bentley/bentleyjs-core";
 import { Environment, IModelApp, IModelConnection, ViewState3d } from "@bentley/imodeljs-frontend";
 import { Button, ButtonType, LabeledInput, LabeledSelect, LabeledToggle, Textarea } from "@bentley/ui-core";
 import * as React from "react";
-import { MatchingOperator, MatchingRuleType, SelectionExtenderConfig } from "../store/SelectionExtenderTypes";
+import { MatchingOperator, MatchingRuleType, SelectionExtenderConfig } from "../store/types/SETypes";
 import { NumberInputComponent } from "./NumberInputComponent";
 import "../styles/components/_SelectionExtenderComponent.scss";
 import { UiFramework } from "@bentley/ui-framework";

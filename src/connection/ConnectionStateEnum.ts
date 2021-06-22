@@ -7,7 +7,7 @@
         * NotInitialized (default)
         * Connecting
         * Open
-        * OpenLocked
+        * Locked
         * Closed
         * Compromised 
  */

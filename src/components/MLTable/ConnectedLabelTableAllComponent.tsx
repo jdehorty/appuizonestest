@@ -2,19 +2,19 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-import { LabelTreeEntry, MLStateTableDataItem } from "../../store/LabelingWorkflowTypes";
+import { LabelTreeEntry, MLStateTableDataItem } from "../../store/types/LWTypes";
 import { MachineLearningColorMode, MachineLearningLabel } from "../../data/LabelTypes";
 import { Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { AVAILABLE_COLOR_MODES, LabelingWorkflowManager } from "../../LabelingWorkflowManager";
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { ColorDef } from "@bentley/imodeljs-common";
-import { LabelingWorkflowState, LabelTableEmphasis } from "../../store/LabelingWorkflowState";
-import { LabelingWorkflowManagerSelectors } from "../../store/LabelingWorkflowSelectors";
-import { LabelingWorkflowManagerAction } from "../../store/LabelingWorkflowActionsTypes";
+import { LWState, LabelTableEmphasis } from "../../store/state/LWState";
+import { LabelingWorkflowManagerSelectors } from "../../store/selectors/LWSelectors";
+import { LabelingWorkflowManagerAction } from "../../store/definitions/LWActionsDef";
 import { LabelTableAllComponent } from "./LabelTableAllComponent";
-import { RootState } from "../../store/AppState";
-import * as actions from "./LabelTableAllComponentActions"
+import { RootStateType } from "../../store/AppState";
+import * as actions from "../../store/actions/LabelTableAllComponentActions"
 import {
     AddSelectedLabelItem,
     ChangeColorMode,
@@ -30,7 +30,7 @@ import {
     SwapTruePredDisplay,
     ToggleLabelTableEmphasis,
     Undo
-} from "./LabelTableAllComponentActions"
+} from "../../store/actions/LabelTableAllComponentActions"
 
 
 export interface LabelTableStateFromProps {
@@ -87,8 +87,8 @@ export interface LabelTableDispatchFromProps {
     onClearSelection(): void;
 }
 
-export function mapLabelTableStateToProps(rootState: RootState): LabelTableStateFromProps {
-    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
+export function mapLabelTableStateToProps(rootState: RootStateType): LabelTableStateFromProps {
+    const state = rootState.labelingWorkflowManagerState as LWState | undefined;
     if (!state) {
         throw new Error();
     }

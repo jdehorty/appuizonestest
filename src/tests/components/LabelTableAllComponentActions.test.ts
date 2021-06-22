@@ -2,11 +2,11 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 
-import * as actions from "../../components/MLTable/LabelTableAllComponentActions"
+import * as actions from "../../store/actions/LabelTableAllComponentActions";
 import {ColorDef} from "@bentley/imodeljs-common";
-import {LabelingWorkflowManagerActionType} from "../../store/LabelingWorkflowActionsTypes"
 import {MachineLearningColorMode} from "../../data/LabelTypes";
-import {MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
+import { LabelingWorkflowManagerActionType } from "../../store/actionTypes/LWActionTypes";
+import { MLStateTableDataItem } from "../../store/types/LWTypes";
 
 describe('LabelTableAllComponent Actions', () => {
     let item = <MLStateTableDataItem>{

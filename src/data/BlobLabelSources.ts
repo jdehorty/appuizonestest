@@ -7,8 +7,6 @@ import { ColorDef } from "@bentley/imodeljs-common";
 import { downloadBlobAsString, uploadBlobAsString } from "./blobs";
 import { LabelActivation, LabelDefinitions, MachineLearningLabel, MachineLearningLabelDef, MachineLearningLabelInterface, ModelPrediction } from "./LabelTypes";
 import { decToHex, hexToDec } from "../utils/dectohex";
-import * as fs from "fs";
-
 
 export interface BlobBasedLabelDataSourceConfig {
     accountName: string;

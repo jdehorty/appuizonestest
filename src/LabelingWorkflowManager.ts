@@ -20,19 +20,20 @@ import {Store} from "redux";
 import {MachineLearningColorMode, MachineLearningLabel, MachineLearningLabelInterface} from "./data/LabelTypes";
 import {getWithDefault} from "./utils/MapWithDefault";
 import {keySetToId64Set} from "./utils/SelectionUtils";
-import {LabelingWorkflowManagerAction, LabelingWorkflowManagerActionType} from "./store/LabelingWorkflowActionsTypes";
+import {LabelingWorkflowManagerAction} from "./store/definitions/LWActionsDef";
 import {LabelingWorflowOverrideElements} from "./LabelingWorkflowOverrideElements";
-import {LabelingWorkflowManagerSelectors} from "./store/LabelingWorkflowSelectors";
+import {LabelingWorkflowManagerSelectors} from "./store/selectors/LWSelectors";
 import {
     CategoryState,
     CommonLabelState,
     ECClassState,
     ElementState,
-    LabelingWorkflowState,
+    LWState,
     ModelState,
     PredLabelState,
     TrueLabelState
-} from "./store/LabelingWorkflowState";
+} from "./store/state/LWState";
+import { LabelingWorkflowManagerActionType } from "./store/actionTypes/LWActionTypes";
 
 const ZOOM_OPTIONS: ViewChangeOptions & ZoomToOptions = {
     animateFrustumChange: true,
@@ -57,7 +58,7 @@ export class LabelingWorkflowManager {
     }
 
     /** State accessor */
-    private static get state(): LabelingWorkflowState {
+    private static get state(): LWState {
         return this.store.getState()[this.stateKey];
     }
 

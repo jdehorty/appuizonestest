@@ -3,10 +3,10 @@
  */
 
 import { Id64String, Id64Array, Id64Set } from "@bentley/bentleyjs-core";
-import { MachineLearningLabel, MachineLearningColorMode } from "../data/LabelTypes";
+import { MachineLearningLabel, MachineLearningColorMode } from "../../data/LabelTypes";
 import { ColorDef, Frustum } from "@bentley/imodeljs-common";
 import { ScreenViewport } from "@bentley/imodeljs-frontend";
-import { MLStateTableDataItem } from "./LabelingWorkflowTypes";
+import { MLStateTableDataItem } from "../types/LWTypes";
 
 export interface BaseGroupState {
     displayLabel?: string;
@@ -81,7 +81,7 @@ export interface ElementState {
 
 
 /** LabelingWorkflowManager state layout */
-export interface LabelingWorkflowState {
+export interface LWState {
     /** True if storage has finished loading */
     ready: boolean;
     /** State map for models */
@@ -127,7 +127,7 @@ export interface LabelingWorkflowState {
 /* 
  * Initial state for the reducer
  */
-export const INITIAL_STATE: LabelingWorkflowState = {
+export const INITIAL_STATE: LWState = {
     ready: false,
     modelStateMap: new Map<Id64String, BaseGroupState>(),
     categoryStateMap: new Map<Id64String, BaseGroupState>(),

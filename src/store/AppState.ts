@@ -2,52 +2,52 @@
 * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
-import {AnyAction, CombinedState, combineReducers, createStore, Reducer, Store} from "redux";
+import {CombinedState, combineReducers, createStore, Reducer, Store} from "redux";
 import {FrameworkReducer, FrameworkState} from "@bentley/ui-framework";
-// import { SelectionExtenderState, SelectionExtenderReducer } from "../SelectionExtender";
-import {LabelingWorkflowManagerReducer} from "./LabelingWorkflowReducer";
-import {LabelingWorkflowState} from "./LabelingWorkflowState";
-import {SelectionExtenderState} from "./SelectionExtenderState";
-import {SelectionExtenderReducer} from "./SelectionExtenderReducer2";
+import {LabelingWorkflowManagerReducer} from "./reducers/LWReducers";
+import {LWState} from "./state/LWState";
+import {SelectionExtenderState} from "./state/SEState";
+import {INITIAL_LC_STATE} from "./state/LCState";
+import {SelectionExtenderReducer} from "./reducers/SEReducers";
 import {devToolsEnhancer} from 'redux-devtools-extension';
+import { SEStateType } from "./types/SETypes";
+import { ConnectionStateReducer } from "./reducers/LCReducers";
 
 
 // React-redux interface stuff
-export interface RootState {
+export type RootStateType = {
     frameworkState?: FrameworkState;
-    selectionExtenderState?: SelectionExtenderState;
-    labelingWorkflowManagerState?: LabelingWorkflowState;
+    selectionExtenderState?: SEStateType;
+    labelingWorkflowManagerState?: LWState;
 }
 
 export interface RootAction {
     type: string;
 }
 
-export type AppStore = Store<RootState>;
+export type AppStore = Store<RootStateType>;
 
 /*
  * Centralized state management class using Redux actions, reducers and store.
  */
 export class AppState {
     private readonly _store: AppStore;
-    private readonly _rootReducer: Reducer<CombinedState<RootState>>;
+    private readonly _rootReducer: Reducer<CombinedState<RootStateType>>;
 
     constructor() {
-        // this is the rootReducer for the sample application.
-        this._rootReducer = combineReducers<RootState>({
+        // this is the rootReducer for the application
+        this._rootReducer = combineReducers<RootStateType>({
             frameworkState: FrameworkReducer,
             selectionExtenderState: SelectionExtenderReducer,
             labelingWorkflowManagerState: LabelingWorkflowManagerReducer,
+            connectionState: ConnectionStateReducer
         } as any);
-
-        // TODO: Remove this before we push to PROD.
-        // let enhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 
         // create the Redux Store.
         this._store = createStore(this._rootReducer, devToolsEnhancer({serialize: true}));
     }
 
-    public get store(): Store<RootState> {
+    public get store(): Store<RootStateType> {
         return this._store;
     }
     

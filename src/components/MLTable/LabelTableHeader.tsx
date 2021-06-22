@@ -20,7 +20,7 @@ import {
     mapLabelTableDispatchToProps,
     mapLabelTableStateToProps
 } from "./ConnectedLabelTableAllComponent";
-import {LabelTableEmphasis} from '../../store/LabelingWorkflowState';
+import {LabelTableEmphasis} from '../../store/state/LWState';
 import SelectionClearButtonComponent from "../SelectionClearButtonComponent";
 import {Presentation} from "@bentley/presentation-frontend";
 import {UiFramework} from "@bentley/ui-framework";

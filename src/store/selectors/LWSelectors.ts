@@ -5,24 +5,23 @@
 import { Id64Array, Id64Set, Id64String } from "@bentley/bentleyjs-core";
 import { ColorDef } from "@bentley/imodeljs-common";
 import { createSelector } from "reselect";
-import { MachineLearningColorMode, MachineLearningLabel } from "../data/LabelTypes";
-import { getWithDefault, MapWithDefault } from "../utils/MapWithDefault";
-import { CategoryState, CommonLabelState, ECClassState, ElementState, LabelingWorkflowState, ModelState, PredLabelState, TrueLabelState } from "./LabelingWorkflowState";
-import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "./LabelingWorkflowTypes";
+import { MachineLearningColorMode, MachineLearningLabel } from "../../data/LabelTypes";
+import { getWithDefault, MapWithDefault } from "../../utils/MapWithDefault";
+import { CategoryState, CommonLabelState, ECClassState, ElementState, LWState, ModelState, PredLabelState, TrueLabelState } from "../state/LWState";
+import { MachineLearningElementOverrideData, MLStateTableDataItem, SimpleStateTableDataItem, LabelTreeEntry } from "../types/LWTypes";
 
 const SELECTION_COUNT_IS_FILTERED = true;
 
 
 /** Contains selectors that derive storage from LabelingWorkflowManager's state */
 export class LabelingWorkflowManagerSelectors {
-
     /** Returns color/alpha storage for the feature override provider */
     public static elementOverrideData = createSelector(
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.colorMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.transparencyMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.emphasisMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.colorMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.transparencyMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.emphasisMap(state),
         (
             elementStateMap: Map<Id64String, ElementState>,
             colorMap: Map<Id64String, ColorDef>,
@@ -50,9 +49,9 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Returns a set of selectable elements */
     public static selectableSet = createSelector(
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.transparencyMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.transparencyMap(state),
         (
             elementStateMap: Map<Id64String, ElementState>,
             visibilityMap: Map<Id64String, boolean>,
@@ -72,9 +71,9 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Returns the set of selected & visible elements */
     public static validSelectionSubset = createSelector(
-        (state: LabelingWorkflowState) => state.selectionSet,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.transparencyMap(state),
+        (state: LWState) => state.selectionSet,
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.transparencyMap(state),
         (
             selectionSet: Id64Set,
             visibilityMap: Map<Id64String, boolean>,
@@ -94,8 +93,8 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Gets to current elementStateMap from the history */
     public static elementStateMap = createSelector(
-        (state: LabelingWorkflowState) => state.elementStateMapHistory,
-        (state: LabelingWorkflowState) => state.elementStateMapIndex,
+        (state: LWState) => state.elementStateMapHistory,
+        (state: LWState) => state.elementStateMapIndex,
         (
             elementStateMapHistory: Map<Id64String, ElementState>[],
             elementStateMapIndex: number,
@@ -110,11 +109,11 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes a color map for elements based on the current color mode and labels/predictions */
     public static colorMap = createSelector(
-        (state: LabelingWorkflowState) => state.trueLabelStateMap,
-        (state: LabelingWorkflowState) => state.predLabelStateMap,
-        (state: LabelingWorkflowState) => state.commonLabelStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.colorMode,
+        (state: LWState) => state.trueLabelStateMap,
+        (state: LWState) => state.predLabelStateMap,
+        (state: LWState) => state.commonLabelStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.colorMode,
         (
             trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
             predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
@@ -164,7 +163,7 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes the current true label map */
     public static trueLabelMap = createSelector(
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
         (
             elementStateMap: Map<Id64String, ElementState>,
         ): Map<Id64String, MachineLearningLabel> => {
@@ -179,9 +178,9 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes an emphasis map for elements */
     public static emphasisMap = createSelector(
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.cycleModeState.enabled,
-        (state: LabelingWorkflowState) => state.cycleModeState.cycleList,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.cycleModeState.enabled,
+        (state: LWState) => state.cycleModeState.cycleList,
         (
             elementStateMap: Map<Id64String, ElementState>,
             cycleEnabled: boolean,
@@ -234,17 +233,17 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes a transparency map for elements */
     public static transparencyMap = createSelector(
-        (state: LabelingWorkflowState) => state.modelStateMap,
-        (state: LabelingWorkflowState) => state.categoryStateMap,
-        (state: LabelingWorkflowState) => state.classStateMap,
-        (state: LabelingWorkflowState) => state.trueLabelStateMap,
-        (state: LabelingWorkflowState) => state.predLabelStateMap,
-        (state: LabelingWorkflowState) => state.commonLabelStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.colorMode,
-        (state: LabelingWorkflowState) => state.forceShowAll,
-        (state: LabelingWorkflowState) => state.cycleModeState.enabled,
-        (state: LabelingWorkflowState) => state.cycleModeState.cycleList,
+        (state: LWState) => state.modelStateMap,
+        (state: LWState) => state.categoryStateMap,
+        (state: LWState) => state.classStateMap,
+        (state: LWState) => state.trueLabelStateMap,
+        (state: LWState) => state.predLabelStateMap,
+        (state: LWState) => state.commonLabelStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.colorMode,
+        (state: LWState) => state.forceShowAll,
+        (state: LWState) => state.cycleModeState.enabled,
+        (state: LWState) => state.cycleModeState.cycleList,
         (
             modelStateMap: Map<Id64String, ModelState>,
             categoryStateMap: Map<Id64String, CategoryState>,
@@ -306,13 +305,13 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes a visibility map for elements */
     public static visibilityMap = createSelector(
-        (state: LabelingWorkflowState) => state.modelStateMap,
-        (state: LabelingWorkflowState) => state.categoryStateMap,
-        (state: LabelingWorkflowState) => state.classStateMap,
-        (state: LabelingWorkflowState) => state.trueLabelStateMap,
-        (state: LabelingWorkflowState) => state.predLabelStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.forceShowAll,
+        (state: LWState) => state.modelStateMap,
+        (state: LWState) => state.categoryStateMap,
+        (state: LWState) => state.classStateMap,
+        (state: LWState) => state.trueLabelStateMap,
+        (state: LWState) => state.predLabelStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.forceShowAll,
         (
             modelStateMap: Map<Id64String, ModelState>,
             categoryStateMap: Map<Id64String, CategoryState>,
@@ -363,10 +362,10 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes storage to make a table of models */
     public static modelTableData = createSelector(
-        (state: LabelingWorkflowState) => state.modelStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.selectionSet,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => state.modelStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.selectionSet,
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
         (
             modelStateMap: Map<Id64String, ModelState>,
             elementStateMap: Map<Id64String, ElementState>,
@@ -407,10 +406,10 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes storage to make a table of categories */
     public static categoryTableData = createSelector(
-        (state: LabelingWorkflowState) => state.categoryStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.selectionSet,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => state.categoryStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.selectionSet,
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
         (
             categoryStateMap: Map<Id64String, CategoryState>,
             elementStateMap: Map<Id64String, ElementState>,
@@ -451,10 +450,10 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes storage to make a table of classes */
     public static classTableData = createSelector(
-        (state: LabelingWorkflowState) => state.classStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.selectionSet,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => state.classStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.selectionSet,
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
         (
             classStateMap: Map<Id64String, ECClassState>,
             elementStateMap: Map<Id64String, ElementState>,
@@ -495,12 +494,12 @@ export class LabelingWorkflowManagerSelectors {
 
     /** Computes storage to make a table of machine learning labels and predictions */
     public static mlTableData = createSelector(
-        (state: LabelingWorkflowState) => state.trueLabelStateMap,
-        (state: LabelingWorkflowState) => state.predLabelStateMap,
-        (state: LabelingWorkflowState) => state.commonLabelStateMap,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
-        (state: LabelingWorkflowState) => state.selectionSet,
-        (state: LabelingWorkflowState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
+        (state: LWState) => state.trueLabelStateMap,
+        (state: LWState) => state.predLabelStateMap,
+        (state: LWState) => state.commonLabelStateMap,
+        (state: LWState) => LabelingWorkflowManagerSelectors.elementStateMap(state),
+        (state: LWState) => state.selectionSet,
+        (state: LWState) => LabelingWorkflowManagerSelectors.visibilityMap(state),
         (
             trueLabelStateMap: Map<MachineLearningLabel, TrueLabelState>,
             predLabelStateMap: Map<MachineLearningLabel, PredLabelState>,
@@ -605,17 +604,17 @@ export class LabelingWorkflowManagerSelectors {
     );
 
 
-    public static canUndo(state: LabelingWorkflowState) : boolean {
+    public static canUndo(state: LWState) : boolean {
         return state.elementStateMapIndex > 0;
     }
-    public static canRedo(state: LabelingWorkflowState) : boolean {
+    public static canRedo(state: LWState) : boolean {
         return state.elementStateMapIndex < state.elementStateMapHistory.length-1;
     }
 
 
 
     public static treeData = createSelector(
-        (state: LabelingWorkflowState) => state.commonLabelStateMap,
+        (state: LWState) => state.commonLabelStateMap,
         (
             /** Common label state map */
             commonLabelStateMap: Map<MachineLearningLabel, CommonLabelState>,

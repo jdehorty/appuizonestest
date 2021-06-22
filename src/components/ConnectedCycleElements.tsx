@@ -5,14 +5,14 @@
 import {connect} from "react-redux";
 import {LabelingWorkflowManager} from "../LabelingWorkflowManager";
 import {CycleElementComponent, CycleElementComponentProps} from "./CycleElements";
-import {LabelingWorkflowState} from "../store/LabelingWorkflowState";
-import {LabelingWorkflowManagerSelectors} from "../store/LabelingWorkflowSelectors";
-import {RootState} from "../store/AppState";
+import {LWState} from "../store/state/LWState";
+import {LabelingWorkflowManagerSelectors} from "../store/selectors/LWSelectors";
+import {RootStateType} from "../store/AppState";
 
 
 /** Map state to props */
-const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
-    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
+const mapStateToProps = (rootState: RootStateType): CycleElementComponentProps => {
+    const state = rootState.labelingWorkflowManagerState as LWState | undefined;
     if (!state) {
         throw new Error();
     }
@@ -36,8 +36,8 @@ const mapStateToProps = (rootState: RootState): CycleElementComponentProps => {
     };
 };
 
-export const mapStateToPropsForPopout = (rootState: RootState): CycleElementComponentProps => {
-    const state = rootState.labelingWorkflowManagerState as LabelingWorkflowState | undefined;
+export const mapStateToPropsForPopout = (rootState: RootStateType): CycleElementComponentProps => {
+    const state = rootState.labelingWorkflowManagerState as LWState | undefined;
     if (!state) {
         throw new Error();
     }

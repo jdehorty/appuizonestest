@@ -7,7 +7,7 @@ import {ColorDef} from "@bentley/imodeljs-common";
 import {Spinner, SpinnerSize} from "@bentley/ui-core";
 import * as React from "react";
 import {MachineLearningColorMode, MachineLearningLabel} from "../../data/LabelTypes";
-import {LabelTreeEntry, MLStateTableDataItem} from "../../store/LabelingWorkflowTypes";
+import {LabelTreeEntry, MLStateTableDataItem} from "../../store/types/LWTypes";
 import ConnectedLabelTableBody from "./LabelTableBody";
 import ConnectedLabelTableFooter from "./LabelTableFooter";
 import {ConnectedLabelTableHeader} from "./LabelTableHeader";

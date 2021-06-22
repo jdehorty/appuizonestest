@@ -37,7 +37,6 @@ const App: React.FC = () => {
     const [isAuthorized, setIsAuthorized] = useState(AuthorizationClient.oidcClient ? AuthorizationClient.oidcClient.isAuthorized : false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-
     useEffect(() => {
         const initOidc = async () => {
             SetupConfigFromEnv(102);

@@ -1,14 +1,13 @@
 /*
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
+import { SelectionExtenderState } from "../state/SEState";
+import { SelectionExtenderAction } from "../definitions/SEActionsDef"
+import { SelectionExtenderConfig, SEStateType } from "../types/SETypes";
+import { SelectionExtenderActionType } from "../actionTypes/SEActionTypes";
 
-import { SelectionExtenderState } from "./SelectionExtenderState";
-import { INITIAL_STATE } from "./SelectionExtenderState";
-import { SelectionExtenderAction, SelectionExtenderActionType } from "./SelectionExtenderActions"
-import { SelectionExtenderConfig } from "./SelectionExtenderTypes";
 
-
-export const SelectionExtenderReducer = (prevState: SelectionExtenderState = INITIAL_STATE, action: SelectionExtenderAction): SelectionExtenderState => {
+export const SelectionExtenderReducer = (prevState: SEStateType = SelectionExtenderState, action: SelectionExtenderAction): SEStateType => {
     switch (action.type) {
         case SelectionExtenderActionType.SINGLE_KEY_HAS_CHANGED:
             return {
