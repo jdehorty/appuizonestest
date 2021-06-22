@@ -478,7 +478,6 @@ export const LabelingWorkflowManagerReducer = (
         case LabelingWorkflowManagerActionType.ClearSelectedUiItems: {
             const clearedItems = new Map(prevState.selectedUiItems);
             clearedItems?.clear();
-            console.log(`clearedItems = ${JSON.stringify(clearedItems)}`);
             return {
                 ...prevState,
                 selectedUiItems: clearedItems

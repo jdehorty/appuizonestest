@@ -11,5 +11,5 @@ module.exports = {
     "ts-jest": {
       packageJson: "package.json"
     },
-  },
+  }
 };

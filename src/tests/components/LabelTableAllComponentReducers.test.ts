@@ -1,11 +1,7 @@
 /*
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-// import {
-//     LabelingWorkflowManagerAction,
-//     LabelingWorkflowManagerActionType
-// } from "../../store/LabelingWorkflowActionsTypes";
-// import { INITIAL_STATE } from "../../store/LabelingWorkflowState";
+
 import { ColorDef } from "@bentley/imodeljs-common";
 import { MachineLearningColorMode } from "../../data/LabelTypes";
 import { INITIAL_STATE } from "../../store/state/LWState";
@@ -13,7 +9,7 @@ import { LabelingWorkflowManagerAction as action } from "../../store/definitions
 import { LabelingWorkflowManagerActionType } from "../../store/actionTypes/LWActionTypes";
 import { LabelingWorkflowManagerReducer as reducer } from "../../store/reducers/LWReducers";
 
-describe('Connection Reducers', () => {
+describe('Labeling Workflow Reducers', () => {
 
     let stateAfterDataWasInitialized = {
         ...INITIAL_STATE,

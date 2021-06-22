@@ -9,6 +9,5 @@ export interface LabelingConnectionAction {
     isConnecting: boolean,
     isOpen: boolean,
     isLocked: boolean,
-    isClosed: boolean,
     isCompromised: boolean
 }

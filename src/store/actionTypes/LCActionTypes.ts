@@ -4,13 +4,9 @@
 
 export enum LabelingConnectionActionType {
     Initialize = "LabelingConnectionActionTypes.Initialize",
-    Connecting = "LabelingConnectionActionTypes.Connecting",
-    NotConnecting = "LabelingConnectionActionTypes.NotConnecting",
     Open = "LabelingConnectionActionTypes.Open",
-    NotOpen = "LabelingConnectionActionTypes.NotOpen",
-    Locked = "LabelingConnectionActionTypes.Locked",
-    NotLocked = "LabelingConnectionActionTypes.NotLocked",
-    Closed = "LabelingConnectionActionTypes.Closed",
-    Compromised = "LabelingConnectionActionTypes.Compromised",
-    NotCompromised = "LabelingConnectionActionTypes.NotCompromised",
+    RecordSuccessfulOpen = "LabelingConnectionActionTypes.RecordSuccessfulOpen",
+    Close = "LabelingConnectionActionTypes.Close",
+    Lock = "LabelingConnectionActionTypes.Lock",
+    Unlock = "LabelingConnectionActionTypes.Unlock",
 }

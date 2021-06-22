@@ -2,59 +2,48 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 import { SelectionExtenderAction } from "../definitions/SEActionsDef"
-import { LCType } from "../types/LCTypes";
+import { LCStateType } from "../types/LCTypes";
 import { LabelingConnectionActionType } from "../actionTypes/LCActionTypes";
-import {INITIAL_LC_STATE} from "../state/LCState";
+import { INITIAL_LC_STATE } from "../state/LCState";
 
 
-export const ConnectionStateReducer = (prevState: LCType = INITIAL_LC_STATE, action: SelectionExtenderAction): LCType => {
+export const LabelingConnectionStateReducer = (prevState: LCStateType = INITIAL_LC_STATE, action: SelectionExtenderAction): LCStateType => {
     switch (action.type) {
-        case LabelingConnectionActionType.Initialized:
+        case LabelingConnectionActionType.Initialize:
             return {
                 ...prevState,
                 isInitialized: true,
             };
-        case LabelingConnectionActionType.Connecting:
-            return {
-                ...prevState,
-                isConnecting: true,
-            };
-        case LabelingConnectionActionType.NotConnecting:
-            return {
-                ...prevState,
-                isConnecting: false,
-            };
         case LabelingConnectionActionType.Open:
             return {
                 ...prevState,
-                isOpen: true,
-                isClosed: false,
+                isConnecting: true,
+                isOpen: false,
             };
-        case LabelingConnectionActionType.Closed:
+        case LabelingConnectionActionType.RecordSuccessfulOpen:
             return {
                 ...prevState,
-                isOpen: false,
-                isClosed: true,
+                isConnecting: false,
+                isOpen: true
             };
-        case LabelingConnectionActionType.Locked:
+        case LabelingConnectionActionType.Close:
+            return {
+                ...prevState,
+                isInitialized: true,
+                isConnecting: false,
+                isOpen: false
+            };
+        case LabelingConnectionActionType.Lock:
             return {
                 ...prevState,
                 isLocked: true,
             };
-        case LabelingConnectionActionType.NotLocked:
+        case LabelingConnectionActionType.Unlock:
             return {
                 ...prevState,
-                isLocked: false,
-            };
-        case LabelingConnectionActionType.Compromised:
-            return {
-                ...prevState,
-                isCompromised: true
-            };
-        case LabelingConnectionActionType.NotCompromised:
-            return {
-                ...prevState,
-                isCompromised: false
+                isConnecting: false,
+                isOpen: true,
+                isLocked: false
             };
         default:
             return prevState;

@@ -8,23 +8,25 @@ import {MachineLearningColorMode} from "../../data/LabelTypes";
 import { LabelingWorkflowManagerActionType } from "../../store/actionTypes/LWActionTypes";
 import { MLStateTableDataItem } from "../../store/types/LWTypes";
 
+
+let item = <MLStateTableDataItem>{
+    name: "Beam",
+    color: ColorDef.blue,
+    hasData: true,
+    isSelected: true,
+    trueLabelIsDisplayed: true,
+    trueLabelIsTransparent: false,
+    trueLabelTotalCount: 10,
+    trueLabelVisibleCount: 5,
+    trueLabelSelectedCount: 10,
+    predLabelIsDisplayed: true,
+    predLabelIsTransparent: false,
+    predLabelTotalCount: 10,
+    predLabelVisibleCount: 7,
+    predLabelSelectedCount: 10,
+}
+
 describe('LabelTableAllComponent Actions', () => {
-    let item = <MLStateTableDataItem>{
-        name: "Beam",
-        color: ColorDef.blue,
-        hasData: true,
-        isSelected: true,
-        trueLabelIsDisplayed: true,
-        trueLabelIsTransparent: false,
-        trueLabelTotalCount: 10,
-        trueLabelVisibleCount: 5,
-        trueLabelSelectedCount: 10,
-        predLabelIsDisplayed: true,
-        predLabelIsTransparent: false,
-        predLabelTotalCount: 10,
-        predLabelVisibleCount: 7,
-        predLabelSelectedCount: 10,
-    }
 
     test('LabelExpandStateChange', () => {
         const expectedAction = {

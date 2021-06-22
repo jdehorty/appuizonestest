@@ -11,7 +11,7 @@ import {INITIAL_LC_STATE} from "./state/LCState";
 import {SelectionExtenderReducer} from "./reducers/SEReducers";
 import {devToolsEnhancer} from 'redux-devtools-extension';
 import { SEStateType } from "./types/SETypes";
-import { ConnectionStateReducer } from "./reducers/LCReducers";
+import { LabelingConnectionStateReducer } from "./reducers/LCReducers";
 
 
 // React-redux interface stuff
@@ -40,7 +40,7 @@ export class AppState {
             frameworkState: FrameworkReducer,
             selectionExtenderState: SelectionExtenderReducer,
             labelingWorkflowManagerState: LabelingWorkflowManagerReducer,
-            connectionState: ConnectionStateReducer
+            connectionState: LabelingConnectionStateReducer
         } as any);
 
         // create the Redux Store.
