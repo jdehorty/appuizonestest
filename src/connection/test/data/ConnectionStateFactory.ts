@@ -1,25 +1,26 @@
 /**
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-import { IConnection } from "../../Connection";
+import { Connection} from "../../Connection";
 import { ConnectionFactory } from "../../ConnectionFactory";
 import { MockMLApiInvoker } from "./MockMLApiInvoker";
 import { IMLApiInvoker} from "../../data/MLApiInvoker";
+import { ConnectionStateDataType } from "../../ConnectionStateData";
 
 
-function* getAppStateFactory(): Generator<IConnection> {
+function* getConnectionStateFactory(): Generator<ConnectionStateDataType> {
     // Initial State
     let mockMLApiInvoker: IMLApiInvoker = new MockMLApiInvoker();
     let connectionFactory: ConnectionFactory = new ConnectionFactory(mockMLApiInvoker);
-    let connection: IConnection = connectionFactory.createConnection("testConnection");
-    yield connection; // 1
+    let connection: Connection = connectionFactory.createConnection("testConnection");
+    yield connection.StateData; // 1
 
     // Mimic state transition that occurs on call to Initialize()
     let stateAfterDataWasInitialized = {
-        ...connection,
-        isInitialized: true,
-        isConnecting: false,
-        isOpen: false,
+        ...connection.StateData,
+        IsInitialized: true,
+        IsConnecting: false,
+        IsOpen: false,
     }
     yield stateAfterDataWasInitialized; // 2
 
@@ -75,78 +76,78 @@ function* getAppStateFactory(): Generator<IConnection> {
 /**
  * [1] Initial State
  */
-export function getInitialState(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    return appStateFactory.next().value;
+export function getInitialState(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    return stateFactory.next().value;
 }
 
 /**
  * [2] Mimic: Initialize()
  */
-export function getStateAfterDataWasInitialized(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    return appStateFactory.next().value;
+export function getStateAfterDataWasInitialized(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    stateFactory.next();
+    return stateFactory.next().value;
 }
 
 /**
  * [3] Mimic: Open()
  */
-export function getStateAfterOpen(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    appStateFactory.next();
-    return appStateFactory.next().value;
+export function getStateAfterOpen(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    stateFactory.next();
+    stateFactory.next();
+    return stateFactory.next().value;
 }
 
 /**
  * [4] Mimic: RecordSuccessfulOpen()
  */
-export function getStateAfterRecordSuccessfulOpen(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    return appStateFactory.next().value;
+export function getStateAfterRecordSuccessfulOpen(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    return stateFactory.next().value;
 }
 
 /**
  * [5] Mimic: Lock()
  */
-export function getStateAfterLock(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    return appStateFactory.next().value;
+export function getStateAfterLock(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    return stateFactory.next().value;
 }
 
 /**
  * [6] Mimic: Unlock()
  */
-export function getStateAfterUnlock(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    return appStateFactory.next().value;
+export function getStateAfterUnlock(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    return stateFactory.next().value;
 }
 
 /**
  * [7] Mimic: Close()
  */
-export function getStateAfterClose(): IConnection {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    appStateFactory.next();
-    return appStateFactory.next().value;
+export function getStateAfterClose(): ConnectionStateDataType {
+    const stateFactory = getConnectionStateFactory();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    stateFactory.next();
+    return stateFactory.next().value;
 }
 
 

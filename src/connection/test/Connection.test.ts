@@ -3,33 +3,26 @@
  */
 
 import {
-    getInitialState,
-    getStateAfterDataWasInitialized, getStateAfterLock,
-    getStateAfterOpen,
-    getStateAfterRecordSuccessfulOpen, getStateAfterUnlock
+    getInitialState
 } from "./data/ConnectionStateFactory";
-import { LabelingConnectionAction as action } from "../../store/definitions/LCActionsDef";
-import { LabelingConnectionActionType } from "../../store/actionTypes/LCActionTypes";
-import { IMLApiInvoker, MLAPIInvoker } from "../data/MLApiInvoker";
 import { MockMLApiInvoker } from "./data/MockMLApiInvoker";
 import { ConnectionFactory } from "../ConnectionFactory";
-import { Connection, IConnection } from "../Connection";
+
 
 describe('Labeling Connection State Transitions', () => {
 
     test('InitialState', () => {
 
+        let expected = getInitialState();
+
         // Initial State
         let mockMLApiInvoker = new MockMLApiInvoker();
         let connectionFactory = new ConnectionFactory(mockMLApiInvoker);
         let connection = connectionFactory.createConnection("testConnection");
-        let myConn = connection as Connection;
 
-        myConn.Initialize();
+        connection.Initialize();
 
-        let expected = getInitialState();
-
-        let received = expect(myConn);
+        let received = expect(connection);
 
         received.toEqual(expected);
     });

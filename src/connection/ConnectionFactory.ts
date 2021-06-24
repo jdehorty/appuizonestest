@@ -6,15 +6,16 @@
  * This is the ML Labeling Tool class that is used to manage its connection state.
  */
 
-import { Connection, IConnection } from "./Connection";
+import { Connection} from "./Connection";
 import { IMLApiInvoker } from "./data/MLApiInvoker";
+import { IConnectionStateData } from "./ConnectionStateData";
 
 export class ConnectionFactory {
-    private readonly _connections: Map<string, IConnection>;
+    private readonly _connections: Map<string, IConnectionStateData>;
     private readonly _mlApiInvoker: IMLApiInvoker;
 
     constructor(mlApiInvoker: IMLApiInvoker) {
-        this._connections = new Map<string, IConnection>();
+        this._connections = new Map<string, IConnectionStateData>();
         this._mlApiInvoker = mlApiInvoker;
     }
 
@@ -22,9 +23,9 @@ export class ConnectionFactory {
      * Create a connection for the caller and record it in our list of connections.
      * @param connectionName - caller-defined name for the connection.
      */
-    createConnection(connectionName: string): IConnection {
+    createConnection(connectionName: string): Connection {
         // TODO: Check to see if a connection with connectionName already exists in our connections map.
-        let connection: IConnection = new Connection(connectionName, this._mlApiInvoker);
+        let connection: Connection = new Connection(connectionName, this._mlApiInvoker);
         this._connections.set(connectionName, connection);
         return connection;
     }
@@ -32,7 +33,7 @@ export class ConnectionFactory {
     /**
      * Allow caller to get a list of connections that have been created by this factory.
      */
-    get Connections(): Map<string, IConnection> {
+    get Connections(): Map<string, IConnectionStateData> {
         return this._connections;
     }
 
