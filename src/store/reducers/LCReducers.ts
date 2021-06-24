@@ -2,7 +2,7 @@
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
 import { SelectionExtenderAction } from "../definitions/SEActionsDef"
-import { LCStateType } from "../types/LCTypes";
+import { LCStateType } from "../../connection/Connection";
 import { LabelingConnectionActionType } from "../actionTypes/LCActionTypes";
 import { INITIAL_LC_STATE } from "../state/LCState";
 

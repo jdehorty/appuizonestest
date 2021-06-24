@@ -7,7 +7,7 @@ import {
     getStateAfterDataWasInitialized, getStateAfterLock,
     getStateAfterOpen,
     getStateAfterRecordSuccessfulOpen, getStateAfterUnlock
-} from "../data/LCStateFactory";
+} from "../../connection/data/ConnectionStateFactory";
 import { LabelingConnectionStateReducer as reducer } from "../../store/reducers/LCReducers";
 import { LabelingConnectionAction as action } from "../../store/definitions/LCActionsDef";
 import { LabelingConnectionActionType } from "../../store/actionTypes/LCActionTypes";

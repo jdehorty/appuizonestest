@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
-import { LCStateType } from "../types/LCTypes";
+import { LCStateType } from "../../connection/Connection";
 
 export const INITIAL_LC_STATE: LCStateType = {
     isInitialized: false,

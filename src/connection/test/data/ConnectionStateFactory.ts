@@ -1,58 +1,64 @@
-/*
+/**
  * Copyright (c) 2021 Bentley Systems, Incorporated. All rights reserved.
  */
+import { IConnection } from "../../Connection";
+import { ConnectionFactory } from "../../ConnectionFactory";
+import { MockMLApiInvoker } from "./MockMLApiInvoker";
+import { IMLApiInvoker} from "../../data/MLApiInvoker";
 
-import { INITIAL_LC_STATE } from "../../store/state/LCState";
-import { LCStateType } from "../../store/types/LCTypes";
 
-function* getAppStateFactory(): Generator<LCStateType> {
+function* getAppStateFactory(): Generator<IConnection> {
     // Initial State
-    yield INITIAL_LC_STATE; // 1
+    let mockMLApiInvoker: IMLApiInvoker = new MockMLApiInvoker();
+    let connectionFactory: ConnectionFactory = new ConnectionFactory(mockMLApiInvoker);
+    let connection: IConnection = connectionFactory.createConnection("testConnection");
+    yield connection; // 1
 
-    // Action: Initialize
+    // Mimic state transition that occurs on call to Initialize()
     let stateAfterDataWasInitialized = {
-        ...INITIAL_LC_STATE,
+        ...connection,
         isInitialized: true,
         isConnecting: false,
         isOpen: false,
     }
     yield stateAfterDataWasInitialized; // 2
 
-    // Action: Open
+    // Mimic state transition that occurs on call to open
     let stateAfterOpen = {
-        ...INITIAL_LC_STATE,
+        ...stateAfterDataWasInitialized,
         isConnecting: true,
         isOpen: false
     }
     yield stateAfterOpen; // 3
 
-    // Action: RecordSuccessfulOpen
+    // Mimic state transition that that occurs after an open has succeeded
     let stateAfterRecordSuccessfulOpen = {
-        ...INITIAL_LC_STATE,
-        isConnecting: true,
-        isOpen: false
+        ...stateAfterOpen,
+        isConnecting: false,
+        isOpen: true,
+        isLocked: false
     }
     yield stateAfterRecordSuccessfulOpen; // 4
 
-    // Action: Lock
+    // Mimic state transition that occurs on call to lock
     let stateAfterLock = {
-        ...INITIAL_LC_STATE,
+        ...stateAfterRecordSuccessfulOpen,
         isLocked: true
     }
     yield stateAfterLock; // 5
 
-    // Action: Unlock
+    // Mimic state transition that occurs on call to unlock
     let stateAfterUnlock = {
-        ...INITIAL_LC_STATE,
+        ...stateAfterLock,
         isConnecting: false,
         isOpen: true,
         isLocked: false
     }
     yield stateAfterUnlock; // 6
 
-    // Action: Close
+    // Mimic state transition that occurs on call to close
     let stateAfterClose = {
-        ...INITIAL_LC_STATE,
+        ...stateAfterUnlock,
         isInitialized: true,
         isConnecting: false,
         isOpen: false
@@ -69,47 +75,35 @@ function* getAppStateFactory(): Generator<LCStateType> {
 /**
  * [1] Initial State
  */
-export function getInitialState(): LCStateType {
+export function getInitialState(): IConnection {
     const appStateFactory = getAppStateFactory();
     return appStateFactory.next().value;
 }
 
 /**
- * [2] Action: Initialize
+ * [2] Mimic: Initialize()
  */
-export function getStateAfterDataWasInitialized(): LCStateType {
+export function getStateAfterDataWasInitialized(): IConnection {
     const appStateFactory = getAppStateFactory();
     appStateFactory.next();
     return appStateFactory.next().value;
 }
 
 /**
- * [3] Action: Open
+ * [3] Mimic: Open()
  */
-export function getStateAfterOpen(): LCStateType {
+export function getStateAfterOpen(): IConnection {
     const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
-    appStateFactory.next();
-    return appStateFactory.next().value;
-}
-
-/**
- * [4] Action: RecordSuccessfulOpen
- */
-export function getStateAfterRecordSuccessfulOpen(): LCStateType {
-    const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
     appStateFactory.next();
     appStateFactory.next();
     return appStateFactory.next().value;
 }
 
 /**
- * [5] Action: Lock
+ * [4] Mimic: RecordSuccessfulOpen()
  */
-export function getStateAfterLock(): LCStateType {
+export function getStateAfterRecordSuccessfulOpen(): IConnection {
     const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
     appStateFactory.next();
     appStateFactory.next();
     appStateFactory.next();
@@ -117,11 +111,10 @@ export function getStateAfterLock(): LCStateType {
 }
 
 /**
- * [6] Action: Unlock
+ * [5] Mimic: Lock()
  */
-export function getStateAfterUnlock(): LCStateType {
+export function getStateAfterLock(): IConnection {
     const appStateFactory = getAppStateFactory();
-    appStateFactory.next();
     appStateFactory.next();
     appStateFactory.next();
     appStateFactory.next();
@@ -130,9 +123,22 @@ export function getStateAfterUnlock(): LCStateType {
 }
 
 /**
- * [7] Action: Close
+ * [6] Mimic: Unlock()
  */
-export function getStateAfterClose(): LCStateType {
+export function getStateAfterUnlock(): IConnection {
+    const appStateFactory = getAppStateFactory();
+    appStateFactory.next();
+    appStateFactory.next();
+    appStateFactory.next();
+    appStateFactory.next();
+    appStateFactory.next();
+    return appStateFactory.next().value;
+}
+
+/**
+ * [7] Mimic: Close()
+ */
+export function getStateAfterClose(): IConnection {
     const appStateFactory = getAppStateFactory();
     appStateFactory.next();
     appStateFactory.next();
