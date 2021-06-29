@@ -114,13 +114,13 @@ export const CycleElementComponent: FC<CycleElementComponentProps> = (props) => 
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
                                                 style={{ width: '24px', height: '22px' }}
-                                                onClick={() => props.onBackward(-fastCount)}>
+                                                onClick={() => props.onBackward(fastCount)}>
                                             <CyclerButtonBackFastSvg/>
                                         </Button>
                                         <Button className="cycler-button"
                                                 disabled={props.working || !props.ready}
                                                 style={{ width: '24px', height: '22px' }}
-                                                onClick={() => props.onBackward(-1)}>
+                                                onClick={() => props.onBackward(1)}>
                                             <CyclerButtonBackSvg/>
                                         </Button>
                                         <div className="cycler-progress">
