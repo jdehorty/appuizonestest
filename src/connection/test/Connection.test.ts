@@ -14,7 +14,6 @@ import {
 import { MockMLApiInvoker } from "./data/MockMLApiInvoker";
 import { ConnectionFactory } from "../ConnectionFactory";
 
-
 describe('Labeling Connection State Transitions', () => {
 
     let mockMLApiInvoker = new MockMLApiInvoker();
@@ -71,3 +70,4 @@ describe('Labeling Connection State Transitions', () => {
     });
 
 });
+

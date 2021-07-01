@@ -7,6 +7,11 @@ import { MockMLApiInvoker } from "./MockMLApiInvoker";
 import { IMLApiInvoker} from "../../data/MLApiInvoker";
 import { ConnectionStateType } from "../../ConnectionStateType";
 
+/**
+ * Generator and convenience functions that return desired states required for testing.
+ * They are "convenient" because they invoke the appstate factory the appropriate number of times to yield the desired
+ * state. The role of the AppState Factory is to centralize all the valid state transitions in a single location.
+ */
 
 function* getConnectionStateFactory(): Generator<ConnectionStateType> {
     // Initial State
@@ -66,12 +71,6 @@ function* getConnectionStateFactory(): Generator<ConnectionStateType> {
     }
     yield stateAfterClose; // 7
 }
-
-// Convenience functions that return desired states required for testing
-// They are "convenient" because they invoke the appstate factory the appropriate number of times
-// to yield the desired state. The role of the AppState Factory is to centralize all the valid
-// state transitions in a single place so that we don't have to copy/paste it into all the different
-// tests.
 
 /**
  * [1] Initial State
