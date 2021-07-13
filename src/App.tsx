@@ -127,11 +127,8 @@ const App: React.FC = () => {
         initPromises.push(LabelingWorkflowManager.initialize(LabelerState.store, IModelApp.i18n, "labelingWorkflowManagerState"));
         initPromises.push(IModelApp.i18n.registerNamespace("MachineLearning").readFinished);
         initPromises.push(IModelApp.i18n.registerNamespace("LabelingApp").readFinished);
+        await Promise.all(initPromises)
 
-
-        Promise.all(initPromises).then(
-            () => {
-            });
         console.log("All onIModelConnected initialization function promises have resolved.");
 
         const requestContext: AuthorizedFrontendRequestContext = await AuthorizedFrontendRequestContext.create();
