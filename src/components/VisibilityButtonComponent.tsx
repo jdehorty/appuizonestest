@@ -22,10 +22,6 @@ interface VisibilityButtonProps {
     /** Is this item transparent? */
     transparent: boolean;
 
-    /** Does the item have children? */
-    // hasChildren: boolean;
-    /** What level is the item on? */
-    // level: number;
     /** Click handler */
     onClick?(newVisible: boolean, newTransparent: boolean, itemId?: string): void;
 }

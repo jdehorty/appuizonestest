@@ -50,213 +50,212 @@ export const SelectionExtenderComponent = (props: SelectionExtenderComponentProp
         vp.synchWithView();
     }
 
-const handleFieldCheckboxClicked = (i: number) => (): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    const newChildRules = Array.from(props.config.rule.childRules);
-    newChildRules[i].wanted = !newChildRules[i].wanted;
-    props.onConfigChanged({
-        ...props.config,
-        rule: {
-            ...props.config.rule,
-            childRules: newChildRules,
+    const handleFieldCheckboxClicked = (i: number) => (): void => {
+        if (props.config === undefined) {
+            return;
         }
-    });
-};
+        const newChildRules = Array.from(props.config.rule.childRules);
+        newChildRules[i].wanted = !newChildRules[i].wanted;
+        props.onConfigChanged({
+            ...props.config,
+            rule: {
+                ...props.config.rule,
+                childRules: newChildRules,
+            }
+        });
+    };
 
-const handleMaxDistEnabledClicked = (checked: boolean): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    props.onConfigChanged({
-        ...props.config,
-        maxDistEnabled: checked,
-    });
-};
-
-const handleMaxDistValueValidated = (value: number): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    props.onConfigChanged({
-        ...props.config,
-        maxDistValue: value,
-    });
-}
-
-const handleMaxCountEnabledClicked = (checked: boolean): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    props.onConfigChanged({
-        ...props.config,
-        maxCountEnabled: checked,
-    });
-};
-
-const handleMaxCountValueValidated = (value: number): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    props.onConfigChanged({
-        ...props.config,
-        maxCountValue: value,
-    });
-}
-
-const handleAuxDataClicked = (checked: boolean): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    props.onConfigChanged({
-        ...props.config,
-        enableAuxData: checked,
-    });
-};
-
-const handleOperatorChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    if (props.config === undefined) {
-        return;
-    }
-    props.onConfigChanged({
-        ...props.config,
-        rule: {
-            ...props.config.rule,
-            operator: event.target.value as MatchingOperator,
+    const handleMaxDistEnabledClicked = (checked: boolean): void => {
+        if (props.config === undefined) {
+            return;
         }
-    });
-}
+        props.onConfigChanged({
+            ...props.config,
+            maxDistEnabled: checked,
+        });
+    };
 
-// create list of checkboxes
-const checkboxElements: JSX.Element[] = [];
-if (props.config !== undefined) {
-    const childRules = props.config.rule.childRules;
-    for (let i = 0; i < childRules.length; i++) {
-        if (props.contentMap!.has(childRules[i].type)) {
-            const content = props.contentMap!.get(childRules[i].type)!;
-            checkboxElements.push(
-                <div key={`childRule-${i}`} className="selhelp-criteria">
-                    <div className="selhelp-criteria-checkbox-container">
-                        <input className="selhelp-criteria-checkbox" type="checkbox"
-                               checked={childRules[i].wanted} onClick={handleFieldCheckboxClicked(i)}/>
-                    </div>
-                    <div className="selhelp-criteria-content">
-                        <div className="selhelp-criteria-title">
-                            {IModelApp.i18n.translate(childRules[i].type)}
-                        </div>
-                        {content.map((value: string) => {
-                            return <>
-                                <div className="selhelp-criteria-value">
-                                    {value}
+    const handleMaxDistValueValidated = (value: number): void => {
+        if (props.config === undefined) {
+            return;
+        }
+        props.onConfigChanged({
+            ...props.config,
+            maxDistValue: value,
+        });
+    }
+
+    const handleMaxCountEnabledClicked = (checked: boolean): void => {
+        if (props.config === undefined) {
+            return;
+        }
+        props.onConfigChanged({
+            ...props.config,
+            maxCountEnabled: checked,
+        });
+    };
+
+    const handleMaxCountValueValidated = (value: number): void => {
+        if (props.config === undefined) {
+            return;
+        }
+        props.onConfigChanged({
+            ...props.config,
+            maxCountValue: value,
+        });
+    }
+
+    const handleAuxDataClicked = (checked: boolean): void => {
+        if (props.config === undefined) {
+            return;
+        }
+        props.onConfigChanged({
+            ...props.config,
+            enableAuxData: checked,
+        });
+    };
+
+    const handleOperatorChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        if (props.config === undefined) {
+            return;
+        }
+        props.onConfigChanged({
+            ...props.config,
+            rule: {
+                ...props.config.rule,
+                operator: event.target.value as MatchingOperator,
+            }
+        });
+    }
+
+        // create list of checkboxes
+        const checkboxElements: JSX.Element[] = [];
+        if (props.config !== undefined) {
+            const childRules = props.config.rule.childRules;
+            for (let i = 0; i < childRules.length; i++) {
+                if (props.contentMap!.has(childRules[i].type)) {
+                    const content = props.contentMap!.get(childRules[i].type)!;
+                    checkboxElements.push(
+                        <div key={`childRule-${i}`} className="selhelp-criteria">
+                            <div className="selhelp-criteria-checkbox-container">
+                                <input className="selhelp-criteria-checkbox" type="checkbox"
+                                       checked={childRules[i].wanted} onClick={handleFieldCheckboxClicked(i)}/>
+                            </div>
+                            <div className="selhelp-criteria-content">
+                                <div className="selhelp-criteria-title">
+                                    {IModelApp.i18n.translate(childRules[i].type)}
                                 </div>
-                            </>
-                        })}
-                    </div>
-                </div>
-            );
+                                {content.map((value: string) => {
+                                    return <>
+                                        <div className="selhelp-criteria-value">
+                                            {value}
+                                        </div>
+                                    </>
+                                })}
+                            </div>
+                        </div>
+                    );
+                }
+            }
         }
-    }
-}
 
-return (
+    return (
 
-    <>
-        {props.isSearching && "Searching..."}
-        {props.foundCount !== undefined && !props.isSearching && `Found ${props.foundCount} elements`}
+        <>
+            {props.isSearching && "Searching..."}
+            {props.foundCount !== undefined && !props.isSearching && `Found ${props.foundCount} elements`}
 
-        <LabeledInput
-            readOnly label="Select Elements Similar to Id:"
-            value={props.singleId !== undefined ? props.singleId : ""}
-        />
-
-        <div>
-            <Button
-                buttonType={ButtonType.Primary}
-                onClick={props.onExtendClicked}>
-                Extend Selection
-            </Button>
-
-            <Button
-                buttonType={ButtonType.Blue}
-                onClick={props.onResetClicked}>
-                Reset
-            </Button>
-        </div>
-
-        {props.config !== undefined && <div className="scroll-thing">
-            <LabeledToggle
-                isOn={props.config.enableAuxData}
-                label="Mesh-Derived Data"
-                onChange={handleAuxDataClicked}
+            <LabeledInput
+                readOnly label="Select Elements Similar to Id:"
+                value={props.singleId !== undefined ? props.singleId : ""}
             />
-            <LabeledToggle
-                isOn={props.config.maxDistEnabled}
-                label="Maximum Distance"
-                onChange={handleMaxDistEnabledClicked}
-            />
-            {
-                props.config.maxDistEnabled &&
-                <NumberInputComponent
-                    isFloat={true}
-                    value={props.config.maxDistValue}
-                    minValue={0.0}
-                    onValidated={handleMaxDistValueValidated}
+
+            <div>
+                <Button
+                    buttonType={ButtonType.Primary}
+                    onClick={props.onExtendClicked}>
+                    Extend Selection
+                </Button>
+
+                <Button
+                    buttonType={ButtonType.Blue}
+                    onClick={props.onResetClicked}>
+                    Reset
+                </Button>
+            </div>
+
+            {props.config !== undefined && <div className="scroll-thing">
+                <LabeledToggle
+                    isOn={props.config.enableAuxData}
+                    label="Mesh-Derived Data"
+                    onChange={handleAuxDataClicked}
                 />
-            }
-            <LabeledToggle
-                isOn={props.config.maxCountEnabled}
-                label="Maximum Count"
-                onChange={handleMaxCountEnabledClicked}
-            />
-            {
-                props.config.maxCountEnabled &&
-                <NumberInputComponent
-                    isFloat={false}
-                    value={props.config.maxCountValue}
-                    minValue={1}
-                    onValidated={handleMaxCountValueValidated}
+                <LabeledToggle
+                    isOn={props.config.maxDistEnabled}
+                    label="Maximum Distance"
+                    onChange={handleMaxDistEnabledClicked}
                 />
-            }
+                {
+                    props.config.maxDistEnabled &&
+                    <NumberInputComponent
+                        isFloat={true}
+                        value={props.config.maxDistValue}
+                        minValue={0.0}
+                        onValidated={handleMaxDistValueValidated}
+                    />
+                }
+                <LabeledToggle
+                    isOn={props.config.maxCountEnabled}
+                    label="Maximum Count"
+                    onChange={handleMaxCountEnabledClicked}
+                />
+                {
+                    props.config.maxCountEnabled &&
+                    <NumberInputComponent
+                        isFloat={false}
+                        value={props.config.maxCountValue}
+                        minValue={1}
+                        onValidated={handleMaxCountValueValidated}
+                    />
+                }
 
-            {checkboxElements}
+                {checkboxElements}
 
-            <LabeledSelect
-                label="Reduction Operator"
-                // TODO: make this safer
-                options={[MatchingOperator.And, MatchingOperator.Or]}
-                value={props.config.rule.operator}
-                onChange={handleOperatorChange}
-            />
+                <LabeledSelect
+                    label="Reduction Operator"
+                    options={[MatchingOperator.And, MatchingOperator.Or]}
+                    value={props.config.rule.operator}
+                    onChange={handleOperatorChange}
+                />
 
-            <Textarea
-                onKeyDown={async (event: React.KeyboardEvent<HTMLElement>) => {
+                <Textarea
+                    onKeyDown={async (event: React.KeyboardEvent<HTMLElement>) => {
 
-                    const addElementsToSelection = async (imodel: IModelConnection, elementIds: string) => {
-                        const elementsAsList = elementIds.split(",")
-                        const className = elementsAsList[0].replace('.', ':');
-                        await SelectionExtender.manualSelection(className, elementsAsList.slice(1))
-                    };
+                        const addElementsToSelection = async (imodel: IModelConnection, elementIds: string) => {
+                            const elementsAsList = elementIds.split(",")
+                            const className = elementsAsList[0].replace('.', ':');
+                            await SelectionExtender.manualSelection(className, elementsAsList.slice(1))
+                        };
 
-                    const onInputEntered = async (event: React.KeyboardEvent<HTMLElement>) => {
-                        const value = (event.target as any).value.trim();
-                        const imodel = UiFramework.getIModelConnection()!;
-                        await addElementsToSelection(imodel, value);
-                    };
+                        const onInputEntered = async (event: React.KeyboardEvent<HTMLElement>) => {
+                            const value = (event.target as any).value.trim();
+                            const imodel = UiFramework.getIModelConnection()!;
+                            await addElementsToSelection(imodel, value);
+                        };
 
-                    if (event.key.toLowerCase() === "enter") {
-                        await onInputEntered(event);
-                    }
+                        if (event.key.toLowerCase() === "enter") {
+                            await onInputEntered(event);
+                        }
 
-                }}
-            />
+                    }}
+                />
 
-        </div>}
+            </div>}
 
-        {props.config === undefined && "Loading..."}
-    </>
-)
-}
+            {props.config === undefined && "Loading..."}
+        </>
+    )
+};
 ;
 
 export default SelectionExtenderComponent;
